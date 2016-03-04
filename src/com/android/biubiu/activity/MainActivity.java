@@ -9,6 +9,8 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
@@ -32,9 +34,13 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
-		Fragment biuFragment = new Fragment();
-		getSupportFragmentManager().beginTransaction()
-		.replace(R.id.page_layout, biuFragment).commit();
+		FragmentManager fragmentManager =getFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		//步骤二：用add()方法加上Fragment的对象rightFragment 
+		BiuFragment biuFragment = new BiuFragment();
+		transaction.add(R.id.page_layout, biuFragment);
+		//步骤三：调用commit()方法使得FragmentTransaction实例的改变生效
+		transaction.commit();             
 	}
 	private void initViewPager() {
 		leftMenu=(ImageView) findViewById(R.id.id_iv_left);
