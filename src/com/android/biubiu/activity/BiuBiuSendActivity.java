@@ -73,7 +73,9 @@ public class BiuBiuSendActivity extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		//发biubiu按钮点击
 		case R.id.send_biu:
+			//实际需要在调用发biubiu接口请求成功后执行以下代码
 			setResult(RESULT_OK);
+			finish();
 			break;
 
 		default:
