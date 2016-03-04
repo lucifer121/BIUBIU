@@ -8,9 +8,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.os.Bundle;
-import android.app.Activity;
+
 import android.support.v4.app.Fragment;
-import android.view.Menu;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -32,9 +32,11 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
+
 		BiuFragment biuFragment = new BiuFragment();		
 		getSupportFragmentManager().beginTransaction().add(R.id.page_layout, biuFragment)
 		.commit();
+
 	}
 	private void initViewPager() {
 		leftMenu=(ImageView) findViewById(R.id.id_iv_left);

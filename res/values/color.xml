@@ -3,5 +3,7 @@
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>
     <color name="task_text">#1A1A1A</color>
-    <color name="white">#ffffff</color>
+
+    <color name="white">#FFFFFF</color>
+
 </resources>
