@@ -1,7 +1,9 @@
-package com.biubiu.biubiu;
+package com.android.biubiu.fragment;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.biubiu.biubiu.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

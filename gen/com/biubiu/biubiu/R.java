@@ -905,10 +905,13 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070004;
+        public static final int abc_search_url_text_holo=0x7f070007;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int circle=0x7f070005;
+        public static final int circle_strok=0x7f070004;
+        public static final int task_text=0x7f070006;
         public static final int white=0x7f070003;
     }
     public static final class dimen {
@@ -1094,34 +1097,38 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int btn_style_zero_focused=0x7f020057;
-        public static final int btn_style_zero_normal=0x7f020058;
-        public static final int btn_style_zero_pressed=0x7f020059;
-        public static final int exit_btn=0x7f02005a;
-        public static final int friends_item=0x7f02005b;
-        public static final int ic_launcher=0x7f02005c;
-        public static final int ic_preference_first_normal=0x7f02005d;
-        public static final int ic_preference_first_pressed=0x7f02005e;
-        public static final int ic_preference_last_normal=0x7f02005f;
-        public static final int ic_preference_last_pressed=0x7f020060;
-        public static final int ic_preference_normal=0x7f020061;
-        public static final int ic_preference_pressed=0x7f020062;
-        public static final int ic_preference_single_normal=0x7f020063;
-        public static final int ic_preference_single_pressed=0x7f020064;
-        public static final int mm_submenu_normal=0x7f020065;
-        public static final int mm_submenu_pressed=0x7f020066;
-        public static final int recent_chat_showleft_normal=0x7f020067;
-        public static final int recent_chat_showleft_pressed=0x7f020068;
-        public static final int recent_chat_showright_normal=0x7f020069;
-        public static final int recent_chat_showright_pressed=0x7f02006a;
-        public static final int settings_first_item=0x7f02006b;
-        public static final int settings_last_item=0x7f02006c;
-        public static final int settings_nomal_item=0x7f02006d;
-        public static final int shadow=0x7f02006e;
-        public static final int showleft_selector=0x7f02006f;
-        public static final int showright_selector=0x7f020070;
-        public static final int textview_bg=0x7f020071;
-        public static final int title_bar=0x7f020072;
+        public static final int anim=0x7f020057;
+        public static final int background=0x7f020058;
+        public static final int btn_style_zero_focused=0x7f020059;
+        public static final int btn_style_zero_normal=0x7f02005a;
+        public static final int btn_style_zero_pressed=0x7f02005b;
+        public static final int chat_img_profiles_default=0x7f02005c;
+        public static final int exit_btn=0x7f02005d;
+        public static final int friends_item=0x7f02005e;
+        public static final int ic_launcher=0x7f02005f;
+        public static final int ic_preference_first_normal=0x7f020060;
+        public static final int ic_preference_first_pressed=0x7f020061;
+        public static final int ic_preference_last_normal=0x7f020062;
+        public static final int ic_preference_last_pressed=0x7f020063;
+        public static final int ic_preference_normal=0x7f020064;
+        public static final int ic_preference_pressed=0x7f020065;
+        public static final int ic_preference_single_normal=0x7f020066;
+        public static final int ic_preference_single_pressed=0x7f020067;
+        public static final int mm_submenu_normal=0x7f020068;
+        public static final int mm_submenu_pressed=0x7f020069;
+        public static final int new_dot=0x7f02006a;
+        public static final int recent_chat_showleft_normal=0x7f02006b;
+        public static final int recent_chat_showleft_pressed=0x7f02006c;
+        public static final int recent_chat_showright_normal=0x7f02006d;
+        public static final int recent_chat_showright_pressed=0x7f02006e;
+        public static final int settings_first_item=0x7f02006f;
+        public static final int settings_last_item=0x7f020070;
+        public static final int settings_nomal_item=0x7f020071;
+        public static final int shadow=0x7f020072;
+        public static final int showleft_selector=0x7f020073;
+        public static final int showright_selector=0x7f020074;
+        public static final int textview_bg=0x7f020075;
+        public static final int title_bar=0x7f020076;
     }
     public static final class id {
         public static final int action_bar=0x7f050021;
@@ -1135,10 +1142,13 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050003;
         public static final int action_menu_presenter=0x7f050004;
         public static final int action_mode_close_button=0x7f050029;
-        public static final int action_settings=0x7f05004a;
+        public static final int action_settings=0x7f050053;
         public static final int activity_chooser_view_content=0x7f05002a;
         public static final int always=0x7f050014;
+        public static final int background_gif=0x7f050047;
         public static final int beginning=0x7f05001b;
+        public static final int biu_layout=0x7f05004a;
+        public static final int biu_view=0x7f050048;
         public static final int checkbox=0x7f050032;
         public static final int collapseActionView=0x7f050015;
         public static final int default_activity_button=0x7f05002d;
@@ -1156,9 +1166,9 @@ containing a value of this type.
         public static final int icon=0x7f05002f;
         public static final int id_iv_left=0x7f050044;
         public static final int id_iv_right=0x7f050045;
-        public static final int id_left_menu_frame=0x7f050047;
-        public static final int id_listview_categories=0x7f050046;
-        public static final int id_right_menu_frame=0x7f050048;
+        public static final int id_left_menu_frame=0x7f050050;
+        public static final int id_listview_categories=0x7f05004f;
+        public static final int id_right_menu_frame=0x7f050051;
         public static final int ifRoom=0x7f050016;
         public static final int image=0x7f05002c;
         public static final int left=0x7f050007;
@@ -1169,6 +1179,7 @@ containing a value of this type.
         public static final int never=0x7f050017;
         public static final int none=0x7f05001e;
         public static final int normal=0x7f05000c;
+        public static final int page_layout=0x7f050046;
         public static final int progress_circular=0x7f050005;
         public static final int progress_horizontal=0x7f050006;
         public static final int radio=0x7f050034;
@@ -1188,16 +1199,21 @@ containing a value of this type.
         public static final int showCustom=0x7f050010;
         public static final int showHome=0x7f050011;
         public static final int showTitle=0x7f050012;
-        public static final int slidingmenumain=0x7f050049;
+        public static final int slidingmenumain=0x7f050052;
         public static final int split_action_bar=0x7f050023;
         public static final int submit_area=0x7f05003e;
         public static final int tabMode=0x7f05000d;
+        public static final int task_view=0x7f05004d;
+        public static final int test_btn=0x7f05004e;
         public static final int textView1=0x7f050042;
         public static final int textView2=0x7f050043;
         public static final int title=0x7f050030;
         public static final int top_action_bar=0x7f050025;
         public static final int up=0x7f050026;
         public static final int useLogo=0x7f050013;
+        public static final int user_biu=0x7f05004c;
+        public static final int user_group_layout=0x7f050049;
+        public static final int user_receive_anim=0x7f05004b;
         public static final int withText=0x7f050018;
     }
     public static final class integer {
@@ -1251,12 +1267,13 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int activity_biu_biu_send=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int left_menu=0x7f030019;
-        public static final int left_menu_frame=0x7f03001a;
-        public static final int right_menu=0x7f03001b;
-        public static final int right_menu_frame=0x7f03001c;
-        public static final int slidingmenumain=0x7f03001d;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
+        public static final int biu_fragment_layout=0x7f030019;
+        public static final int left_menu=0x7f03001a;
+        public static final int left_menu_frame=0x7f03001b;
+        public static final int right_menu=0x7f03001c;
+        public static final int right_menu_frame=0x7f03001d;
+        public static final int slidingmenumain=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
         public static final int biu_biu_send=0x7f0c0000;

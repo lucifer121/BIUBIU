@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="circle_strok">#00FFFF</color>
+    <color name="circle">#E0FFFF</color>
+    <color name="task_text">#1A1A1A</color>
+</resources>

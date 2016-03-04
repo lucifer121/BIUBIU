@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="21" />
 
     <application
@@ -14,18 +14,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.android.biubiu.activity.MainActivity"
             android:label="@string/app_name" >
-            
-        </activity>
-        <activity
-            android:name=".BiuBiuSendActivity"
-            android:label="@string/title_activity_biu_biu_send" >
-            <intent-filter>
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.biubiu.activity.BiuBiuSendActivity"
+            android:label="@string/title_activity_biu_biu_send" >
         </activity>
     </application>
 
