@@ -49,3 +49,17 @@ Temporary Items
 *.apk
 *.prefs
 *.cache
+*.classpath
+bin/AndroidManifest.xml
+*.dex
+*.jar
+bin/R.txt
+bin/res/crunch/drawable-xhdpi/btn_style_zero_focused.9.png
+bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png
+bin/res/crunch/drawable-xhdpi/ic_preference_first_normal.9.png
+bin/res/crunch/drawable-xhdpi/ic_preference_normal.9.png
+bin/res/crunch/drawable-xhdpi/ic_preference_single_normal.9.png
+bin/res/crunch/drawable-xhdpi/ic_preference_last_pressed.9.png
+bin/res/crunch/drawable-xhdpi/btn_style_zero_pressed.9.png
+bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png
+bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png

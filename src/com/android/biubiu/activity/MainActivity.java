@@ -32,9 +32,9 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
-		Fragment biuFragment = new Fragment();
-		getSupportFragmentManager().beginTransaction()
-		.replace(R.id.page_layout, biuFragment).commit();
+		BiuFragment biuFragment = new BiuFragment();		
+		getSupportFragmentManager().beginTransaction().add(R.id.page_layout, biuFragment)
+		.commit();
 	}
 	private void initViewPager() {
 		leftMenu=(ImageView) findViewById(R.id.id_iv_left);
@@ -68,7 +68,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		// 设置触摸屏幕的模式
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		menu.setShadowWidthRes(R.dimen.shadow_width);
-		menu.setShadowDrawable(R.drawable.shadow);
+	//	menu.setShadowDrawable(R.drawable.shadow);
 		// 设置滑动菜单视图的宽度
 		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		//		menu.setBehindWidth()

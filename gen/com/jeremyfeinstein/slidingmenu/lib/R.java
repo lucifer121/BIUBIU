@@ -24,11 +24,11 @@ public final class R {
 		public static final int viewBehind = 0x7f010002;
 	}
 	public static final class id {
-		public static final int fullscreen = 0x7f050009;
-		public static final int left = 0x7f050007;
-		public static final int margin = 0x7f05000a;
-		public static final int right = 0x7f050008;
-		public static final int selected_view = 0x7f050000;
+		public static final int fullscreen = 0x7f050003;
+		public static final int left = 0x7f050000;
+		public static final int margin = 0x7f050002;
+		public static final int right = 0x7f050001;
+		public static final int selected_view = 0x7f050004;
 		public static final int slidingmenumain = 0x7f050052;
 	}
 	public static final class layout {
