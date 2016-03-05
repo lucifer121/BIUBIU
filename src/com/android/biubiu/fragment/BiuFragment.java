@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-import com.android.biubiu.activity.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.biu.activity.BiuBiuSendActivity;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
@@ -21,7 +21,6 @@ import android.annotation.SuppressLint;
 
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
