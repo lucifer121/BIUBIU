@@ -91,10 +91,13 @@ public class BiuFragment extends Fragment {
 	ImageView userBiuImv;
 	//倒计时view
 	TaskView taskView;
-	//测试按钮
-	Button testBtn;
 	//放置接受用户信息layout
 	AbsoluteLayout userGroupLayout;
+
+	//测试按钮
+	Button testBtn;
+	//是否一次性全部加上
+	boolean isAddAll = true;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -171,25 +174,23 @@ public class BiuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*if(userGif.getVisibility() == View.GONE){
-					userGif.setVisibility(View.VISIBLE);
-				}else{
-					userGif.setVisibility(View.GONE);
-				}*/
 				if(currentTime > 0){
 					return;
 				}
+				//启动发送biubiu界面
 				Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
 				startActivityForResult(intent, SEND_BIU_REQUEST);
 			}
 		});
 	}
+	//设置倒计时按钮
 	private void drawTaskView() {
 		// TODO Auto-generated method stub
 		taskView.setDot(width / 2, width *3/ 5);
 		taskView.setRadius(width *5/80, width/80);
 		taskView.setTotal(totalTime);
 	}
+	//倒计时线程
 	Runnable r=new Runnable() {
 
 		@Override
@@ -250,6 +251,7 @@ public class BiuFragment extends Fragment {
 				userBean.setY(yLocation);
 				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean);
 				c1DotList.get(i).setAdd(true);
+				user1List.add(userBean);
 				break ;
 			}
 		}
@@ -273,7 +275,7 @@ public class BiuFragment extends Fragment {
 				int x2 = BiuUtil.getLocationX(randomAngle, userD2, circleR2, x0);
 				int y2 = BiuUtil.getLocationY(randomAngle, userD2, circleR2, y0);
 				moveUserView(oneUserBean.getX(), oneUserBean.getY(),
-						x2, y2,oneUserBean,userD2,userD2/userD1);
+						x2, y2,oneUserBean,userD2,userD1,userD2);
 				oneUserBean.setX(x2);
 				oneUserBean.setY(y2);
 				c2DotList.get(i).setAdd(true);
@@ -307,7 +309,7 @@ public class BiuFragment extends Fragment {
 				int x3 = BiuUtil.getLocationX(randomAngle, userD3, circleR3, x0);
 				int y3 = BiuUtil.getLocationY(randomAngle, userD3, circleR3, y0);
 				moveUserView(twoUserBean.getX(), twoUserBean.getY(),
-						x3, y3,twoUserBean,userD3,userD3/userD1);
+						x3, y3,twoUserBean,userD3,userD1,userD2);
 				twoUserBean.setX(x3);
 				twoUserBean.setY(y3);
 				c3DotList.get(i).setAdd(true);
@@ -344,7 +346,6 @@ public class BiuFragment extends Fragment {
 	}
 	//创建第一圈上新的view
 	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,UserBean bean){
-		user1List.add(bean);
 		final RelativeLayout rl = new RelativeLayout(getActivity());
 		rl.setId(Integer.valueOf(1+bean.getId()));
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
@@ -358,23 +359,32 @@ public class BiuFragment extends Fragment {
 		gifView.setShowDimension(lWidth, lHeight);
 		gifView.setGifImageType(GifImageType.COVER);
 		rl.addView(gifView, gifP);
+		if(lWidth != userD1){
+			gifView.setVisibility(View.GONE);
+		}
 		ImageView imageView = new ImageView(getActivity());
+		int margin = 35;
+		if(lWidth != userD1){
+			margin = (int) (margin*lWidth/userD1);
+		}
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
-				lWidth-35,
-				lHeight-35);
+				lWidth-margin,
+				lHeight-margin);
 		imageView.setId(Integer.valueOf(2+bean.getId()));
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageView.setImageResource(R.drawable.chat_img_profiles_default);
 		rl.addView(imageView, imageP);
 
 		final ImageView imageViewL = new ImageView(getActivity());
-		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(
-				20,
-				20);
+		int dotD = 20;
+		if(lWidth != userD1){
+			dotD = (int) (dotD*lWidth/userD1);
+		}
+		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
+		imagePL.leftMargin = dotD/4;
 		imageViewL.setId(Integer.valueOf(4+bean.getId()));
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
-		imagePL.leftMargin = 5;
 		imageViewL.setImageResource(R.drawable.new_dot);
 		rl.addView(imageViewL, imagePL);
 
@@ -390,6 +400,9 @@ public class BiuFragment extends Fragment {
 		tv.setId(Integer.valueOf(3+bean.getId()));
 		rl.addView(tv, tvP);
 		userGroupLayout.addView(rl, llParams);
+		if(lWidth!=userD1){
+			tv.setVisibility(View.GONE);
+		}
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -397,7 +410,7 @@ public class BiuFragment extends Fragment {
 				// TODO Auto-generated method stub
 				rl.removeView(gifView);
 			}
-		}, 2000);
+		}, 1000);
 		rl.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -408,8 +421,14 @@ public class BiuFragment extends Fragment {
 		});
 	}
 	//移动view
-	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float scale){
+	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float viewD1,float viewD2){
 		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(Integer.valueOf(1+userBean.getId()));
+		float scale = 0;
+		if(rl.getWidth() == viewD2){
+			scale = viewD/viewD2;
+		}else{
+			scale = viewD/viewD1;
+		}
 		float d = viewD*(1-scale)/2;
 		ObjectAnimator anim1 = ObjectAnimator.ofFloat(rl, "x", (float)startX,(float)(endX-d));
 		ObjectAnimator anim2 = ObjectAnimator.ofFloat(rl, "y", (float)startY,(float)(endY-d));
@@ -442,14 +461,96 @@ public class BiuFragment extends Fragment {
 					userGif.setVisibility(View.GONE);
 				}
 				 */
-				newUserBean = new UserBean();
-				Random random = new Random();
-				int idRandom = random.nextInt(10000);
-				newUserBean.setId(String.valueOf(idRandom));
-				newUserBean.setTime(System.currentTimeMillis());
-				addCircle1View(newUserBean);
+				if(isAddAll){
+					ArrayList<UserBean> list = new ArrayList<UserBean>();
+					for(int i=0;i<15;i++){
+						UserBean bean = new UserBean();
+						Random random = new Random();
+						int idRandom = random.nextInt(10000);
+						bean.setId(String.valueOf(idRandom));
+						bean.setTime(System.currentTimeMillis());
+						list.add(bean);
+					}
+					addAllView(list);
+					isAddAll = false;
+				}else{
+					newUserBean = new UserBean();
+					Random random = new Random();
+					int idRandom = random.nextInt(10000);
+					newUserBean.setId(String.valueOf(idRandom));
+					newUserBean.setTime(System.currentTimeMillis());
+					addCircle1View(newUserBean);
+				}
 			}
 		});
+	}
+	protected void addAllView(ArrayList<UserBean> list) {
+		for(int i=0;i<list.size();i++){
+			UserBean userBean = list.get(i);
+			boolean haveOneSpace = false;
+			boolean haveTwoSpace = false;
+			for(int j=i;j<n1;j++){
+				DotBean bean = c1DotList.get(j);
+				if(!bean.isAdd()){
+					haveOneSpace = true;
+					//添加区域标记
+					userBean.setIndex(j);
+					//计算放置位置
+					double randomAngle = BiuUtil.getRandomAngle(n1, j, userD1, circleR1);
+					int xLocation =  BiuUtil.getLocationX(randomAngle, userD1, circleR1, x0);
+					int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
+					userBean.setX(xLocation);
+					userBean.setY(yLocation);
+					createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean);
+					c1DotList.get(i).setAdd(true);
+					user1List.add(userBean);
+					break;
+				}
+			}
+			if(haveOneSpace){
+				continue;
+			}
+			for(int k = i-n1;k<n2;k++){
+				DotBean dotBean = c2DotList.get(k);
+				if(!dotBean.isAdd()){
+					haveTwoSpace = true;
+					//计算第二圈的位置x2,y2
+					double randomAngle = BiuUtil.getRandomAngle(n2, k, userD2, circleR2);
+					int x2 = BiuUtil.getLocationX(randomAngle, userD2, circleR2, x0);
+					int y2 = BiuUtil.getLocationY(randomAngle, userD2, circleR2, y0);
+					userBean.setX(x2);
+					userBean.setY(y2);
+					createCir1NewView(x2, y2, (int)userD2, (int)userD2, userBean);
+					userBean.setIndex(k);
+					c2DotList.get(k).setAdd(true);
+					user2List.add(userBean);
+					break;
+				}
+			}
+			if(haveTwoSpace){
+				continue;
+			}
+			for(int l = i-n1-n2;l<n3;l++){
+				DotBean dotBean = c3DotList.get(l);
+				if(!dotBean.isAdd()){
+					//计算第3圈的位置x3,y3
+					//将角度按照从小到大排列
+					Collections.sort(edgeAngleList, new SorByAngle());
+					double randomAngle = BiuUtil.getRandomAngleBig(edgeAngleList, n3, l, userD1, circleR3);
+					int x3 = BiuUtil.getLocationX(randomAngle, userD3, circleR3, x0);
+					int y3 = BiuUtil.getLocationY(randomAngle, userD3, circleR3, y0);
+					createCir1NewView(x3, y3, (int)userD3, (int)userD3, userBean);
+					userBean.setX(x3);
+					userBean.setY(y3);
+					c3DotList.get(l).setAdd(true);
+					//移动后改变区域标记
+					userBean.setIndex(l);
+					user3List.add(userBean);
+					break;
+				}
+
+			}
+		}
 	}
 	@Override
 	public void onPause() {

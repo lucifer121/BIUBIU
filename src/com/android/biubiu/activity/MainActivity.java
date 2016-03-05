@@ -32,7 +32,6 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
-
 		BiuFragment biuFragment = new BiuFragment();		
 		getSupportFragmentManager().beginTransaction().add(R.id.page_layout, biuFragment)
 		.commit();
