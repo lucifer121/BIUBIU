@@ -45,7 +45,7 @@ public class BiuView extends View{
 	private void init() {
 		// TODO Auto-generated method stub
 		mPaintCircle = new Paint();
-        mPaintCircle.setColor(getResources().getColor(R.color.task_text));//设置颜色
+        mPaintCircle.setColor(getResources().getColor(R.color.white));//设置颜色
         mPaintCircle.setStrokeWidth(2);//设置线宽
         mPaintCircle.setAntiAlias(true);//设置是否抗锯齿
         mPaintCircle.setStyle(Paint.Style.STROKE);//设置绘制风格

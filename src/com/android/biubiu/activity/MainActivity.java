@@ -1,5 +1,7 @@
 package com.android.biubiu.activity;
 
+
+
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
@@ -8,9 +10,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends SlidingFragmentActivity {
 	private ImageView leftMenu,rightMenu;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		initRightMenu();
 		// 初始化ViewPager
 		initViewPager();
+		
 	}
 	private void initPageFragment() {
 		// TODO Auto-generated method stub

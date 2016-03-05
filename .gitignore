@@ -63,3 +63,8 @@ bin/res/crunch/drawable-xhdpi/ic_preference_last_pressed.9.png
 bin/res/crunch/drawable-xhdpi/btn_style_zero_pressed.9.png
 bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png
 bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png
+*.dex
+bin/classes.dex
+*.ap_
+*.dex
+bin/resources.ap_
