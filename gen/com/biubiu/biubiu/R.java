@@ -15,11 +15,11 @@ public final class R {
         public static final int abc_slide_in_top=0x7f040003;
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
-        public static final int down_out_anim=0x7f040006;
-        public static final int no_anim=0x7f040007;
-        public static final int right_in_anim=0x7f040008;
-        public static final int right_out_anim=0x7f040009;
-        public static final int up_in_anim=0x7f04000a;
+        public static final int down_in_anim=0x7f040006;
+        public static final int down_out_anim=0x7f040007;
+        public static final int no_anim=0x7f040008;
+        public static final int right_in_anim=0x7f040009;
+        public static final int right_out_anim=0x7f04000a;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -1006,21 +1006,26 @@ containing a value of this type.
         public static final int default_underline_indicator_fades=0x7f06000a;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070010;
+        public static final int abc_search_url_text_holo=0x7f070015;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
         public static final int circle=0x7f070005;
         public static final int circle_strok=0x7f070004;
-        public static final int default_circle_indicator_fill_color=0x7f070007;
-        public static final int default_circle_indicator_page_color=0x7f070008;
-        public static final int default_circle_indicator_stroke_color=0x7f070009;
-        public static final int default_line_indicator_selected_color=0x7f07000a;
-        public static final int default_line_indicator_unselected_color=0x7f07000b;
-        public static final int default_title_indicator_footer_color=0x7f07000c;
-        public static final int default_title_indicator_selected_color=0x7f07000d;
-        public static final int default_title_indicator_text_color=0x7f07000e;
-        public static final int default_underline_indicator_selected_color=0x7f07000f;
+        public static final int default_circle_indicator_fill_color=0x7f07000c;
+        public static final int default_circle_indicator_page_color=0x7f07000d;
+        public static final int default_circle_indicator_stroke_color=0x7f07000e;
+        public static final int default_line_indicator_selected_color=0x7f07000f;
+        public static final int default_line_indicator_unselected_color=0x7f070010;
+        public static final int default_title_indicator_footer_color=0x7f070011;
+        public static final int default_title_indicator_selected_color=0x7f070012;
+        public static final int default_title_indicator_text_color=0x7f070013;
+        public static final int default_underline_indicator_selected_color=0x7f070014;
+        public static final int login_register_bg=0x7f070007;
+        public static final int login_register_text1=0x7f070008;
+        public static final int login_register_text2=0x7f070009;
+        public static final int login_register_text3=0x7f07000a;
+        public static final int login_register_text4=0x7f07000b;
         public static final int task_text=0x7f070006;
         public static final int white=0x7f070003;
     }
@@ -1243,23 +1248,26 @@ containing a value of this type.
         public static final int ic_preference_pressed=0x7f02006b;
         public static final int ic_preference_single_normal=0x7f02006c;
         public static final int ic_preference_single_pressed=0x7f02006d;
-        public static final int mm_submenu_normal=0x7f02006e;
-        public static final int mm_submenu_pressed=0x7f02006f;
-        public static final int new_dot=0x7f020070;
-        public static final int recent_chat_showleft_normal=0x7f020071;
-        public static final int recent_chat_showleft_pressed=0x7f020072;
-        public static final int recent_chat_showright_normal=0x7f020073;
-        public static final int recent_chat_showright_pressed=0x7f020074;
-        public static final int register_ver_h_720=0x7f020075;
-        public static final int settings_first_item=0x7f020076;
-        public static final int settings_last_item=0x7f020077;
-        public static final int settings_nomal_item=0x7f020078;
-        public static final int shadow=0x7f020079;
-        public static final int showleft_selector=0x7f02007a;
-        public static final int showright_selector=0x7f02007b;
-        public static final int start_page_img=0x7f02007c;
-        public static final int textview_bg=0x7f02007d;
-        public static final int title_bar=0x7f02007e;
+        public static final int main_btn_light=0x7f02006e;
+        public static final int main_btn_none=0x7f02006f;
+        public static final int main_icon=0x7f020070;
+        public static final int mm_submenu_normal=0x7f020071;
+        public static final int mm_submenu_pressed=0x7f020072;
+        public static final int new_dot=0x7f020073;
+        public static final int recent_chat_showleft_normal=0x7f020074;
+        public static final int recent_chat_showleft_pressed=0x7f020075;
+        public static final int recent_chat_showright_normal=0x7f020076;
+        public static final int recent_chat_showright_pressed=0x7f020077;
+        public static final int register_ver_h_720=0x7f020078;
+        public static final int settings_first_item=0x7f020079;
+        public static final int settings_last_item=0x7f02007a;
+        public static final int settings_nomal_item=0x7f02007b;
+        public static final int shadow=0x7f02007c;
+        public static final int showleft_selector=0x7f02007d;
+        public static final int showright_selector=0x7f02007e;
+        public static final int start_page_img=0x7f02007f;
+        public static final int textview_bg=0x7f020080;
+        public static final int title_bar=0x7f020081;
     }
     public static final class id {
         public static final int action_bar=0x7f050021;

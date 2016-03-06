@@ -38,7 +38,7 @@ public class RegisterOneActivity extends BaseActivity{
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(RegisterOneActivity.this,RegisterTwoActivity.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.right_in_anim,0);
+				overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
 			}
 		});
 		backBtn.setOnClickListener(new OnClickListener() {

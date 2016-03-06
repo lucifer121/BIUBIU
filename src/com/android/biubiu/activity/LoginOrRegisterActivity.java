@@ -36,7 +36,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 				// TODO Auto-generated method stub
 				Intent loginIntent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
 				startActivity(loginIntent);
-				overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
+				overridePendingTransition(R.anim.down_in_anim,R.anim.no_anim); 
 			}
 		});
 		registerBtn.setOnClickListener(new OnClickListener() {
@@ -46,7 +46,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 				// TODO Auto-generated method stub
 				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterOneActivity.class);
 				startActivity(RegisterIntent);
-				overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
+				overridePendingTransition(R.anim.down_in_anim,R.anim.no_anim); 
 			}
 		});
 	}

@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class RegisterTwoActivity extends BaseActivity{
-	Button completeBtn;
+	Button nextBtn;
 	Button backBtn;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +24,19 @@ public class RegisterTwoActivity extends BaseActivity{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
-		completeBtn = (Button) findViewById(R.id.register_next_btn);
+		nextBtn = (Button) findViewById(R.id.register_next_btn);
 		backBtn = (Button) findViewById(R.id.title_left_btn);
 	}
 	private void initClick() {
 		// TODO Auto-generated method stub
-		completeBtn.setOnClickListener(new OnClickListener() {
+		nextBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(RegisterTwoActivity.this,RegisterThreeActivity.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.right_in_anim,0);
+				overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
 			}
 		});
 		backBtn.setOnClickListener(new OnClickListener() {
@@ -45,8 +45,7 @@ public class RegisterTwoActivity extends BaseActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
-				overridePendingTransition(0,     
-						R.anim.right_out_anim);
+				overridePendingTransition(0,R.anim.right_out_anim);
 			}
 		});
 	}

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>
     <color name="task_text">#1A1A1A</color>
-
     <color name="white">#FFFFFF</color>
+    
+    <color name="login_register_bg">#FCFCF4</color>
+    <color name="login_register_text1">#73747d</color>
+    <color name="login_register_text2">#bbbbb9</color>
+    <color name="login_register_text3">#73747d</color>
+    <color name="login_register_text4">#fcfcf4</color>
 
 </resources>

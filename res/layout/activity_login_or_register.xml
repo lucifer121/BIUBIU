@@ -1,33 +1,62 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/login_register_bg"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="91dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="114dp"
+        android:src="@drawable/main_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/login_register_text1"
+        android:layout_marginTop="21dp"
+        android:layout_gravity="center_horizontal"
+        android:text="本宝宝的名字"
+        android:textSize="18dip" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/login_register_text2"
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center_horizontal"
+        android:text="我大概是上面宝宝的使命宣言"
+        android:textSize="14dip" />
+
+    <LinearLayout
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="horizontal" >
+        android:layout_marginTop="118dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
 
         <Button
             android:id="@+id/register_btn"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="27dp"
-            android:textSize="15dip"
-            android:text="注    册" />
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@drawable/main_btn_none"
+            android:textColor="@color/login_register_text3"
+            android:text="注 册"
+            android:textSize="16dip" />
 
         <Button
             android:id="@+id/login_btn"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="15dip"
-            android:text="登    录" />
-    </RelativeLayout>
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textColor="@color/login_register_text4"
+            android:background="@drawable/main_btn_light"
+            android:layout_marginTop="20dp"
+            android:text="登 录"
+            android:textSize="16dip" />
+    </LinearLayout>
 
-
-</RelativeLayout>
+</LinearLayout>
