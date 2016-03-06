@@ -5,5 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_biu_biu_send">BiuBiuSendActivity</string>
+    <string name="name_main">lucifer</string>
+    <string name="left_menu_biubiu">biubiu</string>
+    <string name="left_menu_message">消息</string>
+    <string name="left_menu_matchSetting">匹配设置</string>
+    <string name="left_menu_lead">新手引导</string>
+    <string name="left_menu_share">分享给好友</string>
 
 </resources>

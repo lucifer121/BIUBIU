@@ -68,3 +68,6 @@ bin/classes.dex
 *.ap_
 *.dex
 bin/resources.ap_
+*.txt
+*.dex
+*.txt

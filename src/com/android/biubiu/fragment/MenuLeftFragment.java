@@ -3,24 +3,27 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android.biubiu.activity.MainActivity;
 import com.biubiu.biubiu.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-public class MenuLeftFragment extends Fragment
+public class MenuLeftFragment extends Fragment implements OnClickListener
 {
 	private View mView;
-	private ListView mCategories;
-	private List<String> mDatas = Arrays
-			.asList("biubiu", "消息", "设置", "新手引导", "分享给好友");
-	private ListAdapter mAdapter;
+	private RelativeLayout biubiuLayout,messageLayout,settingLayout,leadLayout,shareLayout;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,16 +33,52 @@ public class MenuLeftFragment extends Fragment
 		{
 			initView(inflater, container);
 		}
+		
 		return mView;
 	}
 
 	private void initView(LayoutInflater inflater, ViewGroup container)
 	{
 		mView = inflater.inflate(R.layout.left_menu, container, false);
-		mCategories = (ListView) mView
-				.findViewById(R.id.id_listview_categories);
-		mAdapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, mDatas);
-		mCategories.setAdapter(mAdapter);
+		biubiuLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item1_rl);
+		messageLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item2_rl);
+		settingLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item3_rl);
+		leadLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item4_rl);
+		shareLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item5_rl);
+		biubiuLayout.setOnClickListener(this);
+		messageLayout.setOnClickListener(this);
+		settingLayout.setOnClickListener(this);
+		leadLayout.setOnClickListener(this);
+		shareLayout.setOnClickListener(this);
+		
+		
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.left_menu_item1_rl:
+			Toast.makeText(getActivity(), "biu", Toast.LENGTH_SHORT).show();
+			((MainActivity)getActivity()).closeMenu();
+			break;
+		case R.id.left_menu_item2_rl:
+			Toast.makeText(getActivity(), "message", Toast.LENGTH_SHORT).show();
+			((MainActivity)getActivity()).showSecondaryMenu();;
+			break;
+		case R.id.left_menu_item3_rl:
+			Toast.makeText(getActivity(), "setting", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.left_menu_item4_rl:
+			Toast.makeText(getActivity(), "lead", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.left_menu_item5_rl:
+			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 }
