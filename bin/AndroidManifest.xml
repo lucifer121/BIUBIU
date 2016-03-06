@@ -41,7 +41,15 @@
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.RegisterActivity"
+            android:name="com.android.biubiu.activity.RegisterOneActivity"
+            android:label="@string/title_activity_biu_biu_send" >
+        </activity>
+        <activity
+            android:name="com.android.biubiu.activity.RegisterTwoActivity"
+            android:label="@string/title_activity_biu_biu_send" >
+        </activity>
+        <activity
+            android:name="com.android.biubiu.activity.RegisterThreeActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity

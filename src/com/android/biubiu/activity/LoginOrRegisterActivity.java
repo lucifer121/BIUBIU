@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class LoginOrRegisterActivity extends BaseActivity implements OnClickListener{
+public class LoginOrRegisterActivity extends BaseActivity{
 	Button loginBtn;
 	Button registerBtn;
 	@Override
@@ -20,30 +20,34 @@ public class LoginOrRegisterActivity extends BaseActivity implements OnClickList
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login_or_register);
 		initView();
+		initClick();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
 		loginBtn = (Button) findViewById(R.id.login_btn);
-		loginBtn.setOnClickListener(this);
 		registerBtn = (Button) findViewById(R.id.register_btn);
-		registerBtn.setOnClickListener(this);
 	}
-	@Override
-	public void onClick(View v) {
+	private void initClick() {
 		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.login_btn:
-			Intent loginIntent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
-			startActivity(loginIntent);
-			overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
-			break;
-		case R.id.register_btn:
-			Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterActivity.class);
-			startActivity(RegisterIntent);
-			overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
-			break;
-		default:
-			break;
-		}
+		loginBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent loginIntent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
+				startActivity(loginIntent);
+				overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
+			}
+		});
+		registerBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterOneActivity.class);
+				startActivity(RegisterIntent);
+				overridePendingTransition(R.anim.up_in_anim,R.anim.no_anim); 
+			}
+		});
 	}
 }
