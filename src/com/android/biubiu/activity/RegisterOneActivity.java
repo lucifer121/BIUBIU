@@ -65,6 +65,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		userHeadLayout.setOnClickListener(this);
 		sexLayout.setOnClickListener(this);
 		uName.addTextChangedListener(watcher);
+		nextLayout.setOnClickListener(this);
 	
 	}
 	
@@ -135,6 +136,10 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			initPopupWindowSex();
 			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
 			
+			break;
+		case R.id.next_registerone_rl:
+			Intent intent=new Intent(this,RegisterTwoActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;

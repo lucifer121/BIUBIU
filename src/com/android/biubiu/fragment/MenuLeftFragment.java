@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.android.biubiu.R;
+import com.android.biubiu.activity.GuildActivity;
+import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.biu.activity.BiuSetActivity;
 
@@ -16,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,6 +28,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 {
 	private View mView;
 	private RelativeLayout biubiuLayout,messageLayout,settingLayout,leadLayout,shareLayout;
+	private ImageView userHead;
 
 
 	@Override
@@ -47,11 +51,13 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 		settingLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item3_rl);
 		leadLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item4_rl);
 		shareLayout=(RelativeLayout) mView.findViewById(R.id.left_menu_item5_rl);
+		userHead=(ImageView) mView.findViewById(R.id.main_touxiang_img);
 		biubiuLayout.setOnClickListener(this);
 		messageLayout.setOnClickListener(this);
 		settingLayout.setOnClickListener(this);
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
+		userHead.setOnClickListener(this);
 	}
 
 	@Override
@@ -76,6 +82,10 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 			break;
 		case R.id.left_menu_item5_rl:
 			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
+			break;
+		case 	R.id.main_touxiang_img :
+			Intent intent=new Intent(getActivity(),LoginOrRegisterActivity.class);
+			startActivity(intent);
 			break;
 
 		default:

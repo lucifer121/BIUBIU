@@ -12,8 +12,10 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class RegisterTwoActivity extends BaseActivity{
+	private RelativeLayout nextLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,16 @@ public class RegisterTwoActivity extends BaseActivity{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
+		nextLayout=(RelativeLayout) findViewById(R.id.next_registertwo_rl);
+		nextLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(RegisterTwoActivity.this,RegisterThreeActivity.class);
+				startActivity(intent);
+			}
+		});
 	
 	}
 	private void initClick() {
