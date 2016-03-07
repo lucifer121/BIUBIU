@@ -167,7 +167,7 @@ int id id_iv_right 0x7f050013
 int id id_left_menu_frame 0x7f050033
 int id id_right_menu_frame 0x7f050034
 int id indicator 0x7f050020
-int id left 0x7f050001
+int id left 0x7f050000
 int id left_menu_item1_rl 0x7f050026
 int id left_menu_item2_rl 0x7f050028
 int id left_menu_item3_rl 0x7f05002a
@@ -183,7 +183,7 @@ int id left_menu_toright3_img 0x7f05002c
 int id left_menu_toright4_img 0x7f05002f
 int id login_btn 0x7f05000e
 int id main_touxiang_img 0x7f050024
-int id margin 0x7f050004
+int id margin 0x7f050002
 int id name_main_tv 0x7f050025
 int id page_layout 0x7f050014
 int id password_tv 0x7f05000c
@@ -191,8 +191,8 @@ int id phone_tv 0x7f05000b
 int id protocol_tv 0x7f05000f
 int id register_btn 0x7f050011
 int id register_next_btn 0x7f050015
-int id right 0x7f050002
-int id selected_view 0x7f050000
+int id right 0x7f050001
+int id selected_view 0x7f050004
 int id send_biu 0x7f050008
 int id slidingmenumain 0x7f050035
 int id task_view 0x7f05001d
