@@ -1,7 +1,9 @@
 package com.android.biubiu.biu.activity;
 
+import com.android.biubiu.R;
 import com.android.biubiu.view.Flowlayout;
-import com.biubiu.biubiu.R;
+
+
 
 import android.os.Bundle;
 import android.app.Activity;

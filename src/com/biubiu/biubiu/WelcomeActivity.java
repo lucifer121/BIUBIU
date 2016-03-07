@@ -1,4 +1,4 @@
-package com.android.biubiu.activity;
+package com.biubiu.biubiu;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,8 +6,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.android.biubiu.R;
+import com.android.biubiu.activity.GuildActivity;
+import com.android.biubiu.activity.MainActivity;
+import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.utils.SharePreferanceUtils;
-import com.biubiu.biubiu.R;
+
+
+
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -63,7 +70,7 @@ public class WelcomeActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 					// 允许用户使用应用
-					Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+					Intent intent = new Intent(WelcomeActivity.this,RegisterOneActivity.class);
 					startActivity(intent);
 					finish();
 			}

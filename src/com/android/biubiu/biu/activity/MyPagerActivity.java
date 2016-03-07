@@ -3,8 +3,8 @@ package com.android.biubiu.biu.activity;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
-import com.biubiu.biubiu.R;
 
 public class MyPagerActivity extends BaseActivity{
 	@Override

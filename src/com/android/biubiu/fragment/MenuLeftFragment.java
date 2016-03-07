@@ -3,9 +3,9 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android.biubiu.R;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.biu.activity.BiuSetActivity;
-import com.biubiu.biubiu.R;
 
 import android.content.Intent;
 import android.os.Bundle;

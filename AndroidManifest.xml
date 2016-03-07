@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.biubiu.biubiu"
+    package="com.android.biubiu"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -34,7 +34,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.android.biubiu.activity.WelcomeActivity"
+            android:name="com.biubiu.biubiu.WelcomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,6 +81,8 @@
         <activity
             android:name="com.android.biubiu.biu.activity.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
+            android:name=".ChangeUserNameActivity"
+            android:label="@string/title_activity_change_user_name" >
         </activity>
     </application>
 
