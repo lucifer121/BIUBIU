@@ -20,6 +20,11 @@
     <color name="login_divider">#d2d2cd</color>
     <color name="login_text_hint">#b0b0b0</color>
     <color name="login_text1">#73747d</color>
-     <color name="login_text2">#9dc983</color>
+    <color name="login_text2">#9dc983</color>
+   <!--  menu 菜单 -->
+    <color name="left_menu_top_bg">#fdf086</color>
+    <color name="name_main">#3e3e3e</color>
+    <color name="left_menu_textColor">#3e3e3e</color>
+    <color name="left_menu_item_color">#c0c0c0</color>
 
 </resources>

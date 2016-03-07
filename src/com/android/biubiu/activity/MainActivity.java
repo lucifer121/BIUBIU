@@ -18,8 +18,8 @@ import android.view.Window;
 import android.widget.ImageView;
 
 public class MainActivity extends SlidingFragmentActivity {
-	private ImageView leftMenu;
-	private ImageView rightMenu;
+	public ImageView leftMenu;
+	public ImageView rightMenu;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,10 +89,14 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void showLeftMenu()
 	{
 		getSlidingMenu().showMenu();
+		
 	}
 
 	public void showRightMenu()
 	{
 		getSlidingMenu().showSecondaryMenu();
+	}
+	public void closeMenu(){
+		getSlidingMenu().showContent();
 	}
 }

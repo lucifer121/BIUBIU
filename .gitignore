@@ -68,3 +68,15 @@ bin/classes.dex
 *.ap_
 *.dex
 bin/resources.ap_
+*.txt
+*.dex
+*.txt
+*.dex
+*.dex
+bin/res/crunch/drawable-xxhdpi/main_touxiang.png
+bin/res/crunch/drawable-xxhdpi/main_guanyu_icon.png
+bin/res/crunch/drawable-xxhdpi/main_chose5_nomal_icon.png
+bin/res/crunch/drawable-xxhdpi/main_chose5_light_icon.png
+bin/res/crunch/drawable-xxhdpi/main_chose4_nomal_left.png
+gen/com/biubiu/biubiu/R.java
+gen/com/jeremyfeinstein/slidingmenu/lib/R.java

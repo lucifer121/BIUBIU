@@ -12,5 +12,12 @@
     <string name="login_froget_psd">忘记密码?</string>
     <string name="login_bottom_text">注册和登录表示同意</string>
     <string name="login_bottom_text2">用户协议</string>
+    <!-- menuleft 页面相关 -->
+    <string name="name_main">lucifer</string>
+    <string name="left_menu_biubiu">biubiu</string>
+    <string name="left_menu_message">消息</string>
+    <string name="left_menu_matchSetting">匹配设置</string>
+    <string name="left_menu_lead">新手引导</string>
+    <string name="left_menu_share">分享给好友</string>
 
 </resources>
