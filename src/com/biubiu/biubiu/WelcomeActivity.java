@@ -9,7 +9,9 @@ import java.util.TimerTask;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.MainActivity;
+import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.utils.SharePreferanceUtils;
+
 
 
 
@@ -68,7 +70,7 @@ public class WelcomeActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 					// 允许用户使用应用
-					Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+					Intent intent = new Intent(WelcomeActivity.this,RegisterOneActivity.class);
 					startActivity(intent);
 					finish();
 			}

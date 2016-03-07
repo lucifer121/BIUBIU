@@ -5,6 +5,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
      <color name="ruoqu">#1a000000</color>
+     <color name="gray">#cccccc</color>
     <!-- 首页 页面相关 -->
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>
@@ -27,5 +28,7 @@
     <color name="name_main">#3e3e3e</color>
     <color name="left_menu_textColor">#3e3e3e</color>
     <color name="left_menu_item_color">#c0c0c0</color>
-
+     <!--  register注册 -->
+	<color name="register_name_text">#565656</color>
+	<color name="register_view">#d2d2d2</color>
 </resources>

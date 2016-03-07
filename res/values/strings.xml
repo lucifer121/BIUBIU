@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_biu_biu_send">BiuBiuSendActivity</string>
     <!-- login 页面相关 -->
-    <string name="login_title_text">欢迎来到Biubiu</string>
+    <string name="login_title_text">注册</string>
     <string name="login_phone_hint">手机号码</string>
     <string name="login_password_hint">输入密码</string>
     <string name="login_text">登录</string>
@@ -21,5 +21,22 @@
     <string name="left_menu_share">分享给好友</string>
     <string name="title_activity_change_user_name">ChangeUserNameActivity</string>
     <string name="hello_world">Hello world!</string>
+    <!-- register 页面相关 -->
+    <string name="register_one_hint_add">添加照片</string>
+    <string name="register_one_hint_name">填写昵称</string>
+    <string name="register_one_hint_sex">选择性别</string>
+    <string name="register_one_hint_brith">选择生日</string>
+    <string name="register_one_hint_next">下一页</string>
+    <string name="upuserhead_texttop">请上传真实头像</string>
+    <string name="upuserhead_text1">biubiu提倡年轻人真诚互动交流，真实头像便与信任</string>
+    <string name="upuserhead_text2">多人合影、名人、背景、网图将可能审核不通过</string>
+    <string name="upuserhead_text3">新头像未审核通过，将显示原来的头像</string>
+    <string name="upuserhead_knew">我知道了</string>
+    <string name="register_one_sex_dralog_hint">注册成功后，性别将不能修改</string>
+    <string name="register_two_hint_next">下一页</string>
+    <string name="register_two_inschool">我还在读</string>
+    <string name="register_two_outschool">我已毕业</string>
+    <string name="register_two_selecter_school">选择学校</string>
+    <string name="register_two_select_job">选择职业</string>
 
 </resources>
