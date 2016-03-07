@@ -11,11 +11,12 @@
 
         <ImageView
             android:id="@+id/title_left_imv"
-            android:layout_width="11dp"
-            android:layout_height="20dp"
+            android:layout_width="23dp"
+            android:layout_height="32dp"
+            android:padding="6dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="14dp"
             android:src="@drawable/main_icon_back" />
 
         <TextView
