@@ -17,7 +17,9 @@
 package com.android.biubiu.otherview;
 
 
-import com.biubiu.biubiu.R;
+
+
+import com.android.biubiu.R;
 
 import android.content.Context;
 import android.content.res.Resources;

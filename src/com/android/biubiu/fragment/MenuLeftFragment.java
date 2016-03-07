@@ -3,8 +3,10 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android.biubiu.R;
 import com.android.biubiu.activity.MainActivity;
-import com.biubiu.biubiu.R;
+
+
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

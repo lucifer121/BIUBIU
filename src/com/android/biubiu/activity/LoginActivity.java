@@ -1,6 +1,8 @@
 package com.android.biubiu.activity;
 
-import com.biubiu.biubiu.R;
+
+
+import com.android.biubiu.R;
 
 import android.graphics.Paint;
 import android.os.Bundle;

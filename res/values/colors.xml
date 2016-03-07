@@ -4,6 +4,7 @@
     <color name="main_yello">#FDF086</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+     <color name="ruoqu">#1a000000</color>
     <!-- 首页 页面相关 -->
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>

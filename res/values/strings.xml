@@ -19,5 +19,7 @@
     <string name="left_menu_matchSetting">匹配设置</string>
     <string name="left_menu_lead">新手引导</string>
     <string name="left_menu_share">分享给好友</string>
+    <string name="title_activity_change_user_name">ChangeUserNameActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

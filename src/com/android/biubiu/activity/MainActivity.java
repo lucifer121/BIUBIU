@@ -2,11 +2,11 @@ package com.android.biubiu.activity;
 
 
 
+import com.android.biubiu.R;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
 import com.android.biubiu.utils.SharePreferanceUtils;
-import com.biubiu.biubiu.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 

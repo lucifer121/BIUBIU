@@ -1,6 +1,8 @@
 package com.android.biubiu.fragment;
 
-import com.biubiu.biubiu.R;
+
+
+import com.android.biubiu.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

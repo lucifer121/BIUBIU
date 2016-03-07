@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.biubiu.biubiu"
+    package="com.android.biubiu"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -9,16 +9,16 @@
         android:targetSdkVersion="21" />
 
     <application
-         android:name="com.android.biubiu.myapplication.BiubiuApplication"
+        android:name="com.android.biubiu.myapplication.BiubiuApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:largeHeap="true"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.android.biubiu.activity.WelcomeActivity"
+            android:name="com.biubiu.biubiu.WelcomeActivity"
             android:label="@string/app_name" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,7 +32,7 @@
             android:name="com.android.biubiu.activity.GuildActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
-         <activity
+        <activity
             android:name="com.android.biubiu.activity.LoginOrRegisterActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
@@ -55,6 +55,10 @@
         <activity
             android:name="com.android.biubiu.biu.activity.BiuBiuSendActivity"
             android:label="@string/title_activity_biu_biu_send" >
+        </activity>
+        <activity
+            android:name=".ChangeUserNameActivity"
+            android:label="@string/title_activity_change_user_name" >
         </activity>
     </application>
 

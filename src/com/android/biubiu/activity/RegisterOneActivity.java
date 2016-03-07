@@ -1,6 +1,8 @@
 package com.android.biubiu.activity;
 
-import com.biubiu.biubiu.R;
+
+
+import com.android.biubiu.R;
 
 import android.content.Intent;
 import android.os.Bundle;
