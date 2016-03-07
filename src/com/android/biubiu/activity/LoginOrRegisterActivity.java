@@ -2,17 +2,18 @@ package com.android.biubiu.activity;
 
 import com.biubiu.biubiu.R;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class LoginOrRegisterActivity extends BaseActivity{
-	Button loginBtn;
-	Button registerBtn;
+	private Button loginBtn;
+	private Button registerBtn;
+	private LinearLayout backLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -26,6 +27,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		loginBtn = (Button) findViewById(R.id.login_btn);
 		registerBtn = (Button) findViewById(R.id.register_btn);
+		backLayout = (LinearLayout) findViewById(R.id.back_layout);
 	}
 	private void initClick() {
 		// TODO Auto-generated method stub
@@ -47,6 +49,14 @@ public class LoginOrRegisterActivity extends BaseActivity{
 				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterOneActivity.class);
 				startActivity(RegisterIntent);
 				overridePendingTransition(R.anim.down_in_anim,R.anim.no_anim); 
+			}
+		});
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
 			}
 		});
 	}

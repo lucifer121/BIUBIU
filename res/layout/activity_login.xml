@@ -2,17 +2,165 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/login_register_bg"
+    android:orientation="vertical" >
 
-    <include layout="@layout/title_layout" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/main_yello" >
+
+        <ImageView
+            android:id="@+id/title_left_imv"
+            android:layout_width="11dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/main_icon_back" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/login_title_text"
+            android:textColor="@color/login_title_text"
+            android:textSize="18dip" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="81dp"
+        android:src="@drawable/main_icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="65dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/main_phone_icon" />
+
+        <EditText
+            android:id="@+id/phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:hint="@string/login_phone_hint"
+            android:textColor="@color/black"
+            android:textColorHint="@color/login_text_hint"
+            android:background="@null"
+            android:textSize="16dip" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/login_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/main_mima_icon" />
+
+        <EditText
+            android:id="@+id/password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:hint="@string/login_password_hint"
+            android:textColor="@color/black"
+            android:textColorHint="@color/login_text_hint"
+            android:background="@null"
+            android:textSize="16dip" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/login_divider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="7dp" >
+
+        <TextView
+            android:id="@+id/forget_psd_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:hint="@string/login_froget_psd"
+            android:textColor="@color/login_text_hint"
+            android:textSize="12dip" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="44dp"
         android:layout_gravity="center"
-        android:text="登  录"
-        android:textSize="14dip" />
+        android:layout_marginTop="36dp"
+        android:background="@drawable/main_btn_none"
+        android:text="@string/login_text"
+        android:textColor="@color/login_text1"
+        android:textSize="15dip" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_bottom_text"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/protocol_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_bottom_text2"
+                android:textColor="@color/login_text2"
+                android:textSize="11dp"
+                 />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

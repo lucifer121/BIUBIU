@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="main_yello">#FDF086</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <!-- 首页 页面相关 -->
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>
     <color name="task_text">#1A1A1A</color>
-    <color name="white">#FFFFFF</color>
-    
+    <!-- login or register 页面相关 -->
     <color name="login_register_bg">#FCFCF4</color>
     <color name="login_register_text1">#73747d</color>
     <color name="login_register_text2">#bbbbb9</color>
     <color name="login_register_text3">#73747d</color>
     <color name="login_register_text4">#fcfcf4</color>
+    <color name="login_register_text_back">#929292</color>
+    <!-- login 页面相关 -->
+    <color name="login_title_text">#5d5d5b</color>
+    <color name="login_divider">#d2d2cd</color>
+    <color name="login_text_hint">#b0b0b0</color>
+    <color name="login_text1">#73747d</color>
+     <color name="login_text2">#9dc983</color>
 
 </resources>

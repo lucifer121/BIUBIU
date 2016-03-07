@@ -2,16 +2,24 @@ package com.android.biubiu.activity;
 
 import com.biubiu.biubiu.R;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class LoginActivity extends BaseActivity{
-	Button loginBtn;
-	Button backBtn;
+	private EditText phoneEt;
+	private EditText passwordEt;
+	private TextView forgetPsdTv;
+	private TextView protocolTv;
+	private Button loginBtn;
+	private ImageView backImv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -23,9 +31,13 @@ public class LoginActivity extends BaseActivity{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
+		phoneEt = (EditText) findViewById(R.id.phone_tv);
+		passwordEt = (EditText) findViewById(R.id.password_tv);
+		forgetPsdTv = (TextView) findViewById(R.id.forget_psd_tv);
+		protocolTv = (TextView) findViewById(R.id.protocol_tv);
+		protocolTv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		loginBtn = (Button) findViewById(R.id.login_btn);
-		backBtn = (Button) findViewById(R.id.title_left_btn);
-
+		backImv = (ImageView) findViewById(R.id.title_left_imv);
 	}
 	private void initClick() {
 		// TODO Auto-generated method stub
@@ -37,7 +49,7 @@ public class LoginActivity extends BaseActivity{
 
 			}
 		});
-		backBtn.setOnClickListener(new OnClickListener() {
+		backImv.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {

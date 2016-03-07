@@ -3,16 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <include layout="@layout/title_layout"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/main_yello" >
+
+        <ImageView
+            android:id="@+id/title_left_imv"
+            android:layout_width="11dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/main_icon_back" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/login_title_text"
+            android:textColor="@color/login_title_text"
+            android:textSize="18dip" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/register_next_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
         android:text="下一步" />
 
 </LinearLayout>

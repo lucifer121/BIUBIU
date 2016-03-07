@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class RegisterThreeActivity extends BaseActivity{
-	Button backBtn;
+	ImageView backImv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -22,11 +23,11 @@ public class RegisterThreeActivity extends BaseActivity{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
-		backBtn = (Button) findViewById(R.id.title_left_btn);
+		backImv = (ImageView) findViewById(R.id.title_left_imv);
 	}
 	private void initClick() {
 		// TODO Auto-generated method stub
-		backBtn.setOnClickListener(new OnClickListener() {
+		backImv.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

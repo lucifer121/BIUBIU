@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class RegisterOneActivity extends BaseActivity{
 	Button registerBtn;
-	Button backBtn;
+	ImageView backImv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -26,7 +27,7 @@ public class RegisterOneActivity extends BaseActivity{
 	private void initView() {
 		// TODO Auto-generated method stub
 		registerBtn = (Button) findViewById(R.id.register_next_btn);
-		backBtn = (Button) findViewById(R.id.title_left_btn);
+		backImv = (ImageView) findViewById(R.id.title_left_imv);
 		
 	}
 	private void initClick() {
@@ -41,7 +42,7 @@ public class RegisterOneActivity extends BaseActivity{
 				overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
 			}
 		});
-		backBtn.setOnClickListener(new OnClickListener() {
+		backImv.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
