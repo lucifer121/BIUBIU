@@ -24,7 +24,7 @@
             android:layout_marginLeft="5dp"
             android:text="返回"
             android:textColor="@color/login_register_text_back"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ImageView
@@ -41,7 +41,7 @@
         android:layout_marginTop="21dp"
         android:text="本宝宝的名字"
         android:textColor="@color/login_register_text1"
-        android:textSize="18dip" />
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_marginTop="3dp"
         android:text="我大概是上面宝宝的使命宣言"
         android:textColor="@color/login_register_text2"
-        android:textSize="14dip" />
+        android:textSize="14sp"/>
 
     <LinearLayout
         android:layout_width="250dp"
@@ -68,7 +68,7 @@
             android:gravity="center"
             android:text="注 册"
             android:textColor="@color/login_register_text3"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/login_btn"
@@ -79,7 +79,7 @@
             android:gravity="center"
             android:text="登 录"
             android:textColor="@color/login_register_text4"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>

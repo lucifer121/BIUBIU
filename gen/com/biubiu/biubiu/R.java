@@ -382,7 +382,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int id_left_menu_frame=0x7f050033;
         public static final int id_right_menu_frame=0x7f050034;
         public static final int indicator=0x7f050020;
-        public static final int left=0x7f050000;
+        public static final int left=0x7f050001;
         public static final int left_menu_item1_rl=0x7f050026;
         public static final int left_menu_item2_rl=0x7f050028;
         public static final int left_menu_item3_rl=0x7f05002a;
@@ -398,7 +398,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int left_menu_toright4_img=0x7f05002f;
         public static final int login_btn=0x7f05000e;
         public static final int main_touxiang_img=0x7f050024;
-        public static final int margin=0x7f050002;
+        public static final int margin=0x7f050004;
         public static final int name_main_tv=0x7f050025;
         public static final int page_layout=0x7f050014;
         public static final int password_tv=0x7f05000c;
@@ -406,8 +406,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int protocol_tv=0x7f05000f;
         public static final int register_btn=0x7f050011;
         public static final int register_next_btn=0x7f050015;
-        public static final int right=0x7f050001;
-        public static final int selected_view=0x7f050004;
+        public static final int right=0x7f050002;
+        public static final int selected_view=0x7f050000;
         public static final int send_biu=0x7f050008;
         public static final int slidingmenumain=0x7f050035;
         public static final int task_view=0x7f05001d;
@@ -438,13 +438,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_registertwo_layout=0x7f030006;
         public static final int activity_welcome=0x7f030007;
         public static final int biu_fragment_layout=0x7f030008;
-        public static final int guild_acty_layout=0x7f030009;
-        public static final int guild_fragment_layout=0x7f03000a;
-        public static final int left_menu=0x7f03000b;
-        public static final int left_menu_frame=0x7f03000c;
-        public static final int right_menu=0x7f03000d;
-        public static final int right_menu_frame=0x7f03000e;
-        public static final int slidingmenumain=0x7f03000f;
+        public static final int biu_set_layout=0x7f030009;
+        public static final int guild_acty_layout=0x7f03000a;
+        public static final int guild_fragment_layout=0x7f03000b;
+        public static final int left_menu=0x7f03000c;
+        public static final int left_menu_frame=0x7f03000d;
+        public static final int my_pager_layout=0x7f03000e;
+        public static final int right_menu=0x7f03000f;
+        public static final int right_menu_frame=0x7f030010;
+        public static final int slidingmenumain=0x7f030011;
     }
     public static final class menu {
         public static final int biu_biu_send=0x7f0c0000;

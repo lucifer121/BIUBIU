@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:text="@string/login_title_text"
             android:textColor="@color/login_title_text"
-            android:textSize="18dip" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <Button

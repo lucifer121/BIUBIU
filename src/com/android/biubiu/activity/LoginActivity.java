@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity{
 				// TODO Auto-generated method stub
 				finish();
 				overridePendingTransition(0,     
-						R.anim.down_out_anim);
+						R.anim.right_out_anim);
 			}
 		});
 	}
@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity{
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
 			overridePendingTransition(0,     
-					R.anim.down_out_anim);
+					R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
 	}

@@ -48,7 +48,7 @@ public class RegisterOneActivity extends BaseActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
-				overridePendingTransition(0,R.anim.down_out_anim);
+				overridePendingTransition(0,R.anim.right_out_anim);
 			}
 		});
 	}
@@ -57,7 +57,7 @@ public class RegisterOneActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
-			overridePendingTransition(0,R.anim.down_out_anim);
+			overridePendingTransition(0,R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
 	}

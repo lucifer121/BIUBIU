@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:text="@string/login_title_text"
             android:textColor="@color/login_title_text"
-            android:textSize="18dip" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ImageView
@@ -62,7 +62,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <View
@@ -97,7 +97,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <View
@@ -122,7 +122,7 @@
             android:layout_alignParentRight="true"
             android:hint="@string/login_froget_psd"
             android:textColor="@color/login_text_hint"
-            android:textSize="12dip" />
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <Button
@@ -134,7 +134,7 @@
         android:background="@drawable/main_btn_none"
         android:text="@string/login_text"
         android:textColor="@color/login_text1"
-        android:textSize="15dip" />
+        android:textSize="15sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

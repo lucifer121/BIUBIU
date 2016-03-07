@@ -394,7 +394,7 @@ public class BiuFragment extends Fragment {
 		tv.setText("11%");
 		tv.setMaxLines(1);
 		tv.setTextSize(8);
-		tv.setGravity(Gravity.CENTER);
+		tv.setGravity(Gravity.CENTER); 
 		tv.setTextColor(getResources().getColor(R.color.white));
 		tv.setId(Integer.valueOf(3+bean.getId()));
 		rl.addView(tv, tvP);
