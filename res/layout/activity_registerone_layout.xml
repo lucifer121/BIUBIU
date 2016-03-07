@@ -51,7 +51,7 @@
             android:id="@+id/userHead_registerone_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/main_icon_touxiang" />
+            android:src="@drawable/main_icon" />
 
         <TextView
             android:id="@+id/userHead_registerone_hint_tv"

@@ -40,7 +40,7 @@
             android:id="@+id/imageView1"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/main_icon_touxiang" />
+            android:src="@drawable/main_icon" />
     </RelativeLayout>
 
     <LinearLayout
@@ -91,7 +91,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/school_registertwo_img"
-            android:hint="@string/register_one_hint_sex"
+            android:hint="@string/register_two_selecter_school"
             android:text=""
             android:textSize="13sp" />
 
@@ -102,7 +102,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             
-            android:src="@drawable/main_icon" />
+            android:src="@drawable/main_right_icon" />
         
     </RelativeLayout>
 
@@ -130,7 +130,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_sex_icon" />
+            android:src="@drawable/main_birthday_icon" />
 
         <TextView
             android:id="@+id/job_registertwo_tv"
@@ -139,7 +139,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/job_registertwo_img"
-            android:hint="@string/register_one_hint_sex"
+            android:hint="@string/register_two_select_job"
             android:text=""
             android:textSize="13sp" />
 
@@ -150,7 +150,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             
-            android:src="@drawable/main_icon" />
+            android:src="@drawable/main_right_icon" />
         
     </RelativeLayout>
 

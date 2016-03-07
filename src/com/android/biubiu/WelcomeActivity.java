@@ -1,4 +1,4 @@
-package com.biubiu.biubiu;
+package com.android.biubiu;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +58,7 @@ public class WelcomeActivity extends Activity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-		Intent intent = new Intent(WelcomeActivity.this,GuildActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -70,7 +70,7 @@ public class WelcomeActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 					// 允许用户使用应用
-					Intent intent = new Intent(WelcomeActivity.this,RegisterOneActivity.class);
+					Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
 					startActivity(intent);
 					finish();
 			}

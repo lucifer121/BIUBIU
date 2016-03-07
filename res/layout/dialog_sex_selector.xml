@@ -23,21 +23,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/register_name_text"
             android:text="@string/register_one_sex_dralog_hint" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
+            
             android:layout_toLeftOf="@id/hint_dialog_sex_tv"
-            android:background="@color/gray" />
+            android:background="@color/register_view" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/hint_dialog_sex_tv"
-            android:background="@color/gray" />
+            android:background="@color/register_view" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -46,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/bottom2_view_dialog_sex_selector"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -58,9 +60,9 @@
 
             <ImageView
                 android:id="@+id/iv_man_sexselector"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@drawable/main_icon_touxiang" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/main_icon_boy" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,9 +75,9 @@
 
             <ImageView
                 android:id="@+id/iv_woman_sexselector"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:src="@drawable/main_icon_touxiang" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/main_icon_girl_light" />
 
             <!--
                  <TextView
