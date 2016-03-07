@@ -52,7 +52,7 @@ Temporary Items
 *.classpath
 bin/AndroidManifest.xml
 *.dex
-*.jar
+
 bin/R.txt
 bin/res/crunch/drawable-xhdpi/btn_style_zero_focused.9.png
 bin/res/crunch/drawable-xhdpi/btn_style_zero_normal.9.png
