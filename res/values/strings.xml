@@ -38,5 +38,8 @@
     <string name="register_two_outschool">我已毕业</string>
     <string name="register_two_selecter_school">选择学校</string>
     <string name="register_two_select_job">选择职业</string>
+    <string name="register_three_phone">输入手机号</string>
+     <string name="register_three_verify">输入验证码</string>
+     <string name="register_three_psd">输入密码，6-16位数字、字母</string>
 
 </resources>

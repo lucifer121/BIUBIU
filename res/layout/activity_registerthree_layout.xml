@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -13,10 +14,10 @@
             android:id="@+id/title_left_imv"
             android:layout_width="23dp"
             android:layout_height="32dp"
-            android:padding="6dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="14dp"
+            android:padding="6dp"
             android:src="@drawable/main_icon_back" />
 
         <TextView
@@ -30,13 +31,152 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/verify_colplete_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="完成" />
+    <RelativeLayout
+        android:id="@+id/register_three_head_rl"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="59dp" >
+
+        <ImageView
+            android:id="@+id/register_three_head_imv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/main_icon_touxiang" />
+
+        <TextView
+            android:id="@+id/register_one_head_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="49dp"
+            android:text="@string/register_one_hint_add" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="45dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/main_phone_icon" />
+
+        <EditText
+            android:id="@+id/register_phone_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/register_three_phone"
+            android:textColor="@color/register_name_text"
+            android:textSize="13sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/register_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/main_mima_icon" />
+
+        <EditText
+            android:id="@+id/register_verify_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/register_three_verify"
+            android:textColor="@color/register_name_text"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/register_get_verify_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/register_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/main_mima_icon" />
+
+        <EditText
+            android:id="@+id/register_psd_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/register_three_psd"
+            android:textColor="@color/register_name_text"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/register_view" />
+
+    <RelativeLayout
+        android:id="@+id/next_registerone_rl"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="62.5dp"
+        android:layout_marginRight="62.5dp"
+        android:layout_marginTop="78dp"
+        android:background="@drawable/main_btn_light" >
+
+        <TextView
+            android:id="@+id/verify_colplete_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/register_one_hint_next"
+            android:textColor="@color/register_name_text"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
 </LinearLayout>
