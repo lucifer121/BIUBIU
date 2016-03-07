@@ -53,8 +53,9 @@
 
         <EditText
             android:id="@+id/phone_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="18dp"
             android:hint="@string/login_phone_hint"
@@ -87,9 +88,10 @@
 
         <EditText
             android:id="@+id/password_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:layout_marginLeft="18dp"
             android:hint="@string/login_password_hint"
             android:textColor="@color/black"
@@ -109,13 +111,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="7dp" >
+        android:layout_marginRight="34dp"
+        android:layout_marginTop="1dp" >
 
         <TextView
             android:id="@+id/forget_psd_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="6dp"
             android:layout_alignParentRight="true"
             android:hint="@string/login_froget_psd"
             android:textColor="@color/login_text_hint"
