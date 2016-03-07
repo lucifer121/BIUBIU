@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.android.biubiu.R;
 import com.android.biubiu.activity.MainActivity;
+import com.android.biubiu.biu.activity.BiuSetActivity;
 
-
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -52,9 +52,6 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 		settingLayout.setOnClickListener(this);
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
-		
-		
-
 	}
 
 	@Override
@@ -69,7 +66,10 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 			((MainActivity)getActivity()).showSecondaryMenu();;
 			break;
 		case R.id.left_menu_item3_rl:
-			Toast.makeText(getActivity(), "setting", Toast.LENGTH_SHORT).show();
+			((MainActivity)getActivity()).closeMenu();
+			Intent intentSet = new Intent(getActivity(),BiuSetActivity.class);
+			startActivity(intentSet);
+			getActivity().overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
 			break;
 		case R.id.left_menu_item4_rl:
 			Toast.makeText(getActivity(), "lead", Toast.LENGTH_SHORT).show();

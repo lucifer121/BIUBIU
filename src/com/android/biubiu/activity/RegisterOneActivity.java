@@ -1,7 +1,5 @@
 package com.android.biubiu.activity;
 
-
-
 import com.android.biubiu.R;
 
 
@@ -47,7 +45,6 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_registerone_layout);
 		initView();
-		initClick();
 	}
 	
 	private void initView() {
@@ -108,34 +105,12 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}
 		
 	}
-	private void initClick() {
-		// TODO Auto-generated method stub
-//		registerBtn.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent(RegisterOneActivity.this,RegisterTwoActivity.class);
-//				startActivity(intent);
-//				overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
-//			}
-//		});
-//		backImv.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				finish();
-//				overridePendingTransition(0,R.anim.down_out_anim);
-//			}
-//		});
-	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
-			overridePendingTransition(0,R.anim.down_out_anim);
+			overridePendingTransition(0,R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -147,6 +122,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		case R.id.back_registerone_rl:
 			//返回
 			finish();
+			overridePendingTransition(0,R.anim.right_out_anim);
 		case R.id.registerone_center4_rl:
 			//生日点击
 			showDialog(1);

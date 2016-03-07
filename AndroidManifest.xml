@@ -7,6 +7,24 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
+    <!-- oss文件上传相关权限 -->
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <!-- 短信验证相关权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.android.biubiu.myapplication.BiubiuApplication"
@@ -57,6 +75,12 @@
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
+            android:name="com.android.biubiu.biu.activity.BiuSetActivity"
+            android:label="@string/title_activity_biu_biu_send" >
+        </activity>
+        <activity
+            android:name="com.android.biubiu.biu.activity.MyPagerActivity"
+            android:label="@string/title_activity_biu_biu_send" >
             android:name=".ChangeUserNameActivity"
             android:label="@string/title_activity_change_user_name" >
         </activity>
