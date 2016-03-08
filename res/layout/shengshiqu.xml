@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    
+    android:orientation="vertical"
+    android:background="@drawable/complete_complete_bg"
+     >
+	<View  android:layout_width="match_parent"
+		    android:layout_height="1px"
+		    android:background="#cccccc"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:orientation="vertical"       
+         >     
+        <TextView
+            android:id="@+id/city_selector_shengshiqu_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"          
+            android:textSize="14sp"
+            android:text="完成"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:textColor="#00b8de"
+             />
+       
+       
+    </RelativeLayout>
+     <View  
+            android:layout_width="match_parent"
+		    android:layout_height="1px"
+		    
+		    android:background="#cccccc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"     
+        android:orientation="horizontal" >
+
+        <com.android.biubiu.common.city.WheelView
+            android:id="@+id/id_province"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </com.android.biubiu.common.city.WheelView>
+        
+
+        <com.android.biubiu.common.city.WheelView
+            android:id="@+id/id_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </com.android.biubiu.common.city.WheelView>
+
+        <com.android.biubiu.common.city.WheelView
+            android:id="@+id/id_district"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:visibility="gone">
+        </com.android.biubiu.common.city.WheelView> 
+    </LinearLayout>
+
+    
+
+</LinearLayout>

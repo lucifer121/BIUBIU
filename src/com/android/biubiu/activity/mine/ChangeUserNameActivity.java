@@ -1,4 +1,4 @@
-package com.android.biubiu.mine.activity;
+package com.android.biubiu.activity.mine;
 
 import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;

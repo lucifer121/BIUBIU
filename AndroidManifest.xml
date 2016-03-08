@@ -25,16 +25,31 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
-        android:name="com.android.biubiu.myapplication.BiubiuApplication"
+        android:name=".myapplication.BiubiuApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.android.biubiu.WelcomeActivity"
+            android:name=".WelcomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,46 +58,58 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.GuildActivity"
+            android:name=".activity.GuildActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.LoginOrRegisterActivity"
+            android:name=".activity.LoginOrRegisterActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.RegisterOneActivity"
+            android:name=".activity.RegisterOneActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.RegisterTwoActivity"
+            android:name=".activity.RegisterTwoActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.RegisterThreeActivity"
+            android:name=".activity.RegisterThreeActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.biu.activity.BiuBiuSendActivity"
+            android:name=".biu.activity.BiuBiuSendActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.biu.activity.BiuSetActivity"
+            android:name=".biu.activity.BiuSetActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name="com.android.biubiu.biu.activity.MyPagerActivity"
+            android:name=".biu.activity.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
             android:name=".ChangeUserNameActivity"
-            android:label="@string/title_activity_change_user_name" >
+            android:label="@string/title_activity_change_user_name" >
+        </activity>
+        <activity
+            android:name=".ChangeSchoolActivity"
+            android:label="@string/title_activity_change_school" >
+        </activity>
+        <activity
+            android:name=".ChangeBrithdayActivity"
+            android:label="@string/title_activity_change_brithday" >
+        </activity>
+        <activity
+            android:name=".ChangeCityMainActivity"
+            android:label="@string/title_activity_change_city_main" >
         </activity>
     </application>
 

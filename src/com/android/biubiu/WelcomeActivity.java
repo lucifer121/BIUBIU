@@ -1,20 +1,14 @@
 package com.android.biubiu;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
+import com.android.biubiu.sqlite.DBManager;
+import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.SharePreferanceUtils;
-
-
-
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,6 +26,11 @@ import android.widget.Toast;
 public class WelcomeActivity extends Activity {
 	private boolean isFirstInstall = false;
 	//导入城市数据库到本地
+	
+	private  DBManagerCity dbHelperCity;
+	//导入学校数据库到本地
+	private DBManager dbHelperSchool;
+		
 	Handler handler ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,15 @@ public class WelcomeActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_welcome);
 		handler = new Handler();
+		// 导入数据库
+		dbHelperCity = new DBManagerCity(this);
+		dbHelperCity.openDatabase();
+		dbHelperCity.closeDatabase();
+		
+		dbHelperSchool=new DBManager(this);
+		dbHelperSchool.openDatabase();
+		dbHelperSchool.closeDatabase();
+		
 		next();
 	}
 
@@ -58,7 +66,7 @@ public class WelcomeActivity extends Activity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-		Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,ChangeBrithdayActivity.class);
 		startActivity(intent);
 		finish();
 	}

@@ -6,6 +6,9 @@
     <color name="black">#000000</color>
      <color name="ruoqu">#1a000000</color>
      <color name="gray">#cccccc</color>
+     <color name="tablebar_check">#33c6e5</color> 
+     <!-- 自定义city 控件 上下划线 颜色 -->
+     <color name="province_line_border">#C7C7C7</color>
     <!-- 首页 页面相关 -->
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>

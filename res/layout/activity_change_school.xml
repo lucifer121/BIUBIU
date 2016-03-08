@@ -1,0 +1,113 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ChangeSchoolActivity" >
+
+     <RelativeLayout
+            android:id="@+id/back_changeschool_mine_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:id="@+id/back_changeschool_mine_rl1"
+                android:layout_width="54dp"
+                android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+               
+                android:background="@drawable/kongjianruoqu_bg"
+                android:gravity="center" >
+
+                <ImageView
+                    android:id="@+id/back_changeschool_mine"
+                    android:layout_width="11dp"
+                    android:layout_height="21dp"
+                    android:src="@drawable/main_icon_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="选择学校"
+                android:textColor="#a0a0a0"
+                
+                android:textSize="19sp" />
+
+   
+        </RelativeLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:background="@drawable/findschool_edit_bg"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="@dimen/nornal_margin_top"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/content_change_grade_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"          
+            android:background="@null"
+            android:textSize="14sp"
+            android:textColor="#33c6e5"
+            android:textColorHint="#cccccc"
+            android:hint="选择或输入学校名称"
+            
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="12dp" >
+
+        <TextView
+            android:id="@+id/top_text_school_change_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/mine_alter_img_point_blue"
+            android:drawablePadding="4dp"
+            android:text="所有学校"
+            android:textColor="#00b8de"
+            android:textSize="14sp" />
+    </LinearLayout>
+    
+    <ListView 
+        
+        android:id="@+id/schoolList_find_changeschool_mine" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollingCache="false"
+        android:divider="@null"
+        android:cacheColorHint="#00000000"
+      	android:visibility="gone"
+        />
+
+    <ListView
+        
+        android:id="@+id/schoolList_changeschool_mine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollingCache="false" />
+
+</LinearLayout>
