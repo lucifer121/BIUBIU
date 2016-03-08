@@ -96,9 +96,12 @@
         <activity
             android:name=".activity.biu.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
+          </activity>
+          <activity
             android:name=".ChangeUserNameActivity"
-            android:label="@string/title_activity_change_user_name" >
-        </activity>
+            android:label="@string/title_activity_change_user_name" >
+            android:label="@string/title_activity_change_user_name" >        </activity>
+
         <activity
             android:name=".activity.mine.ChangeSchoolActivity"
             android:label="@string/title_activity_change_school" >
