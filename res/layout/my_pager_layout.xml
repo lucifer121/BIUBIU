@@ -616,8 +616,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white" >
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/personal_tag_recyv"
+                    <GridView
+                        android:id="@+id/personal_tag_gv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -687,8 +687,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white" >
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/interest_tag_recyv"
+                    <GridView
+                        android:id="@+id/interest_tag_gv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"

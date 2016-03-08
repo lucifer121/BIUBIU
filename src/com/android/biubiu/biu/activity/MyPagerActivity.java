@@ -2,10 +2,10 @@ package com.android.biubiu.biu.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,9 +40,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout schoolLinear;
 	private TextView schoolTv;
 	private LinearLayout personalTagLinear;
-	private RecyclerView personalTagReclv;
+	private GridView personalTagGv;
 	private LinearLayout interestTagLinear;
-	private RecyclerView interestTagReclv;
+	private GridView interestTagGv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -58,7 +58,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		userheadImv.setOnClickListener(this);
 		usernameTv = (TextView) findViewById(R.id.username_tv);
 		userPhotoLinear = (LinearLayout) findViewById(R.id.userphoto_linear);
-		userInfoLinear.setOnClickListener(this);
+		userPhotoLinear.setOnClickListener(this);
 		addPhotoImv = (ImageView) findViewById(R.id.add_userphoto_imv);
 		addPhotoImv.setOnClickListener(this);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_pager);
@@ -93,10 +93,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		schoolTv = (TextView) findViewById(R.id.school_tv);
 		personalTagLinear = (LinearLayout) findViewById(R.id.personal_tag_linear);
 		personalTagLinear.setOnClickListener(this);
-		personalTagReclv = (RecyclerView) findViewById(R.id.personal_tag_recyv);
+		personalTagGv = (GridView) findViewById(R.id.personal_tag_gv);
 		interestTagLinear = (LinearLayout) findViewById(R.id.interest_tag_linear);
 		interestTagLinear.setOnClickListener(this);
-		interestTagReclv = (RecyclerView) findViewById(R.id.interest_tag_recyv);
+		interestTagGv = (GridView) findViewById(R.id.interest_tag_gv);
 	}
 
 	@Override
