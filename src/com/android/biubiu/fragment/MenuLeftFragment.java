@@ -7,7 +7,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.MainActivity;
-import com.android.biubiu.biu.activity.BiuSetActivity;
+import com.android.biubiu.activity.biu.BiuSetActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

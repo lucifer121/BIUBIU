@@ -44,5 +44,12 @@
     <string name="title_activity_change_school">ChangeSchoolActivity</string>
     <string name="title_activity_change_brithday">ChangeBrithdayActivity</string>
     <string name="title_activity_change_city_main">ChangeCityMainActivity</string>
+    <string name="title_activity_change_constellation">ChangeConstellationActivity</string>
+    <string name="title_activity_height_weight">HeightWeightActivity</string>
+
+    <!-- 我的页面相关 -->
+    <string name="mine_height_weight_height_weight">身高体重</string>
+    <string name="mine_height_weight_hint">选择身高体重</string>
+    <string name="title_activity_change_identity_profession">ChangeIdentityProfessionActivity</string>
 
 </resources>

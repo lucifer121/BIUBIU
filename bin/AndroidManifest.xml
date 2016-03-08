@@ -86,30 +86,42 @@
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name=".biu.activity.BiuBiuSendActivity"
+            android:name=".activity.biu.BiuBiuSendActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name=".biu.activity.BiuSetActivity"
+            android:name=".activity.biu.BiuSetActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name=".biu.activity.MyPagerActivity"
+            android:name=".activity.biu.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
             android:name=".ChangeUserNameActivity"
-            android:label="@string/title_activity_change_user_name" >
+            android:label="@string/title_activity_change_user_name" >
         </activity>
         <activity
-            android:name=".ChangeSchoolActivity"
+            android:name=".activity.mine.ChangeSchoolActivity"
             android:label="@string/title_activity_change_school" >
         </activity>
         <activity
-            android:name=".ChangeBrithdayActivity"
+            android:name=".activity.mine.ChangeBrithdayActivity"
             android:label="@string/title_activity_change_brithday" >
         </activity>
         <activity
-            android:name=".ChangeCityMainActivity"
+            android:name=".activity.mine.ChangeCityActivity"
             android:label="@string/title_activity_change_city_main" >
+        </activity>
+        <activity
+            android:name=".activity.mine.ChangeConstellationActivity"
+            android:label="@string/title_activity_change_constellation" >
+        </activity>
+        <activity
+            android:name=".ChangeHeightWeightActivity"
+            android:label="@string/title_activity_height_weight" >
+        </activity>
+        <activity
+            android:name=".ChangeIdentityProfessionActivity"
+            android:label="@string/title_activity_change_identity_profession" >
         </activity>
     </application>
 

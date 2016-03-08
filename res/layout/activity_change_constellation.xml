@@ -2,29 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#66eeeeee"
-    android:orientation="vertical" >
-    <RelativeLayout
+    android:orientation="vertical"
+   >
+
+   <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/white"
         android:gravity="center" >
 
         <RelativeLayout
-            android:id="@+id/back_changecity_mine_rl"
+            android:id="@+id/back_changexingzuo_mine_rl"
             android:layout_width="54dp"
             android:layout_height="44dp"
-           
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
 
             <ImageView
-                android:id="@+id/back_changecity_mine"
+                android:id="@+id/back_changexingzuo_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
                 android:src="@drawable/mine_alter_btn_back" />
         </RelativeLayout>
 
@@ -34,36 +34,30 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改家乡"
+            android:text="修改星座"
             android:textColor="#a0a0a0"
-            android:textSize="19sp" />
+            android:textSize="18sp" />
 
-        <RelativeLayout
-            android:id="@+id/city_selector_shengshiqu_rl"
-            android:layout_width="64dp"
-            android:layout_height="44dp"
+        <TextView
+            android:id="@+id/mine_changexingzuo_wancheng_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/back_changename_mine"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            
-            android:background="@drawable/kongjianruoqu_bg"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/city_selector_shengshiqu_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="完成"
-                android:textColor="#33c6e5"
-                android:textSize="15sp" />
-        </RelativeLayout>
+            android:layout_marginRight="10dp"
+            android:text=""
+            android:textColor="#33c6e5"
+            android:textSize="15sp" />
     </RelativeLayout>
-
+    
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_below="@id/top_changname_rl"
         android:background="#cccccc" />
     
-    <RelativeLayout 
+     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"       
@@ -76,12 +70,12 @@
         
         android:layout_marginLeft="30dp"
         android:layout_centerVertical="true"
-        android:text="家乡"
+        android:text="星座"
         android:textColor="#a0a0a0"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/cityName_change_city_tv"
+        android:id="@+id/constellationName_change_city_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -111,43 +105,34 @@
         android:drawablePadding="4dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"       
-        android:text="选择你的家乡"
+        android:text="选择你的星座"
         android:textColor="#da33c6e5"
         android:textSize="12sp" />
-   
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginTop="60dp"
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_height="wrap_content"
-        
-        android:orientation="horizontal" >
-
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
+    
+    	<TextView android:layout_width="wrap_content"
+    	    android:layout_height="20dp"
+    	    android:gravity="center"
+    	    android:text="选择你的星座"/>
+    	<View android:layout_width="match_parent"
+    	    android:layout_height="1px"
+    	    android:background="@color/tablebar_check"/>
+    
         <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_province"
-            android:background="@color/white"
-            android:layout_width="0dp"
+            android:id="@+id/id_constellation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.android.biubiu.common.city.WheelView>
-
-        <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_city"
-            android:layout_width="0dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.android.biubiu.common.city.WheelView>
-
-        <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_district"
-            android:layout_width="0dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.android.biubiu.common.city.WheelView>
-    </LinearLayout>
+            android:layout_marginTop="60dp"
+            android:background="@color/gray">
+            </com.android.biubiu.common.city.WheelView>
+        </LinearLayout>
 
 </LinearLayout>

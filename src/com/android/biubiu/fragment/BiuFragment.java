@@ -6,14 +6,15 @@ import java.util.Comparator;
 import java.util.Random;
 
 import com.android.biubiu.R;
+import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.UserBean;
-import com.android.biubiu.biu.activity.BiuBiuSendActivity;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
+
 
 
 

@@ -1,4 +1,4 @@
-package com.android.biubiu.biu.activity;
+package com.android.biubiu.activity.biu;
 
 import com.android.biubiu.R;
 import com.android.biubiu.view.Flowlayout;

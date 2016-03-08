@@ -1,7 +1,10 @@
-package com.android.biubiu;
+package com.android.biubiu.activity.mine;
 
 
 
+import com.android.biubiu.R;
+import com.android.biubiu.R.id;
+import com.android.biubiu.R.layout;
 import com.android.biubiu.activity.BaseActivity;
 
 

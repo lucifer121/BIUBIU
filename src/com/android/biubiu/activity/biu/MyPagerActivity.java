@@ -1,4 +1,4 @@
-package com.android.biubiu.biu.activity;
+package com.android.biubiu.activity.biu;
 
 import android.os.Bundle;
 import android.view.Window;

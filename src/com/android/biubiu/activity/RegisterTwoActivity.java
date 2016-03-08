@@ -5,10 +5,10 @@ package com.android.biubiu.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.android.biubiu.ChangeSchoolActivity;
 import com.android.biubiu.R;
 
 
+import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
@@ -17,6 +17,7 @@ import com.android.biubiu.common.city.WheelView;
 
 
 import com.android.biubiu.sqlite.CityDao;
+
 
 
 

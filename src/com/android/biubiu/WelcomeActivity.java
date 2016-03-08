@@ -6,6 +6,8 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
+import com.android.biubiu.activity.mine.ChangeCityActivity;
+import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -66,7 +68,7 @@ public class WelcomeActivity extends Activity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-		Intent intent = new Intent(WelcomeActivity.this,ChangeBrithdayActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,ChangeIdentityProfessionActivity.class);
 		startActivity(intent);
 		finish();
 	}
