@@ -3,6 +3,7 @@ package com.android.biubiu;
 
 
 
+import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.MainActivity;
@@ -30,7 +31,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
 	private boolean isFirstInstall = false;
 	//导入城市数据库到本地
 	
@@ -74,7 +75,8 @@ public class WelcomeActivity extends Activity {
 	 */
 	private void goIndex() {
 
-		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
+
+		Intent intent = new Intent(WelcomeActivity.this,PersonalityTagActivity.class);
 		startActivity(intent);
 		finish();
 	}
