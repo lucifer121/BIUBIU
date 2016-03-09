@@ -4,6 +4,7 @@ package com.android.biubiu;
 
 
 import com.android.biubiu.activity.GuildActivity;
+import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
@@ -73,7 +74,7 @@ public class WelcomeActivity extends Activity {
 	 */
 	private void goIndex() {
 
-		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,LoginOrRegisterActivity.class);
 		startActivity(intent);
 		finish();
 	}

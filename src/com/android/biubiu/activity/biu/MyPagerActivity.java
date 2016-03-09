@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,6 +22,11 @@ import android.widget.TextView;
 
 import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
+import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
+import com.android.biubiu.activity.mine.ChangeCityActivity;
+import com.android.biubiu.activity.mine.ChangeConstellationActivity;
+import com.android.biubiu.activity.mine.ChangeSchoolActivity;
+import com.android.biubiu.activity.mine.ChangeUserNameActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.UserInfoBean;
@@ -30,10 +36,8 @@ import com.android.biubiu.view.MyGridView;
 public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView userheadImv;
 	private TextView usernameTv;
-	private LinearLayout userPhotoLinear;
 	private ImageView addPhotoImv;
 	private ViewPager photoPager;
-	private RelativeLayout userInfoLinear;
 	private TextView userInfoTv;
 	private TextView userInfoBigTv;
 	private TextView userOpenTv;
@@ -110,16 +114,13 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setOnClickListener(this);
 		usernameTv = (TextView) findViewById(R.id.username_tv);
-		userPhotoLinear = (LinearLayout) findViewById(R.id.userphoto_linear);
-		userPhotoLinear.setOnClickListener(this);
 		addPhotoImv = (ImageView) findViewById(R.id.add_userphoto_imv);
 		addPhotoImv.setOnClickListener(this);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_pager);
-		userInfoLinear = (RelativeLayout) findViewById(R.id.userinfo_linear);
-		userInfoLinear.setOnClickListener(this);
 		userInfoTv = (TextView) findViewById(R.id.userinfo_tv);
 		userInfoBigTv = (TextView) findViewById(R.id.userinfo_big_tv);
 		userOpenTv = (TextView) findViewById(R.id.open_tv);
+		userOpenTv.setOnClickListener(this);
 		nicknameLinear = (LinearLayout) findViewById(R.id.nickname_linear);
 		nicknameLinear.setOnClickListener(this);
 		nicknameTv = (TextView) findViewById(R.id.nickname_tv);
@@ -211,7 +212,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.userhead_imv:
 
 			break;
-		case R.id.userinfo_linear:
+		case R.id.open_tv:
 			if(isOpen){
 				userInfoBigTv.setVisibility(View.GONE);
 				userInfoTv.setVisibility(View.VISIBLE);
@@ -227,20 +228,21 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.add_userphoto_imv:
 
 			break;
-		case R.id.userphoto_linear:
-
-			break;
 		case R.id.nickname_linear:
-
+			Intent nicknameIntent = new Intent(MyPagerActivity.this,ChangeUserNameActivity.class);
+			startActivity(nicknameIntent);
 			break;
 		case R.id.birthday_linear:
-
+			Intent birthIntent = new Intent(MyPagerActivity.this,ChangeBrithdayActivity.class);
+			startActivity(birthIntent);
 			break;
 		case R.id.starsign_linear:
-
+			Intent starIntent = new Intent(MyPagerActivity.this,ChangeConstellationActivity.class);
+			startActivity(starIntent);
 			break;
 		case R.id.city_linear:
-
+			Intent cityIntent = new Intent(MyPagerActivity.this,ChangeCityActivity.class);
+			startActivity(cityIntent);
 			break;
 		case R.id.hometown_linear:
 
@@ -252,7 +254,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			break;
 		case R.id.school_linear:
-
+			Intent schoolIntent = new Intent(MyPagerActivity.this,ChangeSchoolActivity.class);
+			startActivity(schoolIntent);
 			break;
 		case R.id.personal_tag_linear:
 
