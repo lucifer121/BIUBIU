@@ -51,7 +51,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registertwo_layout);
 		initView();
-		initClick();
 		
 	}
 	private void initView() {
@@ -74,28 +73,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			}
 		});
 	
-	}
-	private void initClick() {
-		// TODO Auto-generated method stub
-//		nextBtn.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent(RegisterTwoActivity.this,RegisterThreeActivity.class);
-//				startActivity(intent);
-//				overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
-//			}
-//		});
-//		backImv.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				finish();
-//				overridePendingTransition(0,R.anim.right_out_anim);
-//			}
-//		});
 	}
 	
 	private PopupWindow popupWindowCity;

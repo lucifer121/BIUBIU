@@ -3,6 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
+    <RelativeLayout
+        android:id="@+id/title_back_rl"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/main_green" >
+
+        <RelativeLayout
+            android:id="@+id/back_rl"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/kongjianruoqu_bg" >
+
+            <ImageView
+                android:id="@+id/title_left_imv"
+                android:layout_width="22dp"
+                android:layout_height="26dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:padding="6dp"
+                android:src="@drawable/main_name_btn_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/photo_index_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="1/5"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/delete_rl"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/kongjianruoqu_bg"
+            android:paddingRight="20dp" >
+
+            <ImageView
+                android:id="@+id/title_delete_imv"
+                android:layout_width="19dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/main_photo_btn_delete" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/userphoto_scan_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

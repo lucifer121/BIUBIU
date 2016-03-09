@@ -27,6 +27,7 @@
     <string name="register_one_hint_sex">选择性别</string>
     <string name="register_one_hint_brith">选择生日</string>
     <string name="register_one_hint_next">下一页</string>
+    <string name="register_complete">完成</string>
     <string name="upuserhead_texttop">请上传真实头像</string>
     <string name="upuserhead_text1">biubiu提倡年轻人真诚互动交流，真实头像便与信任</string>
     <string name="upuserhead_text2">多人合影、名人、背景、网图将可能审核不通过</string>
