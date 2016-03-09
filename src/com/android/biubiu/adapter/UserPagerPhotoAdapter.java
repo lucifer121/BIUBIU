@@ -50,7 +50,7 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 		container.removeView(viewList.get(position));
 	}
 	@Override
-	public Object instantiateItem(ViewGroup container, int position) {
+	public Object instantiateItem(ViewGroup container, final int position) {
 		// TODO Auto-generated method stub
 		View itemView = viewList.get(position);
 		container.addView(itemView);
@@ -62,6 +62,8 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(context,UserPhotoScanActivity.class);
+				intent.putExtra("photolist", photos);
+				intent.putExtra("photoindex", position);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				context.startActivity(intent);
 			}

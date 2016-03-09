@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.android.biubiu.ChangeHeightWeightActivity;
+import com.android.biubiu.ChangeIdentityProfessionActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
@@ -248,10 +250,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			break;
 		case R.id.height_weight_linear:
-
+			Intent tallIntent = new Intent(MyPagerActivity.this,ChangeHeightWeightActivity.class);
+			startActivity(tallIntent);
 			break;
 		case R.id.identity_linear:
-
+			Intent identityIntent = new Intent(MyPagerActivity.this,ChangeIdentityProfessionActivity.class);
+			startActivity(identityIntent);
 			break;
 		case R.id.school_linear:
 			Intent schoolIntent = new Intent(MyPagerActivity.this,ChangeSchoolActivity.class);

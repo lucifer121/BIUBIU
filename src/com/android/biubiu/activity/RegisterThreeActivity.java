@@ -35,7 +35,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		backImv = (ImageView) findViewById(R.id.title_left_imv);
 		backImv.setOnClickListener(this);
 		registerPhoneEt = (EditText) findViewById(R.id.register_phone_et);
-		verifyCodeEt = (EditText) findViewById(R.id.verify_colplete_tv);
+		verifyCodeEt = (EditText) findViewById(R.id.register_verify_et);
 		passwordEt = (EditText) findViewById(R.id.register_psd_et);
 		sendVerifyTv = (TextView) findViewById(R.id.register_get_verify_tv);
 		sendVerifyTv.setOnClickListener(this);

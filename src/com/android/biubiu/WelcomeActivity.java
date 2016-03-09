@@ -76,7 +76,9 @@ public class WelcomeActivity extends BaseActivity {
 	private void goIndex() {
 
 
+
 		Intent intent = new Intent(WelcomeActivity.this,InterestLabelActivity.class);
+
 
 		startActivity(intent);
 		finish();
