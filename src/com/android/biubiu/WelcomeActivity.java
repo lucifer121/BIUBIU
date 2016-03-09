@@ -6,7 +6,7 @@ package com.android.biubiu;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
-
+import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 
@@ -73,10 +73,7 @@ public class WelcomeActivity extends Activity {
 	 */
 	private void goIndex() {
 
-		Intent intent = new Intent(WelcomeActivity.this,ChangeIdentityProfessionActivity.class);
-
-		
-
+		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
 		startActivity(intent);
 		finish();
 	}

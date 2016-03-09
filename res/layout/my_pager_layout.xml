@@ -87,56 +87,70 @@
                 android:background="@drawable/main_line_long" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
-                android:layout_marginLeft="10dp"
+                android:background="@color/page_tag_bg"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="@string/page_aboutme"
-                android:textSize="12sp"
-                android:textColor="@color/page_text1"/>
+                android:textColor="@color/page_text1"
+                android:textSize="12sp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/userinfo_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/userinfo_tv"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_weight="1"
+                    android:layout_toLeftOf="@+id/open_tv"
                     android:maxLines="3"
                     android:text="关于我的信息"
                     android:textColor="@color/page_text2"
                     android:textSize="12sp" />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/userinfo_big_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="69dp"
-                    android:layout_marginRight="20dp" >
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toLeftOf="@+id/open_tv"
+                    android:maxLines="10"
+                    android:text="关于我的信息"
+                    android:textColor="@color/page_text2"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/open_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:text="@string/page_open"
-                        android:textColor="@color/page_text3"
-                        android:textSize="12sp" />
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="11dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignRight="@+id/open_tv"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/main_btn_in" />
 
-                    <ImageView
-                        android:layout_width="5dp"
-                        android:layout_height="11dp"
-                        android:layout_alignRight="@+id/open_tv"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/main_btn_in" />
-                </RelativeLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/open_tv"
+                    android:layout_width="32dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="@string/page_open"
+                    android:textColor="@color/page_text3"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -145,13 +159,14 @@
                 android:background="@drawable/main_line_long" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
-                android:layout_marginLeft="10dp"
+                android:background="@color/page_tag_bg"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="@string/page_userinfo"
-                android:textSize="12sp"
-                android:textColor="@color/page_text1" />
+                android:textColor="@color/page_text1"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:id="@+id/nickname_linear"
@@ -189,7 +204,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -274,7 +289,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -319,7 +334,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -364,7 +379,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -409,7 +424,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -454,7 +469,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -463,13 +478,14 @@
                 android:background="@drawable/main_line_long" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
-                android:layout_marginLeft="10dp"
+                android:background="@color/page_tag_bg"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="@string/page_identity_job"
-               android:textSize="12sp"
-                android:textColor="@color/page_text1" />
+                android:textColor="@color/page_text1"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:id="@+id/identity_linear"
@@ -507,7 +523,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -552,7 +568,7 @@
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
-                    android:src="@drawable/mm_submenu_normal" />
+                    android:src="@drawable/main_btn_in" />
             </LinearLayout>
 
             <View
@@ -561,13 +577,14 @@
                 android:background="@drawable/main_line_long" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
-                android:layout_marginLeft="10dp"
+                android:background="@color/page_tag_bg"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="@string/page_personal"
-                android:textSize="12sp"
-                android:textColor="@color/page_text1" />
+                android:textColor="@color/page_text1"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -592,16 +609,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
                         android:text="@string/page_personal_tag"
-                        android:textColor="@color/black"
+                        android:textColor="@color/page_text4"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="5dp"
                         android:layout_height="11dp"
                         android:layout_marginLeft="19dp"
-                        android:src="@drawable/mm_submenu_normal" />
+                        android:src="@drawable/main_btn_in" />
                 </LinearLayout>
 
                 <View
@@ -614,16 +630,21 @@
                     android:id="@+id/center2_miliao_info_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" >
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@color/white"
+                    android:paddingBottom="14dp" >
 
-                    <GridView
+                    <com.android.biubiu.view.MyGridView
                         android:id="@+id/personal_tag_gv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="24dp"
-                        android:background="@color/white" />
+                        android:layout_marginTop="13dp"
+                        android:background="@color/white"
+                        android:horizontalSpacing="24dp"
+                        android:numColumns="4"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="13dp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -633,17 +654,19 @@
                 android:background="@drawable/main_line_long" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="19dp"
-                android:layout_marginLeft="10dp"
+                android:background="@color/page_tag_bg"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="@string/page_interest"
-                android:textSize="12sp"
-                android:textColor="@color/page_text1" />
+                android:textColor="@color/page_text1"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="52dp"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -664,16 +687,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
                         android:text="@string/page_interest_tag"
-                        android:textColor="@color/black"
+                        android:textColor="@color/page_text4"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="5dp"
                         android:layout_height="11dp"
                         android:layout_marginLeft="19dp"
-                        android:src="@drawable/mm_submenu_normal" />
+                        android:src="@drawable/main_btn_in" />
                 </LinearLayout>
 
                 <View
@@ -685,17 +707,39 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" >
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@color/white"
+                    android:paddingBottom="14dp" >
 
-                    <GridView
+                    <com.android.biubiu.view.MyGridView
                         android:id="@+id/interest_tag_gv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="24dp"
-                        android:background="@color/white" />
+                        android:layout_marginTop="13dp"
+                        android:background="@color/white"
+                        android:horizontalSpacing="24dp"
+                        android:numColumns="4"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="13dp" />
                 </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/page_tag_bg"
+                android:paddingBottom="25dp"
+                android:paddingTop="80dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/page_text_bottom"
+                    android:textColor="@color/page_text5"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

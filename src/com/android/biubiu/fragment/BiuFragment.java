@@ -80,6 +80,12 @@ public class BiuFragment extends Fragment {
 	UserBean newUserBean ;
 	//存放外圈临界角度
 	ArrayList< Double> edgeAngleList = new ArrayList<Double>();
+	//标识viewTag
+	private String retivTag = "relative";
+	private String tvTag = "textview";
+	private String gifvTag = "gifview";
+	private String imvHeadTag = "imvhead";
+	private String imvDotTag = "imvdot";
 
 	//线圈view
 	BiuView biuView;
@@ -328,7 +334,7 @@ public class BiuFragment extends Fragment {
 			//移除外圈最早的
 			Collections.sort(user3List,new SorByTime());
 			UserBean delBean = user3List.get(0);
-			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(Integer.valueOf(1+delBean.getId()));
+			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+delBean.getId());
 			userGroupLayout.removeView(rl);
 			//改变空闲标记，第二圈移到外圈
 			c3DotList.get(delBean.getIndex()).setAdd(false);
@@ -349,7 +355,7 @@ public class BiuFragment extends Fragment {
 	//创建第一圈上新的view
 	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,UserBean bean){
 		final RelativeLayout rl = new RelativeLayout(getActivity());
-		rl.setId(Integer.valueOf(1+bean.getId()));
+		rl.setTag(retivTag+bean.getId());
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
 				lWidth,
 				lHeight, xLocation, yLocation);
@@ -372,7 +378,7 @@ public class BiuFragment extends Fragment {
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
 				lWidth-margin,
 				lHeight-margin);
-		imageView.setId(Integer.valueOf(2+bean.getId()));
+		imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageView.setImageResource(R.drawable.chat_img_profiles_default);
 		rl.addView(imageView, imageP);
@@ -384,7 +390,7 @@ public class BiuFragment extends Fragment {
 		}
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		imagePL.leftMargin = dotD/4;
-		imageViewL.setId(Integer.valueOf(4+bean.getId()));
+		imageViewL.setTag(imvDotTag+bean.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imageViewL.setImageResource(R.drawable.new_dot);
@@ -399,7 +405,7 @@ public class BiuFragment extends Fragment {
 		tv.setTextSize(8);
 		tv.setGravity(Gravity.CENTER); 
 		tv.setTextColor(getResources().getColor(R.color.white));
-		tv.setId(Integer.valueOf(3+bean.getId()));
+		tv.setTag(tvTag+bean.getId());
 		rl.addView(tv, tvP);
 		userGroupLayout.addView(rl, llParams);
 		if(lWidth!=userD1){
@@ -424,7 +430,7 @@ public class BiuFragment extends Fragment {
 	}
 	//移动view
 	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float viewD1,float viewD2){
-		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(Integer.valueOf(1+userBean.getId()));
+		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getId());
 		float scale = 0;
 		if(rl.getWidth() == viewD2){
 			scale = viewD/viewD2;
@@ -440,7 +446,7 @@ public class BiuFragment extends Fragment {
 		animSet.setDuration(500);
 		animSet.playTogether(anim1, anim2,anim3,anim4);
 		animSet.start();
-		TextView tv = (TextView) rl.findViewById(Integer.valueOf(3+userBean.getId()));
+		TextView tv = (TextView) rl.findViewWithTag(tvTag+userBean.getId());
 		tv.setVisibility(View.GONE);
 	}
 	private void initTestBtn() {

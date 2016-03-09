@@ -39,4 +39,6 @@
 	<color name="page_text2">#a0a0a0</color>
 	<color name="page_text3">#6cd1c9</color>
 	<color name="page_text4">#565656</color>
+	<color name="page_text5">#b0b0b0</color>
+	<color name="page_tag_bg">#f8f6f4</color>
 </resources>

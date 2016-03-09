@@ -63,7 +63,7 @@
     <string name="page_hometown">我的家乡</string>
     <string name="page_city">所在城市</string>
     <string name="page_star">星座</string>
-    <string name="page_birthday">昵称</string>
+    <string name="page_birthday">生日</string>
     <string name="page_sex">性别</string>
     <string name="page_open">展开</string>
     <string name="page_identity_job">身份职业</string>
@@ -71,6 +71,9 @@
     <string name="page_interest">兴趣爱好</string>
     <string name="page_personal_tag">我的个性标签</string>
     <string name="page_interest_tag">我的兴趣标签</string>
+    <string name="page_text_bottom">青春校园从biubiu开始</string>
+     <string name="page_test">我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签,我的兴趣标签我的兴趣标签我的兴趣标签
+         我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签</string>
 
 
 </resources>
