@@ -74,7 +74,7 @@ public class WelcomeActivity extends Activity {
 	 */
 	private void goIndex() {
 
-		Intent intent = new Intent(WelcomeActivity.this,LoginOrRegisterActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
 		startActivity(intent);
 		finish();
 	}
