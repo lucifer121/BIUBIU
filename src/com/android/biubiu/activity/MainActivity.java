@@ -18,7 +18,6 @@ import android.view.Window;
 import android.widget.ImageView;
 
 public class MainActivity extends SlidingFragmentActivity {
-	//asdf
 	public ImageView leftMenu;
 	public ImageView rightMenu;
 	@Override

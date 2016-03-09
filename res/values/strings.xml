@@ -44,7 +44,6 @@
     <string name="title_activity_change_school">ChangeSchoolActivity</string>
     <string name="title_activity_change_brithday">ChangeBrithdayActivity</string>
     <string name="title_activity_change_city_main">ChangeCityMainActivity</string>
-
     <string name="title_activity_change_constellation">ChangeConstellationActivity</string>
     <string name="title_activity_height_weight">HeightWeightActivity</string>
 
@@ -52,6 +51,7 @@
     <string name="mine_height_weight_height_weight">身高体重</string>
     <string name="mine_height_weight_hint">选择身高体重</string>
     <string name="title_activity_change_identity_profession">ChangeIdentityProfessionActivity</string>
+    <string name="personality_tag_hint">(最多选择10个标签)</string>
 
     <!-- 个人主页 -->
     <string name="page_aboutme">关于我</string>
@@ -72,8 +72,25 @@
     <string name="page_personal_tag">我的个性标签</string>
     <string name="page_interest_tag">我的兴趣标签</string>
     <string name="page_text_bottom">青春校园从biubiu开始</string>
-     <string name="page_test">我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签,我的兴趣标签我的兴趣标签我的兴趣标签
+    <string name="page_test">我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签,我的兴趣标签我的兴趣标签我的兴趣标签
          我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签</string>
+    <string name="title_activity_match_setting">MatchSettingActivity</string>
 
+    <!-- 设置相关 -->
+    <string name="setting_setting">个性标签</string>
+    <string name="setting_show_to_me">向我显示</string>
+    <string name="setting_boy">男生</string>
+    <string name="setting_gril">女生</string>
+    <string name="setting_city_common">同城</string>
+    <string name="setting_unlimited">不限</string>
+    <string name="setting_age_range_in">年龄范围</string>
+    <string name="setting_age_range">18-24</string>
+    <string name="setting_character_tags">个性标签</string>
+    <string name="setting_character_tags_her">Ta的个性标签</string>
+    <string name="setting_new_message_notice">新消息通知</string>
+    <string name="setting_voice">声音</string>
+    <string name="setting_shock">震动</string>
+    <string name="setting_exit">退出登录</string>
+    <string name="title_activity_personality_tag">PersonalityTagActivity</string>
 
 </resources>
