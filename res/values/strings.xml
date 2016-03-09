@@ -93,5 +93,6 @@
     <string name="setting_shock">震动</string>
     <string name="setting_exit">退出登录</string>
     <string name="title_activity_personality_tag">PersonalityTagActivity</string>
+    <string name="title_activity_interest_label">InterestLabelActivity</string>
 
 </resources>
