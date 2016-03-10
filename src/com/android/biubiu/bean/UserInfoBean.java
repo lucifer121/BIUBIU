@@ -1,8 +1,9 @@
 package com.android.biubiu.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserInfoBean {
+public class UserInfoBean implements Serializable{
 	private String id;
 	private String nickname;
 	private String sex;

@@ -378,6 +378,7 @@ public class BiuFragment extends Fragment {
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
 				lWidth-margin,
 				lHeight-margin);
+		imageView.setId(1001);
 		imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageView.setImageResource(R.drawable.chat_img_profiles_default);

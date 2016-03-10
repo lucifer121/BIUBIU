@@ -78,7 +78,7 @@
     <string name="title_activity_match_setting">MatchSettingActivity</string>
 
     <!-- 设置相关 -->
-     <string name="setting_title">设置</string>
+    <string name="setting_title">设置</string>
     <string name="setting_setting">个性标签</string>
     <string name="setting_show_to_me">向我显示:</string>
     <string name="setting_boy">男生</string>
@@ -95,5 +95,10 @@
     <string name="setting_exit">退出登录</string>
     <string name="title_activity_personality_tag">PersonalityTagActivity</string>
     <string name="title_activity_interest_label">InterestLabelActivity</string>
+    <!-- register 页面相关toast -->
+    <string name="reg_one_no_userhead">请上传头像</string>
+    <string name="reg_one_no_nickname">昵称不能为空</string>
+    <string name="reg_one_no_birth">生日不能为空</string>
+    <string name="reg_one_no_sex">生日不能为空</string>
 
 </resources>

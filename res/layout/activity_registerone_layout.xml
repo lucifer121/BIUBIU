@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/registerone_top_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/main_yello" >
+        android:background="@color/main_green" >
 
         <RelativeLayout
             android:id="@+id/back_registerone_rl"
@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dp"
                 android:padding="6dp"
-                android:src="@drawable/main_icon_back" />
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/login_title_text"
-            android:textColor="@color/login_title_text"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
@@ -48,18 +48,31 @@
         android:layout_marginTop="59dp" >
 
         <ImageView
-            android:id="@+id/userHead_registerone_img"
+            android:id="@+id/userhead_imv"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/main_icon" />
+            android:src="@drawable/regist_imageview_intophoto" />
 
         <TextView
-            android:id="@+id/userHead_registerone_hint_tv"
+            android:id="@+id/add_userhead_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="49dp"
             android:text="@string/register_one_hint_add" />
+
+        <TextView
+            android:id="@+id/virify_tv"
+            android:layout_width="58.5dp"
+            android:layout_height="22dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/register_birthday_imageview_bg"
+            android:gravity="center"
+            android:text="审核中"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -69,8 +82,7 @@
         android:layout_below="@id/registerone_center1_rl"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="45dp"
-         >
+        android:layout_marginTop="45dp" >
 
         <ImageView
             android:id="@+id/name_registerone_img"
@@ -78,7 +90,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_name_icon" />
+            android:src="@drawable/register_imageview_name" />
 
         <EditText
             android:id="@+id/name_registerone_et"
@@ -111,8 +123,7 @@
         android:layout_below="@id/registerone_center2_rl"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp"
-        >
+        android:layout_marginTop="16dp" >
 
         <ImageView
             android:id="@+id/sex_registerone_img"
@@ -120,7 +131,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_sex_icon" />
+            android:src="@drawable/register_imageview_sex" />
 
         <TextView
             android:id="@+id/sex_registerone_tv"
@@ -132,8 +143,6 @@
             android:hint="@string/register_one_hint_sex"
             android:text=""
             android:textSize="13sp" />
-
-        
     </RelativeLayout>
 
     <View
@@ -143,8 +152,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@color/register_view" />
-    
-    
+
     <RelativeLayout
         android:id="@+id/registerone_center4_rl"
         android:layout_width="match_parent"
@@ -152,8 +160,7 @@
         android:layout_below="@id/registerone_center3_rl"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp"
-        >
+        android:layout_marginTop="16dp" >
 
         <ImageView
             android:id="@+id/brith_registerone_img"
@@ -161,7 +168,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_birthday_icon" />
+            android:src="@drawable/register_imageview_birth" />
 
         <TextView
             android:id="@+id/brith_registerone_tv"
@@ -173,8 +180,6 @@
             android:hint="@string/register_one_hint_brith"
             android:text=""
             android:textSize="13sp" />
-
-        
     </RelativeLayout>
 
     <View
@@ -184,17 +189,17 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@color/register_view" />
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/next_registerone_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_below="@id/registerone_center4_rl"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
         android:layout_marginLeft="62.5dp"
         android:layout_marginRight="62.5dp"
-        android:layout_below="@id/registerone_center4_rl"
-        android:background="@drawable/main_btn_light">
+        android:layout_marginTop="78dp"
+        android:background="@drawable/register_btn_clk" >
 
         <TextView
             android:id="@+id/next_registerone_tv"
@@ -202,10 +207,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textSize="15sp"
+            android:text="@string/register_one_hint_next"
             android:textColor="@color/register_name_text"
-            android:text="@string/register_one_hint_next" />
-
-        </RelativeLayout>
+            android:textSize="15sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
