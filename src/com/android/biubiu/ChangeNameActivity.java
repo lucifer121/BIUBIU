@@ -1,23 +1,21 @@
-package com.android.biubiu.activity.mine;
+package com.android.biubiu;
 
-import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.text.style.BackgroundColorSpan;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
-public class ChangeUserNameActivity extends BaseActivity {
+public class ChangeNameActivity extends BaseActivity {
 	private RelativeLayout backLayout,completeLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_change_user_name);
+		setContentView(R.layout.activity_change_name);
 		initView();
 	}
 

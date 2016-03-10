@@ -1,35 +1,16 @@
-package com.android.biubiu.activity.mine;
-
-
+package com.android.biubiu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-import com.android.biubiu.R;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
+import com.android.biubiu.activity.BaseActivity;
+import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;
 import com.android.biubiu.sqlite.CityDao;
-
-
-
-
-
-
-
-
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -40,9 +21,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class ChangeCityActivity extends BaseCityActivity implements
+public class ChangeHomeTwonActivity extends BaseCityActivity implements
 OnClickListener, OnWheelChangedListener{
 	private WheelView mViewProvince;
 	private WheelView mViewCity;
@@ -54,13 +34,12 @@ OnClickListener, OnWheelChangedListener{
 	private CityDao cityDao = new CityDao();
 
 	// 控件相关
-	private TextView cityName;
+	private TextView homeName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_change_city_main);
-		
+		setContentView(R.layout.activity_change_home_twon);
 		initView();
 		city = super.getIntent().getStringExtra("hometown");
 
@@ -69,13 +48,13 @@ OnClickListener, OnWheelChangedListener{
 		setUpViews();
 		setUpListener();
 		setUpData();
-		cityName.setText("" + mCurrentProviceName + mCurrentCityName
+		homeName.setText("" + mCurrentProviceName + mCurrentCityName
 				);
 	}
-	
+
 	private void initView() {
 		// TODO Auto-generated method stub
-		cityName = (TextView) super.findViewById(R.id.cityName_change_city_tv);
+		homeName = (TextView) super.findViewById(R.id.hometwonName_change_city_tv);
 	}
 
 	private void setUpViews() {
@@ -84,10 +63,10 @@ OnClickListener, OnWheelChangedListener{
 		mViewDistrict = (WheelView) findViewById(R.id.id_district);
 		mBtnConfirm = (TextView) findViewById(R.id.city_selector_shengshiqu_tv);
 		wanchLayout = (RelativeLayout) super
-				.findViewById(R.id.city_selector_shengshiqu_rl);
+				.findViewById(R.id.hometwon_selector_shengshiqu_rl);
 		wanchLayout.setOnClickListener(this);
 		backLayout = (RelativeLayout) super
-				.findViewById(R.id.back_changecity_mine_rl);
+				.findViewById(R.id.back_changehometwon_mine_rl);
 		backLayout.setOnClickListener(this);
 	}
 
@@ -96,9 +75,7 @@ OnClickListener, OnWheelChangedListener{
 		mViewProvince.addChangingListener(this);
 		// ���change�¼�
 		mViewCity.addChangingListener(this);
-		// ���change�¼�
-	//	mViewDistrict.addChangingListener(this);
-		// ���onclick�¼�
+
 		mBtnConfirm.setOnClickListener(this);
 	}
 
@@ -106,7 +83,7 @@ OnClickListener, OnWheelChangedListener{
 		// initProvinceDatas();
 		initProvinceDatasNews();
 		mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(
-				ChangeCityActivity.this, mProvinceDatas));
+				ChangeHomeTwonActivity.this, mProvinceDatas));
 
 		Log.e("lucifer", "mProvinceDatas.length==" + mProvinceDatas.length);
 		// 设置可见条目数量
@@ -123,11 +100,11 @@ OnClickListener, OnWheelChangedListener{
 		if (wheel == mViewProvince) {
 			updateCities();
 																																																																																																																																																																																																																																													updateCities();
-			cityName.setText("" + mCurrentProviceName + mCurrentCityName
+			homeName.setText("" + mCurrentProviceName + mCurrentCityName
 					);
 		} else if (wheel == mViewCity) {
 			updateAreas();
-			cityName.setText("" + mCurrentProviceName + mCurrentCityName
+			homeName.setText("" + mCurrentProviceName + mCurrentCityName
 					);
 		} else if (wheel == mViewDistrict) {
 			// mCurrentDistrictName =
@@ -143,7 +120,7 @@ OnClickListener, OnWheelChangedListener{
 			}
 			mCurrentDistrictName = towns[pCurrent];
 
-			cityName.setText("" + mCurrentProviceName + mCurrentCityName
+			homeName.setText("" + mCurrentProviceName + mCurrentCityName
 					+ mCurrentDistrictName);
 		}
 	}
@@ -225,7 +202,7 @@ OnClickListener, OnWheelChangedListener{
 		case R.id.back_changecity_mine_rl:
 			Intent intent2 = new Intent();
 			intent2.putExtra("city", city);
-			ChangeCityActivity.this.setResult(RESULT_CANCELED, intent2);
+			ChangeHomeTwonActivity.this.setResult(RESULT_CANCELED, intent2);
 			finish();
 			break;
 		default:
@@ -240,54 +217,7 @@ OnClickListener, OnWheelChangedListener{
 		// TODO Auto-generated method stub
 		Intent intent = new Intent();
 		intent.putExtra("city", city);
-		ChangeCityActivity.this.setResult(RESULT_CANCELED, intent);
+		ChangeHomeTwonActivity.this.setResult(RESULT_CANCELED, intent);
 		finish();
 	}
 }
-
-//	/**
-//	 * 上传 修改信息
-//	 * 
-//	 * @param user
-//	 * @author lucifer
-//	 * @date 2015-11-6
-//	 */
-//	public void completeInfo(final ObjUser user) {
-//
-//		String cityID = cityDao
-//				.getID(mCurrentProviceName, mCurrentCityName,
-//						mCurrentDistrictName).get(0).getId();
-//		if (cityID != null) {
-//			user.setHometown(cityID);
-//
-//			// 只上传信息
-//			ObjUserWrap.completeUserInfo(user, new ObjFunBooleanCallback() {
-//
-//				@Override
-//				public void callback(boolean result, AVException e) {
-//					if (result) {
-//						Toast.makeText(getApplicationContext(), "已保存", 1000)
-//								.show();
-//						Intent intent = new Intent();
-//						intent.putExtra("city", mCurrentProviceName
-//								+ mCurrentCityName + mCurrentDistrictName);
-//						setResult(RESULT_OK, intent);
-//						finish();
-//						log.e("lucifer", "" + mCurrentProviceName
-//								+ mCurrentCityName + mCurrentDistrictName);
-//
-//					} else {
-//						Toast.makeText(getApplicationContext(), "保存失败", 1000)
-//								.show();
-//					}
-//				}
-//			});
-//		} else {
-//			Toast.makeText(getApplicationContext(), "保存失败", 1000).show();
-//		}
-//
-//	}
-
-	
-
-

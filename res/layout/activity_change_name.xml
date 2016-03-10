@@ -14,9 +14,8 @@
 
         <RelativeLayout
             android:id="@+id/back_changename_mine_rl"
-            android:layout_width="54dp"
-            android:layout_height="44dp"
-           
+            android:layout_width="50dp"
+            android:layout_height="44dp"          
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
 
@@ -44,8 +43,7 @@
             android:layout_width="64dp"
             android:layout_height="44dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            
+            android:layout_centerVertical="true"          
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
 
@@ -66,26 +64,27 @@
         android:background="#cccccc" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView3_changename_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/top_changname_rl"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:text="生日"
+        android:text="名字"
         android:textColor="#a0a0a0"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/name_changbirth_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginRight="30dp"
+        android:layout_alignBottom="@+id/textView3_changename_tv"
         android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3_changename_tv"
         android:background="@null"
-        android:text="2011-09-01"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -93,8 +92,8 @@
         android:id="@+id/change_user_name_view"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3_changename_tv"
+        android:layout_below="@+id/textView3_changename_tv"
         android:layout_marginRight="30dp"
         android:layout_marginTop="6dp"
         android:background="@color/mine_chird_view_bottom"/>
