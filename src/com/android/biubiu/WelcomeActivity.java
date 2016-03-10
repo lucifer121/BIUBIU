@@ -75,14 +75,7 @@ public class WelcomeActivity extends BaseActivity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-
-
-
-
-		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
-
-
-
+		Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
 		startActivity(intent);
 		finish();
 	}

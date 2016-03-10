@@ -62,7 +62,7 @@
                 android:id="@+id/iv_man_sexselector"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/main_icon_boy" />
+                android:background="@drawable/register_sex_boy_bg" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,7 +77,8 @@
                 android:id="@+id/iv_woman_sexselector"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/main_icon_girl_light" />
+                android:background="@drawable/register_sex_girl_bg"
+                 />
 
             <!--
                  <TextView

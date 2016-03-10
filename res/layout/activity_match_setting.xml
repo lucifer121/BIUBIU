@@ -133,6 +133,8 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="14dp"
                     android:background="@color/set_divider1" />
 
                 <LinearLayout
@@ -323,8 +325,8 @@
 
                 <ToggleButton
                     android:id="@+id/newmsg_toggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_width="34dp"
+                    android:layout_height="23dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
@@ -405,9 +407,9 @@
             <RelativeLayout
                 android:id="@+id/logout_rl"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="25dp"
-                android:layout_marginTop="100dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="50dp"
+                android:paddingTop="100dp"
                 android:background="@color/set_tag_bg" >
 
                 <TextView

@@ -2,6 +2,7 @@ package com.android.biubiu.activity;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import com.android.biubiu.R;
 
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
+import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
@@ -21,7 +23,11 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 
+
+
+
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,14 +50,24 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	private TextView mBtnConfirm;
 	private CityDao cityDao = new CityDao();
 	private TextView cityTextView;
-	
+	UserInfoBean userBean = new UserInfoBean();
+	Bitmap userheadBitmp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registertwo_layout);
+		getinentInfo();
 		initView();
-		
+	}
+	private void getinentInfo() {
+		// TODO Auto-generated method stub
+		UserInfoBean bean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
+		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
+		userBean.setSex(bean.getSex());
+		userBean.setBirthday(bean.getBirthday());
+		userBean.setSex(bean.getSex());
+		userheadBitmp = bitmp;
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
