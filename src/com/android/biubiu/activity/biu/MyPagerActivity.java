@@ -20,15 +20,17 @@ import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.android.biubiu.ChangeHeightWeightActivity;
-import com.android.biubiu.ChangeIdentityProfessionActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
+import com.android.biubiu.activity.mine.ChangeHeightWeightActivity;
+import com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.activity.mine.ChangeUserNameActivity;
+import com.android.biubiu.activity.mine.InterestLabelActivity;
+import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.UserInfoBean;
@@ -262,10 +264,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			startActivity(schoolIntent);
 			break;
 		case R.id.personal_tag_linear:
-
+			Intent personalTagIntent=new Intent(MyPagerActivity.this,PersonalityTagActivity.class);
+			startActivity(personalTagIntent);
 			break;
 		case R.id.interest_tag_linear:
-
+			Intent interestLableIntent=new Intent(MyPagerActivity.this,InterestLabelActivity.class);
+			startActivity(interestLableIntent);
 			break;
 
 		default:

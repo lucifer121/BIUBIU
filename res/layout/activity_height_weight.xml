@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/page_tag_bg">
 
     <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:gravity="center" >
+        android:gravity="center"
+        android:background="@color/mine_chird_top_bg" >
 
         <RelativeLayout
             android:id="@+id/back_changexingzuo_mine_rl"
@@ -21,9 +23,9 @@
 
             <ImageView
                 android:id="@+id/back_changexingzuo_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -32,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改星座"
-            android:textColor="#a0a0a0"
+            android:text="@string/mine_height_weight_title"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TextView
@@ -80,8 +82,8 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/tip_city_change_tv"
             android:background="@null"
-            android:text="123"
-            android:textColor="#707070"
+            android:text=""
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -94,17 +96,7 @@
         android:layout_marginTop="6dp"
         android:background="#33c6e5" />
 
-    <TextView
-        android:id="@+id/tip_changeMajor_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/mine_alter_img_point_blue"
-        android:drawablePadding="4dp"
-        android:text="@string/mine_height_weight_hint"
-        android:textColor="#da33c6e5"
-        android:textSize="12sp" />
+    
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,7 +105,8 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="60dp"
        
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:background="@color/white" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,8 +115,11 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:gravity="center"
+                android:textColor="#a0a0a0"
+                
+               
                 android:text="@string/mine_height_weight_hint" />
 
             <View

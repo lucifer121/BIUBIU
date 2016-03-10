@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <TextView
-        android:id="@+id/interest"
+        android:id="@+id/interest_item_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -15,25 +15,54 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <View android:layout_width="1px"
-            android:layout_height="200dp"
-            android:layout_marginLeft="20dp"
+        <View 
+            android:id="@+id/id_view_interest"
+            android:layout_width="1px"
+            android:layout_height="207dp"
+            android:layout_marginLeft="22dp"
             android:background="@color/gray"/>
         <GridView 
             android:id="@+id/id_gridView_interest"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:layout_marginLeft="3dp"
-            android:background="@color/main_yello"
-            android:numColumns="auto_fit"  
-    android:verticalSpacing="10dp"  
-    android:horizontalSpacing="10dp"  
-    android:columnWidth="90dp"  
-    android:stretchMode="columnWidth"  
-    android:gravity="center"  
+            android:layout_marginRight="40dp"
+            android:background="@color/tou"
+            android:numColumns="4"  
+		    android:verticalSpacing="13dp"  
+		    android:horizontalSpacing="28dp"  
+		   	android:listSelector="#00000000"
+		   	android:fadingEdge="none" 
+		    android:stretchMode="columnWidth"  
+		    android:gravity="center"  
             
             />
         </LinearLayout>
+        <RelativeLayout 
+            android:id="@+id/bottom_item_interest"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="gone">
+        <View android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:layout_marginLeft="22dp"
+            />
+
+        <TextView
+            android:id="@+id/tx_item_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/page_text1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:text="@string/bottom_hint" />
+        
+        </RelativeLayout>
     
 
 </LinearLayout>

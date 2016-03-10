@@ -118,11 +118,11 @@
             android:label="@string/title_activity_change_constellation" >
         </activity>
         <activity
-            android:name=".ChangeHeightWeightActivity"
+            android:name="com.android.biubiu.activity.mine.ChangeHeightWeightActivity"
             android:label="@string/title_activity_height_weight" >
         </activity>
         <activity
-            android:name=".ChangeIdentityProfessionActivity"
+            android:name="com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity"
             android:label="@string/title_activity_change_identity_profession" >
         </activity>
         <activity
@@ -134,11 +134,11 @@
             android:label="@string/title_activity_match_setting" >
         </activity>
         <activity
-            android:name=".PersonalityTagActivity"
+            android:name="com.android.biubiu.activity.mine.PersonalityTagActivity"
             android:label="@string/title_activity_personality_tag" >
         </activity>
         <activity
-            android:name=".InterestLabelActivity"
+            android:name="com.android.biubiu.activity.mine.InterestLabelActivity"
             android:label="@string/title_activity_interest_label" >
         </activity>
     </application>

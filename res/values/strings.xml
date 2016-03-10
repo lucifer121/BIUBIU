@@ -53,6 +53,16 @@
     <string name="mine_height_weight_hint">选择身高体重</string>
     <string name="title_activity_change_identity_profession">ChangeIdentityProfessionActivity</string>
     <string name="personality_tag_hint">(最多选择10个标签)</string>
+     <string name="bottom_hint">青春校园，从biubiu开始</string>
+     <string name="mine_complete">完成</string>
+     <string name="mine_brithday_title">修改生日</string>
+     <string name="mine_hometwon_title">修改家乡</string>
+     <string name="mine_constellation_title">修改家乡</string>
+     <string name="mine_height_weight_title">修改身高体重</string>
+     <string name="mine_identity_profession_title">选择身份职业</string>
+     <string name="mine_selectoe_school_title">选择学校</string>
+     <string name="mine_selectoe_username_title">修改名字</string>
+     <string name="mine_selectoe_city_title">选择你的城市</string>
 
     <!-- 个人主页 -->
     <string name="page_aboutme">关于我</string>

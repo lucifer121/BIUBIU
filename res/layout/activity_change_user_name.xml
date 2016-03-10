@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChangeUserNameActivity" >
+    tools:context=".ChangeUserNameActivity"
+    android:background="@color/page_tag_bg" >
 
    <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:gravity="center" 
-        android:background="@color/white">
+        android:background="@color/mine_chird_top_bg">
 
         <RelativeLayout
-            android:id="@+id/back_changebirth_mine_rl"
+            android:id="@+id/back_changename_mine_rl"
             android:layout_width="54dp"
             android:layout_height="44dp"
            
@@ -20,26 +21,26 @@
             android:gravity="center" >
 
             <ImageView
-                android:id="@+id/back_changebirth_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/back_changeName_mine"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/main_chose3_nomal_icon_right" />
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/change_name_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改生日"
-            android:textColor="#a0a0a0"
+            android:text="@string/mine_selectoe_username_title"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <RelativeLayout
-            android:id="@+id/mine_changebirth_wancheng_rl"
+            android:id="@+id/mine_changename_wancheng_rl"
             android:layout_width="64dp"
             android:layout_height="44dp"
             android:layout_alignParentRight="true"
@@ -49,12 +50,12 @@
             android:gravity="center" >
 
             <TextView
-                android:id="@+id/mine_changebirth_wancheng_bt"
+                android:id="@+id/mine_changename_wancheng_bt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="保存"
-                android:textColor="#33c6e5"
-                android:textSize="15sp" />
+                android:text="@string/mine_complete"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -71,7 +72,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/top_changname_rl"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="生日"
         android:textColor="#a0a0a0"
         android:textSize="16sp" />
@@ -85,18 +86,18 @@
         android:layout_toRightOf="@+id/textView3"
         android:background="@null"
         android:text="2011-09-01"
-        android:textColor="#707070"
+        android:textColor="@color/black"
         android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/change_user_name_view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginRight="30dp"
         android:layout_marginTop="6dp"
-        android:src="@drawable/mine_likelist_img_blueline" />
+        android:background="@color/mine_chird_view_bottom"/>
 
    
     <TextView
@@ -106,7 +107,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="青春校园    从[我想认识你]开始"
+        android:text="@string/bottom_hint"
         android:textColor="#bfbfbf"
         android:textSize="12sp" 
        />

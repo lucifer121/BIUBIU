@@ -7,13 +7,11 @@
     
      >
     <RelativeLayout 
+        android:id="@+id/layout_interest_lable_rl"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:gravity="center"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="13dp"
-        
+
         >
     <TextView 
         android:id="@+id/tag_item_personality_tag"

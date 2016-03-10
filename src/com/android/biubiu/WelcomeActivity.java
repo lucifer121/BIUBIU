@@ -14,6 +14,7 @@ import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 
 
 
+import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -77,7 +78,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
 
-		Intent intent = new Intent(WelcomeActivity.this,InterestLabelActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
 
 
 		startActivity(intent);

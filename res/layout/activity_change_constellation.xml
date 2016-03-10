@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/page_tag_bg"
    >
 
    <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:gravity="center" >
+        android:gravity="center" 
+        android:background="@color/mine_chird_top_bg">
 
         <RelativeLayout
             android:id="@+id/back_changexingzuo_mine_rl"
-            android:layout_width="54dp"
+            android:layout_width="50dp"
             android:layout_height="44dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -23,9 +25,9 @@
 
             <ImageView
                 android:id="@+id/back_changexingzuo_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -34,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改星座"
-            android:textColor="#a0a0a0"
+            android:text="@string/mine_constellation_title"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TextView
@@ -47,8 +49,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:text=""
-            android:textColor="#33c6e5"
-            android:textSize="15sp" />
+            android:textColor="@color/white"
+            android:textSize="13sp" />
     </RelativeLayout>
     
     <View
@@ -60,7 +62,7 @@
      <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"       
+        android:layout_marginTop="30dp"       
         android:orientation="horizontal">
      <TextView
         android:id="@+id/tip_city_change_tv"
@@ -83,7 +85,7 @@
         android:layout_toRightOf="@id/tip_city_change_tv"
         android:background="@null"
         android:text=""
-        android:textColor="#707070"
+        android:textColor="@color/black"
         android:textSize="16sp" />
     </RelativeLayout>
 
@@ -91,23 +93,13 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="1px"
-       	android:background="#33c6e5"
+       	android:background="@color/mine_chird_view_bottom"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="6dp"
         />
 
-    <TextView
-        android:id="@+id/tip_changeMajor_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"    
-        android:drawableLeft="@drawable/mine_alter_img_point_blue"
-        android:drawablePadding="4dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"       
-        android:text="选择你的星座"
-        android:textColor="#da33c6e5"
-        android:textSize="12sp" />
+    
     
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,11 +108,13 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="60dp"
         android:orientation="vertical"
-        android:background="@color/gray">
+        android:background="@color/white">
     
     	<TextView android:layout_width="wrap_content"
-    	    android:layout_height="20dp"
+    	    android:layout_height="30dp"
     	    android:gravity="center"
+    	    
+    	    android:textColor="#a0a0a0"
     	    android:text="选择你的星座"/>
     	<View android:layout_width="match_parent"
     	    android:layout_height="1px"
@@ -130,7 +124,7 @@
             android:id="@+id/id_constellation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            
             android:background="@color/gray">
             </com.android.biubiu.common.city.WheelView>
         </LinearLayout>

@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/page_tag_bg"
    >
 <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:gravity="center" 
-        android:background="@color/white">
+        android:background="@color/mine_chird_top_bg">
 
         <RelativeLayout
             android:id="@+id/back_changebirth_mine_rl"
-            android:layout_width="54dp"
+            android:layout_width="50dp"
             android:layout_height="44dp"
            
             android:background="@drawable/kongjianruoqu_bg"
@@ -20,11 +21,11 @@
 
             <ImageView
                 android:id="@+id/back_changebirth_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -33,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改生日"
-            android:textColor="#a0a0a0"
+            android:text="@string/mine_brithday_title"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <RelativeLayout
@@ -51,9 +52,9 @@
                 android:id="@+id/mine_changebirth_wancheng_bt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="保存"
-                android:textColor="#33c6e5"
-                android:textSize="15sp" />
+                android:text="@string/mine_complete"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -70,9 +71,9 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/top_changname_rl"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:text="生日"
-        android:textColor="#a0a0a0"
+        android:textColor="@color/register_name_text"
         android:textSize="16sp" />
 
     <TextView
@@ -84,18 +85,18 @@
         android:layout_toRightOf="@+id/textView3"
         android:background="@null"
         android:text="2011-09-01"
-        android:textColor="#707070"
+        android:textColor="@color/black"
         android:textSize="16sp" />
 
-    <ImageView
+    <View
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:layout_marginRight="30dp"
         android:layout_marginTop="6dp"
-        android:src="@drawable/mine_likelist_img_blueline" />
+        android:background="@color/mine_chird_view_bottom" />
 
     <!-- <TextView
         android:id="@+id/textView5"

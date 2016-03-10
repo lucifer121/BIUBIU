@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#66eeeeee"
+    android:background="@color/page_tag_bg"
     android:orientation="vertical" >
     <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/white"
+        android:background="@color/mine_chird_top_bg"
         android:gravity="center" >
 
         <RelativeLayout
@@ -21,11 +21,11 @@
 
             <ImageView
                 android:id="@+id/back_changecity_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="修改家乡"
-            android:textColor="#a0a0a0"
+            android:text="@string/mine_hometwon_title"
+            android:textColor="@color/white"
             android:textSize="19sp" />
 
         <RelativeLayout
@@ -43,18 +43,16 @@
             android:layout_width="64dp"
             android:layout_height="44dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            
+            android:layout_centerVertical="true"           
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
-
             <TextView
                 android:id="@+id/city_selector_shengshiqu_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="完成"
-                android:textColor="#33c6e5"
-                android:textSize="15sp" />
+                android:text="@string/mine_complete"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -66,7 +64,7 @@
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"       
+        android:layout_marginTop="30dp"       
         android:orientation="horizontal">
      <TextView
         android:id="@+id/tip_city_change_tv"
@@ -89,7 +87,7 @@
         android:layout_toRightOf="@id/tip_city_change_tv"
         android:background="@null"
         android:text=""
-        android:textColor="#707070"
+        android:textColor="@color/black"
         android:textSize="16sp" />
     </RelativeLayout>
 
@@ -97,30 +95,34 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="1px"
-       	android:background="#33c6e5"
+       	android:background="@color/mine_chird_view_bottom"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="6dp"
         />
 
-    <TextView
-        android:id="@+id/tip_changeMajor_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"    
-        android:drawableLeft="@drawable/mine_alter_img_point_blue"
-        android:drawablePadding="4dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"       
-        android:text="选择你的家乡"
-        android:textColor="#da33c6e5"
-        android:textSize="12sp" />
+    
    
 
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+         android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+    <TextView android:layout_width="wrap_content"
+    	    android:layout_height="30dp"
+    	    android:gravity="center"
+    	    
+    	    android:textColor="#a0a0a0"
+    	    android:text="@string/mine_selectoe_city_title"/>
+    	<View android:layout_width="match_parent"
+    	    android:layout_height="1px"
+    	    android:background="@color/tablebar_check"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        
         android:layout_height="wrap_content"
         
         android:orientation="horizontal" >
@@ -148,6 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" >
         </com.android.biubiu.common.city.WheelView>
+    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
