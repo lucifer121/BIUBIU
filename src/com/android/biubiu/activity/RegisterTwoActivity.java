@@ -46,6 +46,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class RegisterTwoActivity extends BaseCityActivity implements OnClickListener,OnWheelChangedListener{
+	private static final int SELECT_SCHOOL = 1001;
 	private RelativeLayout nextLayout;
 	private RelativeLayout cityLayout,schoolLayout;
 	private WheelView	mViewProvince,mViewCity,mViewDistrict;
@@ -236,10 +237,13 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 100);
 			break;
+		case R.id.city_selector_shengshiqu_tv:
+			popupWindowCity.dismiss();
+			break;
 		case R.id.registertwo_center3_rl:
 			if(isStudent){
 				Intent intent=new Intent(this,ChangeSchoolActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, SELECT_SCHOOL);
 			}else{
 				//选择职业
 			}
@@ -296,6 +300,19 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
 					);
 		}
-		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case SELECT_SCHOOL:
+			String schoolName = data.getStringExtra("school");
+			schoolTv.setText(schoolName);
+			break;
+
+		default:
+			break;
+		}
 	}
 }
