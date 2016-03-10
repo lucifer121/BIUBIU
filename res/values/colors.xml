@@ -42,4 +42,11 @@
 	<color name="page_text4">#565656</color>
 	<color name="page_text5">#b0b0b0</color>
 	<color name="page_tag_bg">#f8f6f4</color>
+	<!--  设置 -->
+	<color name="set_tag_bg">#f8f6f4</color>
+	<color name="set_tag_text">#808080</color>
+	<color name="set_divider1">#6cd1c9</color>
+	<color name="set_divider2">#f8f6f4</color>
+	<color name="set_seek_sel">#6cc1ba</color>
+	<color name="set_seek_nosel">#7e7f7f</color>
 </resources>

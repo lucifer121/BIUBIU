@@ -5,53 +5,43 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/top_changname_rl"
+        android:id="@+id/title_back_rl"
         android:layout_width="match_parent"
-        android:layout_height="44dp" >
+        android:layout_height="44dp"
+        android:background="@color/main_green" >
 
         <RelativeLayout
-            android:id="@+id/back_changexingzuo_mine_rl"
-            android:layout_width="54dp"
-            android:layout_height="44dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/kongjianruoqu_bg"
-            android:gravity="center" >
+            android:id="@+id/back_rl"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/kongjianruoqu_bg" >
 
             <ImageView
-                android:id="@+id/back_changexingzuo_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:id="@+id/title_left_imv"
+                android:layout_width="22dp"
+                android:layout_height="26dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:padding="6dp"
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/photo_index_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/setting_setting"
-            android:textColor="#a0a0a0"
+            android:text="@string/setting_title"
+            android:textColor="@color/white"
             android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/mine_changexingzuo_wancheng_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textColor="#33c6e5"
-            android:textSize="15sp" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#cccccc" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,19 +50,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
-                android:orientation="vertical" >
+                android:layout_height="35dp"
+                android:background="@color/set_tag_bg"
+                android:orientation="vertical"
+                android:paddingLeft="20dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_show_to_me" />
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="@string/setting_show_to_me"
+                    android:textColor="@color/set_tag_text"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="112dp"
                 android:background="@color/white"
                 android:orientation="horizontal" >
 
@@ -80,154 +75,178 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/main_yello"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="14dp" >
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" >
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal" >
 
                         <TextView
                             android:id="@+id/setting_boy_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/setting_boy" />
+                            android:text="@string/setting_boy"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/setting_boy_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                        <ToggleButton
+                            android:id="@+id/boy_toggle"
+                            android:layout_width="34dp"
+                            android:layout_height="23dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_boy_tv"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginLeft="39dp"
+                            android:background="@drawable/setting_btn_no"
+                            android:textOff=""
+                            android:textOn="" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" >
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal" >
 
                         <TextView
                             android:id="@+id/setting_gril_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/setting_gril" />
+                            android:text="@string/setting_gril"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/setting_gril_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                        <ToggleButton
+                            android:id="@+id/girl_toggle"
+                            android:layout_width="34dp"
+                            android:layout_height="23dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_gril_tv"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginLeft="39dp"
+                            android:background="@drawable/setting_btn_no"
+                            android:textOff=""
+                            android:textOn="" />
                     </RelativeLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/gray" />
+                    android:background="@color/set_divider1" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/main_yello"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="14dp" >
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" >
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal" >
 
                         <TextView
                             android:id="@+id/setting_city_common_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/setting_city_common" />
+                            android:text="@string/setting_city_common"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/setting_city_common_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                        <ToggleButton
+                            android:id="@+id/city_toggle"
+                            android:layout_width="34dp"
+                            android:layout_height="23dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_city_common_tv"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginLeft="39dp"
+                            android:background="@drawable/setting_btn_no"
+                            android:textOff=""
+                            android:textOn="" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" >
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_gravity="center_horizontal" >
 
                         <TextView
                             android:id="@+id/setting_unlimited_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/setting_unlimited" />
+                            android:text="@string/setting_unlimited"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/setting_unlimited_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                        <ToggleButton
+                            android:id="@+id/unlimit_toggle"
+                            android:layout_width="34dp"
+                            android:layout_height="23dp"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_unlimited_tv"
-                            android:src="@drawable/ic_launcher" />
+                            android:layout_marginLeft="39dp"
+                            android:background="@drawable/setting_btn_no"
+                            android:textOff=""
+                            android:textOn="" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:layout_height="35dp"
+                android:background="@color/set_tag_bg"
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/setting_age_range"
+                    android:textColor="@color/set_tag_text"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/age_range_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="@string/setting_age_range_in" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_age_range" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/setting_age_range_in"
+                    android:textColor="@color/set_tag_text"
+                    android:textSize="12sp" />
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/seek_linear"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="67dp"
                 android:background="@color/white"
-                android:orientation="vertical" >
-
-                <SeekBar
-                    android:id="@+id/seekBar1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:layout_height="35dp"
+                android:background="@color/set_tag_bg"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/setting_character_tags" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/setting_character_tags"
+                    android:textColor="@color/set_tag_text"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,119 +256,167 @@
                 android:orientation="vertical" >
 
                 <RelativeLayout
+                    android:id="@+id/personal_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="48dp" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/setting_character_tags_her" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/setting_character_tags_her"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="5dp"
+                        android:layout_height="11dp"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
                         android:src="@drawable/main_chose3_light_icon_right" />
-
-                    <GridView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                    </GridView>
                 </RelativeLayout>
+
+                <com.android.biubiu.view.MyGridView
+                    android:id="@+id/interest_tag_gv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.5dp"
+                    android:background="@color/white"
+                    android:horizontalSpacing="24dp"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="13dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:layout_height="35dp"
+                android:background="@color/set_tag_bg"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/setting_new_message_notice" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/setting_new_message_notice"
+                    android:textColor="@color/set_tag_text"
+                    android:textSize="14sp" />
             </LinearLayout>
-            <RelativeLayout 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                 <TextView
-                            android:id="@+id/setting_new_message_notice_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/setting_new_message_notice" />
 
-                        <ImageView
-                            android:id="@+id/setting_new_message_notice_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_new_message_notice_tv"
-                            android:src="@drawable/ic_launcher" />
-                
-            </RelativeLayout>
-            <View android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray"/>
-            
-             <RelativeLayout 
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                 <TextView
-                            android:id="@+id/setting_voice_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/setting_voice" />
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp" >
 
-                        <ImageView
-                            android:id="@+id/setting_voice_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_voice_tv"
-                            android:src="@drawable/ic_launcher" />
-                
+                <TextView
+                    android:id="@+id/setting_new_message_notice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_new_message_notice"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <ToggleButton
+                    android:id="@+id/newmsg_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/setting_btn_no"
+                    android:textOff=""
+                    android:textOn="" />
             </RelativeLayout>
-            <View android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray"/>
-            
-             <RelativeLayout 
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                 <TextView
-                            android:id="@+id/setting_shock_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/setting_shock" />
-
-                        <ImageView
-                            android:id="@+id/setting_shock_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/setting_shock_tv"
-                            android:src="@drawable/ic_launcher" />
-                
-            </RelativeLayout>
-            <View android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray"/>
-            <RelativeLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:background="@color/set_divider2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp" >
+
+                <TextView
+                    android:id="@+id/setting_voice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_voice"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <ToggleButton
+                    android:id="@+id/voice_toggle"
+                    android:layout_width="34dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/setting_btn_no"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/set_divider2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp" >
+
+                <TextView
+                    android:id="@+id/setting_shock_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/setting_shock"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <ToggleButton
+                    android:id="@+id/shock_toggle"
+                    android:layout_width="34dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/setting_btn_no"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/set_divider2" />
+
+            <RelativeLayout
+                android:id="@+id/logout_rl"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="25dp"
                 android:layout_marginTop="100dp"
-                android:gravity="center"
-                >
-                        <TextView android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setting_exit"/>
-                
+                android:background="@color/set_tag_bg" >
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/setting_btn_nologin"
+                    android:gravity="center"
+                    android:text="@string/setting_exit" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

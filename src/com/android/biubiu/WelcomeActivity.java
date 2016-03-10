@@ -76,7 +76,7 @@ public class WelcomeActivity extends BaseActivity {
 	private void goIndex() {
 
 
-		Intent intent = new Intent(WelcomeActivity.this,PersonalityTagActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,MatchSettingActivity.class);
 		startActivity(intent);
 		finish();
 	}
