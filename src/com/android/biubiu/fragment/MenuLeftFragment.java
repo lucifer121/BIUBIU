@@ -3,11 +3,11 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.MainActivity;
-import com.android.biubiu.activity.biu.BiuSetActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,7 +73,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 			break;
 		case R.id.left_menu_item3_rl:
 			((MainActivity)getActivity()).closeMenu();
-			Intent intentSet = new Intent(getActivity(),BiuSetActivity.class);
+			Intent intentSet = new Intent(getActivity(),MatchSettingActivity.class);
 			startActivity(intentSet);
 			getActivity().overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim);
 			break;

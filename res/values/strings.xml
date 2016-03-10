@@ -88,8 +88,9 @@
     <string name="title_activity_match_setting">MatchSettingActivity</string>
 
     <!-- 设置相关 -->
+     <string name="setting_title">设置</string>
     <string name="setting_setting">个性标签</string>
-    <string name="setting_show_to_me">向我显示</string>
+    <string name="setting_show_to_me">向我显示:</string>
     <string name="setting_boy">男生</string>
     <string name="setting_gril">女生</string>
     <string name="setting_city_common">同城</string>

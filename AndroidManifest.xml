@@ -90,10 +90,6 @@
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
         <activity
-            android:name=".activity.biu.BiuSetActivity"
-            android:label="@string/title_activity_biu_biu_send" >
-        </activity>
-        <activity
             android:name=".activity.biu.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>

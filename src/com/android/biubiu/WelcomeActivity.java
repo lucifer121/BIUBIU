@@ -78,7 +78,9 @@ public class WelcomeActivity extends BaseActivity {
 
 
 
+
 		Intent intent = new Intent(WelcomeActivity.this,MyPagerActivity.class);
+
 
 
 		startActivity(intent);
