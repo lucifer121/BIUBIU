@@ -12,11 +12,20 @@ public class InterestLableBean {
 	 * 兴趣 分组 名字
 	 */
 	private String interest;
+	private int colorBg;
 	
 	private Map<String, List<LableBean>> mInterestMap;
 
 	public int getId() {
 		return id;
+	}
+
+	public int getColorBg() {
+		return colorBg;
+	}
+
+	public void setColorBg(int colorBg) {
+		this.colorBg = colorBg;
 	}
 
 	public void setId(int id) {

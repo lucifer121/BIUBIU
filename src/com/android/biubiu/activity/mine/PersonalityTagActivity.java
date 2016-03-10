@@ -1,8 +1,11 @@
-package com.android.biubiu;
+package com.android.biubiu.activity.mine;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.biubiu.R;
+import com.android.biubiu.R.id;
+import com.android.biubiu.R.layout;
 import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.adapter.GridRecycleTagAdapter;
 import com.android.biubiu.adapter.GridRecycleTagAdapter.OnTagsItemClickCallBack;
@@ -15,7 +18,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class PersonalityTagActivity extends BaseActivity implements OnTagsItemClickCallBack{
 	private RecyclerView mRecyclerView;
@@ -25,6 +30,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private int isSelectorTagNumber=0;
 	// 计算recycle 高度
 	private int mHight;
+	private RelativeLayout backLayout,completeLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +105,25 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private void initView() {
 		// TODO Auto-generated method stub
 		mRecyclerView=(RecyclerView) findViewById(R.id.id_recyclerView_personality_tag);
+		backLayout=(RelativeLayout) findViewById(R.id.back_personality_tag_mine_rl);
+		completeLayout=(RelativeLayout) findViewById(R.id.complete_personality_tag_rl);
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+				
+			}
+		});
+		completeLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				toastShort("完成");
+			}
+		});
 	}
 	private void initAdapter() {
 		// TODO Auto-generated method stub

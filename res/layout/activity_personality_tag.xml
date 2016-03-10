@@ -2,16 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/page_tag_bg">
 
     <RelativeLayout
         android:id="@+id/top_selector_personality_tag_rl"
         android:layout_width="match_parent"
-        android:layout_height="44dp" >
+        android:layout_height="44dp"
+        android:background="@color/mine_chird_top_bg" >
 
         <RelativeLayout
-            android:id="@+id/back_changexingzuo_mine_rl"
-            android:layout_width="54dp"
+            android:id="@+id/back_personality_tag_mine_rl"
+            android:layout_width="50dp"
             android:layout_height="44dp"
             android:layout_centerVertical="true"
             android:background="@drawable/kongjianruoqu_bg"
@@ -19,9 +21,9 @@
 
             <ImageView
                 android:id="@+id/back_changexingzuo_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mine_alter_btn_back" />
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:src="@drawable/main_name_btn_back" />
         </RelativeLayout>
 
         <TextView
@@ -31,17 +33,26 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="@string/setting_character_tags"
-            android:textColor="#a0a0a0"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/mine_changexingzuo_wancheng_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textColor="#33c6e5"
-            android:textSize="15sp" />
+        <RelativeLayout
+            android:id="@+id/complete_personality_tag_rl"
+            android:layout_width="65dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/kongjianruoqu_bg"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/mine_changexingzuo_wancheng_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/mine_complete"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <View
@@ -61,9 +72,9 @@
 
     <TextView
         android:id="@+id/hint_personality_tag_tv"
-       android:layout_below="@id/id_recyclerView_personality_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/id_recyclerView_personality_tag"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:text="@string/personality_tag_hint" />

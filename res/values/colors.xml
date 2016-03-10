@@ -8,6 +8,7 @@
      <color name="ruoqu">#1a000000</color>
      <color name="gray">#cccccc</color>
      <color name="tablebar_check">#33c6e5</color> 
+       <color name="tou">#00000000</color>
      <!-- 自定义city 控件 上下划线 颜色 -->
      <color name="province_line_border">#C7C7C7</color>
     <!-- 首页 页面相关 -->
@@ -42,6 +43,11 @@
 	<color name="page_text4">#565656</color>
 	<color name="page_text5">#b0b0b0</color>
 	<color name="page_tag_bg">#f8f6f4</color>
+
+	<!-- 个人相关 -->
+	<color name="mine_chird_top_bg">#6cd1c9</color>
+	<color name="mine_chird_view_bottom">#a0a0a0</color>
+
 	<!--  设置 -->
 	<color name="set_tag_bg">#f8f6f4</color>
 	<color name="set_tag_text">#808080</color>
@@ -49,4 +55,5 @@
 	<color name="set_divider2">#f8f6f4</color>
 	<color name="set_seek_sel">#6cc1ba</color>
 	<color name="set_seek_nosel">#7e7f7f</color>
+
 </resources>

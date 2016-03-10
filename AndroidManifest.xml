@@ -93,10 +93,7 @@
             android:name=".activity.biu.MyPagerActivity"
             android:label="@string/title_activity_biu_biu_send" >
         </activity>
-        <activity
-            android:name=".ChangeUserNameActivity"
-            android:label="@string/title_activity_change_user_name" >
-        </activity>
+        
         <activity
             android:name=".activity.mine.ChangeSchoolActivity"
             android:label="@string/title_activity_change_school" >
@@ -118,11 +115,11 @@
             android:label="@string/title_activity_change_constellation" >
         </activity>
         <activity
-            android:name=".ChangeHeightWeightActivity"
+            android:name=".activity.mine.ChangeHeightWeightActivity"
             android:label="@string/title_activity_height_weight" >
         </activity>
         <activity
-            android:name=".ChangeIdentityProfessionActivity"
+            android:name=".activity.mine.ChangeIdentityProfessionActivity"
             android:label="@string/title_activity_change_identity_profession" >
         </activity>
         <activity
@@ -134,12 +131,20 @@
             android:label="@string/title_activity_match_setting" >
         </activity>
         <activity
-            android:name=".PersonalityTagActivity"
+            android:name=".activity.mine.PersonalityTagActivity"
             android:label="@string/title_activity_personality_tag" >
         </activity>
         <activity
-            android:name=".InterestLabelActivity"
+            android:name=".activity.mine.InterestLabelActivity"
             android:label="@string/title_activity_interest_label" >
+        </activity>
+        <activity
+            android:name=".ChangeHomeTwonActivity"
+            android:label="@string/title_activity_change_home_twon" >
+        </activity>
+        <activity
+            android:name=".ChangeNameActivity"
+            android:label="@string/title_activity_change_name" >
         </activity>
     </application>
 
