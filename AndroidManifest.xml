@@ -133,6 +133,10 @@
             android:name=".PersonalityTagActivity"
             android:label="@string/title_activity_personality_tag" >
         </activity>
+        <activity
+            android:name=".InterestLabelActivity"
+            android:label="@string/title_activity_interest_label" >
+        </activity>
     </application>
 
 </manifest>
