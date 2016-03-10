@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/register_bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -46,7 +47,7 @@
         android:gravity="center" >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/userhead_imv"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/main_icon" />
@@ -72,28 +73,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/in_school_imv"
+                android:layout_width="23dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="72dp"
+                android:src="@drawable/register_shenfen_imageview_btn_light" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginLeft="12dp"
                 android:text="@string/register_two_inschool" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/register_two_outschool" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/out_school_imv"
+                android:layout_width="23dp"
+                android:layout_height="22dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/register_shenfen_imageview_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="72dp"
+                android:text="@string/register_two_outschool" />
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -102,7 +126,7 @@
         android:layout_height="32dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp" >
+        android:layout_marginTop="18dp" >
 
         <ImageView
             android:id="@+id/school_registertwo_img"
@@ -110,7 +134,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_sex_icon" />
+            android:src="@drawable/register_shenfen_imageview_school" />
 
         <TextView
             android:id="@+id/school_registertwo_tv"
@@ -150,26 +174,26 @@
         android:layout_marginTop="16dp" >
 
         <ImageView
-            android:id="@+id/job_registertwo_img"
+            android:id="@+id/city_registertwo_img"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/main_birthday_icon" />
+            android:src="@drawable/register_shenfen_imageview_shenfen" />
 
         <TextView
-            android:id="@+id/job_registertwo_tv"
+            android:id="@+id/city_registertwo_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/job_registertwo_img"
-            android:hint="@string/register_two_select_job"
+            android:layout_toRightOf="@id/city_registertwo_img"
+            android:hint="@string/register_two_select_city"
             android:text=""
             android:textSize="13sp" />
 
         <ImageView
-            android:id="@+id/job_registertwo_right_img"
+            android:id="@+id/city_registertwo_right_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -192,7 +216,7 @@
         android:layout_marginLeft="62.5dp"
         android:layout_marginRight="62.5dp"
         android:layout_marginTop="78dp"
-        android:background="@drawable/main_btn_light" >
+        android:background="@drawable/register_btn_clk" >
 
         <TextView
             android:id="@+id/next_registerone_tv"

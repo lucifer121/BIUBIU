@@ -5,12 +5,12 @@
     <color name="main_green">#6dc1c9</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-     <color name="ruoqu">#1a000000</color>
-     <color name="gray">#cccccc</color>
-     <color name="tablebar_check">#33c6e5</color> 
-       <color name="tou">#00000000</color>
-     <!-- 自定义city 控件 上下划线 颜色 -->
-     <color name="province_line_border">#C7C7C7</color>
+    <color name="ruoqu">#1a000000</color>
+    <color name="gray">#cccccc</color>
+    <color name="tablebar_check">#33c6e5</color>
+    <color name="tou">#00000000</color>
+    <!-- 自定义city 控件 上下划线 颜色 -->
+    <color name="province_line_border">#C7C7C7</color>
     <!-- 首页 页面相关 -->
     <color name="circle_strok">#00FFFF</color>
     <color name="circle">#E0FFFF</color>
@@ -28,32 +28,33 @@
     <color name="login_text_hint">#b0b0b0</color>
     <color name="login_text1">#73747d</color>
     <color name="login_text2">#9dc983</color>
-   <!--  menu 菜单 -->
+    <!-- menu 菜单 -->
     <color name="left_menu_top_bg">#fdf086</color>
     <color name="name_main">#3e3e3e</color>
     <color name="left_menu_textColor">#3e3e3e</color>
     <color name="left_menu_item_color">#c0c0c0</color>
-     <!--  register注册 -->
-	<color name="register_name_text">#565656</color>
-	<color name="register_view">#d2d2d2</color>
-	<!--  个人主页 -->
-	<color name="page_text1">#808080</color>
-	<color name="page_text2">#a0a0a0</color>
-	<color name="page_text3">#6cd1c9</color>
-	<color name="page_text4">#565656</color>
-	<color name="page_text5">#b0b0b0</color>
-	<color name="page_tag_bg">#f8f6f4</color>
+    <!-- register注册 -->
+    <color name="register_name_text">#565656</color>
+    <color name="register_view">#d2d2d2</color>
+    <color name="register_bg">#fcfcf4</color>
+    <!-- 个人主页 -->
+    <color name="page_text1">#808080</color>
+    <color name="page_text2">#a0a0a0</color>
+    <color name="page_text3">#6cd1c9</color>
+    <color name="page_text4">#565656</color>
+    <color name="page_text5">#b0b0b0</color>
+    <color name="page_tag_bg">#f8f6f4</color>
 
-	<!-- 个人相关 -->
-	<color name="mine_chird_top_bg">#6cd1c9</color>
-	<color name="mine_chird_view_bottom">#a0a0a0</color>
+    <!-- 个人相关 -->
+    <color name="mine_chird_top_bg">#6cd1c9</color>
+    <color name="mine_chird_view_bottom">#a0a0a0</color>
 
-	<!--  设置 -->
-	<color name="set_tag_bg">#f8f6f4</color>
-	<color name="set_tag_text">#808080</color>
-	<color name="set_divider1">#6cd1c9</color>
-	<color name="set_divider2">#f8f6f4</color>
-	<color name="set_seek_sel">#6cc1ba</color>
-	<color name="set_seek_nosel">#7e7f7f</color>
+    <!-- 设置 -->
+    <color name="set_tag_bg">#f8f6f4</color>
+    <color name="set_tag_text">#808080</color>
+    <color name="set_divider1">#6cd1c9</color>
+    <color name="set_divider2">#f8f6f4</color>
+    <color name="set_seek_sel">#6cc1ba</color>
+    <color name="set_seek_nosel">#7e7f7f</color>
 
 </resources>

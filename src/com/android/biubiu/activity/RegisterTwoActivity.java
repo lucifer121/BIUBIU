@@ -26,6 +26,8 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 
+import com.android.biubiu.utils.Constants;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -50,6 +52,11 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	private TextView mBtnConfirm;
 	private CityDao cityDao = new CityDao();
 	private TextView cityTextView;
+	private TextView schoolTv;
+	private ImageView isStudentImv;
+	private ImageView graduateImv;
+	private ImageView userheadImv;
+	boolean isStudent = true;
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
 	@Override
@@ -75,20 +82,16 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		cityLayout.setOnClickListener(this);
 		nextLayout=(RelativeLayout) findViewById(R.id.next_registertwo_rl);
 		mBtnConfirm=(TextView) findViewById(R.id.city_selector_shengshiqu_tv);
-		cityTextView=(TextView) findViewById(R.id.job_registertwo_tv);
+		cityTextView=(TextView) findViewById(R.id.city_registertwo_tv);
+		schoolTv = (TextView) findViewById(R.id.school_registertwo_tv);
 		schoolLayout=(RelativeLayout) findViewById(R.id.registertwo_center3_rl);
-		
 		schoolLayout.setOnClickListener(this);
-		nextLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent intent=new Intent(RegisterTwoActivity.this,RegisterThreeActivity.class);
-				startActivity(intent);
-			}
-		});
-	
+		isStudentImv = (ImageView) findViewById(R.id.in_school_imv);
+		isStudentImv.setOnClickListener(this);
+		graduateImv = (ImageView) findViewById(R.id.out_school_imv);
+		graduateImv.setOnClickListener(this);
+		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
+		userheadImv.setImageBitmap(userheadBitmp);
 	}
 	
 	private PopupWindow popupWindowCity;
@@ -154,32 +157,12 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 
 		int pCurrent = mViewCity.getCurrentItem();
 		cityList = cityDao.getAllCity(mCurrentProviceName);
-		// cityList=cityDao.getAllCity(mCurrentProviceName);
 		String[] citys = new String[cityList.size()];
 
 		for (int i = 0; i < cityList.size(); i++) {
 			citys[i] = cityList.get(i).getCity();
 		}
 		mCurrentCityName = cityList.get(pCurrent).getCity();
-		// mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-
-//		townList = cityDao.getAllTown(mCurrentProviceName, mCurrentCityName);
-//		Log.e("lucifer", "townList==" + townList.size());
-//		String[] areas = new String[townList.size()];
-//
-//		for (int i = 0; i < townList.size(); i++) {
-//			areas[i] = townList.get(i).getTown();
-//		}
-//
-//		// String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-//
-//		if (areas == null) {
-//			areas = new String[] { "" };
-//		}
-//		mViewDistrict
-//				.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-//		mViewDistrict.setCurrentItem(0);
-//		mCurrentDistrictName = areas[0];
 	}
 
 	/**
@@ -218,6 +201,33 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	private void nextStep() {
+		// TODO Auto-generated method stub
+		if(null == schoolTv.getText() || schoolTv.getText().toString().equals("")){
+			if(isStudent){
+				toastShort(getResources().getString(R.string.reg_two_no_school));
+			}else{
+				toastShort(getResources().getString(R.string.reg_two_no_job));
+			}
+			return;
+		}
+		if(null == cityTextView.getText() || cityTextView.getText().toString().equals("")){
+			toastShort(getResources().getString(R.string.reg_two_no_city));
+			return;
+		}
+		if(isStudent){
+			userBean.setIsStudent(Constants.IS_STUDENT_FLAG);
+			userBean.setSchool(schoolTv.getText().toString());
+		}else{
+			userBean.setIsStudent(Constants.HAS_GRADUATE);
+			userBean.setJob(schoolTv.getText().toString());
+		}
+		userBean.setCity(cityTextView.getText().toString());
+		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
+		nextIntent.putExtra("infoBean", userBean);
+		nextIntent.putExtra("userhead", userheadBitmp);
+		startActivity(nextIntent);
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -227,8 +237,31 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			popupWindowCity.showAsDropDown(cityTextView, 0, 100);
 			break;
 		case R.id.registertwo_center3_rl:
-			Intent intent=new Intent(this,ChangeSchoolActivity.class);
-			startActivity(intent);
+			if(isStudent){
+				Intent intent=new Intent(this,ChangeSchoolActivity.class);
+				startActivity(intent);
+			}else{
+				//选择职业
+			}
+			break;
+		case R.id.next_registertwo_rl:
+			nextStep();
+			break;
+		case R.id.in_school_imv:
+			if(!isStudent){
+				isStudent = true;
+				schoolTv.setHint(getResources().getString(R.string.register_two_selecter_school));
+				isStudentImv.setImageResource(R.drawable.register_shenfen_imageview_btn_light);
+				graduateImv.setImageResource(R.drawable.register_shenfen_imageview_normal);
+			}
+			break;
+		case R.id.out_school_imv:
+			if(isStudent){
+				isStudent = false;
+				schoolTv.setHint(getResources().getString(R.string.register_two_selecter_job));
+				isStudentImv.setImageResource(R.drawable.register_shenfen_imageview_normal);
+				graduateImv.setImageResource(R.drawable.register_shenfen_imageview_btn_light);
+			}
 			break;
 		default:
 			break;
