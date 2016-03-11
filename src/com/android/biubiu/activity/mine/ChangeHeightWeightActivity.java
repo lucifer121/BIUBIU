@@ -1,9 +1,9 @@
 package com.android.biubiu.activity.mine;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;

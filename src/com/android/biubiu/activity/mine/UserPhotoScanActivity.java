@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.adapter.ScanPagerAdapter;
 
 public class UserPhotoScanActivity extends BaseActivity implements OnClickListener{

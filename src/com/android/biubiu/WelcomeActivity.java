@@ -3,10 +3,8 @@ package com.android.biubiu;
 
 
 
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
-import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;

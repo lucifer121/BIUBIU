@@ -9,8 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
-import com.android.biubiu.activity.BaseActivity;
 
 public class ScanUserHeadActivity extends BaseActivity implements OnClickListener{
 	boolean isMyself = true;

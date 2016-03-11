@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import com.android.biubiu.activity.BaseActivity;
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.Citybean;
 
 

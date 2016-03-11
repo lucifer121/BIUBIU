@@ -3,9 +3,9 @@ package com.android.biubiu.activity.mine;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.OnWheelChangedListener;

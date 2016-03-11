@@ -6,6 +6,8 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
