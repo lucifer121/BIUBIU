@@ -191,7 +191,7 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 			mEditText = (EditText) super.findViewById(R.id.content_change_grade_et);
 		}
 
-		public void addListview(List<Schools> list) {
+		public void addListview(final List<Schools> list) {
 			if (list.size() != 0) {
 				mListFindAdapter = new SchoolListAllAdapter(this, list);
 
@@ -203,10 +203,10 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
 					Intent intent = new Intent();
-					intent.putExtra("school", schoolsAlllList.get(position).getUnivsNameString());
+					intent.putExtra("school", list.get(position).getUnivsNameString());
 					setResult(RESULT_OK, intent);
 					finish();
-					toastShort(""+schoolsAlllList.get(position).getUnivsNameString());
+					toastShort(""+list.get(position).getUnivsNameString());
 					
 				}
 			});
