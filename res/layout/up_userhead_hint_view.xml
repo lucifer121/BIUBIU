@@ -2,14 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     android:orientation="vertical" >
-    <RelativeLayout 
+
+    <View
+        android:id="@+id/out_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="233dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/dialog_bg">
+        android:background="@drawable/register_imageview" >
 
         <TextView
             android:id="@+id/textView1"
@@ -17,55 +22,119 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="@string/upuserhead_texttop" />
+            android:layout_marginTop="23dp"
+            android:text="@string/upuserhead_texttop"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/up_userhead_hint1_tv"
+        <LinearLayout
+            android:id="@+id/linear_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_below="@+id/textView1"
-            android:layout_marginLeft="18dp"
-            android:text="@string/upuserhead_text1" />
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/up_userhead_hint2_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/up_userhead_hint1_tv"
-            android:layout_below="@+id/up_userhead_hint1_tv"
-            android:layout_marginTop="16dp"
-            android:text="@string/upuserhead_text2" />
+            <RelativeLayout
+                android:layout_width="18dp"
+                android:layout_height="15dp" >
 
-        <TextView
-            android:id="@+id/up_userhead_hint3_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/up_userhead_hint2_tv"
-            android:layout_below="@+id/up_userhead_hint2_tv"
-            android:layout_marginTop="20dp"
-            android:text="@string/upuserhead_text3" />
-        <View 
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
-            android:background="@color/black"/>
-        <RelativeLayout 
-            android:id="@+id/knew_bottom_up_userhead_rl"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            >
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upuserhead_knew"
-                />
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/register_imageview2" />
             </RelativeLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upuserhead_text1"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_one"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="24.5dp"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="18dp"
+                android:layout_height="15dp" >
+
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/register_imageview2" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/up_userhead_hint2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upuserhead_text2"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_two"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="24.5dp"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="18dp"
+                android:layout_height="15dp" >
+
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/register_imageview2" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/up_userhead_hint3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upuserhead_text3"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/linear_three"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/register_imageview_line" />
+
+        <RelativeLayout
+            android:id="@+id/knew_bottom_up_userhead_rl"
+            android:layout_width="match_parent"
+            android:layout_height="43.5dp"
+            android:layout_below="@+id/divider" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/upuserhead_knew"
+                android:textColor="@color/register_dialog_tv"
+                android:textSize="14sp" />
         </RelativeLayout>
-    
+    </RelativeLayout>
 
 </RelativeLayout>

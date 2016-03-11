@@ -37,6 +37,7 @@
     <color name="register_name_text">#565656</color>
     <color name="register_view">#d2d2d2</color>
     <color name="register_bg">#fcfcf4</color>
+    <color name="register_dialog_tv">#0070ff</color>
     <!-- 个人主页 -->
     <color name="page_text1">#808080</color>
     <color name="page_text2">#a0a0a0</color>

@@ -75,7 +75,7 @@ public class WelcomeActivity extends BaseActivity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-		Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,RegisterOneActivity.class);
 		startActivity(intent);
 		finish();
 	}

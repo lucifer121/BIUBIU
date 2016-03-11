@@ -82,6 +82,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		cityLayout=(RelativeLayout) findViewById(R.id.registertwo_center4_rl);
 		cityLayout.setOnClickListener(this);
 		nextLayout=(RelativeLayout) findViewById(R.id.next_registertwo_rl);
+		nextLayout.setOnClickListener(this);
 		mBtnConfirm=(TextView) findViewById(R.id.city_selector_shengshiqu_tv);
 		cityTextView=(TextView) findViewById(R.id.city_registertwo_tv);
 		schoolTv = (TextView) findViewById(R.id.school_registertwo_tv);
@@ -202,6 +203,17 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	/**
+	 * 改变下一步的背景
+	 */
+	private void changeNextBg(){
+		if(schoolTv.getText().length()>0&&cityTextView.getText().length()>0){
+			nextLayout.setBackgroundResource(R.drawable.register_btn_normal);		
+		}else{
+			nextLayout.setBackgroundResource(R.drawable.register_btn_clk);	
+		}
+
+	}
 	private void nextStep() {
 		// TODO Auto-generated method stub
 		if(null == schoolTv.getText() || schoolTv.getText().toString().equals("")){
@@ -238,6 +250,10 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			popupWindowCity.showAsDropDown(cityTextView, 0, 100);
 			break;
 		case R.id.city_selector_shengshiqu_tv:
+			if(null == cityTextView.getText()||cityTextView.getText().toString().equals("")){
+				toastShort(getResources().getString(R.string.reg_three_please_sel_city));
+				return;
+			}
 			popupWindowCity.dismiss();
 			break;
 		case R.id.registertwo_center3_rl:
@@ -279,14 +295,13 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			updateCities();
 			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
 					);
+			changeNextBg();
 		} else if (wheel == mViewCity) {
 			updateAreas();
 			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
 					);
+			changeNextBg();
 		} else if (wheel == mViewDistrict) {
-			// mCurrentDistrictName =
-			// mDistrictDatasMap.get(mCurrentCityName)[newValue];
-			// mCurrentZipCode = mZipcodeDatasMap.get(mCurrentDistrictName);
 			int pCurrent = mViewDistrict.getCurrentItem();
 			List<Citybean> townList = new ArrayList<Citybean>();
 			townList = cityDao
@@ -296,9 +311,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 				towns[i] = townList.get(i).getTown();
 			}
 			mCurrentDistrictName = towns[pCurrent];
-
 			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
 					);
+			changeNextBg();
 		}
 	}
 	@Override
@@ -309,6 +324,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		case SELECT_SCHOOL:
 			String schoolName = data.getStringExtra("school");
 			schoolTv.setText(schoolName);
+			changeNextBg();
 			break;
 
 		default:

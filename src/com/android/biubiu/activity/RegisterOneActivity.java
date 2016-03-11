@@ -11,10 +11,13 @@ import com.android.biubiu.utils.BitmapUtils;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DateUtils;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
@@ -48,11 +51,11 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private TextView addHeadTv;
 	private TextView verifyTv;
 	private ImageView userHeadImv;
-	
+
 	private static final int SELECT_PHOTO = 1001;
 	private static final int CROUP_PHOTO = 1002;
 	Bitmap userheadBitmap = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -61,19 +64,19 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		setContentView(R.layout.activity_registerone_layout);
 		initView();
 	}
-	
+
 	private void initView() {
 		// TODO Auto-generated method stub
-		
+
 		nextLayout=(RelativeLayout) findViewById(R.id.next_registerone_rl);
 		backLayout=(RelativeLayout) findViewById(R.id.back_registerone_rl);
 		backLayout.setOnClickListener(this);
 		birthTv=(TextView) findViewById(R.id.brith_registerone_tv);
 		brithdayLayout=(RelativeLayout) findViewById(R.id.registerone_center4_rl);
 		brithdayLayout.setOnClickListener(this);
-		
+
 		sexLayout=(RelativeLayout) findViewById(R.id.registerone_center3_rl);
-		
+
 		uSexTv=(TextView) findViewById(R.id.sex_registerone_tv);
 		uNameEt=(EditText) findViewById(R.id.name_registerone_et);
 		userHeadLayout=(RelativeLayout) findViewById(R.id.registerone_center1_rl);
@@ -84,12 +87,12 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		addHeadTv = (TextView) findViewById(R.id.add_userhead_tv);
 		verifyTv = (TextView) findViewById(R.id.virify_tv);
 		userHeadImv = (ImageView) findViewById(R.id.userhead_imv);
-		
+
 		addHeadTv.setVisibility(View.VISIBLE);
 		verifyTv.setVisibility(View.GONE);
-	
+
 	}
-	
+
 	/**
 	 * Editview 输入框监听事件
 	 */
@@ -125,7 +128,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}else{
 			nextLayout.setBackgroundResource(R.drawable.register_btn_clk);	
 		}
-		
+
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -151,13 +154,12 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.registerone_center1_rl:
 			//头像点击
-			//PerfectInformation.showDiolagPerfertInformation(this);
-			uploadHead();
+			showHeadDialog();
 			break;
 		case R.id.registerone_center3_rl:
 			initPopupWindowSex();
 			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
-			
+
 			break;
 		case R.id.next_registerone_rl:
 			nextStep();
@@ -165,7 +167,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		default:
 			break;
 		}
-		
+
 	}
 	private void nextStep() {
 		// TODO Auto-generated method stub
@@ -199,13 +201,6 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		startActivity(intent);
 	}
 
-	private void uploadHead() {
-		// TODO Auto-generated method stub
-		Intent intent = new Intent(Intent.ACTION_PICK, null);
-		intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-				"image/*");
-		startActivityForResult(intent, SELECT_PHOTO);
-	}
 	@Override
 	protected Dialog onCreateDialog(int id) {
 
@@ -251,7 +246,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			ivwoman_selector = (ImageView) view
 					.findViewById(R.id.iv_woman_sexselector);
 			ivman_selector.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
@@ -261,7 +256,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 				}
 			});
 			ivwoman_selector.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
@@ -271,6 +266,27 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 				}
 			});
 		}
+	}
+	public void showHeadDialog() {
+		 PerfectInformation.headDialog(RegisterOneActivity.this, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						"image/*");
+				startActivityForResult(intent, SELECT_PHOTO);
+				dialog.dismiss();
+			}
+		},new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
 	}
 	/**
 	 * 调用系统的裁剪功能
