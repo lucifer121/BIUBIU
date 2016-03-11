@@ -22,6 +22,23 @@
                 android:background="@drawable/main_imageview_bg" >
 
                 <RelativeLayout
+                    android:id="@+id/back_rl"
+                    android:layout_width="52dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/kongjianruoqu_bg" >
+
+                    <ImageView
+                        android:id="@+id/title_left_imv"
+                        android:layout_width="22dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:padding="6dp"
+                        android:src="@drawable/main_name_btn_back" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/userhead_layout"
                     android:layout_width="89dp"
                     android:layout_height="89dp"
@@ -608,8 +625,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
                         android:text="@string/page_personal_tag"
                         android:textColor="@color/page_text4"
                         android:textSize="14sp" />
@@ -687,8 +704,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
                         android:text="@string/page_interest_tag"
                         android:textColor="@color/page_text4"
                         android:textSize="14sp" />
@@ -730,8 +747,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/page_tag_bg"
+                android:orientation="vertical"
                 android:paddingBottom="25dp"
                 android:paddingTop="80dp" >
 

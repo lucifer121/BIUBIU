@@ -136,7 +136,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
-			overridePendingTransition(0,R.anim.right_out_anim);
+			//overridePendingTransition(0,R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -148,10 +148,10 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		case R.id.back_registerone_rl:
 			//返回
 			finish();
-			overridePendingTransition(0,R.anim.right_out_anim);
+			break;
 		case R.id.registerone_center4_rl:
 			//生日点击
-			showDialog(1);
+			selectTime();
 			break;
 		case R.id.registerone_center1_rl:
 			//头像点击
@@ -170,6 +170,27 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}
 
 	}
+	private void selectTime() {
+		// TODO Auto-generated method stub
+		Time time = new Time("GMT+8");
+		time.setToNow();
+		int year = time.year;
+		int month = time.month;
+		int day = time.monthDay;
+		new DatePickerDialog(this, new OnDateSetListener() {
+
+			@Override
+			public void onDateSet(DatePicker arg0, int year, int month, int day) {
+				// TODO Auto-generated method stub
+				birthTv.setText(year + "-" + (month + 1) + "-" + day);
+				changeNextBg();
+				// 转成时间戳
+				birthLong = DateUtils.getStringToDate(birthTv.getText()
+						.toString());
+			}
+		}, year, month, day).show();
+	}
+
 	private void nextStep() {
 		// TODO Auto-generated method stub
 		if(userheadBitmap == null){
@@ -191,42 +212,13 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		UserInfoBean bean = new UserInfoBean();
 		bean.setBirthday(birthTv.getText().toString());
 		bean.setNickname(uNameEt.getText().toString());
-		if(uSexTv.getText().toString().equals("男")){
-			bean.setSex(Constants.SEX_MALE);
-		}else{
-			bean.setSex(Constants.SEX_FAMALE);
-		}
+		bean.setSex(uSexTv.getText().toString());
 		Intent intent=new Intent(this,RegisterTwoActivity.class);
 		intent.putExtra("infoBean", bean);
 		intent.putExtra("userhead", userheadBitmap);
 		startActivity(intent);
 	}
 
-	@Override
-	protected Dialog onCreateDialog(int id) {
-
-		Time time = new Time("GMT+8");
-		time.setToNow();
-		int year = time.year;
-		int month = time.month;
-		int day = time.monthDay;
-		// TODO Auto-generated method stub
-
-		return new DatePickerDialog(this, new OnDateSetListener() {
-
-			@Override
-			public void onDateSet(DatePicker arg0, int year, int month, int day) {
-				// TODO Auto-generated method stub
-				Log.e("lucifer", "DatePicker==" + arg0);
-				birthTv.setText(year + "-" + (month + 1) + "-" + day);
-				changeNextBg();
-				// 转成时间戳
-				birthLong = DateUtils.getStringToDate(birthTv.getText()
-						.toString());
-			}
-		}, year, month, day);
-
-	}
 	private PopupWindow popupWindowSex;
 
 	private void initPopupWindowSex() {
@@ -269,8 +261,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}
 	}
 	public void showHeadDialog() {
-		 PerfectInformation.headDialog(RegisterOneActivity.this, new DialogInterface.OnClickListener() {
-			
+		PerfectInformation.headDialog(RegisterOneActivity.this, new DialogInterface.OnClickListener() {
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
@@ -281,7 +273,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 				dialog.dismiss();
 			}
 		},new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub

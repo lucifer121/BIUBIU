@@ -3,6 +3,8 @@ package com.android.biubiu.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.android.biubiu.utils.Constants;
+
 public class UserInfoBean implements Serializable{
 	private String id;
 	private String nickname;
@@ -55,6 +57,11 @@ public class UserInfoBean implements Serializable{
 		return sex;
 	}
 	public void setSex(String sex) {
+		if(sex.equals(Constants.SEX_MALE)){
+			this.sex = "男";
+		}else{
+			this.sex = "女";
+		}
 		this.sex = sex;
 	}
 	public String getBirthday() {
@@ -117,5 +124,11 @@ public class UserInfoBean implements Serializable{
 	public void setInterestTags(ArrayList<String> interestTags) {
 		this.interestTags = interestTags;
 	}
-
+	public String getSexFlag(){
+		if(sex.equals("男")){
+			return Constants.SEX_MALE;
+		}else{
+			return Constants.SEX_FAMALE;
+		}
+	}
 }
