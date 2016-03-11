@@ -103,33 +103,13 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 				public void onItemClick(AdapterView<?> arg0, View view,
 						int position, long arg3) {
 					// TODO Auto-generated method stub
-
-//					log.e("lucifer", ""
-//							+ schoolsAlllList.get(position).getUnivsId()
-//							+ " "
-//							+ schoolsAlllList.get(position)
-//									.getUnivsNameString());
-//
-//					Intent intent = new Intent(ChangeSchoolActivity.this,
-//							ChangeMajorActivity.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putSerializable("schools",
-//							schoolsAlllList.get(position));
-//					intent.putExtras(bundle);
-//
-//					startActivityForResult(intent, 20);
+					Intent intent = new Intent();
+					intent.putExtra("school", schoolsAlllList.get(position).getUnivsNameString());
+					setResult(RESULT_OK, intent);
+					finish();
 					toastShort(""+schoolsAlllList.get(position).getUnivsNameString());
 				}
 			});
-
-		
-			// listView 加头
-		/*	LinearLayout hearderViewLayout = (LinearLayout) LayoutInflater.from(
-					this).inflate(R.layout.listview_schooll_find_head, null);
-			mListViewFind.addHeaderView(hearderViewLayout);*/
-			// mListFindAdapter=new SchoolListAllAdapter(this, list);
-
-		
 
 			mEditText.addTextChangedListener(new TextWatcher() {
 
@@ -221,15 +201,10 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
-					// TODO
-
-//					Intent intent = new Intent(ChangeSchoolActivity.this,
-//							ChangeMajorActivity.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putSerializable("schools",
-//							schoolsFindList.get(position));
-//					intent.putExtras(bundle);
-//					startActivityForResult(intent, 20);
+					Intent intent = new Intent();
+					intent.putExtra("school", schoolsAlllList.get(position).getUnivsNameString());
+					setResult(RESULT_OK, intent);
+					finish();
 					toastShort(""+schoolsAlllList.get(position).getUnivsNameString());
 					
 				}

@@ -15,10 +15,24 @@ public class UserInfoBean implements Serializable{
 	private String heightWeight;
 	private String identity;
 	private String school;
+	private String job;
+	private String isStudent;
 	private ArrayList<String> personalTags;
 	private ArrayList<String> interestTags;
 	private ArrayList<String> userPhotos;
 	
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getIsStudent() {
+		return isStudent;
+	}
+	public void setIsStudent(String isStudent) {
+		this.isStudent = isStudent;
+	}
 	public ArrayList<String> getUserPhotos() {
 		return userPhotos;
 	}

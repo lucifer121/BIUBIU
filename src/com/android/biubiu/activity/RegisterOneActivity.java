@@ -8,6 +8,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.PerfectInformation;
 import com.android.biubiu.utils.BitmapUtils;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DateUtils;
 
 import android.app.DatePickerDialog;
@@ -187,7 +188,11 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		UserInfoBean bean = new UserInfoBean();
 		bean.setBirthday(birthTv.getText().toString());
 		bean.setNickname(uNameEt.getText().toString());
-		bean.setSex(uSexTv.getText().toString());
+		if(uSexTv.getText().toString().equals("男")){
+			bean.setSex(Constants.SEX_MALE);
+		}else{
+			bean.setSex(Constants.SEX_FAMALE);
+		}
 		Intent intent=new Intent(this,RegisterTwoActivity.class);
 		intent.putExtra("infoBean", bean);
 		intent.putExtra("userhead", userheadBitmap);
