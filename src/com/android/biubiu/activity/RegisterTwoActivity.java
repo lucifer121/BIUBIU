@@ -120,6 +120,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		userheadImv.setImageBitmap(userheadBitmp);
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
 		backRl.setOnClickListener(this);
+		
+		
 	}
 	private PopupWindow popWindowProfession;
 	private void initPopupWindowProfession() {
@@ -317,8 +319,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
+			cityTextView.setText("北京 东城区");
 			initPopupWindowCity();
-			popupWindowCity.showAsDropDown(cityTextView, 0, 100);
+			popupWindowCity.showAsDropDown(cityTextView, 0, 200);
 			break;
 		case R.id.city_selector_shengshiqu_tv:
 			popupWindowCity.dismiss();
@@ -330,7 +333,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			}else{
 				//选择职业
 				initPopupWindowProfession();
-				popWindowProfession.showAsDropDown(cityTextView, 0, 100);
+				popWindowProfession.showAsDropDown(cityTextView, 0, 200);
 			}
 			break;
 		case R.id.next_registertwo_rl:
@@ -364,12 +367,12 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		// TODO Auto-generated method stub
 		if (wheel == mViewProvince) {
 			updateCities();
-			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
+			cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName
 					);
 			changeNextBg();
 		} else if (wheel == mViewCity) {
 			updateAreas();
-			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
+			cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName
 					);
 			changeNextBg();
 		} else if (wheel == mViewDistrict) {
@@ -382,13 +385,14 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 				towns[i] = townList.get(i).getTown();
 			}
 			mCurrentDistrictName = towns[pCurrent];
-			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
+			cityTextView.setText("" + mCurrentProviceName+" " + mCurrentCityName
 					);
 			changeNextBg();
 		}else if(wheel == mViewProfesstion){
 
-
+			
 			int pCurrent = mViewProfesstion.getCurrentItem();
+			
 			schoolTv.setText(mIdentity[pCurrent]);
 		} 
 

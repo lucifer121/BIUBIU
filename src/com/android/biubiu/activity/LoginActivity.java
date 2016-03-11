@@ -174,6 +174,12 @@ public class LoginActivity extends BaseActivity{
 					String code = jsons.getString("state");
 					JSONObject obj = jsons.getJSONObject("data");
 					String token = obj.getString("token");
+					
+					String hxName=obj.getString("username");
+					String HxPassword=obj.getString("password");
+					
+					LogUtil.d(TAG,"name=="+hxName+"  password==="+HxPassword );
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
