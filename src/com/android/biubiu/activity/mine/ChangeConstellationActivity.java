@@ -15,11 +15,15 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ChangeConstellationActivity extends BaseActivity implements
 		OnWheelChangedListener {
 	private WheelView mViewConstellation;
+	private RelativeLayout backLayout,completeLayout;
 	/**
 	 * 所有星座
 	 */
@@ -44,6 +48,24 @@ public class ChangeConstellationActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		mViewConstellation = (WheelView) findViewById(R.id.id_constellation);
 		constellation=(TextView) findViewById(R.id.constellationName_change_city_tv);
+		backLayout=(RelativeLayout) findViewById(R.id.back_changexingzuo_mine_rl);
+		completeLayout=(RelativeLayout) findViewById(R.id.mine_changexingzuo_wancheng_rl);
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		completeLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				toastShort("wancheng");
+			}
+		});
 
 	}
 

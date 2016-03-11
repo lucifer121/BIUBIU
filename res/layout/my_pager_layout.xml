@@ -609,6 +609,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
                         android:text="@string/page_personal_tag"
                         android:textColor="@color/page_text4"
                         android:textSize="14sp" />
@@ -687,6 +688,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
                         android:text="@string/page_interest_tag"
                         android:textColor="@color/page_text4"
                         android:textSize="14sp" />

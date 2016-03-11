@@ -12,6 +12,7 @@
         android:background="@color/left_menu_top_bg" />
 
     <RelativeLayout
+        android:id="@+id/main_touxiang_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -33,7 +34,7 @@
             android:layout_below="@id/main_touxiang_img"
             android:layout_centerInParent="true"
             android:layout_marginTop="8dp"
-            android:text="@string/name_main"
+            android:text="@string/name_regist_hint"
             android:textColor="@color/name_main"
             android:textSize="14sp" />
 
