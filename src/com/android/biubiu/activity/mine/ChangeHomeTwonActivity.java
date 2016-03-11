@@ -1,10 +1,12 @@
-package com.android.biubiu;
+package com.android.biubiu.activity.mine;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.biubiu.R;
+import com.android.biubiu.R.id;
+import com.android.biubiu.R.layout;
 import com.android.biubiu.activity.BaseActivity;
-import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
@@ -55,6 +57,7 @@ OnClickListener, OnWheelChangedListener{
 	private void initView() {
 		// TODO Auto-generated method stub
 		homeName = (TextView) super.findViewById(R.id.hometwonName_change_city_tv);
+		
 	}
 
 	private void setUpViews() {
@@ -203,6 +206,9 @@ OnClickListener, OnWheelChangedListener{
 			Intent intent2 = new Intent();
 			intent2.putExtra("city", city);
 			ChangeHomeTwonActivity.this.setResult(RESULT_CANCELED, intent2);
+			finish();
+			break;
+		case R.id.back_changehometwon_mine_rl:
 			finish();
 			break;
 		default:

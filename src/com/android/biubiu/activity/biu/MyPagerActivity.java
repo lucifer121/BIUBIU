@@ -20,17 +20,16 @@ import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.android.biubiu.ChangeHomeTwonActivity;
-import com.android.biubiu.ChangeNameActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 import com.android.biubiu.activity.mine.ChangeHeightWeightActivity;
+import com.android.biubiu.activity.mine.ChangeHomeTwonActivity;
 import com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity;
+import com.android.biubiu.activity.mine.ChangeNameActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
-
 import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;

@@ -9,6 +9,7 @@ import java.util.List;
 import com.android.biubiu.R;
 
 
+import com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.bean.UserInfoBean;
@@ -49,7 +50,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	private static final int SELECT_SCHOOL = 1001;
 	private RelativeLayout nextLayout;
 	private RelativeLayout cityLayout,schoolLayout;
-	private WheelView	mViewProvince,mViewCity,mViewDistrict;
+	private WheelView	mViewProvince,mViewCity,mViewDistrict,mViewProfesstion;
 	private TextView mBtnConfirm;
 	private CityDao cityDao = new CityDao();
 	private TextView cityTextView;
@@ -60,6 +61,24 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	boolean isStudent = true;
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
+	/**
+	 * 所有身份职业
+	 */
+	private String mIdentity[]={
+			"学生",
+			"媒体/公关",
+			"金融",
+			"法律",
+			"销售",
+			"咨询",
+			"IT/互联网/通信",
+			"文化/艺术",
+			"影视/娱乐",
+			"教育/科研",
+			"医疗/健康",
+			"房地产/建筑",
+			"政府机构"
+			};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -94,7 +113,64 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setImageBitmap(userheadBitmp);
 	}
+	private PopupWindow popWindowProfession;
+	private void initPopupWindowProfession() {
+		if (popWindowProfession == null) {
+			View view = LayoutInflater.from(this).inflate(R.layout.professtion_popwindow,
+					null);
+			popWindowProfession = new PopupWindow(view,
+					ViewGroup.LayoutParams.MATCH_PARENT,
+					ViewGroup.LayoutParams.MATCH_PARENT);
+			// 设置外观
+			popWindowProfession.setFocusable(true);
+			popWindowProfession.setOutsideTouchable(true);
+			ColorDrawable colorDrawable = new ColorDrawable();
+			popWindowProfession.setBackgroundDrawable(colorDrawable);
+			// tvTitle=(TextView)view.findViewById(R.id.tvcolectList);
+
+			mViewProfesstion = (WheelView) view.findViewById(R.id.id_professtion_wheelView);
+			mViewProfesstion.addChangingListener(RegisterTwoActivity.this);
+			TextView complete=(TextView) view.findViewById(R.id.professtion_selector_tv);
+			
+			complete.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					popWindowProfession.dismiss();
+				}
+			});
+			setUpDataProfesstion();
+//			mViewCity = (WheelView) view.findViewById(R.id.id_city);
+//			mViewDistrict = (WheelView) view.findViewById(R.id.id_district);
+//			mBtnConfirm = (TextView) view
+//					.findViewById(R.id.city_selector_shengshiqu_tv);
+//
+//			// 添加change事件
+//			mViewProvince.addChangingListener(RegisterTwoActivity.this);
+//			mViewProvince
+//					.addChangingListener(RegisterTwoActivity.this);
+//			// 添加change事件
+//			mViewCity.addChangingListener(RegisterTwoActivity.this);
+//			// 添加change事件
+//			mViewDistrict
+//					.addChangingListener(RegisterTwoActivity.this);
+//			// 添加onclick事件
+//			mBtnConfirm.setOnClickListener(this);
+//			setUpData();
+		}
+
+	}
 	
+	private void setUpDataProfesstion() {
+		// TODO Auto-generated method stub
+		mViewProfesstion.setViewAdapter(new ArrayWheelAdapter<String>(
+				RegisterTwoActivity.this, mIdentity));
+
+	//	Log.e("lucifer", "mProvinceDatas.length==" + mProvinceDatas.length);
+		// 设置可见条目数量
+		mViewProfesstion.setVisibleItems(7);
+	}
 	private PopupWindow popupWindowCity;
 
 	private void initPopupWindowCity() {
@@ -246,6 +322,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 				startActivityForResult(intent, SELECT_SCHOOL);
 			}else{
 				//选择职业
+				initPopupWindowProfession();
+				popWindowProfession.showAsDropDown(cityTextView, 0, 100);
 			}
 			break;
 		case R.id.next_registertwo_rl:
@@ -299,7 +377,13 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 
 			cityTextView.setText("" + mCurrentProviceName + mCurrentCityName
 					);
-		}
+		}else if(wheel == mViewProfesstion){
+			
+
+				int pCurrent = mViewProfesstion.getCurrentItem();
+				schoolTv.setText(mIdentity[pCurrent]);
+			} 
+		
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

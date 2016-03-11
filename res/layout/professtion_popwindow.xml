@@ -1,10 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    
+    android:layout_height="wrap_content"   
     android:orientation="vertical"
-  	android:background="@color/white"
+   android:background="@color/white"
      >
 	<View  android:layout_width="match_parent"
 		    android:layout_height="1px"
@@ -15,7 +14,7 @@
         android:orientation="vertical"       
          >     
         <TextView
-            android:id="@+id/city_selector_shengshiqu_tv"
+            android:id="@+id/professtion_selector_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"          
             android:textSize="14sp"
@@ -40,27 +39,13 @@
         android:orientation="horizontal" >
 
         <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_province"
-            android:layout_width="10dp"
+            android:id="@+id/id_professtion_wheelView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+             >
         </com.android.biubiu.common.city.WheelView>
         
 
-        <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_city"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.android.biubiu.common.city.WheelView>
-
-        <com.android.biubiu.common.city.WheelView
-            android:id="@+id/id_district"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" 
-            android:visibility="gone">
-        </com.android.biubiu.common.city.WheelView> 
     </LinearLayout>
 
     

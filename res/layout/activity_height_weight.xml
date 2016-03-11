@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/page_tag_bg">
+    android:background="@color/page_tag_bg"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/top_changname_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:gravity="center"
-        android:background="@color/mine_chird_top_bg" >
+        android:background="@color/mine_chird_top_bg"
+        android:gravity="center" >
 
         <RelativeLayout
-            android:id="@+id/back_changexingzuo_mine_rl"
-            android:layout_width="54dp"
+            android:id="@+id/back_changeheight_mine_rl"
+            android:layout_width="50dp"
             android:layout_height="44dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -38,17 +38,24 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <RelativeLayout 
+            android:id="@+id/mine_changeHeight_wanchengrl"
+            android:layout_width="64dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:background="@drawable/kongjianruoqu_bg"
+            android:layout_alignParentRight="true">
         <TextView
-            android:id="@+id/mine_changexingzuo_wancheng_bt"
+            android:id="@+id/mine_changeHeight_wancheng_bt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/back_changename_mine"
-            android:layout_alignParentRight="true"
+           
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text=""
-            android:textColor="#33c6e5"
-            android:textSize="15sp" />
+           
+            android:text="@string/mine_complete"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <View
@@ -96,17 +103,14 @@
         android:layout_marginTop="6dp"
         android:background="#33c6e5" />
 
-    
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        
-       
-        android:orientation="vertical"
-        android:background="@color/white" >
+        android:layout_marginTop="60dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,10 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:textColor="#a0a0a0"
-                
-               
-                android:text="@string/mine_height_weight_hint" />
+                android:text="@string/mine_height_weight_hint"
+                android:textColor="#a0a0a0" />
 
             <View
                 android:layout_width="match_parent"
@@ -137,7 +139,6 @@
                 android:id="@+id/id_hight_myview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
                 android:layout_weight="1"
                 android:background="@color/gray" >
             </com.android.biubiu.common.city.WheelView>
@@ -146,8 +147,8 @@
                 android:id="@+id/id_weight_myview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                
                 android:layout_weight="1"
-                android:layout_marginTop="60dp"
                 android:background="@color/gray" >
             </com.android.biubiu.common.city.WheelView>
         </LinearLayout>

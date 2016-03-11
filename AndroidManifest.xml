@@ -187,11 +187,11 @@
             android:label="@string/title_activity_interest_label" >
         </activity>
         <activity
-            android:name=".ChangeHomeTwonActivity"
+            android:name="com.android.biubiu.activity.mine.ChangeHomeTwonActivity"
             android:label="@string/title_activity_change_home_twon" >
         </activity>
         <activity
-            android:name=".ChangeNameActivity"
+            android:name="com.android.biubiu.activity.mine.ChangeNameActivity"
             android:label="@string/title_activity_change_name" >
         </activity>
     </application>

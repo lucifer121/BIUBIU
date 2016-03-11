@@ -11,6 +11,9 @@ import com.android.biubiu.common.city.WheelView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelChangedListener{
@@ -20,6 +23,8 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 //	private String heights[]={"170","171","172"},weights[]={"40","50","60"};
 	private TextView nheightWeight;
 	private int pHeightCurrent=0,pWeightCurrent=0;
+	
+	private RelativeLayout backLayout,completeLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,25 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 		heightWheelView=(WheelView) findViewById(R.id.id_hight_myview);
 		weightWheelView=(WheelView) findViewById(R.id.id_weight_myview);
 		nheightWeight=(TextView) findViewById(R.id.height_weight_change_city_tv);
+		
+		backLayout=(RelativeLayout) findViewById(R.id.back_changeheight_mine_rl);
+		completeLayout=(RelativeLayout) findViewById(R.id.mine_changeHeight_wanchengrl);
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		completeLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				toastShort("完成");
+			}
+		});
 	}
 	private void setUpListener() {
 		// 添加change事件

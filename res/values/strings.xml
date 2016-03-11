@@ -14,6 +14,7 @@
     <string name="login_bottom_text2">用户协议</string>
     <!-- menuleft 页面相关 -->
     <string name="name_main">lucifer</string>
+    <string name="name_regist_hint">登录注册</string>
     <string name="left_menu_biubiu">biubiu</string>
     <string name="left_menu_message">消息</string>
     <string name="left_menu_matchSetting">匹配设置</string>
@@ -63,7 +64,7 @@
     <string name="mine_height_weight_title">修改身高体重</string>
     <string name="mine_identity_profession_title">选择身份职业</string>
     <string name="mine_selectoe_school_title">选择学校</string>
-    <string name="mine_selectoe_username_title">修改名字</string>
+    <string name="mine_selectoe_username_title">修改昵称</string>
     <string name="mine_selectoe_city_title">选择你的城市</string>
 
     <!-- 个人主页 -->
