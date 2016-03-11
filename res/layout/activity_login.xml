@@ -65,7 +65,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="18dp"
             android:hint="@string/login_phone_hint"
-            android:textColor="@color/black"
+            android:textColor="@color/login_text_hint"
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
             android:textSize="16sp" />
@@ -100,7 +100,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="18dp"
             android:hint="@string/login_password_hint"
-            android:textColor="@color/black"
+            android:textColor="@color/login_text_hint"
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
             android:textSize="16sp" />

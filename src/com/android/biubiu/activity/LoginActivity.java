@@ -11,10 +11,15 @@ import org.xutils.http.RequestParams;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.utils.LogUtil;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends BaseActivity{
+	private String TAG="LoginActivity";
 	private EditText phoneEt;
 	private EditText passwordEt;
 	private TextView forgetPsdTv;
@@ -54,7 +60,12 @@ public class LoginActivity extends BaseActivity{
 		loginBtn = (Button) findViewById(R.id.login_btn);
 		backImv = (ImageView) findViewById(R.id.title_left_imv);
 		backLayout=(RelativeLayout) findViewById(R.id.title_left_rl);
+		phoneEt.addTextChangedListener(watcher);
+		passwordEt.addTextChangedListener(watcher);
 	}
+	/**
+	 * 点击事件
+	 */
 	private void initClick() {
 		// TODO Auto-generated method stub
 		loginBtn.setOnClickListener(new OnClickListener() {
@@ -62,7 +73,8 @@ public class LoginActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				login();
+				login(phoneEt.getText().toString(),passwordEt.getText().toString());
+				loginHuanXin(phoneEt.getText().toString(),passwordEt.getText().toString());
 			}
 		});
 		backLayout.setOnClickListener(new OnClickListener() {
@@ -85,16 +97,47 @@ public class LoginActivity extends BaseActivity{
 			}
 		});
 	}
+	
+	private TextWatcher watcher = new TextWatcher() {
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// TODO Auto-generated method stub
+		//	changeNextBg();
+			if(phoneEt.getText().length()>0&&passwordEt.getText().length()>0){
+				loginBtn.setBackgroundResource(R.drawable.register_btn_normal);
+				
+			}else{
+				loginBtn.setBackgroundResource(R.drawable.register_btn_clk);	
+			}
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			// TODO Auto-generated method stub
+
+		}
+	};
+	
+	
 	//测试登录的方法
-	protected void login() {
+	protected void login(String uName,String uPassword) {
 		// TODO Auto-generated method stub
 		RequestParams params = new RequestParams("http://123.56.193.210:8080/meetu_maven/app/auth/login");
 		JSONObject requestObject = new JSONObject();
 		try {
-			requestObject.put("phone", "12365478968");
-			requestObject.put("password", "123456");
+			requestObject.put("phone", uName);
+			requestObject.put("password", uPassword);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -149,4 +192,33 @@ public class LoginActivity extends BaseActivity{
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	/**
+	 * 登录环信客户端 建立长连接
+	 * @param username
+	 * @param password
+	 */
+	public void loginHuanXin(String username,String password){
+		EMClient.getInstance().login(username, password, new EMCallBack() {
+			
+			@Override
+			public void onSuccess() {
+				LogUtil.e(TAG, "登录成功环信");
+				
+			}
+			
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, "登陆聊天服务器失败！");
+			}
+		});
+		
+	}
+	
 }
