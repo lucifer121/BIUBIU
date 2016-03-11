@@ -133,8 +133,8 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="14dp"
                     android:layout_marginBottom="14dp"
+                    android:layout_marginTop="14dp"
                     android:background="@color/set_divider1" />
 
                 <LinearLayout
@@ -208,20 +208,33 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:text="@string/setting_age_range"
+                    android:text="@string/setting_age_range_in"
                     android:textColor="@color/set_tag_text"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/age_range_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:text="@string/setting_age_range_in"
-                    android:textColor="@color/set_tag_text"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/age_min_tv"
+                        android:text="@string/setting_age_range"
+                        android:textColor="@color/set_tag_text"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:text="@string/setting_age_range"
+                        android:textColor="@color/set_tag_text"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/age_max_tv"
+                        android:text="@string/setting_age_range"
+                        android:textColor="@color/set_tag_text"
+                        android:textSize="12sp" />
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -408,9 +421,9 @@
                 android:id="@+id/logout_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/set_tag_bg"
                 android:paddingBottom="50dp"
-                android:paddingTop="100dp"
-                android:background="@color/set_tag_bg" >
+                android:paddingTop="100dp" >
 
                 <TextView
                     android:layout_width="250dp"

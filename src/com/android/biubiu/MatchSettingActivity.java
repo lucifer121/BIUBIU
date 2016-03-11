@@ -1,5 +1,6 @@
 package com.android.biubiu;
 
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
@@ -7,6 +8,7 @@ import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private ToggleButton girlToggle;
 	private ToggleButton cityToggle;
 	private ToggleButton unLimitToggle;
-	private TextView ageRangeTv;
+	private TextView ageMinTv;
+	private TextView ageMaxTv;
 	private RelativeLayout personalTagRl;
 	private MyGridView tagGv;
 	private ToggleButton newMsgToggle;
@@ -45,6 +48,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_match_setting);
 		initView();
+		setRangeAge();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -54,29 +58,46 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		girlToggle = (ToggleButton) findViewById(R.id.girl_toggle);
 		cityToggle = (ToggleButton) findViewById(R.id.city_toggle);
 		unLimitToggle = (ToggleButton) findViewById(R.id.unlimit_toggle);
-		ageRangeTv = (TextView) findViewById(R.id.age_range_tv);
+		ageMinTv = (TextView) findViewById(R.id.age_min_tv);
+		ageMaxTv = (TextView) findViewById(R.id.age_max_tv);
 		personalTagRl = (RelativeLayout) findViewById(R.id.personal_rl);
 		personalTagRl.setOnClickListener(this);
-		tagGv = (MyGridView) findViewById(R.id.personal_tag_gv);
+		tagGv = (MyGridView) findViewById(R.id.interest_tag_gv);
 		newMsgToggle = (ToggleButton) findViewById(R.id.newmsg_toggle);
 		voiceToggle = (ToggleButton) findViewById(R.id.voice_toggle);
 		shockToggle = (ToggleButton) findViewById(R.id.shock_toggle);
 		logoutRl = (RelativeLayout) findViewById(R.id.logout_rl);
 		logoutRl.setOnClickListener(this);
 		seekLinear = (LinearLayout) findViewById(R.id.seek_linear);
-
-		RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(18, 30, this);
+		initToggle();
+	}
+	private void setRangeAge() {
+		ageMinTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, 0));
+		ageMaxTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, 0));
+		RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(16, 40, this);
+		int maxAge = Integer.parseInt(ageMinTv.getText().toString());
+		int minAge = Integer.parseInt(ageMaxTv.getText().toString());
+		seekBar.setSelectedMaxValue(maxAge);
+		seekBar.setSelectedMinValue(minAge);
 		seekBar.setOnRangeSeekBarChangeListener(new OnRangeSeekBarChangeListener<Integer>() {
 			@Override
 			public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar,
 					Integer minValue, Integer maxValue) {
 				Log.d("mytest","min=="+minValue+"  max=="+maxValue);
-				ageRangeTv.setText(minValue+"-"+maxValue);
+				ageMinTv.setText(minValue+"");
+				ageMaxTv.setText(maxValue+"");
 			}
 		});       
 		seekBar.setNotifyWhileDragging(true);
 		seekLinear.addView(seekBar);
-		initToggle();
+	}
+	//保存设置年龄范围
+	private void saveRangeAge() {
+		// TODO Auto-generated method stub
+		int minAge = Integer.parseInt(ageMinTv.getText().toString());
+		SharePreferanceUtils.getInstance().putShared(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, minAge);
+		int maxAge = Integer.parseInt(ageMaxTv.getText().toString());
+		SharePreferanceUtils.getInstance().putShared(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, maxAge);
 	}
 	private void initToggle() {
 		// TODO Auto-generated method stub
@@ -198,6 +219,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back_rl:
+			saveRangeAge();
 			finish();
 			break;
 		case R.id.personal_rl:
@@ -207,5 +229,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		default:
 			break;
 		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			saveRangeAge();
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

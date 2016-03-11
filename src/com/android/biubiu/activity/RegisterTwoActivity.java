@@ -22,11 +22,6 @@ import com.android.biubiu.common.city.WheelView;
 import com.android.biubiu.sqlite.CityDao;
 
 
-
-
-
-
-
 import com.android.biubiu.utils.Constants;
 
 import android.content.Intent;
