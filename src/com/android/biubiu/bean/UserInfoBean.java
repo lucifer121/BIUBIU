@@ -19,10 +19,17 @@ public class UserInfoBean implements Serializable{
 	private String school;
 	private String job;
 	private String isStudent;
+	private String aboutMe;
 	private ArrayList<String> personalTags;
 	private ArrayList<String> interestTags;
 	private ArrayList<String> userPhotos;
 	
+	public String getAboutMe() {
+		return aboutMe;
+	}
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
 	public String getJob() {
 		return job;
 	}

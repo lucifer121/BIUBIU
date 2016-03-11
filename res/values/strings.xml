@@ -10,6 +10,7 @@
     <string name="login_password_hint">输入密码</string>
     <string name="login_text">登录</string>
     <string name="login_froget_psd">忘记密码?</string>
+     <string name="login_froget_psd_title">忘记密码</string>
     <string name="login_bottom_text">注册和登录表示同意</string>
     <string name="login_bottom_text2">用户协议</string>
     <!-- menuleft 页面相关 -->
@@ -70,6 +71,7 @@
 
     <!-- 个人主页 -->
     <string name="page_aboutme">关于我</string>
+    <string name="page_no_aboutme">关于我的信息不能为空</string>
     <string name="page_userinfo">基本信息</string>
     <string name="page_school">学校</string>
     <string name="page_identity">身份</string>
@@ -100,7 +102,6 @@
     <string name="setting_city_common">同城</string>
     <string name="setting_unlimited">不限</string>
     <string name="setting_age_range_in">年龄范围</string>
-    <string name="setting_age_range">18-24</string>
     <string name="setting_character_tags">个性标签</string>
     <string name="setting_character_tags_her">Ta的个性标签</string>
     <string name="setting_new_message_notice">新消息通知</string>

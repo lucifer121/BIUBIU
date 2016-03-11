@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title_back_rl"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/main_green" >
+
+        <RelativeLayout
+            android:id="@+id/back_rl"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/kongjianruoqu_bg" >
+
+            <ImageView
+                android:id="@+id/title_left_imv"
+                android:layout_width="22dp"
+                android:layout_height="26dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:padding="6dp"
+                android:src="@drawable/main_name_btn_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/photo_index_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="关于我"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/complete_rl"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/kongjianruoqu_bg"
+            android:paddingRight="20dp" >
+
+            <TextView
+                android:id="@+id/title_complete_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="完成"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/about_me_tv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:lineSpacingExtra="8dp"
+        android:maxLines="10"
+        android:padding="20dp"
+        android:textColor="@color/main_text_gray"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="6dp"
+            android:text="500"
+            android:textColor="@color/main_text_gray"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+</LinearLayout>

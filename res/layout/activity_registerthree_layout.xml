@@ -138,6 +138,7 @@
             android:gravity="center"
             android:background="@drawable/register_phone_btn"
             android:textSize="10sp"
+            android:textColor="@color/main_text_gray"
             android:text="@string/register_three_send_verify" />
     </LinearLayout>
 

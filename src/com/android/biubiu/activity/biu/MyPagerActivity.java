@@ -1,12 +1,19 @@
 package com.android.biubiu.activity.biu;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +29,7 @@ import android.widget.TextView;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.mine.AboutMeActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
@@ -36,10 +44,16 @@ import com.android.biubiu.activity.mine.ScanUserHeadActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.view.MyGridView;
 
 public class MyPagerActivity extends BaseActivity implements OnClickListener{
+	private static final int UPDATE_INFO = 1001;
+	private static final int UPDATE_PHOTOS = 1002;
+	private static final int UPDATE_PERSONAL_TAG = 1003;
+	private static final int UPDATE_INTEREST_TAG = 1004;
+	private static final int UPDATE_HEAD = 1005;
 	private ImageView userheadImv;
 	private TextView usernameTv;
 	private ImageView addPhotoImv;
@@ -70,7 +84,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout interestTagLinear;
 	private MyGridView interestTagGv;
 	private RelativeLayout backRl;
-
+	private RelativeLayout userInfoLinear;
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private ArrayList<View> photoPageViews = new ArrayList<View>();
@@ -79,6 +93,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private boolean isOpen = false;
 	private UserPagerTagAdapter personalAdapter;
 	private UserPagerTagAdapter interestAdapter;
+	ArrayList<String> photoList = new ArrayList<String>();
+	ArrayList<String> personalTagList = new ArrayList<String>();
+	ArrayList<String> interestTagList = new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -87,7 +104,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		setContentView(R.layout.my_pager_layout);
 		initView();
 		TestUserBean();
-		setUserInfoView();
+		setUserInfoView(infoBean);
+		setUserPhotos(photoList);
+		setPersonalTags(personalTagList);
+		setInterestTags(interestTagList);
 	}
 
 	private void TestUserBean() {
@@ -114,6 +134,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		infoBean.setUserPhotos(photos);
 		infoBean.setPersonalTags(tags);
 		infoBean.setInterestTags(tags);
+		infoBean.setAboutMe(getResources().getString(R.string.page_test));
+		infoBean.setIsStudent(Constants.IS_STUDENT_FLAG);
+
+		photoList.addAll(infoBean.getUserPhotos());
+		interestTagList.addAll(infoBean.getInterestTags());
+		personalTagList.addAll(infoBean.getPersonalTags());
 	}
 
 	private void initView() {
@@ -128,6 +154,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		userInfoBigTv = (TextView) findViewById(R.id.userinfo_big_tv);
 		userOpenTv = (TextView) findViewById(R.id.open_tv);
 		userOpenTv.setOnClickListener(this);
+		userInfoLinear = (RelativeLayout) findViewById(R.id.userinfo_linear);
+		userInfoLinear.setOnClickListener(this);
 		nicknameLinear = (LinearLayout) findViewById(R.id.nickname_linear);
 		nicknameLinear.setOnClickListener(this);
 		nicknameTv = (TextView) findViewById(R.id.nickname_tv);
@@ -172,46 +200,42 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoPager.setOffscreenPageLimit(3);
 		photoPager.setPageMargin(DensityUtil.dip2px(getApplicationContext(), 10));
 	}
-	private void setUserInfoView() {
+	private void setUserInfoView(UserInfoBean bean) {
 		// TODO Auto-generated method stub
-		x.image().bind(userheadImv, infoBean.getUserHead(), imageOptions);
-		usernameTv.setText(infoBean.getNickname());
-		nicknameTv.setText(infoBean.getNickname());
-		sexTv.setText(infoBean.getSex());
-		birthdayTv.setText(infoBean.getBirthday());
-		starSignTv.setText(infoBean.getStar());
-		cityTv.setText(infoBean.getCity());
-		hometownTv.setText(infoBean.getHomeTown());
-		heightWeightTv.setText(infoBean.getHeightWeight());
-		identityTv.setText(infoBean.getIdentity());
-		schoolTv.setText(infoBean.getSchool());
+		x.image().bind(userheadImv, bean.getUserHead(), imageOptions);
+		usernameTv.setText(bean.getNickname());
+		nicknameTv.setText(bean.getNickname());
+		sexTv.setText(bean.getSex());
+		birthdayTv.setText(bean.getBirthday());
+		starSignTv.setText(bean.getStar());
+		cityTv.setText(bean.getCity());
+		hometownTv.setText(bean.getHomeTown());
+		heightWeightTv.setText(bean.getHeightWeight());
+		identityTv.setText(bean.getIdentity());
+		schoolTv.setText(bean.getSchool());
 
 		userInfoTv.setText(R.string.page_test);
 		userInfoBigTv.setText(R.string.page_test);
-
-		setUserPhotos();
-		setPersonalTags();
-		setInterestTags();
 	}
-	private void setUserPhotos() {
+	private void setUserPhotos(ArrayList<String> photos) {
 		// TODO Auto-generated method stub
 		photoPageViews.clear();
-		for(int i=0;i<infoBean.getUserPhotos().size();i++){
+		for(int i=0;i<photos.size();i++){
 			LayoutInflater inflater = getLayoutInflater();
 			View view = inflater.inflate(R.layout.userpager_photo_item, null);
 			photoPageViews.add(view);
 		}
-		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), infoBean.getUserPhotos(), imageOptions, photoPageViews);
+		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions, photoPageViews);
 		photoPager.setAdapter(photoAdapter);
 	}
-	private void setInterestTags() {
+	private void setInterestTags(ArrayList<String> tags) {
 		// TODO Auto-generated method stub
-		interestAdapter = new UserPagerTagAdapter(getApplicationContext(), infoBean.getInterestTags());
+		interestAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		interestTagGv.setAdapter(interestAdapter);
 	}
-	private void setPersonalTags() {
+	private void setPersonalTags(ArrayList<String> tags) {
 		// TODO Auto-generated method stub
-		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), infoBean.getPersonalTags());
+		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
 	}
 	@Override
@@ -221,6 +245,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
 			headIntent.putExtra("userhead", infoBean.getUserHead());
+			headIntent.putExtra("isMyself", true);
 			startActivity(headIntent);
 			break;
 		case R.id.open_tv:
@@ -237,7 +262,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 			break;
 		case R.id.add_userphoto_imv:
-
+			Intent intent = new Intent(Intent.ACTION_PICK, null);
+			intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+					"image/*");
+			startActivityForResult(intent, UPDATE_PHOTOS);
+			break;
+		case R.id.userinfo_linear:
+			Intent aboutIntent = new Intent(MyPagerActivity.this,AboutMeActivity.class);
+			aboutIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(aboutIntent, UPDATE_INFO);
 			break;
 		case R.id.nickname_linear:
 			Intent nicknameIntent = new Intent(MyPagerActivity.this,ChangeNameActivity.class);
@@ -258,7 +291,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.hometown_linear:
 			Intent homeIntent = new Intent(MyPagerActivity.this,ChangeHomeTwonActivity.class);
 			startActivity(homeIntent);
-
 			break;
 		case R.id.height_weight_linear:
 			Intent tallIntent = new Intent(MyPagerActivity.this,ChangeHeightWeightActivity.class);
@@ -287,5 +319,70 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		}
 	}
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case UPDATE_INFO:
+			if(resultCode != RESULT_OK){
+				return;
+			}
+			if(data ==null ){
+				return;
+			}
+			UserInfoBean bean = (UserInfoBean) data.getSerializableExtra("userInfoBean");
+			Log.d("mytest", "bean"+bean);
+			setUserInfoView(bean);
+			break;
+		case UPDATE_PHOTOS:
+			if(null == data){
+				return;
+			}
+			Bitmap bm = null;
+			//外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
+			ContentResolver resolver = getContentResolver();
+			//获得图片的uri 
+			Uri originalUri = data.getData();      
+			//显得到bitmap图片这里开始的第二部分，获取图片的路径：
+			try {
+				bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+				String[] proj = {MediaStore.Images.Media.DATA};
+				//好像是android多媒体数据库的封装接口，具体的看Android文档
+				Cursor cursor = managedQuery(originalUri, proj, null, null, null); 
+				//按我个人理解 这个是获得用户选择的图片的索引值
+				int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				//将光标移至开头 ，这个很重要，不小心很容易引起越界
+				cursor.moveToFirst();
+				//最后根据索引值获取图片路径
+				String path = cursor.getString(column_index);
+				//上传图片，成功后更新界面
+				//uploadImg(path);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			break;
+		case UPDATE_HEAD:
+			if(null == data){
+				return;
+			}
+			break;
+		case UPDATE_INTEREST_TAG:
+			if(null == data){
+				return;
+			}
+			break;
+		case UPDATE_PERSONAL_TAG:
+			if(null == data){
+				return;
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }

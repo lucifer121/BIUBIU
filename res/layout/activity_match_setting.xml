@@ -222,16 +222,21 @@
 
                     <TextView
                         android:id="@+id/age_min_tv"
-                        android:text="@string/setting_age_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
+
                     <TextView
-                        android:text="@string/setting_age_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/age_max_tv"
-                        android:text="@string/setting_age_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
                 </LinearLayout>

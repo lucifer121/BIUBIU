@@ -72,8 +72,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		initToggle();
 	}
 	private void setRangeAge() {
-		ageMinTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, 0));
-		ageMaxTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, 0));
+		ageMinTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, 16));
+		ageMaxTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, 40));
 		RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(16, 40, this);
 		int maxAge = Integer.parseInt(ageMinTv.getText().toString());
 		int minAge = Integer.parseInt(ageMaxTv.getText().toString());
