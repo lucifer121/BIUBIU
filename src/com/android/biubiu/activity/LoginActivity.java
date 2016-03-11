@@ -9,8 +9,10 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ public class LoginActivity extends BaseActivity{
 	private TextView protocolTv;
 	private Button loginBtn;
 	private ImageView backImv;
+	private RelativeLayout backLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -49,6 +53,7 @@ public class LoginActivity extends BaseActivity{
 		protocolTv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		loginBtn = (Button) findViewById(R.id.login_btn);
 		backImv = (ImageView) findViewById(R.id.title_left_imv);
+		backLayout=(RelativeLayout) findViewById(R.id.title_left_rl);
 	}
 	private void initClick() {
 		// TODO Auto-generated method stub
@@ -60,7 +65,7 @@ public class LoginActivity extends BaseActivity{
 				login();
 			}
 		});
-		backImv.setOnClickListener(new OnClickListener() {
+		backLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -68,6 +73,15 @@ public class LoginActivity extends BaseActivity{
 				finish();
 				overridePendingTransition(0,     
 						R.anim.right_out_anim);
+			}
+		});
+		forgetPsdTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

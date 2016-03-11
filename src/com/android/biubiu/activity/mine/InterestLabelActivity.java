@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.color;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.adapter.InterestLableListViewAdapter;
 import com.android.biubiu.bean.InterestLableBean;
 import com.android.biubiu.bean.LableBean;

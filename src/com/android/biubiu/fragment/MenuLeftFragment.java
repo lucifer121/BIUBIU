@@ -3,11 +3,11 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
-import com.android.biubiu.activity.MainActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
 
 import android.content.Intent;

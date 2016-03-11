@@ -18,10 +18,11 @@ import java.util.List;
 
 
 
+
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 
 
 import com.android.biubiu.adapter.SchoolListAllAdapter;

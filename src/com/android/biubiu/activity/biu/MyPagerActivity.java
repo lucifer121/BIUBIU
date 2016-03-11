@@ -20,8 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;

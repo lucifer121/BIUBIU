@@ -1,6 +1,5 @@
 package com.android.biubiu;
 
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;

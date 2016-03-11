@@ -39,11 +39,11 @@
     <string name="register_two_inschool">我还在读</string>
     <string name="register_two_outschool">我已毕业</string>
     <string name="register_two_selecter_school">选择学校</string>
-     <string name="register_two_selecter_job">选择职业</string>
+    <string name="register_two_selecter_job">选择职业</string>
     <string name="register_two_select_city">选择城市</string>
     <string name="register_three_phone">输入手机号</string>
     <string name="register_three_verify">输入验证码</string>
-     <string name="register_three_send_verify">获取验证码</string>
+    <string name="register_three_send_verify">获取验证码</string>
     <string name="register_three_psd">输入密码，6-16位数字、字母</string>
     <string name="title_activity_change_school">ChangeSchoolActivity</string>
     <string name="title_activity_change_brithday">ChangeBrithdayActivity</string>
@@ -123,5 +123,6 @@
     <string name="reg_three_please_sel_city">请选择城市</string>
     <string name="title_activity_change_home_twon">ChangeHomeTwonActivity</string>
     <string name="title_activity_change_name">ChangeNameActivity</string>
+    <string name="title_activity_forget_password">ForgetPasswordActivity</string>
 
 </resources>

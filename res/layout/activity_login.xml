@@ -9,16 +9,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/main_yello" >
+        android:background="@color/main_green" >
+        <RelativeLayout 
+            android:id="@+id/title_left_rl"
+            android:layout_width="50dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true">
         <ImageView
             android:id="@+id/title_left_imv"
-            android:layout_width="23dp"
-            android:layout_height="32dp"
-            android:padding="6dp"
+            android:layout_width="11dp"
+            android:layout_height="22dp"           
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:src="@drawable/main_icon_back" />
+            
+            android:src="@drawable/main_name_btn_back" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/title_tv"
@@ -26,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/login_title_text"
-            android:textColor="@color/login_title_text"
+            android:text="@string/login_text"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
 
@@ -36,7 +42,7 @@
         android:layout_height="65dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="81dp"
-        android:src="@drawable/main_icon" />
+        android:src="@drawable/regist_imageview_intophoto" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +55,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/main_phone_icon" />
+            android:src="@drawable/login_imaginview_phone" />
 
         <EditText
             android:id="@+id/phone_tv"
@@ -84,7 +90,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="40dp"
-            android:src="@drawable/main_mima_icon" />
+            android:src="@drawable/login_imaginview_number" />
 
         <EditText
             android:id="@+id/password_tv"
@@ -131,7 +137,7 @@
         android:layout_height="44dp"
         android:layout_gravity="center"
         android:layout_marginTop="36dp"
-        android:background="@drawable/main_btn_none"
+        android:background="@drawable/register_btn_clk"
         android:text="@string/login_text"
         android:textColor="@color/login_text1"
         android:textSize="15sp" />
@@ -151,9 +157,10 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" 
                 android:text="@string/login_bottom_text"
-                android:textSize="11dp" />
+                android:textColor="#b0b0b0"
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/protocol_tv"
@@ -161,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/login_bottom_text2"
                 android:textColor="@color/login_text2"
-                android:textSize="11dp"
+                android:textSize="11sp"
                  />
         </LinearLayout>
     </RelativeLayout>

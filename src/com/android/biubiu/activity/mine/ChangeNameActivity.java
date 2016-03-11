@@ -1,9 +1,9 @@
 package com.android.biubiu.activity.mine;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 
 import android.os.Bundle;
 import android.app.Activity;

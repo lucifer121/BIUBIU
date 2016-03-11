@@ -3,10 +3,10 @@ package com.android.biubiu.activity.mine;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
-import com.android.biubiu.activity.BaseActivity;
 import com.android.biubiu.adapter.GridRecycleTagAdapter;
 import com.android.biubiu.adapter.GridRecycleTagAdapter.OnTagsItemClickCallBack;
 import com.android.biubiu.bean.PersonalTagBean;
