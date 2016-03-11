@@ -1,6 +1,8 @@
 package com.android.biubiu.activity;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -21,9 +23,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,6 +60,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private static final int SELECT_PHOTO = 1001;
 	private static final int CROUP_PHOTO = 1002;
 	Bitmap userheadBitmap = null;
+	String headPath = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +202,10 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			toastShort(getResources().getString(R.string.reg_one_no_userhead));
 			return;
 		}
+		if(headPath.equals("")){
+			toastShort(getResources().getString(R.string.reg_one_no_userhead));
+			return;
+		}
 		if(null == uNameEt.getText().toString() || uNameEt.getText().toString().equals("")){
 			toastShort(getResources().getString(R.string.reg_one_no_nickname));
 			return;
@@ -216,6 +225,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		Intent intent=new Intent(this,RegisterTwoActivity.class);
 		intent.putExtra("infoBean", bean);
 		intent.putExtra("userhead", userheadBitmap);
+		intent.putExtra("headPath", headPath);
 		startActivity(intent);
 	}
 
@@ -300,6 +310,26 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, CROUP_PHOTO);
 	}
+	public String saveHeadImg(Bitmap head) {
+		FileOutputStream fos = null;
+		String path = "";
+		path = Environment.getExternalStorageDirectory()
+				+ "/biubiu/"+System.currentTimeMillis()+".png";
+		File file = new File(path);
+		file.getParentFile().mkdirs();
+		try {
+			file.createNewFile();
+			fos = new FileOutputStream(file);
+			head.compress(CompressFormat.PNG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -314,6 +344,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				userheadBitmap = extras.getParcelable("data");
+				headPath = saveHeadImg(userheadBitmap);
 				userHeadImv.setImageBitmap(userheadBitmap);
 				addHeadTv.setVisibility(View.GONE);
 				verifyTv.setBackgroundResource(R.drawable.register_imageview_photo_bg);

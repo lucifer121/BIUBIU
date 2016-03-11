@@ -6,6 +6,19 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
@@ -52,6 +65,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	UserInfoBean userBean;
 	Bitmap userheadBitmp = null;
 	String deviceId = "";
+	String headPath;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -66,6 +80,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		userBean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
+		headPath = getIntent().getStringExtra("headPath");
 		userheadBitmp = bitmp;
 	}
 	private void initView() {
@@ -197,18 +212,60 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-					upLoadPic();
+					asyncPutObjectFromLocalFile();
 				} else {
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
 		});
 	}
-	//上传头像
-	protected void upLoadPic() {
-		// TODO Auto-generated method stub
-		userBean.setUserHead("http://iconurl");
-		registerRequest();
+	// 从本地文件上传，使用非阻塞的异步接口
+	public void asyncPutObjectFromLocalFile() {
+		String endpoint = "http://oss-cn-beijing.aliyuncs.com";
+		OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
+		ClientConfiguration conf = new ClientConfiguration();
+		conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+		conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
+		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+		OSSLog.enableLog();
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
+		// 构造上传请求
+		PutObjectRequest put = new PutObjectRequest("protect-app", "head.png", headPath);
+
+		// 异步上传时可以设置进度回调
+		put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
+			@Override
+			public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
+				Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
+			}
+		});
+		OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+			@Override
+			public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+				Log.d("PutObject", "UploadSuccess");
+				Log.d("ETag", result.getETag());
+				Log.d("RequestId", result.getRequestId());
+				Log.d("mytest", result.toString());
+				userBean.setUserHead("http://iconurl");
+				registerRequest();
+			}
+			@Override
+			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				// 请求异常
+				if (clientExcepion != null) {
+					// 本地异常如网络异常等
+					clientExcepion.printStackTrace();
+				}
+				if (serviceException != null) {
+					// 服务异常
+					Log.e("ErrorCode", serviceException.getErrorCode());
+					Log.e("RequestId", serviceException.getRequestId());
+					Log.e("HostId", serviceException.getHostId());
+					Log.e("RawMessage", serviceException.getRawMessage());
+				}
+			}
+		});
 	}
 	//注册
 	private void registerRequest() {
@@ -236,19 +293,19 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -261,6 +318,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
 					String token = obj.getString("token");
+					toastShort("注册成功");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

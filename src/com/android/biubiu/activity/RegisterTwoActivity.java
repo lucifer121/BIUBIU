@@ -65,6 +65,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	boolean isStudent = true;
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
+	String headPath;
 	/**
 	 * 所有身份职业
 	 */
@@ -94,6 +95,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		// TODO Auto-generated method stub
 		UserInfoBean bean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
+		headPath = getIntent().getStringExtra("headPath");
 		userBean.setSex(bean.getSex());
 		userBean.setBirthday(bean.getBirthday());
 		userBean.setSex(bean.getSex());
@@ -309,6 +311,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
 		nextIntent.putExtra("infoBean", userBean);
 		nextIntent.putExtra("userhead", userheadBitmp);
+		nextIntent.putExtra("headPath", headPath);
 		startActivity(nextIntent);
 	}
 	@Override
