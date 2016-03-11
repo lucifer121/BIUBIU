@@ -32,6 +32,7 @@ import com.android.biubiu.activity.mine.ChangeNameActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.activity.mine.PersonalityTagActivity;
+import com.android.biubiu.activity.mine.ScanUserHeadActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.UserInfoBean;
@@ -68,6 +69,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private MyGridView personalTagGv;
 	private LinearLayout interestTagLinear;
 	private MyGridView interestTagGv;
+	private RelativeLayout backRl;
 
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
@@ -158,6 +160,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		interestTagLinear = (LinearLayout) findViewById(R.id.interest_tag_linear);
 		interestTagLinear.setOnClickListener(this);
 		interestTagGv = (MyGridView) findViewById(R.id.interest_tag_gv);
+		backRl = (RelativeLayout) findViewById(R.id.back_rl);
+		backRl.setOnClickListener(this);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -215,7 +219,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.userhead_imv:
-
+			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
+			headIntent.putExtra("userhead", infoBean.getUserHead());
+			startActivity(headIntent);
 			break;
 		case R.id.open_tv:
 			if(isOpen){
@@ -274,7 +280,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			Intent interestLableIntent=new Intent(MyPagerActivity.this,InterestLabelActivity.class);
 			startActivity(interestLableIntent);
 			break;
-
+		case R.id.back_rl:
+			finish();
+			break;
 		default:
 			break;
 		}

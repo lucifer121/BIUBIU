@@ -27,7 +27,7 @@
     <string name="register_one_hint_name">填写昵称</string>
     <string name="register_one_hint_sex">选择性别</string>
     <string name="register_one_hint_brith">选择生日</string>
-    <string name="register_one_hint_next">下一页</string>
+    <string name="register_one_hint_next">下一步</string>
     <string name="register_complete">完成</string>
     <string name="upuserhead_texttop">请上传真实头像</string>
     <string name="upuserhead_text1">biubiu提倡年轻人真诚互动交流，真实头像便与信任</string>
@@ -120,6 +120,7 @@
     <string name="reg_three_no_phone">手机号不能为空</string>
     <string name="reg_three_no_verify">验证码不能为空</string>
     <string name="reg_three_no_password">密码不能为空</string>
+     <string name="reg_three_error_verify">验证码错误</string>
     <string name="reg_three_please_sel_city">请选择城市</string>
     <string name="title_activity_change_home_twon">ChangeHomeTwonActivity</string>
     <string name="title_activity_change_name">ChangeNameActivity</string>

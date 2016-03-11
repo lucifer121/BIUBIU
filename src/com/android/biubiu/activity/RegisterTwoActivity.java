@@ -42,6 +42,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +59,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	private ImageView isStudentImv;
 	private ImageView graduateImv;
 	private ImageView userheadImv;
+	private LinearLayout isStudentLinear;
+	private LinearLayout graduateLinear;
+	private RelativeLayout backRl;
 	boolean isStudent = true;
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
@@ -65,7 +69,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	 * 所有身份职业
 	 */
 	private String mIdentity[]={
-			"学生",
 			"媒体/公关",
 			"金融",
 			"法律",
@@ -108,11 +111,15 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		schoolLayout=(RelativeLayout) findViewById(R.id.registertwo_center3_rl);
 		schoolLayout.setOnClickListener(this);
 		isStudentImv = (ImageView) findViewById(R.id.in_school_imv);
-		isStudentImv.setOnClickListener(this);
 		graduateImv = (ImageView) findViewById(R.id.out_school_imv);
-		graduateImv.setOnClickListener(this);
+		isStudentLinear = (LinearLayout) findViewById(R.id.is_student_linear);
+		isStudentLinear.setOnClickListener(this);
+		graduateLinear = (LinearLayout) findViewById(R.id.graduate_linear);
+		graduateLinear.setOnClickListener(this);
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setImageBitmap(userheadBitmp);
+		backRl = (RelativeLayout) findViewById(R.id.back_rl);
+		backRl.setOnClickListener(this);
 	}
 	private PopupWindow popWindowProfession;
 	private void initPopupWindowProfession() {
@@ -142,23 +149,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 				}
 			});
 			setUpDataProfesstion();
-			//			mViewCity = (WheelView) view.findViewById(R.id.id_city);
-			//			mViewDistrict = (WheelView) view.findViewById(R.id.id_district);
-			//			mBtnConfirm = (TextView) view
-			//					.findViewById(R.id.city_selector_shengshiqu_tv);
-			//
-			//			// 添加change事件
-			//			mViewProvince.addChangingListener(RegisterTwoActivity.this);
-			//			mViewProvince
-			//					.addChangingListener(RegisterTwoActivity.this);
-			//			// 添加change事件
-			//			mViewCity.addChangingListener(RegisterTwoActivity.this);
-			//			// 添加change事件
-			//			mViewDistrict
-			//					.addChangingListener(RegisterTwoActivity.this);
-			//			// 添加onclick事件
-			//			mBtnConfirm.setOnClickListener(this);
-			//			setUpData();
 		}
 
 	}
@@ -307,9 +297,11 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		if(isStudent){
 			userBean.setIsStudent(Constants.IS_STUDENT_FLAG);
 			userBean.setSchool(schoolTv.getText().toString());
+			userBean.setJob("");
 		}else{
 			userBean.setIsStudent(Constants.HAS_GRADUATE);
 			userBean.setJob(schoolTv.getText().toString());
+			userBean.setSchool("");
 		}
 		userBean.setCity(cityTextView.getText().toString());
 		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
@@ -320,16 +312,15 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.back_rl:
+			finish();
+			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 100);
 			break;
 		case R.id.city_selector_shengshiqu_tv:
-			if(null == cityTextView.getText()||cityTextView.getText().toString().equals("")){
-				toastShort(getResources().getString(R.string.reg_three_please_sel_city));
-				return;
-			}
 			popupWindowCity.dismiss();
 			break;
 		case R.id.registertwo_center3_rl:
@@ -345,17 +336,19 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		case R.id.next_registertwo_rl:
 			nextStep();
 			break;
-		case R.id.in_school_imv:
+		case R.id.is_student_linear:
 			if(!isStudent){
 				isStudent = true;
+				schoolTv.setText("");
 				schoolTv.setHint(getResources().getString(R.string.register_two_selecter_school));
 				isStudentImv.setImageResource(R.drawable.register_shenfen_imageview_btn_light);
 				graduateImv.setImageResource(R.drawable.register_shenfen_imageview_normal);
 			}
 			break;
-		case R.id.out_school_imv:
+		case R.id.graduate_linear:
 			if(isStudent){
 				isStudent = false;
+				schoolTv.setText("");
 				schoolTv.setHint(getResources().getString(R.string.register_two_selecter_job));
 				isStudentImv.setImageResource(R.drawable.register_shenfen_imageview_normal);
 				graduateImv.setImageResource(R.drawable.register_shenfen_imageview_btn_light);

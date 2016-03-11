@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="@color/register_bg"
     android:gravity="bottom"
     android:orientation="horizontal" >
 
@@ -23,15 +23,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textSize="11sp"
             android:textColor="@color/register_name_text"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:text="@string/register_one_sex_dralog_hint" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
-            
             android:layout_toLeftOf="@id/hint_dialog_sex_tv"
+            android:layout_marginLeft="10dp"
             android:background="@color/register_view" />
 
         <View
@@ -39,6 +42,7 @@
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/hint_dialog_sex_tv"
+            android:layout_marginRight="10dp"
             android:background="@color/register_view" />
     </RelativeLayout>
 
