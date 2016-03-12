@@ -17,7 +17,7 @@ public class SharePreferanceUtils {
 		return shareUtils;
 	}
 	/**
-	 * 获取是否为第一次安装
+	 * 获取token
 	 * @param context
 	 * @param prefKey "token"
 	 * @param defValue
