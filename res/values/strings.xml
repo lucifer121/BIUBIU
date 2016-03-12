@@ -8,7 +8,7 @@
     <string name="login_title_text">注册</string>
     <string name="login_phone_hint">手机号码</string>
     <string name="login_password_hint">输入密码</string>
-    <string name="login_text">登录</string>
+    <string name="login_text">登 录</string>
     <string name="login_froget_psd">忘记密码?</string>
      <string name="login_froget_psd_title">忘记密码</string>
     <string name="login_bottom_text">注册和登录表示同意</string>
@@ -46,6 +46,7 @@
     <string name="register_three_verify">输入验证码</string>
     <string name="register_three_send_verify">获取验证码</string>
     <string name="register_three_psd">输入密码，6-16位数字、字母</string>
+    <string name="register_forget_psd">重置密码，6-16位数字、字母</string>
     <string name="title_activity_change_school">ChangeSchoolActivity</string>
     <string name="title_activity_change_brithday">ChangeBrithdayActivity</string>
     <string name="title_activity_change_city_main">ChangeCityMainActivity</string>

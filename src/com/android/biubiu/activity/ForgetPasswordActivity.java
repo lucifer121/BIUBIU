@@ -125,7 +125,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		if(uPhone.getText().length()>0&&uYanzhengma.getText().length()>0&&uPassword.getText().length()>0){
 			completelayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			completelayout.setBackgroundResource(R.drawable.register_btn_clk);	
+			completelayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
 		}
 
 	}

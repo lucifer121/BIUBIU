@@ -119,10 +119,12 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:gravity="center"
                 android:text="@string/mine_height_weight_hint"
-                android:textColor="#a0a0a0" />
+                android:textColor="@color/mine_chird_top_bg"
+    	    android:textSize="17sp"
+    	    android:layout_marginLeft="10dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -152,6 +154,9 @@
                 android:background="@color/gray" >
             </com.android.biubiu.common.city.WheelView>
         </LinearLayout>
+         <View android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>

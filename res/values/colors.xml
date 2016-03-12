@@ -2,7 +2,7 @@
 <resources>
 
     <color name="main_yello">#FDF086</color>
-    <color name="main_green">#6dc1c9</color>
+    <color name="main_green">#6cd1c9</color>
     <color name="main_bg">#fcfcf4</color>
     <color name="main_text_gray">#565656</color>
     <color name="white">#FFFFFF</color>

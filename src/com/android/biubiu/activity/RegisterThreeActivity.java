@@ -140,7 +140,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		if(registerPhoneEt.getText().length()>0&&verifyCodeEt.getText().length()>0&&verifyCodeEt.getText().length()>0){
 			compLayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			compLayout.setBackgroundResource(R.drawable.register_btn_clk);	
+			compLayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
 		}
 
 	}

@@ -275,7 +275,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		if(schoolTv.getText().length()>0&&cityTextView.getText().length()>0){
 			nextLayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			nextLayout.setBackgroundResource(R.drawable.register_btn_clk);	
+			nextLayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
 		}
 
 	}
