@@ -31,7 +31,7 @@ public class BiubiuApplication extends Application{
 
         x.Ext.setDebug(BuildConfig.DEBUG);
         EMOptions options = new EMOptions();
-        options.setAutoLogin(false);
+     //   options.setAutoLogin(false);
         EaseUI.getInstance().init(applicationContext, options);
         
         LogUtil.e(TAG, "APPICATION  start");

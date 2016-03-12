@@ -99,7 +99,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	private void getIntentInfo() {
 		// TODO Auto-generated method stub
 		userBean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
-		System.out.println(userBean.getNickname());
+		//System.out.println(userBean.getNickname());
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
 		headPath = getIntent().getStringExtra("headPath");
 		userheadBitmp = bitmp;

@@ -9,4 +9,17 @@ public class HttpContants {
 	public static final String MY_PAGER_INFO = "app/info/getUserInfo";
 	//阿里云
 	public static final String A_LI_YUN = "http://oss-cn-beijing.aliyuncs.com";
+	/**
+	 * 登录
+	 */
+	public static final String LOGIN="app/auth/login";
+	/**
+	 * 退出登录/注销
+	 */
+	public static final String EXIT="app/auth/logout";
+	/**
+	 * 更改密码
+	 */
+	public static final String UPDATE_PASSWORD="app/auth/updatePassword";
+
 }

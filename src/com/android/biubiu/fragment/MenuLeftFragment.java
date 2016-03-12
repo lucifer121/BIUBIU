@@ -9,6 +9,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuLeftFragment extends Fragment implements OnClickListener {
@@ -31,6 +33,12 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			leadLayout, shareLayout;
 	private ImageView userHead;
 	private RelativeLayout userHeadLayout;
+	
+	private TextView userName;
+	/**
+	 * 是否已经登录
+	 */
+	private Boolean isLogin=false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +46,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		if (mView == null) {
 			initView(inflater, container);
 		}
+		
 
 		return mView;
 	}
@@ -57,12 +66,19 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		userHead = (ImageView) mView.findViewById(R.id.main_touxiang_img);
 		userHeadLayout = (RelativeLayout) mView
 				.findViewById(R.id.main_touxiang_rl);
+		userName=(TextView) mView.findViewById(R.id.name_main_tv);
 		biubiuLayout.setOnClickListener(this);
 		messageLayout.setOnClickListener(this);
 		settingLayout.setOnClickListener(this);
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		userHeadLayout.setOnClickListener(this);
+		
+		String token=SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "");
+		if(token!=null&&token!=""){		
+			isLogin=true;
+			userName.setText("这里应该是你的名字");
+		}
 	}
 
 	@Override
@@ -94,9 +110,14 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			startActivity(shareIntent);
 			break;
 		case R.id.main_touxiang_rl:
-			Intent intent = new Intent(getActivity(),
-					LoginOrRegisterActivity.class);
-			startActivity(intent);
+			if(isLogin){
+				Intent intent=new Intent(getActivity(),MyPagerActivity.class);
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent(getActivity(),
+						LoginOrRegisterActivity.class);
+				startActivity(intent);
+			}	
 			break;
 
 		default:

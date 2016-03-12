@@ -177,14 +177,14 @@ public class LoginActivity extends BaseActivity{
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				Log.d("mytest", "result--"+arg0);
-				Toast.makeText(x.app(), arg0, Toast.LENGTH_LONG).show();
+		//		Toast.makeText(x.app(), arg0, Toast.LENGTH_LONG).show();
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
-						
+						toastShort(""+jsons.getString("error"));	
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
@@ -193,7 +193,7 @@ public class LoginActivity extends BaseActivity{
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
 					
-					LogUtil.d(TAG,"name=="+hxName+"  password==="+HxPassword );
+					LogUtil.e(TAG,"name=="+hxName+"  password==="+HxPassword );
 					loginHuanXin(hxName,HxPassword,token);
 					
 					

@@ -1,12 +1,24 @@
 package com.android.biubiu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -17,6 +29,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MatchSettingActivity extends BaseActivity implements OnClickListener{
@@ -43,6 +56,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private boolean isRecvMsg = true;
 	private boolean isOpenVoice = true;
 	private boolean isOpenShck = true;
+	
+	private String TAG ="MatchSettingActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -225,10 +240,102 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		case R.id.personal_rl:
 			break;
 		case R.id.logout_rl:
+			//退出
+			exitApp();
+			
 			break;
 		default:
 			break;
 		}
+	}
+	/**
+	 * 退出登录
+	 */
+	private void exitApp() {
+		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.EXIT);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", Utils.getDeviceID(this));
+		} catch (JSONException e) {
+		
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				Toast.makeText(x.app(), arg0.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(code.equals("200")==false){
+						if(code.equals("300")==true){
+							String error=jsons.getString("error");
+							toastShort(error);
+						}
+						return;
+					}
+					exitHuanxin();
+					
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+	
+	}
+	/**
+	 * 退出环信登录
+	 */
+	public void exitHuanxin(){
+		EMClient.getInstance().logout(true ,new EMCallBack() {
+			
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, "环信退出成功");
+				Intent intent=new Intent(MatchSettingActivity.this,MainActivity.class);
+				startActivity(intent);
+				//清空本地token
+				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+			}
+			
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, "环信退出失败"+arg1);
+			}
+		});
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
