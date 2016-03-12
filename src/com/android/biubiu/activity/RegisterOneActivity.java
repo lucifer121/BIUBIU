@@ -223,7 +223,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		bean.setNickname(uNameEt.getText().toString());
 		bean.setSex(uSexTv.getText().toString());
 		Intent intent=new Intent(this,RegisterTwoActivity.class);
-		intent.putExtra("infoBean", bean);
+		intent.putExtra("infoBean", (Serializable)bean);
 		intent.putExtra("userhead", userheadBitmap);
 		intent.putExtra("headPath", headPath);
 		startActivity(intent);

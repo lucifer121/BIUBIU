@@ -10,10 +10,14 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.Utils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.mob.tools.utils.SharePrefrenceHelper;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -41,12 +45,17 @@ public class LoginActivity extends BaseActivity{
 	private Button loginBtn;
 	private ImageView backImv;
 	private RelativeLayout backLayout;
+	/**
+	 * 设备编码
+	 */
+	String deviceId = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
+		deviceId = Utils.getDeviceID(LoginActivity.this);
 		initView();
 		initClick();
 	}
@@ -74,7 +83,7 @@ public class LoginActivity extends BaseActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				login(phoneEt.getText().toString(),passwordEt.getText().toString());
-				loginHuanXin(phoneEt.getText().toString(),passwordEt.getText().toString());
+				
 			}
 		});
 		backLayout.setOnClickListener(new OnClickListener() {
@@ -136,6 +145,7 @@ public class LoginActivity extends BaseActivity{
 		try {
 			requestObject.put("phone", uName);
 			requestObject.put("password", uPassword);
+			requestObject.put("device_code", deviceId);
 		} catch (JSONException e) {
 		
 			e.printStackTrace();
@@ -172,6 +182,11 @@ public class LoginActivity extends BaseActivity{
 				try {
 					jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(!code.equals("200")){
+						
+						return;
+					}
 					JSONObject obj = jsons.getJSONObject("data");
 					String token = obj.getString("token");
 					
@@ -179,6 +194,8 @@ public class LoginActivity extends BaseActivity{
 					String HxPassword=obj.getString("password");
 					
 					LogUtil.d(TAG,"name=="+hxName+"  password==="+HxPassword );
+					loginHuanXin(hxName,HxPassword,token);
+					
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -203,12 +220,16 @@ public class LoginActivity extends BaseActivity{
 	 * @param username
 	 * @param password
 	 */
-	public void loginHuanXin(String username,String password){
+	public void loginHuanXin(String username,String password,final String token){
 		EMClient.getInstance().login(username, password, new EMCallBack() {
 			
 			@Override
 			public void onSuccess() {
 				LogUtil.e(TAG, "登录成功环信");
+				//把token 存在本地
+				SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+				Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+				startActivity(intent);
 				
 			}
 			

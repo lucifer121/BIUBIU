@@ -24,6 +24,8 @@ import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
@@ -31,6 +33,8 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.LogUtil.log;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -48,9 +52,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegisterThreeActivity extends BaseActivity implements OnClickListener{
 	ImageView backImv;
+	private String TAG="RegisterThreeActivity";
 	private EditText registerPhoneEt;
 	private EditText verifyCodeEt;
 	private TextView sendVerifyTv;
@@ -79,6 +85,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	private void getIntentInfo() {
 		// TODO Auto-generated method stub
 		userBean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
+		System.out.println(userBean.getNickname());
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
 		headPath = getIntent().getStringExtra("headPath");
 		userheadBitmp = bitmp;
@@ -277,12 +284,14 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			requestObject.put("birth_date", userBean.getBirthday());
 			requestObject.put("isgraduated", userBean.getIsStudent());
 			requestObject.put("school", userBean.getSchool());
+			requestObject.put("city", userBean.getCity());
 			requestObject.put("career", userBean.getJob());
 			requestObject.put("phone", registerPhoneEt.getText().toString());
+			requestObject.put("device_name", "");
 			requestObject.put("device_code", deviceId);
 			requestObject.put("password", passwordEt.getText().toString());
 			requestObject.put("icon_url", userBean.getUserHead());
-			requestObject.put("original_icon_url", "");
+			requestObject.put("original_icon_url", userBean.getUserHead());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -314,11 +323,23 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
+					LogUtil.e(TAG, code);
+					if(code.equals("200")==false){
+						if(code.equals("300")==true){
+							String error=jsons.getString("error");
+							LogUtil.e(TAG, error);
+						}
+						return;
+					}
 					JSONObject obj = jsons.getJSONObject("data");
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
 					String token = obj.getString("token");
-					toastShort("注册成功");
+					
+					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
+	
+					loginHuanXin(username,passwprd,token);
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -334,5 +355,40 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			overridePendingTransition(0,R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	/**
+	 * 登录环信客户端 建立长连接
+	 * @param username
+	 * @param password
+	 */
+	public void loginHuanXin(String username,String password,final String token){
+		EMClient.getInstance().login(username, password, new EMCallBack() {
+			
+			@Override
+			public void onSuccess() {
+				
+			//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
+				LogUtil.e(TAG, "登录成功环信");
+				//把token 存在本地
+				SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
+				Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
+				startActivity(intent);
+				
+			}
+			
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, "登陆聊天服务器失败！");
+			}
+		});
+		
 	}
 }

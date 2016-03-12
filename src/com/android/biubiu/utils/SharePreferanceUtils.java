@@ -7,6 +7,7 @@ public class SharePreferanceUtils {
 	public static String IS_FIRST_INSTALL = "is_first_install";
 	public static String AGE_MAX = "age_max";
 	public static String AGE_MIN = "age_min";
+	public static String TOKEN="token";
 
 	public static SharePreferanceUtils shareUtils ;
 	public static SharePreferanceUtils getInstance(){
@@ -15,6 +16,17 @@ public class SharePreferanceUtils {
 		}
 		return shareUtils;
 	}
+	/**
+	 * 获取是否为第一次安装
+	 * @param context
+	 * @param prefKey "token"
+	 * @param defValue
+	 * @return
+	 */
+	public String getToken(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	
 	//获取是否为第一次安装
 	public boolean isFirstInstall(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);

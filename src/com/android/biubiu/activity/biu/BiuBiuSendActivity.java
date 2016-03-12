@@ -1,7 +1,9 @@
 package com.android.biubiu.activity.biu;
 
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.view.Flowlayout;
+
 
 
 
@@ -16,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class BiuBiuSendActivity extends Activity implements OnClickListener{
+public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 
 	private String mNames[] = {
 			"welcome","android","TextView",
