@@ -42,7 +42,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 	private RelativeLayout backLayout,completelayout;
 	private EditText uPhone,uPassword,uYanzhengma;
 	private String TAG="ForgetPasswordActivity";
-	
+	//
 	//倒计时相关
 	private Handler handler = new Handler();
 	private int totalTime = 60;
@@ -125,7 +125,9 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		if(uPhone.getText().length()>0&&uYanzhengma.getText().length()>0&&uPassword.getText().length()>0){
 			completelayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			completelayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
+
+			completelayout.setBackgroundResource(R.drawable.register_btn_disabled);	
+
 		}
 
 	}

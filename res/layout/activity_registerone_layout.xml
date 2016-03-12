@@ -205,7 +205,9 @@
         android:layout_marginLeft="62.5dp"
         android:layout_marginRight="62.5dp"
         android:layout_marginTop="78dp"
-        android:background="@drawable/login_register_btn_summit_disabled" >
+
+        android:background="@drawable/register_btn_disabled" >
+
 
         <TextView
             android:id="@+id/next_registerone_tv"

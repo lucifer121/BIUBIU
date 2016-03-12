@@ -8,6 +8,7 @@ public class SharePreferanceUtils {
 	public static String AGE_MAX = "age_max";
 	public static String AGE_MIN = "age_min";
 	public static String TOKEN="token";
+	public static String DEVICE_ID="device_id";
 
 	public static SharePreferanceUtils shareUtils ;
 	public static SharePreferanceUtils getInstance(){
@@ -26,18 +27,24 @@ public class SharePreferanceUtils {
 	public String getToken(Context context,String prefKey,String defValue){
 		return getShared(context, prefKey,defValue);
 	}
-	
+	//获取设备编码
+	public String getDeviceId(Context context,String prefKey,String defValue){
+		if(getShared(context, prefKey,defValue).equals("")){
+			putShared(context, DEVICE_ID, Utils.getDeviceID(context));
+		}
+		return getShared(context, prefKey,defValue);
+	}
 	//获取是否为第一次安装
 	public boolean isFirstInstall(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取设置保存最小年龄
 	public int getMinAge(Context context,String prefKey,int defValue){
-		return getShared(context, prefKey, 0);
+		return getShared(context, prefKey, defValue);
 	}
 	//获取设置保存最大年龄
 	public int getMaxAge(Context context,String prefKey,int defValue){
-		return getShared(context, prefKey, 0);
+		return getShared(context, prefKey, defValue);
 	}
 	
 	public  String getShared(Context ctx, String prefKey, String defValue) {

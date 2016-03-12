@@ -118,7 +118,9 @@ public class LoginActivity extends BaseActivity{
 				loginBtn.setBackgroundResource(R.drawable.register_btn_normal);
 				
 			}else{
-				loginBtn.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
+
+				loginBtn.setBackgroundResource(R.drawable.register_btn_disabled);	
+
 			}
 		}
 

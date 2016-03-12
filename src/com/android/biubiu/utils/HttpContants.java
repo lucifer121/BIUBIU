@@ -1,14 +1,14 @@
 package com.android.biubiu.utils;
 
 public class HttpContants {
-	
-	/**
-	 * http 地址
-	 */
+
 	public static final String HTTP_ADDRESS = "http://123.56.193.210:8080/meetu_maven/";
 	//注册
 	public static final String REGISTER_METHOD = "app/auth/register";
-
+	//个人主页
+	public static final String MY_PAGER_INFO = "app/info/getUserInfo";
+	//阿里云
+	public static final String A_LI_YUN = "http://oss-cn-beijing.aliyuncs.com";
 	/**
 	 * 登录
 	 */
@@ -21,9 +21,5 @@ public class HttpContants {
 	 * 更改密码
 	 */
 	public static final String UPDATE_PASSWORD="app/auth/updatePassword";
-
-	//个人主页
-	public static final String MY_PAGER_INFO = "app/info/getUserInfo";
-	
 
 }

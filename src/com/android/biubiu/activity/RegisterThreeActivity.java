@@ -1,5 +1,9 @@
 package com.android.biubiu.activity;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -13,9 +17,13 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSConstants;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.common.utils.IOUtils;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
@@ -24,6 +32,7 @@ import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
@@ -72,13 +81,18 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	Bitmap userheadBitmp = null;
 	String deviceId = "";
 	String headPath;
+	//上传文件相关
+	String accessKeyId = "";
+	String accessKeySecret = "";
+	String securityToken = "";
+	String expiration = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_registerthree_layout);
-		deviceId = Utils.getDeviceID(RegisterThreeActivity.this);
+		deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		getIntentInfo();
 		initView();
 	}
@@ -140,7 +154,9 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		if(registerPhoneEt.getText().length()>0&&verifyCodeEt.getText().length()>0&&verifyCodeEt.getText().length()>0){
 			compLayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			compLayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
+
+			compLayout.setBackgroundResource(R.drawable.register_btn_disabled);	
+
 		}
 
 	}
@@ -214,31 +230,82 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			toastShort(getResources().getString(R.string.reg_three_no_password));
 			return;
 		}
+		//验证  验证码
 		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-					asyncPutObjectFromLocalFile();
+					getOssToken();
 				} else {
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
 		});
 	}
+	//鉴权
+	public void getOssToken(){
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+"app/auth/getOSSSecurityToken");
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsonObjs = new JSONObject(arg0);
+					JSONObject obj = jsonObjs.getJSONObject("data");
+					accessKeyId = obj.getString("accessKeyId");
+					accessKeySecret = obj.getString("accessKeySecret");
+					securityToken = obj.getString("securityToken");
+					expiration = obj.getString("expiration");
+					asyncPutObjectFromLocalFile();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	// 从本地文件上传，使用非阻塞的异步接口
 	public void asyncPutObjectFromLocalFile() {
-		String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-		OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
+		String endpoint = HttpContants.A_LI_YUN;
+		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
+		OSSCredentialProvider credetialProvider = new OSSFederationCredentialProvider() {
+			@Override
+			public OSSFederationToken getFederationToken() {
+
+				return new OSSFederationToken(accessKeyId, accessKeySecret, securityToken, expiration);
+			}
+		};
 		ClientConfiguration conf = new ClientConfiguration();
 		conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
 		conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
 		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
 		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
 		OSSLog.enableLog();
-		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".png";
 		// 构造上传请求
-		PutObjectRequest put = new PutObjectRequest("protect-app", "head.png", headPath);
+		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, headPath);
 
 		// 异步上传时可以设置进度回调
 		put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -253,8 +320,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				Log.d("PutObject", "UploadSuccess");
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
-				Log.d("mytest", result.toString());
-				userBean.setUserHead("http://iconurl");
+				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
+				userBean.setUserHead(fileName);
 				registerRequest();
 			}
 			@Override
@@ -276,7 +343,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	}
 	//注册
 	private void registerRequest() {
-		RequestParams params = new RequestParams("http://123.56.193.210:8080/meetu_maven/app/auth/register");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_METHOD);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("nickname",userBean.getNickname());
@@ -335,11 +402,11 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
 					String token = obj.getString("token");
-					
+
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
-	
+
 					loginHuanXin(username,passwprd,token);
-					
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -356,7 +423,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	/**
 	 * 登录环信客户端 建立长连接
 	 * @param username
@@ -364,31 +431,31 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	 */
 	public void loginHuanXin(String username,String password,final String token){
 		EMClient.getInstance().login(username, password, new EMCallBack() {
-			
+
 			@Override
 			public void onSuccess() {
-				
-			//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
+
+				//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
 				LogUtil.e(TAG, "登录成功环信");
 				//把token 存在本地
 				SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
 				Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
 				startActivity(intent);
-				
+
 			}
-			
+
 			@Override
 			public void onProgress(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onError(int arg0, String arg1) {
 				// TODO Auto-generated method stub
 				Log.e(TAG, "登陆聊天服务器失败！");
 			}
 		});
-		
+
 	}
 }

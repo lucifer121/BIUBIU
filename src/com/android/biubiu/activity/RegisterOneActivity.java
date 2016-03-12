@@ -132,7 +132,9 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		if(uNameEt.getText().length()>0&&uSexTv.getText().length()>0&&birthTv.getText().length()>0){
 			nextLayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			nextLayout.setBackgroundResource(R.drawable.login_register_btn_summit_disabled);	
+
+			nextLayout.setBackgroundResource(R.drawable.register_btn_disabled);	
+
 		}
 
 	}

@@ -4,7 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
 import android.content.ContentResolver;
@@ -27,6 +32,20 @@ import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.AboutMeActivity;
@@ -47,6 +66,9 @@ import com.android.biubiu.bean.TagBean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.MyGridView;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
@@ -99,6 +121,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	ArrayList<String> photoList = new ArrayList<String>();
 	ArrayList<TagBean> personalTagList = new ArrayList<TagBean>();
 	ArrayList<TagBean> interestTagList = new ArrayList<TagBean>();
+	//上传文件相关
+	String accessKeyId = "";
+	String accessKeySecret = "";
+	String securityToken = "";
+	String expiration = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -253,7 +280,41 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		personalTagGv.setAdapter(personalAdapter);
 	}
 	private void getUserInfo(){
-		
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_METHOD);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 	@Override
 	public void onClick(View v) {
@@ -336,6 +397,111 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		}
 	}
+	//鉴权
+	public void getOssToken(final String path){
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+"app/auth/getOSSSecurityToken");
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsonObjs = new JSONObject(arg0);
+					JSONObject obj = jsonObjs.getJSONObject("data");
+					accessKeyId = obj.getString("accessKeyId");
+					accessKeySecret = obj.getString("accessKeySecret");
+					securityToken = obj.getString("securityToken");
+					expiration = obj.getString("expiration");
+					//上传到阿里云
+					asyncPutObjectFromLocalFile(path);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	// 从本地文件上传，使用非阻塞的异步接口
+	public void asyncPutObjectFromLocalFile(String path) {
+		String endpoint = HttpContants.A_LI_YUN;
+		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
+		OSSCredentialProvider credetialProvider = new OSSFederationCredentialProvider() {
+			@Override
+			public OSSFederationToken getFederationToken() {
+
+				return new OSSFederationToken(accessKeyId, accessKeySecret, securityToken, expiration);
+			}
+		};
+		ClientConfiguration conf = new ClientConfiguration();
+		conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+		conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
+		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+		OSSLog.enableLog();
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".png";
+		// 构造上传请求
+		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
+
+		// 异步上传时可以设置进度回调
+		put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
+			@Override
+			public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
+				Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
+			}
+		});
+		OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+			@Override
+			public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+				Log.d("PutObject", "UploadSuccess");
+				Log.d("ETag", result.getETag());
+				Log.d("RequestId", result.getRequestId());
+				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
+				//上传照片成功，调用修改头像接口
+				uploadPhoto(fileName);
+			}
+			@Override
+			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				// 请求异常
+				if (clientExcepion != null) {
+					// 本地异常如网络异常等
+					clientExcepion.printStackTrace();
+				}
+				if (serviceException != null) {
+					// 服务异常
+					Log.e("ErrorCode", serviceException.getErrorCode());
+					Log.e("RequestId", serviceException.getRequestId());
+					Log.e("HostId", serviceException.getHostId());
+					Log.e("RawMessage", serviceException.getRawMessage());
+				}
+			}
+		});
+	}
+	//将图片上传到后台
+	protected void uploadPhoto(String fileName) {
+		// 上传成功后更新界面
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -345,7 +511,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			if(resultCode != RESULT_OK){
 				return;
 			}
-			if(data ==null ){
+			if(data == null ){
 				return;
 			}
 			UserInfoBean bean = (UserInfoBean) data.getSerializableExtra("userInfoBean");
@@ -372,8 +538,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				cursor.moveToFirst();
 				//最后根据索引值获取图片路径
 				String path = cursor.getString(column_index);
-				//上传图片，成功后更新界面
-				//uploadImg(path);
+				//上传图片鉴权
+				getOssToken(path);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

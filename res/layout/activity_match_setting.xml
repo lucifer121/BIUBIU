@@ -205,9 +205,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
                     android:text="@string/setting_age_range_in"
                     android:textColor="@color/set_tag_text"
                     android:textSize="12sp" />
@@ -231,6 +232,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
+                        android:text="岁-"
                         android:textSize="12sp" />
 
                     <TextView
@@ -238,6 +240,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/set_tag_text"
+                        android:text="岁"
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
@@ -261,9 +269,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="35dp"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
                     android:text="@string/setting_character_tags"
                     android:textColor="@color/set_tag_text"
                     android:textSize="12sp" />
@@ -318,12 +326,13 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
                     android:text="@string/setting_new_message_notice"
                     android:textColor="@color/set_tag_text"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <RelativeLayout
