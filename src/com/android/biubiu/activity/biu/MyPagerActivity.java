@@ -252,6 +252,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
 	}
+	private void getUserInfo(){
+		
+	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
