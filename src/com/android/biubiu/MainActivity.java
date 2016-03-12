@@ -7,6 +7,10 @@ import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -16,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends SlidingFragmentActivity {
 	public ImageView leftMenu;
@@ -30,6 +35,9 @@ public class MainActivity extends SlidingFragmentActivity {
 		initRightMenu();
 		// 初始化ViewPager
 		initViewPager();
+		
+		//注册一个监听连接状态的listener
+		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		
 	}
 	private void initPageFragment() {
@@ -99,4 +107,39 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void closeMenu(){
 		getSlidingMenu().showContent();
 	}
+	
+	/**
+	 * 实现环信 ConnectionListener接口
+	 * @author lucifer
+	 *
+	 */
+	private class MyConnectionListener implements EMConnectionListener {
+	    @Override
+		public void onConnected() {
+		}
+		@Override
+		public void onDisconnected(final int error) {
+			runOnUiThread(new Runnable() {
+	 
+				@Override
+				public void run() {
+					if(error == EMError.USER_REMOVED){
+						// 显示帐号已经被移除
+					}else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+						// 显示帐号在其他设备登陆
+					} else {
+					if (NetUtils.hasNetwork(MainActivity.this)){
+						//连接不到聊天服务器
+						Toast.makeText(getApplicationContext(), "连接不到聊天服务器", Toast.LENGTH_SHORT).show();
+						}
+					else{
+						//当前网络不可用，请检查网络设置
+						Toast.makeText(getApplicationContext(), "当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
+						}			
+					}
+				}
+			});
+		}
+	}
 }
+

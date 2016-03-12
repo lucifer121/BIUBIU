@@ -251,6 +251,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 					
 					String token = obj.getString("token");
 					SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
+					
+					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
