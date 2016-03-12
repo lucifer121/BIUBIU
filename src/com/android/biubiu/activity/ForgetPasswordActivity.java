@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class ForgetPasswordActivity extends BaseActivity {
 	private RelativeLayout backLayout,completelayout;
 	private EditText uPhone,uPassword,uYanzhengma;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

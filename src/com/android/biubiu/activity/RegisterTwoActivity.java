@@ -91,7 +91,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		UserInfoBean bean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
 		headPath = getIntent().getStringExtra("headPath");
-		userBean.setSex(bean.getSex());
+		userBean.setNickname(bean.getNickname());
 		userBean.setBirthday(bean.getBirthday());
 		userBean.setSex(bean.getSex());
 		userheadBitmp = bitmp;
@@ -304,7 +304,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 		userBean.setCity(cityTextView.getText().toString());
 		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
-		nextIntent.putExtra("infoBean", userBean);
+		nextIntent.putExtra("infoBean", (Serializable)userBean);
 		nextIntent.putExtra("userhead", userheadBitmp);
 		nextIntent.putExtra("headPath", headPath);
 		startActivity(nextIntent);
