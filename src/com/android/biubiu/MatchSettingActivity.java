@@ -33,6 +33,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MatchSettingActivity extends BaseActivity implements OnClickListener{
+	//
 
 	private RelativeLayout backRl;
 	private ToggleButton boyToggle;

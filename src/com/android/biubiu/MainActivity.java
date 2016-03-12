@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends SlidingFragmentActivity {
+	//
 	public ImageView leftMenu;
 	public ImageView rightMenu;
 	@Override
