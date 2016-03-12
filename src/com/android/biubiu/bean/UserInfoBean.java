@@ -19,8 +19,6 @@ public class UserInfoBean implements Serializable{
 	private String birthday;
 	@SerializedName("icon_url")
 	private String userHead;
-	@SerializedName("")
-	private String star;
 	@SerializedName("city")
 	private String city;
 	@SerializedName("hometown")
@@ -31,8 +29,6 @@ public class UserInfoBean implements Serializable{
 	private String weight;
 	@SerializedName("school")
 	private String school;
-	@SerializedName("")
-	private String company;
 	@SerializedName("career")
 	private String job;
 	@SerializedName("isgraduated")
@@ -43,6 +39,11 @@ public class UserInfoBean implements Serializable{
 	private ArrayList<TagBean> personalTags;
 	@SerializedName("interested_tags")
 	private ArrayList<TagBean> interestTags;
+	@SerializedName("")
+	private String star;
+	@SerializedName("")
+	private String company;
+	@SerializedName("")
 	private ArrayList<String> userPhotos;
 	
 	public String getHeight() {

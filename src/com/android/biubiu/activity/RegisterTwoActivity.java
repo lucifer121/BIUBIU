@@ -275,7 +275,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		if(schoolTv.getText().length()>0&&cityTextView.getText().length()>0){
 			nextLayout.setBackgroundResource(R.drawable.register_btn_normal);		
 		}else{
-			nextLayout.setBackgroundResource(R.drawable.register_btn_clk);	
+			nextLayout.setBackgroundResource(R.drawable.register_btn_disabled);	
 		}
 
 	}
@@ -318,6 +318,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		case R.id.registertwo_center4_rl:
 			//选择城市
 			cityTextView.setText("北京 东城区");
+			changeNextBg();
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 200);
 			break;

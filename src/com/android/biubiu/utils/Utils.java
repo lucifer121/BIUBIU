@@ -88,13 +88,13 @@ public class Utils {
 		SharedPreferences mShare = PreferenceManager.getDefaultSharedPreferences(context);
 		String uuid = null;
 		if(mShare != null){
-			uuid = mShare.getString("bbdtek_uuid", "");
+			uuid = mShare.getString("biubiu_uuid", "");
 		}
 
 		if(uuid != null && !uuid.equals("")){
 			uuid = UUID.randomUUID().toString();
 			Editor editor = mShare.edit();
-			editor.putString("bbdtek_uuid", uuid);
+			editor.putString("biubiu_uuid", uuid);
 			editor.commit();
 		}
 		return uuid;

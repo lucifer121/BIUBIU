@@ -17,6 +17,7 @@ import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.Utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,6 +59,8 @@ public class WelcomeActivity extends BaseActivity {
 		dbHelperSchool.openDatabase();
 		dbHelperSchool.closeDatabase();
 		
+		//读取设备ID
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
 		next();
 	}
 
