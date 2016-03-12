@@ -193,7 +193,7 @@ public class LoginActivity extends BaseActivity{
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
 					
-					LogUtil.d(TAG,"name=="+hxName+"  password==="+HxPassword );
+					LogUtil.e(TAG,"name=="+hxName+"  password==="+HxPassword );
 					loginHuanXin(hxName,HxPassword,token);
 					
 					
