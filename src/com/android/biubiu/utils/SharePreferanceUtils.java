@@ -39,6 +39,7 @@ public class SharePreferanceUtils {
 	public int getMaxAge(Context context,String prefKey,int defValue){
 		return getShared(context, prefKey, 0);
 	}
+	
 	public  String getShared(Context ctx, String prefKey, String defValue) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(prefKey, defValue);
 	}

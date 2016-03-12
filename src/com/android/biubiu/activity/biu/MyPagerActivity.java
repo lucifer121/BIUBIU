@@ -43,10 +43,13 @@ import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
+import com.android.biubiu.bean.TagBean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.view.MyGridView;
+import com.avos.avoscloud.LogUtil.log;
+import com.google.gson.Gson;
 
 public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private static final int UPDATE_INFO = 1001;
@@ -94,8 +97,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private UserPagerTagAdapter personalAdapter;
 	private UserPagerTagAdapter interestAdapter;
 	ArrayList<String> photoList = new ArrayList<String>();
-	ArrayList<String> personalTagList = new ArrayList<String>();
-	ArrayList<String> interestTagList = new ArrayList<String>();
+	ArrayList<TagBean> personalTagList = new ArrayList<TagBean>();
+	ArrayList<TagBean> interestTagList = new ArrayList<TagBean>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -119,21 +122,27 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		infoBean.setUserHead(photoStr);
 		infoBean.setBirthday("2006-01-01");
 		infoBean.setCity("北京");
-		infoBean.setHeightWeight("1cm");
+		infoBean.setHeight("1cm");
 		infoBean.setHomeTown("北京");
-		infoBean.setId("123456789");
-		infoBean.setIdentity("吃货");
 		infoBean.setSchool("幼儿园");
 		infoBean.setStar("小强座");
 		ArrayList<String> photos = new ArrayList<String>();
-		ArrayList<String> tags = new ArrayList<String>();
+		ArrayList<TagBean> tags = new ArrayList<TagBean>();
 		for (int i = 0; i < 6; i++) {
 			photos.add(photoStr);
-			tags.add("标签"+i);
+			TagBean bean = new TagBean();
+			bean.setTagName("标签"+i);
+			bean.setTagType("1");
+			tags.add(bean);
 		}
+		//log.d("mytest", beanList.toString());
+		//Gson gson = new Gson();
+		//log.d("mytest", ""+gson.fromJson(beanList.toString(), TagBean[].class));
 		infoBean.setUserPhotos(photos);
 		infoBean.setPersonalTags(tags);
 		infoBean.setInterestTags(tags);
+		infoBean.setJob("lala");
+		infoBean.setCompany("lala");
 		infoBean.setAboutMe(getResources().getString(R.string.page_test));
 		infoBean.setIsStudent(Constants.IS_STUDENT_FLAG);
 
@@ -210,9 +219,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		starSignTv.setText(bean.getStar());
 		cityTv.setText(bean.getCity());
 		hometownTv.setText(bean.getHomeTown());
-		heightWeightTv.setText(bean.getHeightWeight());
-		identityTv.setText(bean.getIdentity());
-		schoolTv.setText(bean.getSchool());
+		heightWeightTv.setText(bean.getHeight()+","+bean.getWeight());
+		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+			identityTv.setText("学生");
+			schoolTv.setText(bean.getSchool());
+		}else{
+			identityTv.setText(bean.getJob());
+			schoolTv.setText(bean.getCompany());
+		}
 
 		userInfoTv.setText(R.string.page_test);
 		userInfoBigTv.setText(R.string.page_test);
@@ -228,15 +242,18 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions, photoPageViews);
 		photoPager.setAdapter(photoAdapter);
 	}
-	private void setInterestTags(ArrayList<String> tags) {
+	private void setInterestTags(ArrayList<TagBean> tags) {
 		// TODO Auto-generated method stub
 		interestAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		interestTagGv.setAdapter(interestAdapter);
 	}
-	private void setPersonalTags(ArrayList<String> tags) {
+	private void setPersonalTags(ArrayList<TagBean> tags) {
 		// TODO Auto-generated method stub
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
+	}
+	private void getUserInfo(){
+		
 	}
 	@Override
 	public void onClick(View v) {
@@ -332,7 +349,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				return;
 			}
 			UserInfoBean bean = (UserInfoBean) data.getSerializableExtra("userInfoBean");
-			Log.d("mytest", "bean"+bean);
 			setUserInfoView(bean);
 			break;
 		case UPDATE_PHOTOS:

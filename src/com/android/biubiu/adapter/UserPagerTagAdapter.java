@@ -3,6 +3,7 @@ package com.android.biubiu.adapter;
 import java.util.ArrayList;
 
 import com.android.biubiu.R;
+import com.android.biubiu.bean.TagBean;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,9 +16,9 @@ import android.widget.TextView;
 
 public class UserPagerTagAdapter extends BaseAdapter{
 
-	ArrayList<String> tags;
+	ArrayList<TagBean> tags;
 	Context context;
-	public UserPagerTagAdapter(Context context,ArrayList<String> tags) {
+	public UserPagerTagAdapter(Context context,ArrayList<TagBean> tags) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.tags = tags;
@@ -44,8 +45,7 @@ public class UserPagerTagAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder vh = null;
-		String tag = tags.get(position);
-		Log.d("mytest", position+"==="+tag);
+		TagBean tag = tags.get(position);
 		if(convertView == null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.userpager_tag_item, null);
 			vh = new ViewHolder();
@@ -54,7 +54,7 @@ public class UserPagerTagAdapter extends BaseAdapter{
 		}else{
 			vh = (ViewHolder) convertView.getTag();
 		}
-		vh.tagTv.setText(tag);
+		vh.tagTv.setText(tag.getTagName());
 		return convertView;
 	}
 	class ViewHolder{

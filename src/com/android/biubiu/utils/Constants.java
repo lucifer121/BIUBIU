@@ -9,4 +9,8 @@ public class Constants {
 	public static final String SEX_MALE = "1";
 	//女生
 	public static final String SEX_FAMALE = "2";
+	//头像已审核
+	public static final String ICON_VERIFY = "1";
+	//头像未审核
+	public static final String ICON_NO_VERIFY = "2";
 }
