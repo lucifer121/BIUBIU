@@ -4,26 +4,77 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.android.biubiu.utils.Constants;
+import com.google.gson.annotations.SerializedName;
 
 public class UserInfoBean implements Serializable{
-	private String id;
+	@SerializedName("code")
+	private String userCode;
+	@SerializedName("icon_is_validate")
+	private String iconVerify;
+	@SerializedName("nickname")
 	private String nickname;
+	@SerializedName("sex")
 	private String sex;
+	@SerializedName("birth_date")
 	private String birthday;
+	@SerializedName("icon_url")
 	private String userHead;
+	@SerializedName("")
 	private String star;
+	@SerializedName("city")
 	private String city;
+	@SerializedName("hometown")
 	private String homeTown;
-	private String heightWeight;
-	private String identity;
+	@SerializedName("height")
+	private String height;
+	@SerializedName("weight")
+	private String weight;
+	@SerializedName("school")
 	private String school;
+	@SerializedName("")
+	private String company;
+	@SerializedName("career")
 	private String job;
+	@SerializedName("isgraduated")
 	private String isStudent;
+	@SerializedName("description")
 	private String aboutMe;
-	private ArrayList<String> personalTags;
-	private ArrayList<String> interestTags;
+	@SerializedName("personality_tags")
+	private ArrayList<TagBean> personalTags;
+	@SerializedName("interested_tags")
+	private ArrayList<TagBean> interestTags;
 	private ArrayList<String> userPhotos;
 	
+	public String getHeight() {
+		return height;
+	}
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	public String getWeight() {
+		return weight;
+	}
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+	public String getIconVerify() {
+		return iconVerify;
+	}
+	public void setIconVerify(String iconVerify) {
+		this.iconVerify = iconVerify;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
 	public String getAboutMe() {
 		return aboutMe;
 	}
@@ -47,12 +98,6 @@ public class UserInfoBean implements Serializable{
 	}
 	public void setUserPhotos(ArrayList<String> userPhotos) {
 		this.userPhotos = userPhotos;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getNickname() {
 		return nickname;
@@ -101,34 +146,22 @@ public class UserInfoBean implements Serializable{
 	public void setHomeTown(String homeTown) {
 		this.homeTown = homeTown;
 	}
-	public String getHeightWeight() {
-		return heightWeight;
-	}
-	public void setHeightWeight(String heightWeight) {
-		this.heightWeight = heightWeight;
-	}
-	public String getIdentity() {
-		return identity;
-	}
-	public void setIdentity(String identity) {
-		this.identity = identity;
-	}
 	public String getSchool() {
 		return school;
 	}
 	public void setSchool(String school) {
 		this.school = school;
 	}
-	public ArrayList<String> getPersonalTags() {
+	public ArrayList<TagBean> getPersonalTags() {
 		return personalTags;
 	}
-	public void setPersonalTags(ArrayList<String> personalTags) {
+	public void setPersonalTags(ArrayList<TagBean> personalTags) {
 		this.personalTags = personalTags;
 	}
-	public ArrayList<String> getInterestTags() {
+	public ArrayList<TagBean> getInterestTags() {
 		return interestTags;
 	}
-	public void setInterestTags(ArrayList<String> interestTags) {
+	public void setInterestTags(ArrayList<TagBean> interestTags) {
 		this.interestTags = interestTags;
 	}
 	public String getSexFlag(){
