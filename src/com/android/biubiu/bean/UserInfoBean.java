@@ -136,11 +136,6 @@ public class UserInfoBean implements Serializable{
 		return sex;
 	}
 	public void setSex(String sex) {
-		if(sex.equals(Constants.SEX_MALE)){
-			this.sex = "男";
-		}else{
-			this.sex = "女";
-		}
 		this.sex = sex;
 	}
 	public String getBirthday() {
@@ -173,11 +168,18 @@ public class UserInfoBean implements Serializable{
 	public void setSchool(String school) {
 		this.school = school;
 	}
-	public String getSexFlag(){
-		if(sex.equals("男")){
+	public String getSexFlag(String sexStr){
+		if(sexStr.equals("男")){
 			return Constants.SEX_MALE;
 		}else{
 			return Constants.SEX_FAMALE;
+		}
+	}
+	public String getSexStr(String sexFlag){
+		if(sexFlag.equals(Constants.SEX_MALE)){
+			return "男";
+		}else{
+			return "女";
 		}
 	}
 }

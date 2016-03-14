@@ -69,7 +69,7 @@ RecyclerView.Adapter<GridRecycleTagAdapter.MyViewHolder>{
 					}
 				});
 			}
-			holder.mTextView.setText(item.getTag());
+			holder.mTextView.setText(item.getName());
 			if(item.getIsChoice()){
 				holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.white));
 				holder.mTextView.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);

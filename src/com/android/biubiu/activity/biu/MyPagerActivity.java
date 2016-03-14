@@ -68,6 +68,7 @@ import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.bean.UserPhotoBean;
+import com.android.biubiu.sqlite.CityDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
@@ -130,6 +131,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	String accessKeySecret = "";
 	String securityToken = "";
 	String expiration = "";
+	private CityDao cityDao = new CityDao();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -245,13 +247,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	private void setUserInfoView(UserInfoBean bean) {
 		// TODO Auto-generated method stub
-		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
+		//x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
+		x.image().bind(userheadImv, bean.getIconOrign(), imageOptions);
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());
-		sexTv.setText(bean.getSex());
+		sexTv.setText(bean.getSexStr(bean.getSex()));
 		birthdayTv.setText(bean.getBirthday());
 		starSignTv.setText(bean.getStar());
-		cityTv.setText(bean.getCity());
+		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
 		hometownTv.setText(bean.getHomeTown());
 		heightWeightTv.setText(bean.getHeight()+","+bean.getWeight());
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
@@ -262,8 +265,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolTv.setText(bean.getCompany());
 		}
 
-		userInfoTv.setText(R.string.page_test);
-		userInfoBigTv.setText(R.string.page_test);
+		userInfoTv.setText(bean.getAboutMe());
+		userInfoBigTv.setText(bean.getAboutMe());
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub

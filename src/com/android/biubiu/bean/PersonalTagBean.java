@@ -1,14 +1,16 @@
 package com.android.biubiu.bean;
 
-public class PersonalTagBean {
+import java.io.Serializable;
+
+public class PersonalTagBean implements Serializable{
 	/**
-	 * 标签id
+	 * 标签内容
 	 */
-	private String typecode;
+	private String name;
 	/**
-	 * 标签內容
+	 * 标签code
 	 */
-	private String typename;
+	private String code;
 	/**
 	 * 是否选择
 	 */
@@ -20,17 +22,17 @@ public class PersonalTagBean {
 	public void setIsChoice(Boolean isChoice) {
 		this.isChoice = isChoice;
 	}
-	public String getId() {
-		return typecode;
+	public String getName() {
+		return name;
 	}
-	public void setId(String id) {
-		this.typecode = id;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getTag() {
-		return typename;
+	public String getCode() {
+		return code;
 	}
-	public void setTag(String tag) {
-		this.typename = tag;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 

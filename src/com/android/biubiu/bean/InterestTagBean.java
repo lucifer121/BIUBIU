@@ -1,6 +1,8 @@
 package com.android.biubiu.bean;
 
-public class InterestTagBean {
+import java.io.Serializable;
+
+public class InterestTagBean implements Serializable{
 	/**
 	 * 标签内容
 	 */

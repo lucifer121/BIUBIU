@@ -401,7 +401,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("nickname",userBean.getNickname());
-			requestObject.put("sex", userBean.getSexFlag());
+			requestObject.put("sex", userBean.getSex());
 			requestObject.put("birth_date", userBean.getBirthday());
 			requestObject.put("isgraduated", userBean.getIsStudent());
 			requestObject.put("school", userBean.getSchool());
@@ -411,12 +411,16 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			requestObject.put("device_name", "");
 			requestObject.put("device_code", deviceId);
 			requestObject.put("password", passwordEt.getText().toString());
-			requestObject.put("icon_url", userBean.getIconCircle());
-			requestObject.put("original_icon_url", "");
+			requestObject.put("icon_url", userBean.getIconOrign());
+			requestObject.put("original_icon_url", userBean.getIconOrign());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		LogUtil.d("mytest", userBean.getNickname()+","+userBean.getSex()+","+userBean.getBirthday()+","+
+		userBean.getIsStudent()+","+userBean.getSchool()+","+userBean.getCity()+","+
+		userBean.getCareer()+","+registerPhoneEt.getText().toString()+","+
+		deviceId+","+passwordEt.getText().toString());
 		params.addBodyParameter("data",requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
