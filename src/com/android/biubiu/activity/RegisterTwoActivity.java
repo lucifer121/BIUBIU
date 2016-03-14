@@ -24,6 +24,7 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.LogUtil;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -63,7 +64,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	Bitmap userheadBitmp;
 	String headPath;
 	private String schoolCode="";
-	//private String cityiId="";
+	private String cityiId="";//默认的北京市东城区id
 	/**
 	 * 所有身份职业
 	 */
@@ -307,7 +308,15 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			userBean.setCareer(schoolTv.getText().toString());
 			userBean.setSchool("");
 		}
-		userBean.setCity(cityTextView.getText().toString());
+		
+	try {
+		String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+		LogUtil.e("asdf", cityiId);
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+		
+		userBean.setCity(cityiId);
 		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
 		nextIntent.putExtra("infoBean", (Serializable)userBean);
 		nextIntent.putExtra("userhead", userheadBitmp);
@@ -322,7 +331,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
-			cityTextView.setText("北京 东城区");
+			cityTextView.setText("北京市 东城区");
 			changeNextBg();
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 200);

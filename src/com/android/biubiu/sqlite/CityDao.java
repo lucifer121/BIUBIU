@@ -147,7 +147,7 @@ public class CityDao {
 	}
 
 	/**
-	 * 根据省市区的编号 查到 唯一的id信息
+	 * 根据省市区的名称 查到 唯一的id信息
 	 * 
 	 * @param provinceNum
 	 * @param cityNum
@@ -156,13 +156,13 @@ public class CityDao {
 	 * @author lucifer
 	 * @date 2015-11-4
 	 */
-	public List<Citybean> getID(String provinceNum, String cityNum) {
+	public List<Citybean> getID(String province, String city) {
 
 		database = SQLiteDatabase.openOrCreateDatabase(DBManagerCity.DB_PATH
 				+ "/" + DBManagerCity.DB_NAME, null);
 		String sql = "select *from city where province=? and city=?";
 		List<Citybean> list = new ArrayList<Citybean>();
-		Cursor c = database.rawQuery(sql, new String[] { provinceNum, cityNum});
+		Cursor c = database.rawQuery(sql, new String[] { province, city});
 		while (c.moveToNext()) {
 			Citybean item = new Citybean();
 			item.setId(c.getString(c.getColumnIndex("id")));
