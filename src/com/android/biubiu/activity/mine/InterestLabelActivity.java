@@ -25,12 +25,17 @@ import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
-
 import com.android.biubiu.bean.InterestByCateBean;
 import com.android.biubiu.bean.InterestTagBean;
 
 
+import com.android.biubiu.bean.PersonalTagBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
@@ -62,29 +67,29 @@ public class InterestLabelActivity extends BaseActivity {
 	}
 	
 	private void initData() {
-		List<InterestTagBean> lableBeans=new ArrayList<InterestTagBean>();
-		InterestTagBean item=new InterestTagBean();
-		item.setIsChoice(false);
-		item.setName("跑步");
-	//	item.setBgColor(R.color.gray);
-		InterestTagBean item2=new InterestTagBean();
-		item2.setIsChoice(false);
-		item2.setName("游泳");
-	//	item2.setBgColor(R.color.gray);
-		for(int i=0;i<7;i++){
-			lableBeans.add(item);
-			lableBeans.add(item2);
-		}
-		for(int i=0;i<4;i++){
-//			InterestByCateBean interestLableBeanList=new InterestByCateBean();
-//			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
-//			interestLableBeanList.setColorBg(R.color.gray);
-//			interestLableBeanList.setId(1);
-//			interestLableBeanList.setInterest("运动");
-//			mMap.put("运动",lableBeans);
-//			interestLableBeanList.setmInterestMap(mMap);
-//			mDates.add(interestLableBeanList);
-		}
+//		List<InterestTagBean> lableBeans=new ArrayList<InterestTagBean>();
+//		InterestTagBean item=new InterestTagBean();
+//		item.setIsChoice(false);
+//		item.setName("跑步");
+//	//	item.setBgColor(R.color.gray);
+//		InterestTagBean item2=new InterestTagBean();
+//		item2.setIsChoice(false);
+//		item2.setName("游泳");
+//	//	item2.setBgColor(R.color.gray);
+//		for(int i=0;i<7;i++){
+//			lableBeans.add(item);
+//			lableBeans.add(item2);
+//		}
+//		for(int i=0;i<4;i++){
+////			InterestByCateBean interestLableBeanList=new InterestByCateBean();
+////			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
+////			interestLableBeanList.setColorBg(R.color.gray);
+////			interestLableBeanList.setId(1);
+////			interestLableBeanList.setInterest("运动");
+////			mMap.put("运动",lableBeans);
+////			interestLableBeanList.setmInterestMap(mMap);
+////			mDates.add(interestLableBeanList);
+//		}
 		
 		
 		
@@ -133,7 +138,17 @@ public class InterestLabelActivity extends BaseActivity {
 					}
 					
 					JSONObject obj = jsons.getJSONObject("data");
+					String dataTags=obj.getString("tags").toString();
 					System.out.println(obj.get("tags"));
+					Gson gson=new Gson();
+					List<InterestByCateBean> interestByCateBeansList=gson.fromJson(dataTags,  
+							new TypeToken<List<InterestByCateBean>>() {
+						
+					}.getType()); 
+					LogUtil.d(TAG, ""+interestByCateBeansList.size());
+					mDates.addAll(interestByCateBeansList);
+					handler.sendEmptyMessage(1);
+					
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -157,6 +172,28 @@ public class InterestLabelActivity extends BaseActivity {
 			}
 		});
 	}
+	/**
+	 * 更新界面
+	 */
+	Handler handler=new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				mAdapter.notifyDataSetChanged();
+				break;
+
+			default:
+				break;
+			}
+			
+		}
+		
+		
+	};
 
 	
 

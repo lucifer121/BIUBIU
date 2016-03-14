@@ -16,7 +16,7 @@ public class InterestByCateBean {
 	/**
 	 * 
 	 */
-	private List<InterestTagBean> mInterestList;
+	private List<InterestTagBean> data;
 
 	public String getTypecode() {
 		return typecode;
@@ -35,11 +35,11 @@ public class InterestByCateBean {
 	}
 
 	public List<InterestTagBean> getmInterestList() {
-		return mInterestList;
+		return data;
 	}
 
 	public void setmInterestList(List<InterestTagBean> mInterestList) {
-		this.mInterestList = mInterestList;
+		this.data = mInterestList;
 	}
 
 
