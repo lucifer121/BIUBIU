@@ -46,7 +46,7 @@ public class UserInfoBean implements Serializable{
 	@SerializedName("personality_tags")
 	private ArrayList<PersonalTagBean> personalTags;
 	@SerializedName("interested_tags")
-	private ArrayList<InterestLableBean> interestTags;
+	private ArrayList<InterestTagBean> interestTags;
 	
 	public String getIconCircle() {
 		return iconCircle;
@@ -90,10 +90,10 @@ public class UserInfoBean implements Serializable{
 	public void setPersonalTags(ArrayList<PersonalTagBean> personalTags) {
 		this.personalTags = personalTags;
 	}
-	public ArrayList<InterestLableBean> getInterestTags() {
+	public ArrayList<InterestTagBean> getInterestTags() {
 		return interestTags;
 	}
-	public void setInterestTags(ArrayList<InterestLableBean> interestTags) {
+	public void setInterestTags(ArrayList<InterestTagBean> interestTags) {
 		this.interestTags = interestTags;
 	}
 	public String getIconVerify() {

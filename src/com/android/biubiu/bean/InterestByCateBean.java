@@ -3,7 +3,7 @@ package com.android.biubiu.bean;
 import java.util.List;
 import java.util.Map;
 
-public class InterestLableBean {
+public class InterestByCateBean {
 	/**
 	 * 兴趣 分组id
 	 */
@@ -14,7 +14,7 @@ public class InterestLableBean {
 	private String interest;
 	private int colorBg;
 	
-	private Map<String, List<LableBean>> mInterestMap;
+	private Map<String, List<InterestTagBean>> mInterestMap;
 
 	public int getId() {
 		return id;
@@ -40,11 +40,11 @@ public class InterestLableBean {
 		this.interest = interest;
 	}
 
-	public Map<String, List<LableBean>> getmInterestMap() {
+	public Map<String, List<InterestTagBean>> getmInterestMap() {
 		return mInterestMap;
 	}
 
-	public void setmInterestMap(Map<String, List<LableBean>> mInterestMap) {
+	public void setmInterestMap(Map<String, List<InterestTagBean>> mInterestMap) {
 		this.mInterestMap = mInterestMap;
 	}
 

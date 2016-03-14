@@ -156,14 +156,13 @@ public class CityDao {
 	 * @author lucifer
 	 * @date 2015-11-4
 	 */
-	public List<Citybean> getID(String provinceNum, String cityNum, String twonNum) {
+	public List<Citybean> getID(String provinceNum, String cityNum) {
 
 		database = SQLiteDatabase.openOrCreateDatabase(DBManagerCity.DB_PATH
 				+ "/" + DBManagerCity.DB_NAME, null);
-		String sql = "select *from city where province=? and city=? and town=?";
+		String sql = "select *from city where province=? and city=?";
 		List<Citybean> list = new ArrayList<Citybean>();
-		Cursor c = database.rawQuery(sql, new String[] { provinceNum, cityNum,
-				twonNum });
+		Cursor c = database.rawQuery(sql, new String[] { provinceNum, cityNum});
 		while (c.moveToNext()) {
 			Citybean item = new Citybean();
 			item.setId(c.getString(c.getColumnIndex("id")));
@@ -174,9 +173,9 @@ public class CityDao {
 			item.setTown(c.getString(c.getColumnIndex("town")));
 			item.setTown_num(c.getString(c.getColumnIndex("town_num")));
 
-			System.out.println("id=" + item.getId() + " 省= "
-					+ item.getPrivance() + " 市=" + item.getCity() + "区="
-					+ item.getTown());
+//			System.out.println("id=" + item.getId() + " 省= "
+//					+ item.getPrivance() + " 市=" + item.getCity() + "区="
+//					+ item.getTown());
 
 			list.add(item);
 		}

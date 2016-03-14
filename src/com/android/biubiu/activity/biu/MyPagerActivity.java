@@ -60,10 +60,14 @@ import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
+import com.android.biubiu.adapter.UserInterestAdapter;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
-import com.android.biubiu.bean.TagBean;
+import com.android.biubiu.bean.InterestByCateBean;
+import com.android.biubiu.bean.InterestTagBean;
+import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
@@ -117,10 +121,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	//标记个人描述是否已经展开
 	private boolean isOpen = false;
 	private UserPagerTagAdapter personalAdapter;
-	private UserPagerTagAdapter interestAdapter;
-	ArrayList<String> photoList = new ArrayList<String>();
-	ArrayList<TagBean> personalTagList = new ArrayList<TagBean>();
-	ArrayList<TagBean> interestTagList = new ArrayList<TagBean>();
+	private UserInterestAdapter interestAdapter;
+	ArrayList<UserPhotoBean> photoList = new ArrayList<UserPhotoBean>();
+	ArrayList<PersonalTagBean> personalTagList = new ArrayList<PersonalTagBean>();
+	ArrayList<InterestTagBean> interestTagList = new ArrayList<InterestTagBean>();
 	//上传文件相关
 	String accessKeyId = "";
 	String accessKeySecret = "";
@@ -146,29 +150,35 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		String photoStr = "http://ac-tcd4rj3s.clouddn.com/EE4DqTAx7ZFWaMUq1bQqfXDWFW0n1TehKAW5bCQk.jpeg";
 		infoBean.setNickname("小强");
 		infoBean.setSex("男");
-		infoBean.setUserHead(photoStr);
+		infoBean.setIconOrign(photoStr);
+		infoBean.setIconCircle(photoStr);
 		infoBean.setBirthday("2006-01-01");
 		infoBean.setCity("北京");
-		infoBean.setHeight("1cm");
+		infoBean.setHeight(0);
 		infoBean.setHomeTown("北京");
 		infoBean.setSchool("幼儿园");
 		infoBean.setStar("小强座");
-		ArrayList<String> photos = new ArrayList<String>();
-		ArrayList<TagBean> tags = new ArrayList<TagBean>();
+		ArrayList<UserPhotoBean> photos = new ArrayList<UserPhotoBean>();
+		ArrayList<InterestTagBean> tags = new ArrayList<InterestTagBean>();
+		ArrayList<PersonalTagBean> tags2 = new ArrayList<PersonalTagBean>();
 		for (int i = 0; i < 6; i++) {
-			photos.add(photoStr);
-			TagBean bean = new TagBean();
-			bean.setTagName("标签"+i);
-			bean.setTagType("1");
+			UserPhotoBean phBean = new UserPhotoBean();
+			phBean.setPhotoOrign(photoStr);
+			photos.add(phBean);
+			InterestTagBean bean = new InterestTagBean();
+			bean.setTag("标签"+i);
 			tags.add(bean);
+			PersonalTagBean bean2 = new PersonalTagBean();
+			bean2.setTag("标签"+i);
+			tags2.add(bean2);
 		}
 		//log.d("mytest", beanList.toString());
 		//Gson gson = new Gson();
 		//log.d("mytest", ""+gson.fromJson(beanList.toString(), TagBean[].class));
 		infoBean.setUserPhotos(photos);
-		infoBean.setPersonalTags(tags);
+		infoBean.setPersonalTags(tags2);
 		infoBean.setInterestTags(tags);
-		infoBean.setJob("lala");
+		infoBean.setCareer("lala");
 		infoBean.setCompany("lala");
 		infoBean.setAboutMe(getResources().getString(R.string.page_test));
 		infoBean.setIsStudent(Constants.IS_STUDENT_FLAG);
@@ -238,7 +248,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	private void setUserInfoView(UserInfoBean bean) {
 		// TODO Auto-generated method stub
-		x.image().bind(userheadImv, bean.getUserHead(), imageOptions);
+		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());
 		sexTv.setText(bean.getSex());
@@ -251,14 +261,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			identityTv.setText("学生");
 			schoolTv.setText(bean.getSchool());
 		}else{
-			identityTv.setText(bean.getJob());
+			identityTv.setText(bean.getCareer());
 			schoolTv.setText(bean.getCompany());
 		}
 
 		userInfoTv.setText(R.string.page_test);
 		userInfoBigTv.setText(R.string.page_test);
 	}
-	private void setUserPhotos(ArrayList<String> photos) {
+	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
 		photoPageViews.clear();
 		for(int i=0;i<photos.size();i++){
@@ -269,12 +279,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions, photoPageViews);
 		photoPager.setAdapter(photoAdapter);
 	}
-	private void setInterestTags(ArrayList<TagBean> tags) {
+	private void setInterestTags(ArrayList<InterestTagBean> tags) {
 		// TODO Auto-generated method stub
-		interestAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
+		interestAdapter = new UserInterestAdapter(getApplicationContext(), tags);
 		interestTagGv.setAdapter(interestAdapter);
 	}
-	private void setPersonalTags(ArrayList<TagBean> tags) {
+	private void setPersonalTags(ArrayList<PersonalTagBean> tags) {
 		// TODO Auto-generated method stub
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
@@ -322,7 +332,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
-			headIntent.putExtra("userhead", infoBean.getUserHead());
+			headIntent.putExtra("userhead", infoBean.getIconCircle());
 			headIntent.putExtra("isMyself", true);
 			startActivity(headIntent);
 			break;

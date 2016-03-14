@@ -102,12 +102,12 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 
 			pHeightCurrent = heightWheelView.getCurrentItem();
 	
-			nheightWeight.setText(""+heights[pHeightCurrent]+weights[pWeightCurrent]);
+			nheightWeight.setText(""+heights[pHeightCurrent]+"  "+weights[pWeightCurrent]);
 		} 
 		if (wheel == weightWheelView) {
 
 			pWeightCurrent = weightWheelView.getCurrentItem();
-			nheightWeight.setText(""+heights[pHeightCurrent]+weights[pWeightCurrent]);
+			nheightWeight.setText(""+heights[pHeightCurrent]+"  "+weights[pWeightCurrent]);
 		
 		} 
 		

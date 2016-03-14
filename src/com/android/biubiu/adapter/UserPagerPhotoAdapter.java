@@ -1,5 +1,6 @@
 package com.android.biubiu.adapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.xutils.x;
@@ -7,6 +8,7 @@ import org.xutils.image.ImageOptions;
 
 import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.UserPhotoScanActivity;
+import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.DisplayUtils;
 
@@ -22,10 +24,10 @@ import android.widget.ImageView;
 public class UserPagerPhotoAdapter extends PagerAdapter{
 
 	Context context;
-	ArrayList<String> photos;
+	ArrayList<UserPhotoBean> photos;
 	ImageOptions options;
 	ArrayList<View> viewList ;
-	public UserPagerPhotoAdapter(Context context,ArrayList<String> photos,ImageOptions options,ArrayList<View> viewList) {
+	public UserPagerPhotoAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options,ArrayList<View> viewList) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.photos = photos;
@@ -55,14 +57,14 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 		View itemView = viewList.get(position);
 		container.addView(itemView);
 		ImageView imv = (ImageView) itemView.findViewById(R.id.userphoto_imv);
-		x.image().bind(imv, photos.get(position), options);
+		x.image().bind(imv, photos.get(position).getPhotoLittle(), options);
 		imv.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(context,UserPhotoScanActivity.class);
-				intent.putExtra("photolist", photos);
+				intent.putExtra("photolist", (Serializable)photos);
 				intent.putExtra("photoindex", position);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				context.startActivity(intent);

@@ -18,13 +18,14 @@ import android.widget.TextView;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.adapter.ScanPagerAdapter;
+import com.android.biubiu.bean.UserPhotoBean;
 
 public class UserPhotoScanActivity extends BaseActivity implements OnClickListener{
 	private RelativeLayout backRl;
 	private TextView indexTv;
 	private RelativeLayout deleteRl;
 	private ViewPager photoPager;
-	private ArrayList<String> photoList = new ArrayList<String>();
+	private ArrayList<UserPhotoBean> photoList = new ArrayList<UserPhotoBean>();
 	private int index = 0;
 	private ScanPagerAdapter scanAdapter;
 	ImageOptions imageOptions;
@@ -41,7 +42,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 	}
 	private void getIntentData() {
 		// TODO Auto-generated method stub
-		ArrayList<String> list = (ArrayList<String>) getIntent().getSerializableExtra("photolist");
+		ArrayList<UserPhotoBean> list = (ArrayList<UserPhotoBean>) getIntent().getSerializableExtra("photolist");
 		if(list != null && list.size()>0){
 			photoList.addAll(list);
 		}

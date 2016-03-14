@@ -6,6 +6,7 @@ import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
 import com.android.biubiu.R;
+import com.android.biubiu.bean.UserPhotoBean;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -15,10 +16,10 @@ import android.widget.ImageView;
 
 public class ScanPagerAdapter extends PagerAdapter{
 	Context context;
-	ArrayList<String> photos;
+	ArrayList<UserPhotoBean> photos;
 	ImageOptions options;
 	ArrayList<View> viewList ;
-	public ScanPagerAdapter(Context context,ArrayList<String> photos,ImageOptions options,ArrayList<View> viewList) {
+	public ScanPagerAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options,ArrayList<View> viewList) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.photos = photos;
@@ -38,10 +39,11 @@ public class ScanPagerAdapter extends PagerAdapter{
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		// TODO Auto-generated method stub
+		UserPhotoBean bean = photos.get(position);
 		View view = viewList.get(position);
 		container.addView(view);
 		ImageView imv = (ImageView) view.findViewById(R.id.scan_pager_imv);
-		x.image().bind(imv, photos.get(position), options);
+		x.image().bind(imv, bean.getPhotoOrign(), options);
 		return view;
 	}
 	@Override

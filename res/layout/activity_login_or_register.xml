@@ -67,7 +67,7 @@
             android:background="@drawable/login_register_btn_summit_light"
             android:gravity="center"
             android:text="注 册"
-            android:textColor="@color/login_register_text3"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <Button
