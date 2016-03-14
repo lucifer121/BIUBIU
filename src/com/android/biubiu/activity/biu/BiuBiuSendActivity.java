@@ -7,6 +7,7 @@ import com.android.biubiu.view.Flowlayout;
 
 
 
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Color;
@@ -15,21 +16,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 
 	private String mNames[] = {
-			"welcome","android","TextView",
-			"apple","jamy","kobe bryant",
-			"jordan","layout","viewgroup",
-			"margin","padding","text",
-			"name","type","search","logcat"
+			"我想认识你","披星戴月",
+			"哦","啊","今天是个好日子啊","真是个忧伤的故事",
+//			"jordan","layout","viewgroup",
+//			"margin","padding","text",
+//			"name","type","search","logcat"
 
 	};
 	private Flowlayout mFlowLayout;
 	Button sendBiuBtn;
+	private RelativeLayout backLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,15 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		sendBiuBtn = (Button) findViewById(R.id.send_biu);
 		sendBiuBtn.setOnClickListener(this);
+		backLayout=(RelativeLayout) findViewById(R.id.back_send_biu_mine_rl);
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 	@SuppressWarnings("deprecation")
 	private void initChildViews() {
@@ -49,16 +61,18 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		mFlowLayout = (Flowlayout) findViewById(R.id.flowlayout);
 		MarginLayoutParams lp = new MarginLayoutParams(
 				LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = 5;
-		lp.rightMargin = 5;
-		lp.topMargin = 5;
-		lp.bottomMargin = 5;
+		lp.leftMargin = 30;
+//		lp.rightMargin = 5;
+		lp.topMargin = 45;
+//		lp.bottomMargin = 5;
 		for(int i = 0; i < mNames.length; i ++){
 			final TextView view = new TextView(this);
 
 			view.setText(mNames[i]);
-			view.setTextColor(Color.WHITE);
-			view.setTextSize(16);
+			view.setTextColor(getResources().getColor(R.color.textview_item_send_bg));
+			view.setTextSize(11);
+			
+		//	view.setPadding(24, 24, 24, 24);
 			view.setBackgroundDrawable(getResources().getDrawable(R.drawable.textview_bg));
 			view.setOnClickListener(new OnClickListener() {
 
