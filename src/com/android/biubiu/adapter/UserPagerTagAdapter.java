@@ -54,7 +54,7 @@ public class UserPagerTagAdapter extends BaseAdapter{
 		}else{
 			vh = (ViewHolder) convertView.getTag();
 		}
-		vh.tagTv.setText(tag.getTag());
+		vh.tagTv.setText(tag.getName());
 		return convertView;
 	}
 	class ViewHolder{
