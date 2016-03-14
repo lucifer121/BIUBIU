@@ -9,54 +9,92 @@ import com.google.gson.annotations.SerializedName;
 public class UserInfoBean implements Serializable{
 	@SerializedName("code")
 	private String userCode;
-	@SerializedName("icon_is_validate")
+	@SerializedName("photoCircle")
+	private String iconCircle;
+	@SerializedName("photoOrigin")
+	private String iconOrigin;
+	@SerializedName("photoStatus")
 	private String iconVerify;
+	@SerializedName("photos")
+	private ArrayList<UserPhotoBean> userPhotos;
+	@SerializedName("description")
+	private String aboutMe;
 	@SerializedName("nickname")
 	private String nickname;
 	@SerializedName("sex")
 	private String sex;
 	@SerializedName("birth_date")
 	private String birthday;
-	@SerializedName("icon_url")
-	private String userHead;
+	@SerializedName("starsign")
+	private String star;
 	@SerializedName("city")
 	private String city;
 	@SerializedName("hometown")
 	private String homeTown;
 	@SerializedName("height")
-	private String height;
+	private int height;
 	@SerializedName("weight")
-	private String weight;
+	private int weight;
+	@SerializedName("isgraduated")
+	private String isStudent;
 	@SerializedName("school")
 	private String school;
 	@SerializedName("career")
-	private String job;
-	@SerializedName("isgraduated")
-	private String isStudent;
-	@SerializedName("description")
-	private String aboutMe;
-	@SerializedName("personality_tags")
-	private ArrayList<TagBean> personalTags;
-	@SerializedName("interested_tags")
-	private ArrayList<TagBean> interestTags;
-	@SerializedName("")
-	private String star;
-	@SerializedName("")
+	private String career;
+	@SerializedName("company")
 	private String company;
-	@SerializedName("")
-	private ArrayList<String> userPhotos;
+	@SerializedName("personality_tags")
+	private ArrayList<PersonalTagBean> personalTags;
+	@SerializedName("interested_tags")
+	private ArrayList<InterestLableBean> interestTags;
 	
-	public String getHeight() {
+	public String getIconCircle() {
+		return iconCircle;
+	}
+	public void setIconCircle(String iconCircle) {
+		this.iconCircle = iconCircle;
+	}
+	public String getIconOrign() {
+		return iconOrigin;
+	}
+	public void setIconOrign(String iconOrign) {
+		this.iconOrigin = iconOrign;
+	}
+	public ArrayList<UserPhotoBean> getUserPhotos() {
+		return userPhotos;
+	}
+	public void setUserPhotos(ArrayList<UserPhotoBean> userPhotos) {
+		this.userPhotos = userPhotos;
+	}
+	public int getHeight() {
 		return height;
 	}
-	public void setHeight(String height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
-	public String getWeight() {
+	public int getWeight() {
 		return weight;
 	}
-	public void setWeight(String weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+	public String getCareer() {
+		return career;
+	}
+	public void setCareer(String career) {
+		this.career = career;
+	}
+	public ArrayList<PersonalTagBean> getPersonalTags() {
+		return personalTags;
+	}
+	public void setPersonalTags(ArrayList<PersonalTagBean> personalTags) {
+		this.personalTags = personalTags;
+	}
+	public ArrayList<InterestLableBean> getInterestTags() {
+		return interestTags;
+	}
+	public void setInterestTags(ArrayList<InterestLableBean> interestTags) {
+		this.interestTags = interestTags;
 	}
 	public String getIconVerify() {
 		return iconVerify;
@@ -82,23 +120,11 @@ public class UserInfoBean implements Serializable{
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
 	}
-	public String getJob() {
-		return job;
-	}
-	public void setJob(String job) {
-		this.job = job;
-	}
 	public String getIsStudent() {
 		return isStudent;
 	}
 	public void setIsStudent(String isStudent) {
 		this.isStudent = isStudent;
-	}
-	public ArrayList<String> getUserPhotos() {
-		return userPhotos;
-	}
-	public void setUserPhotos(ArrayList<String> userPhotos) {
-		this.userPhotos = userPhotos;
 	}
 	public String getNickname() {
 		return nickname;
@@ -123,12 +149,6 @@ public class UserInfoBean implements Serializable{
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-	public String getUserHead() {
-		return userHead;
-	}
-	public void setUserHead(String userHead) {
-		this.userHead = userHead;
-	}
 	public String getStar() {
 		return star;
 	}
@@ -152,18 +172,6 @@ public class UserInfoBean implements Serializable{
 	}
 	public void setSchool(String school) {
 		this.school = school;
-	}
-	public ArrayList<TagBean> getPersonalTags() {
-		return personalTags;
-	}
-	public void setPersonalTags(ArrayList<TagBean> personalTags) {
-		this.personalTags = personalTags;
-	}
-	public ArrayList<TagBean> getInterestTags() {
-		return interestTags;
-	}
-	public void setInterestTags(ArrayList<TagBean> interestTags) {
-		this.interestTags = interestTags;
 	}
 	public String getSexFlag(){
 		if(sex.equals("男")){

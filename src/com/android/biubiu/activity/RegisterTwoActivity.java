@@ -296,10 +296,10 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		if(isStudent){
 			userBean.setIsStudent(Constants.IS_STUDENT_FLAG);
 			userBean.setSchool(schoolTv.getText().toString());
-			userBean.setJob("");
+			userBean.setCareer("");
 		}else{
 			userBean.setIsStudent(Constants.HAS_GRADUATE);
-			userBean.setJob(schoolTv.getText().toString());
+			userBean.setCareer(schoolTv.getText().toString());
 			userBean.setSchool("");
 		}
 		userBean.setCity(cityTextView.getText().toString());

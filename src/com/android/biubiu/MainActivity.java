@@ -2,10 +2,17 @@ package com.android.biubiu;
 
 
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
+import com.amap.api.location.AMapLocationListener;
 import com.android.biubiu.R;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
+import com.android.biubiu.utils.LocationUtils;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -15,16 +22,22 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends SlidingFragmentActivity implements AMapLocationListener{
 	public ImageView leftMenu;
 	public ImageView rightMenu;
+	//定位相关
+	private AMapLocationClient locationClient = null;
+	private AMapLocationClientOption locationOption = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,11 +48,47 @@ public class MainActivity extends SlidingFragmentActivity {
 		initRightMenu();
 		// 初始化ViewPager
 		initViewPager();
-		
 		//注册一个监听连接状态的listener
 		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
-		
+		location();
 	}
+	private void location() {
+		// TODO Auto-generated method stub
+		locationClient = new AMapLocationClient(this.getApplicationContext());
+		locationOption = new AMapLocationClientOption();
+		// 设置定位模式为高精度模式
+		locationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+		// 设置定位监听
+		locationClient.setLocationListener(this);
+		//设置定位参数相关
+		locationOption.setOnceLocation(false);
+		locationOption.setInterval(Long.valueOf(1000*60*10));
+		// 设置定位参数
+		locationClient.setLocationOption(locationOption);
+		// 启动定位
+		locationClient.startLocation();
+	}
+
+	Handler mHandler = new Handler() {
+		public void dispatchMessage(android.os.Message msg) {
+			switch (msg.what) {
+			//开始定位
+			case LocationUtils.MSG_LOCATION_START:
+				break;
+				// 定位完成
+			case LocationUtils.MSG_LOCATION_FINISH:
+				AMapLocation loc = (AMapLocation) msg.obj;
+				String result = LocationUtils.getLocationStr(loc);
+				LogUtil.d("mytest", result);
+				break;
+				//停止定位
+			case LocationUtils.MSG_LOCATION_STOP:
+				break;
+			default:
+				break;
+			}
+		};
+	};
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
 		BiuFragment biuFragment = new BiuFragment();		
@@ -79,7 +128,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		// 设置触摸屏幕的模式
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		menu.setShadowWidthRes(R.dimen.shadow_width);
-	//	menu.setShadowDrawable(R.drawable.shadow);
+		//	menu.setShadowDrawable(R.drawable.shadow);
 		// 设置滑动菜单视图的宽度
 		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		//		menu.setBehindWidth()
@@ -97,7 +146,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void showLeftMenu()
 	{
 		getSlidingMenu().showMenu();
-		
+
 	}
 
 	public void showRightMenu()
@@ -107,20 +156,20 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void closeMenu(){
 		getSlidingMenu().showContent();
 	}
-	
+
 	/**
 	 * 实现环信 ConnectionListener接口
 	 * @author lucifer
 	 *
 	 */
 	private class MyConnectionListener implements EMConnectionListener {
-	    @Override
+		@Override
 		public void onConnected() {
 		}
 		@Override
 		public void onDisconnected(final int error) {
 			runOnUiThread(new Runnable() {
-	 
+
 				@Override
 				public void run() {
 					if(error == EMError.USER_REMOVED){
@@ -128,17 +177,44 @@ public class MainActivity extends SlidingFragmentActivity {
 					}else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
 						// 显示帐号在其他设备登陆
 					} else {
-					if (NetUtils.hasNetwork(MainActivity.this)){
-						//连接不到聊天服务器
-						Toast.makeText(getApplicationContext(), "连接不到聊天服务器", Toast.LENGTH_SHORT).show();
+						if (NetUtils.hasNetwork(MainActivity.this)){
+							//连接不到聊天服务器
+							Toast.makeText(getApplicationContext(), "连接不到聊天服务器", Toast.LENGTH_SHORT).show();
 						}
-					else{
-						//当前网络不可用，请检查网络设置
-						Toast.makeText(getApplicationContext(), "当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
+						else{
+							//当前网络不可用，请检查网络设置
+							Toast.makeText(getApplicationContext(), "当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
 						}			
 					}
 				}
 			});
+		}
+	}
+
+	@Override
+	public void onLocationChanged(AMapLocation loc) {
+		// TODO Auto-generated method stub
+		if (null != loc) {
+			Message msg = mHandler.obtainMessage();
+			msg.obj = loc;
+			msg.what = LocationUtils.MSG_LOCATION_FINISH;
+			mHandler.sendMessage(msg);
+		}
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if (null != locationClient) {
+			// 停止定位
+			locationClient.stopLocation();
+			/**
+			 * 如果AMapLocationClient是在当前Activity实例化的，
+			 * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+			 */
+			locationClient.onDestroy();
+			locationClient = null;
+			locationOption = null;
 		}
 	}
 }
