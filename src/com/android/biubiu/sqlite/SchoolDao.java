@@ -88,7 +88,11 @@ public class SchoolDao {
 		return list;
 
 	}
-
+/**
+ * 根据学校id 查专业
+ * @param schoolId
+ * @return
+ */
 	public List<Department> getDepartments(String schoolId) {
 		database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/"
 				+ DBManager.DB_NAME, null);
