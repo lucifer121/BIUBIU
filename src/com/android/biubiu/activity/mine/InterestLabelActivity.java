@@ -65,25 +65,25 @@ public class InterestLabelActivity extends BaseActivity {
 		List<InterestTagBean> lableBeans=new ArrayList<InterestTagBean>();
 		InterestTagBean item=new InterestTagBean();
 		item.setIsChoice(false);
-		item.setTag("跑步");
+		item.setName("跑步");
 	//	item.setBgColor(R.color.gray);
 		InterestTagBean item2=new InterestTagBean();
 		item2.setIsChoice(false);
-		item2.setTag("游泳");
+		item2.setName("游泳");
 	//	item2.setBgColor(R.color.gray);
 		for(int i=0;i<7;i++){
 			lableBeans.add(item);
 			lableBeans.add(item2);
 		}
 		for(int i=0;i<4;i++){
-			InterestByCateBean interestLableBeanList=new InterestByCateBean();
-			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
-			interestLableBeanList.setColorBg(R.color.gray);
-			interestLableBeanList.setId(1);
-			interestLableBeanList.setInterest("运动");
-			mMap.put("运动",lableBeans);
-			interestLableBeanList.setmInterestMap(mMap);
-			mDates.add(interestLableBeanList);
+//			InterestByCateBean interestLableBeanList=new InterestByCateBean();
+//			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
+//			interestLableBeanList.setColorBg(R.color.gray);
+//			interestLableBeanList.setId(1);
+//			interestLableBeanList.setInterest("运动");
+//			mMap.put("运动",lableBeans);
+//			interestLableBeanList.setmInterestMap(mMap);
+//			mDates.add(interestLableBeanList);
 		}
 		
 		

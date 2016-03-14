@@ -1,7 +1,11 @@
 package com.android.biubiu.activity.mine;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +26,17 @@ import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+
+
+
+
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +46,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class PersonalityTagActivity extends BaseActivity implements OnTagsItemClickCallBack{
 	private RecyclerView mRecyclerView;
@@ -158,6 +172,38 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					
 					JSONObject obj = jsons.getJSONObject("data");
 					System.out.println(obj.get("tags"));
+					String dataTag=obj.getString("tags");
+					Gson gson=new Gson();
+					
+					
+					
+					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
+			                new TypeToken<List<PersonalTagBean>>() {  
+			                }.getType()); 
+					
+//				       for (PersonalTagBean tag : personalTagBeansList) {  
+//				            mList.add(tag);
+//				        }  
+				    
+					LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
+
+					mList.addAll(personalTagBeansList);
+//					Map<String,List<PersonalTagBean>> map=gson.fromJson(dataTag, 
+//							new TypeToken<HashMap<String,List<PersonalTagBean>>>(){}.getType());
+//				    Collection<List<PersonalTagBean>> c=map.values();
+//				    if(c==null||c.size()==0){//
+//				    	Toast.makeText(PersonalityTagActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();	    	
+//				    	return ;
+//				    }		    
+//				    Iterator<List<PersonalTagBean>> i=c.iterator();
+//				    List<PersonalTagBean> tagsList=null;
+//				    if(i.hasNext()){
+//				    	tagsList=i.next();
+//				    }
+//				 
+//				    mList.addAll(tagsList);
+//				    System.out.println(mList);
+				    handler.sendEmptyMessage(1);
 					
 					
 				} catch (JSONException e) {
@@ -254,6 +300,23 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		// TODO Auto-generated method stub
 		
 	}
+	
+	Handler handler=new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch(msg.what){
+			case 1:
+				mAdapter.notifyDataSetChanged();
+				
+				break;
+			}
+		}
+
+	
+		
+	};
 
 	
 }

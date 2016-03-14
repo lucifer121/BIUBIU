@@ -37,7 +37,6 @@ import android.widget.Toast;
 	public InterestLableListViewAdapter (Context context,List<InterestByCateBean> mDate){
 		this.mContext=context;
 		this.mDate=mDate;
-		
 	}
 
 	@Override
@@ -65,7 +64,7 @@ import android.widget.Toast;
 		
 		List<InterestTagBean> mDateLables=new ArrayList<InterestTagBean>();
 		InterestByCateBean item=mDate.get(position);
-		mDateLables=item.getmInterestMap().get(item.getInterest());
+		mDateLables=item.getmInterestList();
 
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -82,7 +81,7 @@ import android.widget.Toast;
 			holder = (ViewHolder) convertView.getTag();
 		}
 		setGridviewHight(mDateLables,holder);
-		holder.interest.setText(item.getInterest());
+		holder.interest.setText(item.getTypename());
 		if(position==(mDate.size()-1)){
 			holder.bottomLayout.setVisibility(View.VISIBLE);
 		}

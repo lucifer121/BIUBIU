@@ -65,7 +65,7 @@ import android.widget.TextView;
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		holder.lable.setText(item.getTag());
+		holder.lable.setText(item.getName());
 		if(item.getIsChoice()){
 			
 		}else{

@@ -7,47 +7,43 @@ public class InterestByCateBean {
 	/**
 	 * 兴趣 分组id
 	 */
-	private int id;
+	private String typecode;
 	/**
 	 * 兴趣 分组 名字
 	 */
-	private String interest;
-	private int colorBg;
+	private String typename;
 	
-	private Map<String, List<InterestTagBean>> mInterestMap;
+	/**
+	 * 
+	 */
+	private List<InterestTagBean> mInterestList;
 
-	public int getId() {
-		return id;
+	public String getTypecode() {
+		return typecode;
 	}
 
-	public int getColorBg() {
-		return colorBg;
+	public void setTypecode(String typecode) {
+		this.typecode = typecode;
 	}
 
-	public void setColorBg(int colorBg) {
-		this.colorBg = colorBg;
+	public String getTypename() {
+		return typename;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setTypename(String typename) {
+		this.typename = typename;
 	}
 
-	public String getInterest() {
-		return interest;
+	public List<InterestTagBean> getmInterestList() {
+		return mInterestList;
 	}
 
-	public void setInterest(String interest) {
-		this.interest = interest;
+	public void setmInterestList(List<InterestTagBean> mInterestList) {
+		this.mInterestList = mInterestList;
 	}
 
-	public Map<String, List<InterestTagBean>> getmInterestMap() {
-		return mInterestMap;
-	}
 
-	public void setmInterestMap(Map<String, List<InterestTagBean>> mInterestMap) {
-		this.mInterestMap = mInterestMap;
-	}
-
+	
 	
 	
 

@@ -4,15 +4,15 @@ public class PersonalTagBean {
 	/**
 	 * 标签id
 	 */
-	private int id;
+	private String typecode;
 	/**
 	 * 标签內容
 	 */
-	private String tag;
+	private String typename;
 	/**
 	 * 是否选择
 	 */
-	private Boolean isChoice;
+	private Boolean isChoice=false;
 	
 	public Boolean getIsChoice() {
 		return isChoice;
@@ -20,17 +20,17 @@ public class PersonalTagBean {
 	public void setIsChoice(Boolean isChoice) {
 		this.isChoice = isChoice;
 	}
-	public int getId() {
-		return id;
+	public String getId() {
+		return typecode;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String id) {
+		this.typecode = id;
 	}
 	public String getTag() {
-		return tag;
+		return typename;
 	}
 	public void setTag(String tag) {
-		this.tag = tag;
+		this.typename = tag;
 	}
 	
 

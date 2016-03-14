@@ -166,7 +166,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			phBean.setPhotoOrign(photoStr);
 			photos.add(phBean);
 			InterestTagBean bean = new InterestTagBean();
-			bean.setTag("标签"+i);
+			bean.setName("标签"+i);
 			tags.add(bean);
 			PersonalTagBean bean2 = new PersonalTagBean();
 			bean2.setTag("标签"+i);

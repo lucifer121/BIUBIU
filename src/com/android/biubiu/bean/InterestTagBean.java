@@ -2,28 +2,29 @@ package com.android.biubiu.bean;
 
 public class InterestTagBean {
 	/**
-	 * 标签id
+	 * 标签内容
 	 */
-	private int id;
+	private String name;
 	/**
-	 * 标签內容
+	 * 标签code
 	 */
-	private String tag;
+	private String code;
 	/**
 	 * 是否选择
 	 */
 	private Boolean isChoice;
-	public int getId() {
-		return id;
+	
+	public String getName() {
+		return name;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getTag() {
-		return tag;
+	public String getCode() {
+		return code;
 	}
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public Boolean getIsChoice() {
 		return isChoice;
@@ -31,5 +32,6 @@ public class InterestTagBean {
 	public void setIsChoice(Boolean isChoice) {
 		this.isChoice = isChoice;
 	}
+
 	
 }

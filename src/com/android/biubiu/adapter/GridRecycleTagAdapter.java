@@ -28,7 +28,6 @@ RecyclerView.Adapter<GridRecycleTagAdapter.MyViewHolder>{
 
 	public interface OnTagsItemClickCallBack {
 		void onItemClick(int id);
-
 		void onItemLongClick(View view, int position);
 	}
 
@@ -52,7 +51,7 @@ RecyclerView.Adapter<GridRecycleTagAdapter.MyViewHolder>{
 		if (list != null && list.size() > 0) {
 
 			final PersonalTagBean item = list.get(position);
-			// holder.tvName.setText(item.getName());
+			
 
 			if (mOnItemClickLitener != null) {
 				holder.rlAll.setOnClickListener(new OnClickListener() {
