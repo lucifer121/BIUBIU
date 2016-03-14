@@ -12,6 +12,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
+import com.android.biubiu.bean.Schools;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
@@ -61,6 +62,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
 	String headPath;
+	private String schoolCode="";
+	//private String cityiId="";
 	/**
 	 * 所有身份职业
 	 */
@@ -297,7 +300,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 		if(isStudent){
 			userBean.setIsStudent(Constants.IS_STUDENT_FLAG);
-			userBean.setSchool(schoolTv.getText().toString());
+			userBean.setSchool(schoolCode);
 			userBean.setCareer("");
 		}else{
 			userBean.setIsStudent(Constants.HAS_GRADUATE);
@@ -404,8 +407,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case SELECT_SCHOOL:
-			String schoolName = data.getStringExtra("school");
-			schoolTv.setText(schoolName);
+			Schools school = (Schools) data.getSerializableExtra("school");
+			schoolTv.setText(school.getUnivsNameString());
+			schoolCode = school.getUnivsId();
 			changeNextBg();
 			break;
 

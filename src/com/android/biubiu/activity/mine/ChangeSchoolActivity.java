@@ -1,7 +1,9 @@
 package com.android.biubiu.activity.mine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 
@@ -105,7 +107,7 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 						int position, long arg3) {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent();
-					intent.putExtra("school", schoolsAlllList.get(position).getUnivsNameString());
+					intent.putExtra("school", (Serializable)schoolsAlllList.get(position));
 					setResult(RESULT_OK, intent);
 					finish();
 					toastShort(""+schoolsAlllList.get(position).getUnivsNameString());
@@ -203,7 +205,7 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
 					Intent intent = new Intent();
-					intent.putExtra("school", list.get(position).getUnivsNameString());
+					intent.putExtra("school", (Serializable)list.get(position));
 					setResult(RESULT_OK, intent);
 					finish();
 					toastShort(""+list.get(position).getUnivsNameString());
@@ -222,9 +224,9 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.back_changeschool_mine_rl:
-				Intent intent2 = new Intent();
+				/*Intent intent2 = new Intent();
 				intent2.putExtra("school", school);
-				ChangeSchoolActivity.this.setResult(RESULT_CANCELED, intent2);
+				ChangeSchoolActivity.this.setResult(RESULT_CANCELED, intent2);*/
 				finish();
 
 				break;
