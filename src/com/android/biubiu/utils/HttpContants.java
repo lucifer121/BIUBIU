@@ -3,12 +3,16 @@ package com.android.biubiu.utils;
 public class HttpContants {
 
 	public static final String HTTP_ADDRESS = "http://123.56.193.210:8080/meetu_maven/";
-	//注册
-	public static final String REGISTER_METHOD = "app/auth/register";
-	//个人主页
-	public static final String MY_PAGER_INFO = "app/info/getUserInfo";
 	//阿里云
 	public static final String A_LI_YUN = "http://oss-cn-beijing.aliyuncs.com";
+	/**
+	 * 注册
+	 */
+	public static final String REGISTER_METHOD = "app/auth/register";
+	/**
+	 * 个人主页
+	 */
+	public static final String MY_PAGER_INFO = "app/info/getUserInfo";
 	/**
 	 * 登录
 	 */
@@ -29,6 +33,24 @@ public class HttpContants {
 	 * 检测手机号是否已注册
 	 */
 	public static final String IS_REGISTERED = "app/auth/checkPhoneIsRegistered";
-//注册时获得上传图片鉴权
-	public static final String REGISTER_OSS = "app/auth/getOSSSecurityToken";
+	/**
+	 * 注册时获得上传图片鉴权
+	 */
+	public static final String REGISTER_OSS = "app/auth/getOSSSecurityTokenWithoutT";
+	/**
+	 * 获得上传图片鉴权,需要token
+	 */
+	public static final String REGISTER_OSS_TOKEN = "app/info/getOSSSecurityToken";
+	/**
+	 * 修改头像
+	 */
+	public static final String UPDATE_HEAD = "app/info/updateIcon";
+	/**
+	 * 上传用户墙照片
+	 */
+	public static final String UPLOAD_PHOTO = "app/info/savePhoto";
+	/**
+	 * 更新用户信息
+	 */
+	public static final String UPDATE_USETINFO = "app/info/updateUserInfo";
 }

@@ -2,6 +2,13 @@ package com.android.biubiu.activity.mine;
 
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
@@ -9,7 +16,10 @@ import com.android.biubiu.R.layout;
 
 
 
+import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.DateUtils;
+import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -34,13 +44,14 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		private ImageView backImageView;
 		private RelativeLayout backlLayout, quedingLayout;
 		private long birthLong;
+		private UserInfoBean infoBean;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_brithday);
-		birth = super.getIntent().getStringExtra("birthday");
-		
+		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
+		birth = infoBean.getBirthday();
 		intiView();
 	}
 	private void intiView() {
@@ -88,14 +99,15 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			break;
 		// 点击 完成 上传时间
 		case R.id.mine_changebirth_wancheng_rl:
-
-	//		completeInfo(user);
+			if(null == birthday.getText() || birthday.getText().toString().equals("")){
+				toastShort(getResources().getString(R.string.reg_one_no_birth));
+				return;
+			}
+			infoBean.setBirthday(birthday.getText().toString());
+			updateInfo();
 			break;
 		// 返回
 		case R.id.back_changebirth_mine_rl:
-//			Intent intent2 = new Intent();
-//			intent2.putExtra("birthday", birth);
-//			ChangeBirthdayActivity.this.setResult(RESULT_CANCELED, intent2);
 			finish();
 			break;
 		default:
@@ -104,6 +116,53 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 
 	}
 
+	private void updateInfo() {
+		// TODO Auto-generated method stub
+		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"birth_date");
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					Intent intent = new Intent();
+					intent.putExtra("userInfoBean", infoBean);
+					setResult(RESULT_OK, intent);
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * 设置点击返回键的状态
 	 */

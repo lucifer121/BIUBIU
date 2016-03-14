@@ -11,6 +11,7 @@ import com.android.biubiu.activity.mine.UserPhotoScanActivity;
 import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.DisplayUtils;
+import com.android.biubiu.utils.LogUtil;
 
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +58,7 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 		View itemView = viewList.get(position);
 		container.addView(itemView);
 		ImageView imv = (ImageView) itemView.findViewById(R.id.userphoto_imv);
-		x.image().bind(imv, photos.get(position).getPhotoLittle(), options);
+		x.image().bind(imv, photos.get(position).getPhotoThumbnail(), options);
 		imv.setOnClickListener(new OnClickListener() {
 			
 			@Override

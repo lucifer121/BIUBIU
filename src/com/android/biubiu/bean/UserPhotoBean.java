@@ -1,27 +1,33 @@
 package com.android.biubiu.bean;
 
 public class UserPhotoBean {
-	String code;
-	String photoOrign;
-	String photoLittle;
-	public String getCode() {
-		return code;
+	String photoCode;
+	String photoThumbnail;
+	String photoOrigin;
+	String photoName;
+	public String getPhotoCode() {
+		return photoCode;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setPhotoCode(String photoCode) {
+		this.photoCode = photoCode;
 	}
-	public String getPhotoOrign() {
-		return photoOrign;
+	public String getPhotoThumbnail() {
+		return photoThumbnail;
 	}
-	public void setPhotoOrign(String photoOrign) {
-		this.photoOrign = photoOrign;
+	public void setPhotoThumbnail(String photoThumbnail) {
+		this.photoThumbnail = photoThumbnail;
 	}
-	public String getPhotoLittle() {
-		return photoLittle;
+	public String getPhotoOrigin() {
+		return photoOrigin;
 	}
-	public void setPhotoLittle(String photoLittle) {
-		this.photoLittle = photoLittle;
+	public void setPhotoOrigin(String photoOrigin) {
+		this.photoOrigin = photoOrigin;
 	}
-	
+	public String getPhotoName() {
+		return photoName;
+	}
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
 
 }

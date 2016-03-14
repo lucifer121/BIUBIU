@@ -152,7 +152,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 	}
 	//鉴权
 	public void getOssToken(final String path){
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+"app/auth/getOSSSecurityToken");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS_TOKEN);
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
@@ -252,10 +252,63 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 	}
 	//修改头像接口，成功后将路径返回上一级页面
 	protected void updateHead(String fileName) {
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_HEAD);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("icon_url", fileName);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					String photoUrl = data.getString("");
+					Intent intent = new Intent();
+					intent.putExtra("headUrl", photoUrl);
+					setResult(RESULT_OK, intent);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		
-		/*Intent intent = new Intent();
-		intent.putExtra("headUrl", headUrl);
-		setResult(RESULT_OK, intent);*/
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

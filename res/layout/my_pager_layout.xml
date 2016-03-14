@@ -213,7 +213,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -259,7 +258,6 @@
                     android:layout_marginRight="24dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -298,7 +296,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -343,7 +340,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -388,7 +384,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -433,7 +428,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -478,7 +472,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -519,6 +512,7 @@
                     android:src="@drawable/main_imageview_shenfen" />
 
                 <TextView
+                    android:id="@+id/identity_tag_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -532,7 +526,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -564,6 +557,7 @@
                     android:src="@drawable/main_imageview_school" />
 
                 <TextView
+                    android:id="@+id/school_tag_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -577,7 +571,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="aa"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

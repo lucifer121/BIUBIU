@@ -195,6 +195,7 @@ public class LoginActivity extends BaseActivity{
 					String token = obj.getString("token");
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
+					SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
 					loginHuanXin(hxName,HxPassword,token);
 					
 					

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.android.biubiu.R;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.utils.LogUtil;
 
 import android.content.Context;
 import android.util.Log;
@@ -45,6 +46,7 @@ public class UserPagerTagAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder vh = null;
+		LogUtil.d("mytest", "tagpp--"+position);
 		PersonalTagBean tag = tags.get(position);
 		if(convertView == null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.userpager_tag_item, null);

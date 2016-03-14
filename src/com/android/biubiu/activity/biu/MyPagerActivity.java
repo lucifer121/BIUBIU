@@ -69,6 +69,7 @@ import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.sqlite.CityDao;
+import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
@@ -106,8 +107,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout heightWeightLinear;
 	private TextView heightWeightTv;
 	private LinearLayout identityLinear;
+	private TextView identityTagTv;
 	private TextView identityTv;
 	private LinearLayout schoolLinear;
+	private TextView schoolTagTv;
 	private TextView schoolTv;
 	private LinearLayout personalTagLinear;
 	private MyGridView personalTagGv;
@@ -132,6 +135,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	String securityToken = "";
 	String expiration = "";
 	private CityDao cityDao = new CityDao();
+	private SchoolDao schoolDao = new SchoolDao();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -224,8 +228,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		identityLinear = (LinearLayout) findViewById(R.id.identity_linear);
 		identityLinear.setOnClickListener(this);
 		identityTv = (TextView) findViewById(R.id.identity_tv);
+		identityTagTv = (TextView) findViewById(R.id.identity_tag_tv);
 		schoolLinear = (LinearLayout) findViewById(R.id.school_linear);
 		schoolLinear.setOnClickListener(this);
+		schoolTagTv = (TextView) findViewById(R.id.school_tag_tv);
 		schoolTv = (TextView) findViewById(R.id.school_tv);
 		personalTagLinear = (LinearLayout) findViewById(R.id.personal_tag_linear);
 		personalTagLinear.setOnClickListener(this);
@@ -254,19 +260,25 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		sexTv.setText(bean.getSexStr(bean.getSex()));
 		birthdayTv.setText(bean.getBirthday());
 		starSignTv.setText(bean.getStar());
-		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
+		cityTv.setText(bean.getCity());
+		//cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
 		hometownTv.setText(bean.getHomeTown());
 		heightWeightTv.setText(bean.getHeight()+","+bean.getWeight());
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+			identityTagTv.setText("身份");
+			schoolTagTv.setText("学校");
 			identityTv.setText("学生");
+			//schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsId());
 			schoolTv.setText(bean.getSchool());
 		}else{
+			identityTagTv.setText("职业");
+			schoolTagTv.setText("公司");
 			identityTv.setText(bean.getCareer());
 			schoolTv.setText(bean.getCompany());
 		}
 
-		userInfoTv.setText(bean.getAboutMe());
-		userInfoBigTv.setText(bean.getAboutMe());
+		//userInfoTv.setText(bean.getAboutMe());
+		//userInfoBigTv.setText(bean.getAboutMe());
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
@@ -315,8 +327,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				Log.d("mytest", "error--"+ex.getMessage());
-				Log.d("mytest", "error--"+ex.getCause());
+				Log.d("mytest", "error--pp"+ex.getMessage());
+				Log.d("mytest", "error--pp"+ex.getCause());
 			}
 
 			@Override
@@ -332,22 +344,34 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					LogUtil.d("mytest", result);
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
-					String data = jsons.getJSONObject("data").toString();
-					if(data == null){
+					JSONObject data = jsons.getJSONObject("data");
+					String info = data.getJSONObject("userinfo").toString();
+					String token = data.getString("token");
+					if(!state.equals("200")){
 						toastShort("获取数据失败");
 						return;
 					}
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 					Gson gson = new Gson();
-					UserInfoBean bean = gson.fromJson(data, UserInfoBean.class);
+					UserInfoBean bean = gson.fromJson(info, UserInfoBean.class);
 					if(bean == null){
 						toastShort("获取数据失败");
 						return;
 					}
 					infoBean = bean;
+					ArrayList<PersonalTagBean> per = infoBean.getPersonalTags();
+					ArrayList<UserPhotoBean> phos = infoBean.getUserPhotos();
+					ArrayList<InterestByCateBean> cates = infoBean.getInterestCates();
+					ArrayList<InterestTagBean> inters = new ArrayList<InterestTagBean>();
+					if(cates != null && cates.size()>0){
+						for(int i=0;i<cates.size();i++){
+							inters.addAll(cates.get(i).getmInterestList());
+						}
+					}
 					setUserInfoView(bean);
-					setUserPhotos(infoBean.getUserPhotos());
-					setPersonalTags(infoBean.getPersonalTags());
-					setInterestTags(infoBean.getInterestTags());
+					setUserPhotos(phos);
+					setPersonalTags(per);
+					setInterestTags(inters);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -363,7 +387,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
 			headIntent.putExtra("userhead", infoBean.getIconCircle());
 			headIntent.putExtra("isMyself", true);
-			startActivity(headIntent);
+			startActivityForResult(headIntent, UPDATE_HEAD);
 			break;
 		case R.id.open_tv:
 			if(isOpen){
@@ -438,7 +462,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	//鉴权
 	public void getOssToken(final String path){
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+"app/auth/getOSSSecurityToken");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS_TOKEN);
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
@@ -539,6 +563,70 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	//将图片上传到后台
 	protected void uploadPhoto(String fileName) {
 		// 上传成功后更新界面
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPLOAD_PHOTO);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("photo", fileName);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					UserPhotoBean bean = new UserPhotoBean();
+					String photoCode = data.getString("photo_code");
+					String photoOrigin = data.getString("");
+					String photoThumbnail = data.getString("");
+					String photoName = data.getString("");
+					bean.setPhotoCode(photoCode);
+					bean.setPhotoName(photoName);
+					bean.setPhotoOrigin(photoOrigin);
+					bean.setPhotoThumbnail(photoThumbnail);
+					photoList.add(bean);
+					photoAdapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -589,6 +677,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		case UPDATE_HEAD:
 			if(null == data){
+				String headUrl = data.getStringExtra("headUrl");
+				x.image().bind(userheadImv, headUrl, imageOptions);
 				return;
 			}
 			break;

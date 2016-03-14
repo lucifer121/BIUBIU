@@ -7,7 +7,6 @@ import com.android.biubiu.utils.Constants;
 import com.google.gson.annotations.SerializedName;
 
 public class UserInfoBean implements Serializable{
-	@SerializedName("code")
 	private String userCode;
 	@SerializedName("photoCircle")
 	private String iconCircle;
@@ -46,8 +45,21 @@ public class UserInfoBean implements Serializable{
 	@SerializedName("personality_tags")
 	private ArrayList<PersonalTagBean> personalTags;
 	@SerializedName("interested_tags")
+	private ArrayList<InterestByCateBean> interestCates;
 	private ArrayList<InterestTagBean> interestTags;
 	
+	public String getIconOrigin() {
+		return iconOrigin;
+	}
+	public void setIconOrigin(String iconOrigin) {
+		this.iconOrigin = iconOrigin;
+	}
+	public ArrayList<InterestByCateBean> getInterestCates() {
+		return interestCates;
+	}
+	public void setInterestCates(ArrayList<InterestByCateBean> interestCates) {
+		this.interestCates = interestCates;
+	}
 	public String getIconCircle() {
 		return iconCircle;
 	}

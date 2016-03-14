@@ -13,6 +13,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.adapter.UserPagerTagAdapter.ViewHolder;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.utils.LogUtil;
 
 public class UserInterestAdapter extends BaseAdapter{
 
@@ -45,6 +46,7 @@ public class UserInterestAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder vh = null;
+		LogUtil.d("mytest", "tagii--"+position);
 		InterestTagBean tag = tags.get(position);
 		if(convertView == null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.userpager_tag_item, null);

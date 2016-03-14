@@ -3,6 +3,8 @@ package com.android.biubiu.bean;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 public class InterestByCateBean {
 	/**
 	 * 兴趣 分组id
@@ -16,8 +18,9 @@ public class InterestByCateBean {
 	/**
 	 * 
 	 */
+	@SerializedName("data")
 	private List<InterestTagBean> mInterestList;
-
+	
 	public String getTypecode() {
 		return typecode;
 	}

@@ -327,6 +327,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
 					JSONObject obj = jsonObjs.getJSONObject("data");
+					//JSONObject obj = new JSONObject(jsonObjs.getString("data"));
 					accessKeyId = obj.getString("accessKeyId");
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");

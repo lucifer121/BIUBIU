@@ -43,7 +43,7 @@ public class ScanPagerAdapter extends PagerAdapter{
 		View view = viewList.get(position);
 		container.addView(view);
 		ImageView imv = (ImageView) view.findViewById(R.id.scan_pager_imv);
-		x.image().bind(imv, bean.getPhotoOrign(), options);
+		x.image().bind(imv, bean.getPhotoOrigin(), options);
 		return view;
 	}
 	@Override

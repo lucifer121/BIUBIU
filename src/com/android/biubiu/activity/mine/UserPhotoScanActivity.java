@@ -2,8 +2,14 @@ package com.android.biubiu.activity.mine;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -19,6 +25,8 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.adapter.ScanPagerAdapter;
 import com.android.biubiu.bean.UserPhotoBean;
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 public class UserPhotoScanActivity extends BaseActivity implements OnClickListener{
 	private RelativeLayout backRl;
@@ -26,7 +34,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 	private RelativeLayout deleteRl;
 	private ViewPager photoPager;
 	private ArrayList<UserPhotoBean> photoList = new ArrayList<UserPhotoBean>();
-	private int index = 0;
+	private int currentIndex = 0;
 	private ScanPagerAdapter scanAdapter;
 	ImageOptions imageOptions;
 	ArrayList<View> photoViews = new ArrayList<View>();
@@ -46,7 +54,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		if(list != null && list.size()>0){
 			photoList.addAll(list);
 		}
-		index = getIntent().getIntExtra("photoindex", 0);
+		currentIndex = getIntent().getIntExtra("photoindex", 0);
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -64,7 +72,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		.build();
 	}
 	private void setPager() {
-		indexTv.setText((index+1)+"/"+photoList.size());
+		indexTv.setText((currentIndex+1)+"/"+photoList.size());
 		photoViews.clear();
 		for(int i=0;i<photoList.size();i++){
 			LayoutInflater inflater = getLayoutInflater();
@@ -74,13 +82,14 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		photoPager.setOffscreenPageLimit(3);
 		scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions, photoViews);
 		photoPager.setAdapter(scanAdapter);
-		photoPager.setCurrentItem(index);
+		photoPager.setCurrentItem(currentIndex);
 		photoPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
-				indexTv.setText((arg0+1)+"/"+photoList.size());
+				currentIndex = arg0;
+				indexTv.setText((currentIndex+1)+"/"+photoList.size());
 			}
 			
 			@Override
@@ -96,6 +105,64 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			}
 		});
 	}
+	private void deletePhoto() {
+		// TODO Auto-generated method stub
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		String fileCode = photoList.get(currentIndex).getPhotoCode();
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPLOAD_PHOTO);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("photo_code", fileCode);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					photoList.remove(currentIndex);
+					scanAdapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -104,10 +171,10 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			finish();
 			break;
 		case R.id.delete_rl:
+			deletePhoto();
 			break;
 		default:
 			break;
 		}
 	}
-
 }
