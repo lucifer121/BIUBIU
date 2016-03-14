@@ -77,15 +77,7 @@ RecyclerView.Adapter<GridRecycleTagAdapter.MyViewHolder>{
 				holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.black));
 				holder.mTextView.setBackgroundResource(R.drawable.main_imageview_tabhobby);
 			}
-//			if (selectedPosition == position) {
-//
-//				holder.mTextView.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
-//				holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.white));
-//				LogUtil.e("tag", ""+position);
-//
-//			} else {
-//
-//			}
+
 		}
 		
 		

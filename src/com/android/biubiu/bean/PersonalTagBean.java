@@ -15,13 +15,6 @@ public class PersonalTagBean implements Serializable{
 	 * 是否选择
 	 */
 	private Boolean isChoice=false;
-	
-	public Boolean getIsChoice() {
-		return isChoice;
-	}
-	public void setIsChoice(Boolean isChoice) {
-		this.isChoice = isChoice;
-	}
 	public String getName() {
 		return name;
 	}
@@ -33,7 +26,17 @@ public class PersonalTagBean implements Serializable{
 	}
 	public void setCode(String code) {
 		this.code = code;
+		}
+	public Boolean getIsChoice() {
+		return isChoice;
 	}
+	public void setIsChoice(Boolean isChoice) {
+		this.isChoice = isChoice;
+	}
+
 	
+	
+	
+
 
 }

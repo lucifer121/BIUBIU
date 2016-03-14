@@ -26,8 +26,10 @@ import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 
 
 
@@ -172,37 +174,25 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					
 					JSONObject obj = jsons.getJSONObject("data");
 					System.out.println(obj.get("tags"));
-					String dataTag=obj.getString("tags");
+					String dataTag=obj.getString("tags").toString();
 					Gson gson=new Gson();
 					
 					
-					
+					log.e(TAG, dataTag);
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
 			                new TypeToken<List<PersonalTagBean>>() {  
 			                }.getType()); 
 					
-//				       for (PersonalTagBean tag : personalTagBeansList) {  
-//				            mList.add(tag);
-//				        }  
+				       for (PersonalTagBean tag : personalTagBeansList) {  
+				            mList.add(tag);
+				            log.e(TAG, tag.getName());
+				            toastShort(tag.getName());
+				        }  
 				    
 					LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
 
-					mList.addAll(personalTagBeansList);
-//					Map<String,List<PersonalTagBean>> map=gson.fromJson(dataTag, 
-//							new TypeToken<HashMap<String,List<PersonalTagBean>>>(){}.getType());
-//				    Collection<List<PersonalTagBean>> c=map.values();
-//				    if(c==null||c.size()==0){//
-//				    	Toast.makeText(PersonalityTagActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();	    	
-//				    	return ;
-//				    }		    
-//				    Iterator<List<PersonalTagBean>> i=c.iterator();
-//				    List<PersonalTagBean> tagsList=null;
-//				    if(i.hasNext()){
-//				    	tagsList=i.next();
-//				    }
-//				 
-//				    mList.addAll(tagsList);
-//				    System.out.println(mList);
+				//	mList.addAll(personalTagBeansList);
+
 				    handler.sendEmptyMessage(1);
 					
 					
@@ -274,8 +264,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		}
 		
 		
-//		mAdapter.setSelectedPosition(id);
-//		mAdapter.notifyDataSetChanged();
+
 	}
 
 	
