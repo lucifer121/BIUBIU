@@ -18,13 +18,17 @@ import com.android.biubiu.R.color;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.adapter.InterestLableListViewAdapter;
-import com.android.biubiu.bean.InterestLableBean;
-import com.android.biubiu.bean.LableBean;
+
+
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+
+import com.android.biubiu.bean.InterestByCateBean;
+import com.android.biubiu.bean.InterestTagBean;
+
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -39,7 +43,7 @@ import android.widget.RelativeLayout;
 public class InterestLabelActivity extends BaseActivity {
 	private ListView mListView;
 	private InterestLableListViewAdapter mAdapter;
-	private List<InterestLableBean> mDates=new ArrayList<InterestLableBean>();
+	private List<InterestByCateBean> mDates=new ArrayList<InterestByCateBean>();
 	private RelativeLayout backLayout;
 	private String TAG="InterestLabelActivity";
 
@@ -58,22 +62,22 @@ public class InterestLabelActivity extends BaseActivity {
 	}
 	
 	private void initData() {
-		List<LableBean> lableBeans=new ArrayList<LableBean>();
-		LableBean item=new LableBean();
-		item.setIsSelector(false);
-		item.setName("跑步");
+		List<InterestTagBean> lableBeans=new ArrayList<InterestTagBean>();
+		InterestTagBean item=new InterestTagBean();
+		item.setIsChoice(false);
+		item.setTag("跑步");
 	//	item.setBgColor(R.color.gray);
-		LableBean item2=new LableBean();
-		item2.setIsSelector(false);
-		item2.setName("游泳");
+		InterestTagBean item2=new InterestTagBean();
+		item2.setIsChoice(false);
+		item2.setTag("游泳");
 	//	item2.setBgColor(R.color.gray);
 		for(int i=0;i<7;i++){
 			lableBeans.add(item);
 			lableBeans.add(item2);
 		}
 		for(int i=0;i<4;i++){
-			InterestLableBean interestLableBeanList=new InterestLableBean();
-			Map<String, List<LableBean>> mMap=new HashMap<String, List<LableBean>>();
+			InterestByCateBean interestLableBeanList=new InterestByCateBean();
+			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
 			interestLableBeanList.setColorBg(R.color.gray);
 			interestLableBeanList.setId(1);
 			interestLableBeanList.setInterest("运动");
