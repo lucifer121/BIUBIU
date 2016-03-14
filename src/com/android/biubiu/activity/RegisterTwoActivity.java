@@ -301,6 +301,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 		if(isStudent){
 			userBean.setIsStudent(Constants.IS_STUDENT_FLAG);
+			LogUtil.d("mytest", "school"+schoolCode);
 			userBean.setSchool(schoolCode);
 			userBean.setCareer("");
 		}else{

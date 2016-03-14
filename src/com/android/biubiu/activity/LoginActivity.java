@@ -15,6 +15,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.mob.tools.utils.SharePrefrenceHelper;
@@ -148,6 +149,7 @@ public class LoginActivity extends BaseActivity{
 			requestObject.put("phone", uName);
 			requestObject.put("password", uPassword);
 			requestObject.put("device_code", deviceId);
+			//requestObject.put("device_code", "xxxxxx");
 		} catch (JSONException e) {
 		
 			e.printStackTrace();
@@ -191,11 +193,8 @@ public class LoginActivity extends BaseActivity{
 					}
 					JSONObject obj = jsons.getJSONObject("data");
 					String token = obj.getString("token");
-					
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
-					
-					LogUtil.e(TAG,"name=="+hxName+"  password==="+HxPassword );
 					loginHuanXin(hxName,HxPassword,token);
 					
 					

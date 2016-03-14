@@ -169,7 +169,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			overridePendingTransition(0,R.anim.right_out_anim);
 			break;
 		case R.id.register_get_verify_tv:
-			sendSms();
+			queryIsHad();
 			break;
 		case R.id.register_compl_layout:
 			registerReady();
@@ -178,14 +178,67 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			break;
 		}
 	}
+	//检测手机号是否已注册
+	private void queryIsHad() {
+		// TODO Auto-generated method stub
+		if(null == registerPhoneEt.getText()||registerPhoneEt.getText().toString().equals("")){
+			toastShort(getResources().getString(R.string.reg_three_no_phone));
+			return;
+		}
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.IS_REGISTERED);
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("phone", registerPhoneEt.getText().toString());
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		params.addBodyParameter("data",jsonObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				Log.d("mytest", "error--"+ex.getMessage());
+				Log.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				log.d("mytest", arg0);
+				try {
+					JSONObject  jsonObject = new JSONObject(arg0);
+					JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
+					String result = obj.getString("result");
+					if(result.equals("0")){
+						//sendSms();
+					}else{
+						toastShort("该手机号已注册");
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	//发送验证码
 	private void sendSms() {
 		if(currentTime>0){
 			return ;
-		}
-		if(null == registerPhoneEt.getText()||registerPhoneEt.getText().toString().equals("")){
-			toastShort(getResources().getString(R.string.reg_three_no_phone));
-			return;
 		}
 		currentTime = totalTime;
 		handler.post(r);
@@ -194,7 +247,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-
+					
 				} else {
 
 				}
@@ -231,7 +284,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			return;
 		}
 		//验证  验证码
-		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
+		/*AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
@@ -241,11 +294,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});
+		});*/
+		getOssToken();
 	}
 	//鉴权
 	public void getOssToken(){
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+"app/auth/getOSSSecurityToken");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS);
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override

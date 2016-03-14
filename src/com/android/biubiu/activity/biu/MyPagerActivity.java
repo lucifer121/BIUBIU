@@ -137,14 +137,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
 		initView();
-		TestUserBean();
-		setUserInfoView(infoBean);
-		setUserPhotos(photoList);
-		setPersonalTags(personalTagList);
-		setInterestTags(interestTagList);
+		//TestUserBean();
+		getUserInfo();
 	}
 
-	private void TestUserBean() {
+	/*private void TestUserBean() {
 		// TODO Auto-generated method stub
 		infoBean = new UserInfoBean();
 		String photoStr = "http://ac-tcd4rj3s.clouddn.com/EE4DqTAx7ZFWaMUq1bQqfXDWFW0n1TehKAW5bCQk.jpeg";
@@ -186,7 +183,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoList.addAll(infoBean.getUserPhotos());
 		interestTagList.addAll(infoBean.getInterestTags());
 		personalTagList.addAll(infoBean.getPersonalTags());
-	}
+	}*/
 
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -289,10 +286,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
 	}
+	//获取用户主页数据
 	private void getUserInfo(){
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_METHOD);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
 		JSONObject requestObject = new JSONObject();
 		try {
+			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			//requestObject.put("token","47879725ee7d310453ba4dcd34e9e522");
+			requestObject.put("code","10006");
+			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -308,9 +310,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-
+				Log.d("mytest", "error--"+ex.getMessage());
+				Log.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
@@ -320,9 +323,32 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 
 			@Override
-			public void onSuccess(String arg0) {
+			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-
+				try {
+					LogUtil.d("mytest", result);
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					String data = jsons.getJSONObject("data").toString();
+					if(data == null){
+						toastShort("获取数据失败");
+						return;
+					}
+					Gson gson = new Gson();
+					UserInfoBean bean = gson.fromJson(data, UserInfoBean.class);
+					if(bean == null){
+						toastShort("获取数据失败");
+						return;
+					}
+					infoBean = bean;
+					setUserInfoView(bean);
+					setUserPhotos(infoBean.getUserPhotos());
+					setPersonalTags(infoBean.getPersonalTags());
+					setInterestTags(infoBean.getInterestTags());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

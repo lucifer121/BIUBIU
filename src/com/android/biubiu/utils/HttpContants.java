@@ -25,5 +25,10 @@ public class HttpContants {
 	 * 获取标签
 	 */
 	public static final String  GAT_TAGS="app/info/getTags";
-
+	/**
+	 * 检测手机号是否已注册
+	 */
+	public static final String IS_REGISTERED = "app/auth/checkPhoneIsRegistered";
+//注册时获得上传图片鉴权
+	public static final String REGISTER_OSS = "app/auth/getOSSSecurityToken";
 }
