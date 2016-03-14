@@ -3,7 +3,7 @@ package com.android.biubiu.adapter;
 import java.util.List;
 
 import com.android.biubiu.R;
-import com.android.biubiu.bean.LableBean;
+import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.Schools;
 
 import android.annotation.SuppressLint;
@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 @SuppressLint("InflateParams") public class GridViewLableAdapter extends BaseAdapter{
 	private Context mContext;
-	private List<LableBean> mDates;
+	private List<InterestTagBean> mDates;
 	private Boolean isSelector;
-	public GridViewLableAdapter(Context context,List<LableBean> mDates){
+	public GridViewLableAdapter(Context context,List<InterestTagBean> mDates){
 		this.mContext=context;
 		this.mDates=mDates;
 	}
@@ -50,7 +50,7 @@ import android.widget.TextView;
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		final ViewHolder holder ;
-		LableBean item = mDates.get(position);
+		InterestTagBean item = mDates.get(position);
 		isSelector=false;
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -65,8 +65,8 @@ import android.widget.TextView;
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		holder.lable.setText(item.getName());
-		if(item.getIsSelector()){
+		holder.lable.setText(item.getTag());
+		if(item.getIsChoice()){
 			
 		}else{
 			holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.android.biubiu.R;
-import com.android.biubiu.bean.InterestLableBean;
-import com.android.biubiu.bean.LableBean;
+import com.android.biubiu.bean.InterestByCateBean;
+import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.Schools;
 import com.android.biubiu.utils.DensityUtil;
 
@@ -27,14 +27,14 @@ import android.widget.Toast;
 
 @SuppressLint("InflateParams") public class InterestLableListViewAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<InterestLableBean> mDate;
+	private List<InterestByCateBean> mDate;
 	
 	private GridViewLableAdapter mAdapter;
 //	private List<LableBean> mDates=new ArrayList<LableBean>();
 	
 	
 	
-	public InterestLableListViewAdapter (Context context,List<InterestLableBean> mDate){
+	public InterestLableListViewAdapter (Context context,List<InterestByCateBean> mDate){
 		this.mContext=context;
 		this.mDate=mDate;
 		
@@ -63,8 +63,8 @@ import android.widget.Toast;
 		
 		ViewHolder holder = null;
 		
-		List<LableBean> mDateLables=new ArrayList<LableBean>();
-		InterestLableBean item=mDate.get(position);
+		List<InterestTagBean> mDateLables=new ArrayList<InterestTagBean>();
+		InterestByCateBean item=mDate.get(position);
 		mDateLables=item.getmInterestMap().get(item.getInterest());
 
 		if (convertView == null) {
@@ -100,7 +100,7 @@ import android.widget.Toast;
 	/**
 	 * 设置 Gridview高度
 	 */
-	public void setGridviewHight(List<LableBean> mList,ViewHolder holder) {
+	public void setGridviewHight(List<InterestTagBean> mList,ViewHolder holder) {
 		LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) holder.mGridView
 				.getLayoutParams();
 		int mHight;

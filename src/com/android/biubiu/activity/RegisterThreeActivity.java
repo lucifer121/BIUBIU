@@ -321,7 +321,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
 				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
-				userBean.setUserHead(fileName);
+				userBean.setIconOrign(fileName);
 				registerRequest();
 			}
 			@Override
@@ -352,13 +352,13 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			requestObject.put("isgraduated", userBean.getIsStudent());
 			requestObject.put("school", userBean.getSchool());
 			requestObject.put("city", userBean.getCity());
-			requestObject.put("career", userBean.getJob());
+			requestObject.put("career", userBean.getCareer());
 			requestObject.put("phone", registerPhoneEt.getText().toString());
 			requestObject.put("device_name", "");
 			requestObject.put("device_code", deviceId);
 			requestObject.put("password", passwordEt.getText().toString());
-			requestObject.put("icon_url", userBean.getUserHead());
-			requestObject.put("original_icon_url", userBean.getUserHead());
+			requestObject.put("icon_url", userBean.getIconCircle());
+			requestObject.put("original_icon_url", "");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,23 +2,23 @@ package com.android.biubiu.adapter;
 
 import java.util.ArrayList;
 
-import com.android.biubiu.R;
-import com.android.biubiu.bean.PersonalTagBean;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 
-public class UserPagerTagAdapter extends BaseAdapter{
+import com.android.biubiu.R;
+import com.android.biubiu.adapter.UserPagerTagAdapter.ViewHolder;
+import com.android.biubiu.bean.InterestTagBean;
+import com.android.biubiu.bean.PersonalTagBean;
 
-	ArrayList<PersonalTagBean> tags;
+public class UserInterestAdapter extends BaseAdapter{
+
+	ArrayList<InterestTagBean> tags;
 	Context context;
-	public UserPagerTagAdapter(Context context,ArrayList<PersonalTagBean> tags) {
+	public UserInterestAdapter(Context context,ArrayList<InterestTagBean> tags) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.tags = tags;
@@ -45,7 +45,7 @@ public class UserPagerTagAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder vh = null;
-		PersonalTagBean tag = tags.get(position);
+		InterestTagBean tag = tags.get(position);
 		if(convertView == null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.userpager_tag_item, null);
 			vh = new ViewHolder();
