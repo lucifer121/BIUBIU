@@ -14,7 +14,7 @@ public class InterestTagBean implements Serializable{
 	/**
 	 * 是否选择
 	 */
-	private Boolean isChoice;
+	private Boolean isChoice=false;
 	
 	private String type;
 	

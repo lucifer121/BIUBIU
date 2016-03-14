@@ -59,5 +59,8 @@
     <color name="set_divider2">#f8f6f4</color>
     <color name="set_seek_sel">#6cc1ba</color>
     <color name="set_seek_nosel">#7e7f7f</color>
+    
+    <!--  发biu-->
+    <color name="set_biu_bg">#efebe8</color>
 
 </resources>

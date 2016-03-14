@@ -10,7 +10,7 @@
     <string name="login_password_hint">输入密码</string>
     <string name="login_text">登 录</string>
     <string name="login_froget_psd">忘记密码?</string>
-     <string name="login_froget_psd_title">忘记密码</string>
+    <string name="login_froget_psd_title">忘记密码</string>
     <string name="login_bottom_text">注册和登录表示同意</string>
     <string name="login_bottom_text2">用户协议</string>
     <!-- menuleft 页面相关 -->
@@ -122,10 +122,18 @@
     <string name="reg_three_no_phone">手机号不能为空</string>
     <string name="reg_three_no_verify">验证码不能为空</string>
     <string name="reg_three_no_password">密码不能为空</string>
-     <string name="reg_three_error_verify">验证码错误</string>
+    <string name="reg_three_error_verify">验证码错误</string>
     <string name="reg_three_please_sel_city">请选择城市</string>
     <string name="title_activity_change_home_twon">ChangeHomeTwonActivity</string>
     <string name="title_activity_change_name">ChangeNameActivity</string>
     <string name="title_activity_forget_password">ForgetPasswordActivity</string>
+
+    <!-- 发送biubiu -->
+    <string name="send_biu_title">发出我的biu</string>
+    <string name="send_biu_back">取消</string>
+    <string name="send_biu_add_topic_tags">添加话题标签</string>
+    <string name="send_biu_send">发送</string>
+      <string name="send_biu_number">0</string>
+        <string name="send_biu_allNumber">/16</string>
 
 </resources>
