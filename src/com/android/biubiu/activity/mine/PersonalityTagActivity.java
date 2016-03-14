@@ -159,6 +159,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					JSONObject obj = jsons.getJSONObject("data");
 					System.out.println(obj.get("tags"));
 					
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
