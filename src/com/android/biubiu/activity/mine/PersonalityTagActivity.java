@@ -55,6 +55,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private GridRecycleTagAdapter mAdapter;
 	private List<PersonalTagBean> mList=new ArrayList<PersonalTagBean>();
 	
+	
 	private int isSelectorTagNumber=0;
 	// 计算recycle 高度
 	private int mHight;
