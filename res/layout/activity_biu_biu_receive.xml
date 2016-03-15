@@ -344,6 +344,7 @@
                 android:layout_below="@id/center_receive_biubiu_ll"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="51dp"
+                android:textColor="@color/white"
                 android:background="@drawable/biu_btn_normal"
                 android:text="@string/receive_biu_grab"
                 android:textSize="13sp" />

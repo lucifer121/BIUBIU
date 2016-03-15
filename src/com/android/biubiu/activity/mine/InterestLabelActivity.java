@@ -13,14 +13,18 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.color;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
+import com.android.biubiu.adapter.GridViewLableAdapter;
 import com.android.biubiu.adapter.InterestLableListViewAdapter;
 
 
+
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -38,61 +42,55 @@ import android.os.Handler;
 import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class InterestLabelActivity extends BaseActivity {
 	private ListView mListView;
-	private InterestLableListViewAdapter mAdapter;
-	private List<InterestByCateBean> mDates=new ArrayList<InterestByCateBean>();
+	private MyInterestLableListViewAdapter mAdapter;
+	
+	
+	public List<InterestByCateBean> mDates=new ArrayList<InterestByCateBean>();
 	private RelativeLayout backLayout;
 	private String TAG="InterestLabelActivity";
+	private Context mContext;
+	
+	private GridViewLableAdapter mAdapterGridView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interest_label);
+		mContext=InterestLabelActivity.this;
 		initView();
 		initData();
 		initAdapter();
 	}
-	private void initAdapter() {
-		// TODO Auto-generated method stub
-		mAdapter=new InterestLableListViewAdapter(this,mDates);
+	public void initAdapter() {
+		
+		mAdapter=new MyInterestLableListViewAdapter();
 		mListView.setAdapter(mAdapter);
 	}
 	
+	/**
+	 * 网上请求数据
+	 */
 	private void initData() {
-//		List<InterestTagBean> lableBeans=new ArrayList<InterestTagBean>();
-//		InterestTagBean item=new InterestTagBean();
-//		item.setIsChoice(false);
-//		item.setName("跑步");
-//	//	item.setBgColor(R.color.gray);
-//		InterestTagBean item2=new InterestTagBean();
-//		item2.setIsChoice(false);
-//		item2.setName("游泳");
-//	//	item2.setBgColor(R.color.gray);
-//		for(int i=0;i<7;i++){
-//			lableBeans.add(item);
-//			lableBeans.add(item2);
-//		}
-//		for(int i=0;i<4;i++){
-////			InterestByCateBean interestLableBeanList=new InterestByCateBean();
-////			Map<String, List<InterestTagBean>> mMap=new HashMap<String, List<InterestTagBean>>();
-////			interestLableBeanList.setColorBg(R.color.gray);
-////			interestLableBeanList.setId(1);
-////			interestLableBeanList.setInterest("运动");
-////			mMap.put("运动",lableBeans);
-////			interestLableBeanList.setmInterestMap(mMap);
-////			mDates.add(interestLableBeanList);
-//		}
-		
-		
-		
+
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 		JSONObject requestObject = new JSONObject();		
 		try {
@@ -156,8 +154,7 @@ public class InterestLabelActivity extends BaseActivity {
 				}
 			}
 		});
-		
-		
+	
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -175,7 +172,7 @@ public class InterestLabelActivity extends BaseActivity {
 	/**
 	 * 更新界面
 	 */
-	Handler handler=new Handler(){
+	public Handler handler=new Handler(){
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -183,7 +180,9 @@ public class InterestLabelActivity extends BaseActivity {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				
 				mAdapter.notifyDataSetChanged();
+				LogUtil.e(TAG, "刷新");
 				break;
 
 			default:
@@ -191,9 +190,116 @@ public class InterestLabelActivity extends BaseActivity {
 			}
 			
 		}
-		
-		
+
 	};
+	
+//	public void getDateByAdapter(){
+//		mDates.clear();
+//		LogUtil.e("返回数据", ""+mAdapter.getdate());
+//		mDates.addAll(mAdapter.getdate());
+//		LogUtil.e("新的数据了啊", ""+mDates.size());
+//		
+//	}
+	
+	public class MyInterestLableListViewAdapter extends BaseAdapter{
+		
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return mDates.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return mDates.get(arg0);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			ViewHolder holder = null;
+			
+			final List<InterestTagBean> mDateLables;
+			InterestByCateBean item=mDates.get(position);
+			mDateLables=item.getmInterestList();
+
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.item_interest_, null);
+				holder.mGridView=(GridView) convertView.findViewById(R.id.id_gridView_interest);
+				holder.mView=convertView.findViewById(R.id.id_view_interest);
+				holder.interest=(TextView) convertView.findViewById(R.id.interest_item_tv);
+				holder.bottomLayout=(RelativeLayout) convertView.findViewById(R.id.bottom_item_interest);
+				mAdapterGridView=new GridViewLableAdapter(mContext, mDateLables);
+				holder.mGridView.setAdapter(mAdapterGridView);
+				holder.mGridView.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View view,
+							int positionId, long arg3) {
+						if(mDateLables.get(positionId).getIsChoice()==false){
+							mDates.get(position).getmInterestList();
+							mDateLables.get(positionId).setIsChoice(true);					
+						}else{
+							mDateLables.get(positionId).setIsChoice(false);
+						}
+						boolean a=mDates.get(position).getmInterestList().get(positionId).getIsChoice();
+					
+						initAdapter();
+	
+					}
+				});
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+			setGridviewHight(mDateLables,holder);
+			holder.interest.setText(item.getTypename());
+			if(position==(mDates.size()-1)){
+				holder.bottomLayout.setVisibility(View.VISIBLE);
+			}
+
+			return convertView;
+		}
+		
+		private class ViewHolder {
+			private TextView interest;
+			private GridView mGridView;
+			private View mView;
+			private RelativeLayout bottomLayout;
+
+		}
+		/**
+		 * 设置 Gridview高度
+		 */
+		public void setGridviewHight(List<InterestTagBean> mList,ViewHolder holder) {
+			LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) holder.mGridView
+					.getLayoutParams();
+			int mHight;
+			if (mList.size() != 0 && (mList.size()) % 4 == 0) {
+				mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(mContext, 37);
+			} else {
+				mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(mContext, 37);
+			}
+			params.height = mHight;
+			holder.mGridView.setLayoutParams(params);
+			LinearLayout.LayoutParams params2 = (android.widget.LinearLayout.LayoutParams) holder.mView
+					.getLayoutParams();
+			params2.height=mHight+DensityUtil.dip2px(mContext, 13);
+			holder.mView.setLayoutParams(params2);
+		}
+		
+	}
+	
 
 	
 
