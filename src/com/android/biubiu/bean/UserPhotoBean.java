@@ -1,6 +1,8 @@
 package com.android.biubiu.bean;
 
-public class UserPhotoBean {
+import java.io.Serializable;
+
+public class UserPhotoBean implements Serializable{
 	String photoCode;
 	String photoThumbnail;
 	String photoOrigin;

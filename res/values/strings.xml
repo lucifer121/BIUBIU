@@ -68,6 +68,7 @@
     <string name="mine_identity_profession_title">选择身份职业</string>
     <string name="mine_selectoe_school_title">选择学校</string>
     <string name="mine_selectoe_username_title">修改昵称</string>
+    <string name="mine_selectoe_company_title">修改公司</string>
     <string name="mine_selectoe_city_title">选择你的城市</string>
 
     <!-- 个人主页 -->

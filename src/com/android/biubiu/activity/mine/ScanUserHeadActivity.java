@@ -153,6 +153,17 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 	//鉴权
 	public void getOssToken(final String path){
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS_TOKEN);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",token);
+			requestObject.put("device_code", deviceId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
@@ -177,6 +188,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "edithead=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
 					JSONObject obj = jsonObjs.getJSONObject("data");
@@ -184,6 +196,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
+					String token = obj.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -212,7 +226,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		OSSLog.enableLog();
 		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
-		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".png";
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
 
@@ -229,7 +243,6 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 				Log.d("PutObject", "UploadSuccess");
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
-				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
 				//上传照片成功，调用修改头像接口
 				updateHead(fileName);
 			}
@@ -288,6 +301,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "updatehead=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -297,11 +311,12 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
-					String photoUrl = data.getString("");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					String photoUrl = data.getString("icon_url");
 					Intent intent = new Intent();
 					intent.putExtra("headUrl", photoUrl);
 					setResult(RESULT_OK, intent);
+					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

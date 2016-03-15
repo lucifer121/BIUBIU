@@ -26,6 +26,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.adapter.ScanPagerAdapter;
 import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 
 public class UserPhotoScanActivity extends BaseActivity implements OnClickListener{
@@ -110,7 +111,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		String fileCode = photoList.get(currentIndex).getPhotoCode();
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPLOAD_PHOTO);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.DELETE_PHOTO);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token",token);
@@ -130,9 +131,10 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
@@ -144,6 +146,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "deleteph=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -153,7 +156,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					photoList.remove(currentIndex);
 					scanAdapter.notifyDataSetChanged();
 				} catch (JSONException e) {

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.xutils.http.RequestParams;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
@@ -17,11 +18,12 @@ public class HttpUtils {
 	public static RequestParams getUpdateInfoParams(Context context,UserInfoBean infoBean,String updateTags){
 		String token = SharePreferanceUtils.getInstance().getToken(context, SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(context, SharePreferanceUtils.DEVICE_ID, "");
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_HEAD);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token",token);
 			requestObject.put("device_code", deviceId);
+			LogUtil.d("mytest", "nick=="+infoBean.getNickname());
 			requestObject.put("nickname",infoBean.getNickname());
 			requestObject.put("sex", infoBean.getSex());
 			requestObject.put("birth_date",infoBean.getBirthday());
@@ -47,7 +49,7 @@ public class HttpUtils {
 			}
 			requestObject.put("personality_tags", personalTags.toString());
 			StringBuffer interTags = new StringBuffer();
-			if(infoBean.getPersonalTags().size()>0){
+			if(infoBean.getInterestTags().size()>0){
 				ArrayList<InterestTagBean> beans = infoBean.getInterestTags();
 				for(int i=0;i<beans.size();i++){
 					InterestTagBean bean = beans.get(i);

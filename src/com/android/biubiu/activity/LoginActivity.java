@@ -12,6 +12,7 @@ import org.xutils.http.RequestParams;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
@@ -143,7 +144,7 @@ public class LoginActivity extends BaseActivity{
 	//测试登录的方法
 	protected void login(String uName,String uPassword) {
 		// TODO Auto-generated method stub
-		RequestParams params = new RequestParams("http://123.56.193.210:8080/meetu_maven/app/auth/login");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.LOGIN);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("phone", uName);
@@ -196,6 +197,12 @@ public class LoginActivity extends BaseActivity{
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
 					SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+					String nickname = obj.getString("nickname");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
+					String userHead = obj.getString("icon_url");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
+					String userCode = obj.getString("code");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, code);
 					loginHuanXin(hxName,HxPassword,token);
 					
 					
@@ -212,8 +219,6 @@ public class LoginActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			finish();
-			overridePendingTransition(0,     
-					R.anim.right_out_anim);
 		}
 		return super.onKeyDown(keyCode, event);
 	}

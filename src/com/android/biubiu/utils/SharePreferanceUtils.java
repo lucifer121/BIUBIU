@@ -9,6 +9,9 @@ public class SharePreferanceUtils {
 	public static String AGE_MIN = "age_min";
 	public static String TOKEN="token";
 	public static String DEVICE_ID="device_id";
+	public static String USER_NAME="username";
+	public static String USER_HEAD="userhead";
+	public static String USER_CODE="usercode";
 
 	public static SharePreferanceUtils shareUtils ;
 	public static SharePreferanceUtils getInstance(){
@@ -46,7 +49,20 @@ public class SharePreferanceUtils {
 	public int getMaxAge(Context context,String prefKey,int defValue){
 		return getShared(context, prefKey, defValue);
 	}
-	
+	//获取用户名
+	public String getUserName(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取用户头像
+	public String getUserHead(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取用户编码
+	public String getUserCode(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+
+
 	public  String getShared(Context ctx, String prefKey, String defValue) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(prefKey, defValue);
 	}

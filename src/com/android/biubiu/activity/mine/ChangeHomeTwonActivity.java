@@ -3,16 +3,27 @@ package com.android.biubiu.activity.mine;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.Citybean;
+import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;
 import com.android.biubiu.sqlite.CityDao;
+import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -32,21 +43,19 @@ OnClickListener, OnWheelChangedListener{
 	private TextView mBtnConfirm;
 	private String city;
 	private RelativeLayout wanchLayout, backLayout;
-
+	
 	private CityDao cityDao = new CityDao();
 
 	// 控件相关
 	private TextView homeName;
-
+	UserInfoBean infoBean;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_home_twon);
 		initView();
-		city = super.getIntent().getStringExtra("hometown");
-
-	
-
+		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
+		city = infoBean.getHomeTown();
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -57,7 +66,6 @@ OnClickListener, OnWheelChangedListener{
 	private void initView() {
 		// TODO Auto-generated method stub
 		homeName = (TextView) super.findViewById(R.id.hometwonName_change_city_tv);
-		
 	}
 
 	private void setUpViews() {
@@ -198,15 +206,13 @@ OnClickListener, OnWheelChangedListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.city_selector_shengshiqu_rl:
-	//		completeInfo(user);
-
-			break;
-		case R.id.back_changecity_mine_rl:
-			Intent intent2 = new Intent();
-			intent2.putExtra("city", city);
-			ChangeHomeTwonActivity.this.setResult(RESULT_CANCELED, intent2);
-			finish();
+		case R.id.hometwon_selector_shengshiqu_rl:
+			if(null == homeName.getText() || homeName.getText().toString().equals("")){
+				return;
+			}
+			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+			infoBean.setHomeTown(cityiId);
+			updateInfo();
 			break;
 		case R.id.back_changehometwon_mine_rl:
 			finish();
@@ -214,6 +220,56 @@ OnClickListener, OnWheelChangedListener{
 		default:
 			break;
 		}
+	}
+
+	private void updateInfo() {
+		// TODO Auto-generated method stub
+		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"hometown");
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "home=="+result);
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					Intent intent = new Intent();
+					intent.putExtra("userInfoBean", infoBean);
+					setResult(RESULT_OK, intent);
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**

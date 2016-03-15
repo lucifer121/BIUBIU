@@ -324,6 +324,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "ret=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
 					JSONObject obj = jsonObjs.getJSONObject("data");
@@ -375,7 +376,6 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				Log.d("PutObject", "UploadSuccess");
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
-				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
 				userBean.setIconOrign(fileName);
 				registerRequest();
 			}
@@ -418,10 +418,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LogUtil.d("mytest", userBean.getNickname()+","+userBean.getSex()+","+userBean.getBirthday()+","+
-		userBean.getIsStudent()+","+userBean.getSchool()+","+userBean.getCity()+","+
-		userBean.getCareer()+","+registerPhoneEt.getText().toString()+","+
-		deviceId+","+passwordEt.getText().toString());
+		LogUtil.d("mytest", userBean.getCity()+",");
 		params.addBodyParameter("data",requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
@@ -432,9 +429,10 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-
+				Log.d("mytest", "error--pp"+ex.getMessage());
+				Log.d("mytest", "error--pp"+ex.getCause());
 			}
 
 			@Override
@@ -461,6 +459,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
 					String token = obj.getString("token");
+					String nickname = obj.getString("nickname");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
+					String userHead = obj.getString("icon_url");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
+					String userCode = obj.getString("code");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, code);
 
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 

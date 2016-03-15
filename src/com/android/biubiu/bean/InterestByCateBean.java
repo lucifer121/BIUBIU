@@ -1,11 +1,12 @@
 package com.android.biubiu.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
-public class InterestByCateBean {
+public class InterestByCateBean implements Serializable{
 	/**
 	 * 兴趣 分组id
 	 */

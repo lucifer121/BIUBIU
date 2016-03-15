@@ -19,6 +19,7 @@ import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.DateUtils;
 import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.os.Bundle;
@@ -128,9 +129,10 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
@@ -142,6 +144,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "birthday=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -151,7 +154,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent = new Intent();
 					intent.putExtra("userInfoBean", infoBean);
 					setResult(RESULT_OK, intent);

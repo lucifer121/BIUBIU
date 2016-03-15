@@ -13,6 +13,7 @@ import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class ChangeNameActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		completeLayout=(RelativeLayout) findViewById(R.id.mine_changename_wancheng_rl);
 		nameEt=(EditText) findViewById(R.id.name_changName_et);
+		nameEt.setText(infoBean.getNickname());
+		nameEt.setSelection(infoBean.getNickname().length());
 		nameEt.addTextChangedListener(textWatcher);
 		backLayout=(RelativeLayout) findViewById(R.id.back_changename_mine_rl);
 		numberTv=(TextView) findViewById(R.id.textSi_change_name_tv);
@@ -65,7 +68,7 @@ public class ChangeNameActivity extends BaseActivity {
 					toastShort(getResources().getString(R.string.reg_one_no_nickname));
 					return;
 				}
-				infoBean.setAboutMe(nameEt.getText().toString());
+				infoBean.setNickname(nameEt.getText().toString());
 				updateInfo();
 			}
 		});
@@ -83,9 +86,10 @@ public class ChangeNameActivity extends BaseActivity {
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
@@ -97,6 +101,7 @@ public class ChangeNameActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "name=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -106,7 +111,7 @@ public class ChangeNameActivity extends BaseActivity {
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent = new Intent();
 					intent.putExtra("userInfoBean", infoBean);
 					setResult(RESULT_OK, intent);

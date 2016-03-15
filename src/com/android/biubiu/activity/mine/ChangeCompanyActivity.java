@@ -1,66 +1,87 @@
 package com.android.biubiu.activity.mine;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
-import com.android.biubiu.bean.InterestTagBean;
-import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
-import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 
-public class AboutMeActivity extends BaseActivity implements OnClickListener{
-	RelativeLayout backRl;
-	EditText aboutEt;
-	RelativeLayout completeRl;
+public class ChangeCompanyActivity extends BaseActivity implements OnClickListener{
+	private RelativeLayout backRl;
+	private RelativeLayout completeRl;
+	private EditText companyEt;
+	private TextView numTv;
 	UserInfoBean infoBean;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about_me_layout);
-		getIngentInfo();
-		initView();
-	}
-	private void getIngentInfo() {
-		// TODO Auto-generated method stub
+		setContentView(R.layout.activity_change_company);
 		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
+		initView();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
 		backRl.setOnClickListener(this);
-		aboutEt = (EditText) findViewById(R.id.about_me_tv);
 		completeRl = (RelativeLayout) findViewById(R.id.complete_rl);
 		completeRl.setOnClickListener(this);
-		aboutEt.setText(infoBean.getAboutMe());
+		companyEt = (EditText) findViewById(R.id.name_company_et);
+		if(null != infoBean.getCompany()){
+			companyEt.setText(infoBean.getCompany());
+			companyEt.setSelection(infoBean.getCompany().length());
+		}
+		companyEt.addTextChangedListener(textWatcher);
+		numTv = (TextView) findViewById(R.id.text_num_tv);
 	}
+	public TextWatcher textWatcher=new TextWatcher() {
+
+		@Override
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable arg0) {
+			// TODO Auto-generated method stub
+			numTv.setText(""+arg0.toString().length());
+		}
+	};
 	private void updateInfo() {
 		// TODO Auto-generated method stub
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"description");
+		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"company");
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -73,13 +94,13 @@ public class AboutMeActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "aboutme=="+result);
+				LogUtil.d("mytest", "company=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -109,11 +130,10 @@ public class AboutMeActivity extends BaseActivity implements OnClickListener{
 			finish();
 			break;
 		case R.id.complete_rl:
-			if(null == aboutEt.getText() || aboutEt.getText().toString().equals("")){
-				toastShort(getResources().getString(R.string.page_no_aboutme));
+			if(null == companyEt.getText() || companyEt.getText().toString().equals("")){
 				return;
 			}
-			infoBean.setAboutMe(aboutEt.getText().toString());
+			infoBean.setCompany(companyEt.getText().toString());
 			updateInfo();
 			break;
 		default:

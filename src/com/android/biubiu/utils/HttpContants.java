@@ -50,6 +50,10 @@ public class HttpContants {
 	 */
 	public static final String UPLOAD_PHOTO = "app/info/savePhoto";
 	/**
+	 * 删除图片
+	 */
+	public static final String DELETE_PHOTO = "app/info/delPhoto";
+	/**
 	 * 更新用户信息
 	 */
 	public static final String UPDATE_USETINFO = "app/info/updateUserInfo";

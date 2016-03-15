@@ -13,10 +13,21 @@ import java.util.List;
 
 
 
+
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.Citybean;
+import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
@@ -30,6 +41,12 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 
+
+
+
+import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -55,17 +72,15 @@ OnClickListener, OnWheelChangedListener{
 
 	// 控件相关
 	private TextView cityName;
+	UserInfoBean infoBean;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_city_main);
-		
+		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
 		initView();
 		city = super.getIntent().getStringExtra("hometown");
-
-	
-
 		setUpViews();
 		setUpListener();
 		setUpData();
@@ -214,18 +229,67 @@ OnClickListener, OnWheelChangedListener{
 		mViewCity.setCurrentItem(0);
 		updateAreas();
 	}
+	private void updateInfo() {
+		// TODO Auto-generated method stub
+		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"nickname");
+		x.http().post(params, new CommonCallback<String>() {
 
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "city=="+result);
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					Intent intent = new Intent();
+					intent.putExtra("userInfoBean", infoBean);
+					setResult(RESULT_OK, intent);
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.city_selector_shengshiqu_rl:
-	//		completeInfo(user);
-
+			if(null == cityName.getText() || cityName.getText().toString().equals("")){
+				return;
+			}
+			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+			infoBean.setCity(cityiId);
+			updateInfo();
 			break;
 		case R.id.back_changecity_mine_rl:
-			Intent intent2 = new Intent();
-			intent2.putExtra("city", city);
-			ChangeCityActivity.this.setResult(RESULT_CANCELED, intent2);
 			finish();
 			break;
 		default:
@@ -238,9 +302,6 @@ OnClickListener, OnWheelChangedListener{
 	 */
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent();
-		intent.putExtra("city", city);
-		ChangeCityActivity.this.setResult(RESULT_CANCELED, intent);
 		finish();
 	}
 }

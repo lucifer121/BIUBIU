@@ -2,6 +2,7 @@ package com.android.biubiu.activity.biu;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONException;
@@ -147,54 +148,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		getUserInfo();
 	}
 
-	/*private void TestUserBean() {
-		// TODO Auto-generated method stub
-		infoBean = new UserInfoBean();
-		String photoStr = "http://ac-tcd4rj3s.clouddn.com/EE4DqTAx7ZFWaMUq1bQqfXDWFW0n1TehKAW5bCQk.jpeg";
-		infoBean.setNickname("小强");
-		infoBean.setSex("男");
-		infoBean.setIconOrign(photoStr);
-		infoBean.setIconCircle(photoStr);
-		infoBean.setBirthday("2006-01-01");
-		infoBean.setCity("北京");
-		infoBean.setHeight(0);
-		infoBean.setHomeTown("北京");
-		infoBean.setSchool("幼儿园");
-		infoBean.setStar("小强座");
-		ArrayList<UserPhotoBean> photos = new ArrayList<UserPhotoBean>();
-		ArrayList<InterestTagBean> tags = new ArrayList<InterestTagBean>();
-		ArrayList<PersonalTagBean> tags2 = new ArrayList<PersonalTagBean>();
-		for (int i = 0; i < 6; i++) {
-			UserPhotoBean phBean = new UserPhotoBean();
-			phBean.setPhotoOrign(photoStr);
-			photos.add(phBean);
-			InterestTagBean bean = new InterestTagBean();
-			bean.setName("标签"+i);
-			tags.add(bean);
-			PersonalTagBean bean2 = new PersonalTagBean();
-			bean2.setName("标签"+i);
-			tags2.add(bean2);
-		}
-		//log.d("mytest", beanList.toString());
-		//Gson gson = new Gson();
-		//log.d("mytest", ""+gson.fromJson(beanList.toString(), TagBean[].class));
-		infoBean.setUserPhotos(photos);
-		infoBean.setPersonalTags(tags2);
-		infoBean.setInterestTags(tags);
-		infoBean.setCareer("lala");
-		infoBean.setCompany("lala");
-		infoBean.setAboutMe(getResources().getString(R.string.page_test));
-		infoBean.setIsStudent(Constants.IS_STUDENT_FLAG);
-
-		photoList.addAll(infoBean.getUserPhotos());
-		interestTagList.addAll(infoBean.getInterestTags());
-		personalTagList.addAll(infoBean.getPersonalTags());
-	}*/
-
 	private void initView() {
 		// TODO Auto-generated method stub
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setOnClickListener(this);
+		//解决scrollview初始在顶部
+		userheadImv.setFocusable(true);
+		userheadImv.setFocusableInTouchMode(true);
+		userheadImv.requestFocus();
 		usernameTv = (TextView) findViewById(R.id.username_tv);
 		addPhotoImv = (ImageView) findViewById(R.id.add_userphoto_imv);
 		addPhotoImv.setOnClickListener(this);
@@ -277,8 +238,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolTv.setText(bean.getCompany());
 		}
 
-		//userInfoTv.setText(bean.getAboutMe());
-		//userInfoBigTv.setText(bean.getAboutMe());
+		userInfoTv.setText(bean.getAboutMe());
+		userInfoBigTv.setText(bean.getAboutMe());
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
@@ -351,7 +312,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 						toastShort("获取数据失败");
 						return;
 					}
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson = new Gson();
 					UserInfoBean bean = gson.fromJson(info, UserInfoBean.class);
 					if(bean == null){
@@ -368,6 +329,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 							inters.addAll(cates.get(i).getmInterestList());
 						}
 					}
+					infoBean.setInterestTags(inters);
 					setUserInfoView(bean);
 					setUserPhotos(phos);
 					setPersonalTags(per);
@@ -385,7 +347,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
-			headIntent.putExtra("userhead", infoBean.getIconCircle());
+			headIntent.putExtra("userhead", infoBean.getIconOrigin());
 			headIntent.putExtra("isMyself", true);
 			startActivityForResult(headIntent, UPDATE_HEAD);
 			break;
@@ -415,43 +377,56 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.nickname_linear:
 			Intent nicknameIntent = new Intent(MyPagerActivity.this,ChangeNameActivity.class);
-			startActivity(nicknameIntent);
+			nicknameIntent.putExtra("userInfoBean",infoBean);
+			startActivityForResult(nicknameIntent, UPDATE_INFO);
 			break;
 		case R.id.birthday_linear:
 			Intent birthIntent = new Intent(MyPagerActivity.this,ChangeBrithdayActivity.class);
-			startActivity(birthIntent);
+			birthIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(birthIntent, UPDATE_INFO);
 			break;
 		case R.id.starsign_linear:
 			Intent starIntent = new Intent(MyPagerActivity.this,ChangeConstellationActivity.class);
-			startActivity(starIntent);
+			starIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(starIntent, UPDATE_INFO);
 			break;
 		case R.id.city_linear:
 			Intent cityIntent = new Intent(MyPagerActivity.this,ChangeCityActivity.class);
-			startActivity(cityIntent);
+			cityIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(cityIntent, UPDATE_INFO);
 			break;
 		case R.id.hometown_linear:
 			Intent homeIntent = new Intent(MyPagerActivity.this,ChangeHomeTwonActivity.class);
-			startActivity(homeIntent);
+			homeIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(homeIntent, UPDATE_INFO);
 			break;
 		case R.id.height_weight_linear:
 			Intent tallIntent = new Intent(MyPagerActivity.this,ChangeHeightWeightActivity.class);
-			startActivity(tallIntent);
+			tallIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(tallIntent, UPDATE_INFO);
 			break;
 		case R.id.identity_linear:
 			Intent identityIntent = new Intent(MyPagerActivity.this,ChangeIdentityProfessionActivity.class);
-			startActivity(identityIntent);
+			identityIntent.putExtra("userInfoBean", infoBean);
+			startActivityForResult(identityIntent, UPDATE_INFO);
 			break;
 		case R.id.school_linear:
-			Intent schoolIntent = new Intent(MyPagerActivity.this,ChangeSchoolActivity.class);
-			startActivity(schoolIntent);
+			if(infoBean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+				Intent schoolIntent = new Intent(MyPagerActivity.this,ChangeSchoolActivity.class);
+				startActivity(schoolIntent);
+			}else{
+				
+			}
 			break;
 		case R.id.personal_tag_linear:
 			Intent personalTagIntent=new Intent(MyPagerActivity.this,PersonalityTagActivity.class);
-			startActivity(personalTagIntent);
+			personalTagIntent.putExtra("personalTags", infoBean.getPersonalTags());
+			startActivityForResult(personalTagIntent, UPDATE_PERSONAL_TAG);
 			break;
 		case R.id.interest_tag_linear:
 			Intent interestLableIntent=new Intent(MyPagerActivity.this,InterestLabelActivity.class);
-			startActivity(interestLableIntent);
+			interestLableIntent.putExtra("interestTags", infoBean.getPersonalTags());
+			startActivityForResult(interestLableIntent, UPDATE_INTEREST_TAG);
 			break;
 		case R.id.back_rl:
 			finish();
@@ -463,6 +438,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	//鉴权
 	public void getOssToken(final String path){
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS_TOKEN);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token",token);
+			requestObject.put("device_code", deviceId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
@@ -487,6 +473,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "userphotoTok=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
 					JSONObject obj = jsonObjs.getJSONObject("data");
@@ -494,6 +481,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
+					String token = obj.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -522,7 +511,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		OSSLog.enableLog();
 		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
-		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".png";
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
 
@@ -539,7 +528,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				Log.d("PutObject", "UploadSuccess");
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
-				LogUtil.d("mytest", result.getServerCallbackReturnBody().toString());
 				//上传照片成功，调用修改头像接口
 				uploadPhoto(fileName);
 			}
@@ -585,9 +573,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 
 			@Override
-			public void onError(Throwable arg0, boolean arg1) {
+			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
@@ -599,6 +588,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mutest", "uploadph=="+result);
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(result);
@@ -609,16 +599,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					UserPhotoBean bean = new UserPhotoBean();
 					String photoCode = data.getString("photo_code");
-					String photoOrigin = data.getString("");
-					String photoThumbnail = data.getString("");
+					String photoOrigin = data.getString("photo_url");
+					//String photoThumbnail = data.getString("");
 					String photoName = data.getString("");
 					bean.setPhotoCode(photoCode);
 					bean.setPhotoName(photoName);
 					bean.setPhotoOrigin(photoOrigin);
-					bean.setPhotoThumbnail(photoThumbnail);
+					bean.setPhotoThumbnail(photoOrigin);
+				//	bean.setPhotoThumbnail(photoThumbnail);
 					photoList.add(bean);
 					photoAdapter.notifyDataSetChanged();
 				} catch (JSONException e) {
@@ -676,21 +667,38 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			} 
 			break;
 		case UPDATE_HEAD:
-			if(null == data){
-				String headUrl = data.getStringExtra("headUrl");
-				x.image().bind(userheadImv, headUrl, imageOptions);
+			if(resultCode != RESULT_OK){
 				return;
 			}
+			if(null == data){
+				return;
+			}
+			String headUrl = data.getStringExtra("headUrl");
+			x.image().bind(userheadImv, headUrl, imageOptions);
 			break;
 		case UPDATE_INTEREST_TAG:
+			if(resultCode != RESULT_OK){
+				return;
+			}
 			if(null == data){
 				return;
 			}
+			ArrayList<InterestTagBean> listIn = (ArrayList<InterestTagBean>) data.getSerializableExtra("intertstTags");
+			infoBean.getInterestTags().clear();
+			infoBean.getInterestTags().addAll(listIn);
+			interestAdapter.notifyDataSetChanged();
 			break;
 		case UPDATE_PERSONAL_TAG:
+			if(resultCode != RESULT_OK){
+				return;
+			}
 			if(null == data){
 				return;
 			}
+			ArrayList<PersonalTagBean> listPa = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
+			infoBean.getPersonalTags().clear();
+			infoBean.getPersonalTags().addAll(listPa);
+			personalAdapter.notifyDataSetChanged();
 			break;
 		default:
 			break;

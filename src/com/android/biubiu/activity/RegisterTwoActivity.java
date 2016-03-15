@@ -312,17 +312,18 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		
 	try {
 		String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
-		LogUtil.e("asdf", cityiId);
-	} catch (Exception e) {
-		// TODO: handle exception
-	}
-		
+		LogUtil.d("mytest", cityiId);
 		userBean.setCity(cityiId);
+		LogUtil.d("mytest", "city1--"+userBean.getCity());
 		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
 		nextIntent.putExtra("infoBean", (Serializable)userBean);
 		nextIntent.putExtra("userhead", userheadBitmp);
 		nextIntent.putExtra("headPath", headPath);
 		startActivity(nextIntent);
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+		
 	}
 	@Override
 	public void onClick(View v) {
