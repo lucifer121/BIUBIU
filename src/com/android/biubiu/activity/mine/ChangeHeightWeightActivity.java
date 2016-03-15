@@ -105,7 +105,7 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 					return;
 				}
 				infoBean.setHeight(Integer.parseInt(heights[pHeightCurrent].substring(0, 2)));
-				infoBean.setWeight(Integer.parseInt(weights[pWeightCurrent].substring(0, 0)));
+				infoBean.setWeight(Integer.parseInt(weights[pWeightCurrent].substring(0, 2)));
 				updateInfo();
 			}
 		});

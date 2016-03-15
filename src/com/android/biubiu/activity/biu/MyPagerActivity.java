@@ -221,16 +221,16 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		sexTv.setText(bean.getSexStr(bean.getSex()));
 		birthdayTv.setText(bean.getBirthday());
 		starSignTv.setText(bean.getStar());
-		cityTv.setText(bean.getCity());
-		//cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
+		//cityTv.setText(bean.getCity());
+		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
 		hometownTv.setText(bean.getHomeTown());
 		heightWeightTv.setText(bean.getHeight()+","+bean.getWeight());
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
 			identityTv.setText("学生");
-			//schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsId());
-			schoolTv.setText(bean.getSchool());
+			schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsId());
+			//schoolTv.setText(bean.getSchool());
 		}else{
 			identityTagTv.setText("职业");
 			schoolTagTv.setText("公司");
@@ -268,9 +268,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
-			//requestObject.put("token","47879725ee7d310453ba4dcd34e9e522");
-			requestObject.put("code","10006");
-			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("code",SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
+			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -425,7 +424,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.interest_tag_linear:
 			Intent interestLableIntent=new Intent(MyPagerActivity.this,InterestLabelActivity.class);
-			interestLableIntent.putExtra("interestTags", infoBean.getPersonalTags());
+			interestLableIntent.putExtra("interestTags", infoBean.getInterestCates());
 			startActivityForResult(interestLableIntent, UPDATE_INTEREST_TAG);
 			break;
 		case R.id.back_rl:
