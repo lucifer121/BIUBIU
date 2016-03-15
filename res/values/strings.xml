@@ -133,7 +133,25 @@
     <string name="send_biu_back">取消</string>
     <string name="send_biu_add_topic_tags">添加话题标签</string>
     <string name="send_biu_send">发送</string>
-      <string name="send_biu_number">0</string>
-        <string name="send_biu_allNumber">/16</string>
+    <string name="send_biu_number">0</string>
+    <string name="send_biu_allNumber">/16</string>
+    <string name="title_activity_biu_biu_receive">BiuBiuReceiveActivity</string>
+
+    <!-- 接收biubiu -->
+    <string name="receive_biu_title">收到的biu</string>
+    <string name="receive_biu_name">奶茶妹</string>
+    <string name="receive_biu_time">3分钟</string>
+    <string name="receive_biu_compatibility">匹配度</string>
+    <string name="receive_biu_distance">100米</string>
+    <string name="receive_biu_topic">今天是个好日子</string>
+    <string name="receive_biu_sex">女生</string>
+    <string name="receive_biu_old">18岁</string>
+    <string name="receive_biu_constellation">处女座</string>
+    <string name="receive_biu_school">清华大学</string>
+    <string name="receive_biu_tag">个命中标签</string>
+    <string name="receive_biu_interest_tag">个兴趣爱好</string>
+    <string name="receive_biu_tag_number">[3]</string>
+     <string name="receive_biu_interest_tag_number">[3]</string>
+     <string name="receive_biu_grab">抢biu</string>
 
 </resources>
