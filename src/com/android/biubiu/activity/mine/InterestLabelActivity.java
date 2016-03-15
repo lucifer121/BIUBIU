@@ -1,5 +1,6 @@
 package com.android.biubiu.activity.mine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +44,7 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,17 +67,20 @@ public class InterestLabelActivity extends BaseActivity {
 	
 	
 	public List<InterestByCateBean> mDates=new ArrayList<InterestByCateBean>();
-	private RelativeLayout backLayout;
+	
 	private String TAG="InterestLabelActivity";
 	private Context mContext;
 	
 	private GridViewLableAdapter mAdapterGridView;
+	public List<InterestByCateBean> mDatesReceive=new ArrayList<InterestByCateBean>();
 
+	private RelativeLayout backLayout,completeLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interest_label);
 		mContext=InterestLabelActivity.this;
+		mDatesReceive=(List<InterestByCateBean>) getIntent().getSerializableExtra("interestTags");
 		initView();
 		initData();
 		initAdapter();
@@ -168,6 +173,20 @@ public class InterestLabelActivity extends BaseActivity {
 				finish();
 			}
 		});
+		completeLayout=(RelativeLayout) findViewById(R.id.complete_interest_lable_rl);
+		completeLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=getIntent();
+				Bundle bundle=new Bundle();
+				bundle.putSerializable("", (Serializable) mDates);
+				intent.putExtras(bundle);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+		});
 	}
 	/**
 	 * 更新界面
@@ -192,6 +211,36 @@ public class InterestLabelActivity extends BaseActivity {
 		}
 
 	};
+	
+	/**
+	 * 选中tag
+	 */
+	public void setView(){
+		if(mDatesReceive.size()==0){
+			handler.sendEmptyMessage(1);
+			
+		}else {
+			for(int i=0;i<mDatesReceive.size();i++ ){
+				
+				for(int j=0;j<mDatesReceive.get(i).getmInterestList().size();j++){
+					
+					for(int k=0;k<mDates.size();k++ ){
+						
+						for(int m=0;m<mDates.get(k).getmInterestList().size();m++){
+							if(mDatesReceive.get(i).getmInterestList().get(j).getCode()==mDates.get(k).getmInterestList().get(m).getCode()){
+								mDates.get(k).getmInterestList().get(m).setIsChoice(true);
+								LogUtil.e(TAG, mDates.get(k).getmInterestList().get(m).getName());
+							}
+							
+						}
+					}		
+				}
+			}
+			handler.sendEmptyMessage(1);
+			
+		}
+
+	}
 	
 //	public void getDateByAdapter(){
 //		mDates.clear();

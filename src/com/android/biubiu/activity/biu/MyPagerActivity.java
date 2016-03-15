@@ -420,6 +420,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.personal_tag_linear:
 			Intent personalTagIntent=new Intent(MyPagerActivity.this,PersonalityTagActivity.class);
 			personalTagIntent.putExtra("personalTags", infoBean.getPersonalTags());
+			personalTagIntent.putExtra("userInfoBean", infoBean);
 			startActivityForResult(personalTagIntent, UPDATE_PERSONAL_TAG);
 			break;
 		case R.id.interest_tag_linear:
@@ -692,7 +693,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 			infoBean.setInterestCates(listIn);
 			infoBean.setInterestTags(listTag);
-			interestAdapter.notifyDataSetChanged();
+		//	interestAdapter.notifyDataSetChanged();
+			setInterestTags(listTag);
 			break;
 		case UPDATE_PERSONAL_TAG:
 			if(resultCode != RESULT_OK){
@@ -704,7 +706,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			ArrayList<PersonalTagBean> listPa = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
 			infoBean.getPersonalTags().clear();
 			infoBean.getPersonalTags().addAll(listPa);
-			personalAdapter.notifyDataSetChanged();
+			log.e("asdf", ""+listPa.get(0).getIsChoice());
+			setPersonalTags(listPa);
 			break;
 		default:
 			break;
