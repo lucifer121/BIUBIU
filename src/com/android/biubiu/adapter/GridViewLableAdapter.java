@@ -67,28 +67,29 @@ import android.widget.TextView;
 		
 		holder.lable.setText(item.getName());
 		if(item.getIsChoice()){
-			
+			holder.lable.setTextColor(mContext.getResources().getColor(R.color.white));
+			holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
 		}else{
 			holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));
 			holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);
 		}
-		holder.mLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				if(isSelector==false){
-					holder.lable.setTextColor(mContext.getResources().getColor(R.color.white));
-					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
-					isSelector=true;
-				}else{
-					holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));
-					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);
-					isSelector=false;
-				}
-				
-			}
-		});
+//		holder.mLayout.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				if(isSelector==false){
+//					holder.lable.setTextColor(mContext.getResources().getColor(R.color.white));
+//					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
+//					isSelector=true;
+//				}else{
+//					holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));
+//					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);
+//					isSelector=false;
+//				}
+//				
+//			}
+//		});
 
 		
 

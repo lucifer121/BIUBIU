@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.bean.InterestByCateBean;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.Schools;
 import com.android.biubiu.utils.DensityUtil;
+import com.avos.avoscloud.LogUtil.log;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,9 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint("InflateParams") public class InterestLableListViewAdapter extends BaseAdapter {
+
+public class InterestLableListViewAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<InterestByCateBean> mDate;
+	public List<InterestByCateBean> mListDate;
 	
 	private GridViewLableAdapter mAdapter;
 //	private List<LableBean> mDates=new ArrayList<LableBean>();
@@ -36,20 +40,23 @@ import android.widget.Toast;
 	
 	public InterestLableListViewAdapter (Context context,List<InterestByCateBean> mDate){
 		this.mContext=context;
-		this.mDate=mDate;
+		this.mListDate=mDate;
+		
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		Log.e("getCount()====", ""+mDate.size());
-		return mDate.size();
+		Log.e("getCount()====", ""+mListDate.size());
+		
+		return mListDate.size();
+		
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return mDate.get(position);
+		return mListDate.get(position);
 	}
 
 	@Override
@@ -58,12 +65,12 @@ import android.widget.Toast;
 		return position;
 	}
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		
 		ViewHolder holder = null;
 		
-		List<InterestTagBean> mDateLables=new ArrayList<InterestTagBean>();
-		InterestByCateBean item=mDate.get(position);
+		final List<InterestTagBean> mDateLables;
+		InterestByCateBean item=mListDate.get(position);
 		mDateLables=item.getmInterestList();
 
 		if (convertView == null) {
@@ -76,13 +83,45 @@ import android.widget.Toast;
 			holder.bottomLayout=(RelativeLayout) convertView.findViewById(R.id.bottom_item_interest);
 			mAdapter=new GridViewLableAdapter(mContext, mDateLables);
 			holder.mGridView.setAdapter(mAdapter);
+			holder.mGridView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View view,
+						int positionId, long arg3) {
+					
+					
+					Toast.makeText(mContext, ((InterestLabelActivity) mContext).mDates.get(position).getmInterestList().get(positionId).getName(), Toast.LENGTH_SHORT).show();
+					
+					if(((InterestLabelActivity) mContext).mDates.get(position).getmInterestList().get(positionId).getIsChoice()==false){
+						((InterestLabelActivity) mContext).mDates.get(position).getmInterestList().get(positionId).setIsChoice(true);
+						
+					}else{
+						((InterestLabelActivity) mContext).mDates.get(position).getmInterestList().get(positionId).setIsChoice(true);
+					}	
+//					if(mDateLables.get(positionId).getIsChoice()==false){
+//						mListDate.get(position).getmInterestList();
+//						mDateLables.get(positionId).setIsChoice(true);
+//						
+//					}else{
+//						mDateLables.get(positionId).setIsChoice(false);
+//					}
+//					boolean a=mListDate.get(position).getmInterestList().get(positionId).getIsChoice();
+//					Toast.makeText(mContext, ""+a, 1000).show();
+				//	((InterestLabelActivity) mContext).mDates.get(position).getmInterestList().get(positionId).setName("你点我了");
+				//	mAdapter.notifyDataSetChanged();
+//					((InterestLabelActivity) mContext).mDates.clear();
+//					((InterestLabelActivity) mContext).getDateByAdapter();
+//					((InterestLabelActivity) mContext).mDates.addAll(mListDate);
+					((InterestLabelActivity) mContext).initAdapter();
+				}
+			});
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		setGridviewHight(mDateLables,holder);
 		holder.interest.setText(item.getTypename());
-		if(position==(mDate.size()-1)){
+		if(position==(mListDate.size()-1)){
 			holder.bottomLayout.setVisibility(View.VISIBLE);
 		}
 
@@ -116,6 +155,10 @@ import android.widget.Toast;
 		holder.mView.setLayoutParams(params2);
 	}
 
+	public List<InterestByCateBean>  getdate(){
+		log.e("fanhuishuju", ""+this.mListDate.size());
+		return  this.mListDate;
+	}
 
 
 }
