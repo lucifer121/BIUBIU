@@ -682,9 +682,16 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			if(null == data){
 				return;
 			}
-			ArrayList<InterestTagBean> listIn = (ArrayList<InterestTagBean>) data.getSerializableExtra("intertstTags");
+			ArrayList<InterestByCateBean> listIn = (ArrayList<InterestByCateBean>) data.getSerializableExtra("intertstTags");
+			ArrayList<InterestTagBean> listTag = new ArrayList<InterestTagBean>();
 			infoBean.getInterestTags().clear();
-			infoBean.getInterestTags().addAll(listIn);
+			if(null != listIn && listIn.size()>0){
+				for(int i=0;i<listIn.size();i++){
+					listTag.addAll(listIn.get(i).getmInterestList());
+				}
+			}
+			infoBean.setInterestCates(listIn);
+			infoBean.setInterestTags(listTag);
 			interestAdapter.notifyDataSetChanged();
 			break;
 		case UPDATE_PERSONAL_TAG:
