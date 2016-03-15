@@ -7,6 +7,7 @@ import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.activity.RegisterTwoActivity;
+import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
