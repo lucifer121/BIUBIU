@@ -313,8 +313,10 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					String token = data.getString("token");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String photoUrl = data.getString("icon_url");
+					String photoUrl_thum = data.getString("icon_thumbnailUrl");
 					Intent intent = new Intent();
 					intent.putExtra("headUrl", photoUrl);
+					intent.putExtra("thumUrl", photoUrl_thum);
 					setResult(RESULT_OK, intent);
 					finish();
 				} catch (JSONException e) {

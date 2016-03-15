@@ -236,6 +236,7 @@ public class LoginActivity extends BaseActivity{
 				//把token 存在本地
 				SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
 				Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				
 			}

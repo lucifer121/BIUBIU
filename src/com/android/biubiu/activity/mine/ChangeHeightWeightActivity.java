@@ -104,7 +104,7 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 					toastShort("请选择身高体重");
 					return;
 				}
-				infoBean.setHeight(Integer.parseInt(heights[pHeightCurrent].substring(0, 2)));
+				infoBean.setHeight(Integer.parseInt(heights[pHeightCurrent].substring(0, 3)));
 				infoBean.setWeight(Integer.parseInt(weights[pWeightCurrent].substring(0, 2)));
 				updateInfo();
 			}

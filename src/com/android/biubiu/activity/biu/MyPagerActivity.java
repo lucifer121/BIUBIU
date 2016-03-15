@@ -215,7 +215,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private void setUserInfoView(UserInfoBean bean) {
 		// TODO Auto-generated method stub
 		//x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
-		x.image().bind(userheadImv, bean.getIconOrign(), imageOptions);
+		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());
 		sexTv.setText(bean.getSexStr(bean.getSex()));
@@ -223,14 +223,13 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		starSignTv.setText(bean.getStar());
 		//cityTv.setText(bean.getCity());
 		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
-		hometownTv.setText(bean.getHomeTown());
-		heightWeightTv.setText(bean.getHeight()+","+bean.getWeight());
+		hometownTv.setText(cityDao.getCity(bean.getHomeTown()).get(0).getCity());
+		heightWeightTv.setText(bean.getHeight()+"cm,"+bean.getWeight()+"kg");
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
 			identityTv.setText("学生");
-			schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsId());
-			//schoolTv.setText(bean.getSchool());
+			schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
 		}else{
 			identityTagTv.setText("职业");
 			schoolTagTv.setText("公司");
@@ -603,13 +602,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					UserPhotoBean bean = new UserPhotoBean();
 					String photoCode = data.getString("photo_code");
 					String photoOrigin = data.getString("photo_url");
-					//String photoThumbnail = data.getString("");
-					String photoName = data.getString("");
+					String photoThumbnail = data.getString("photo_thumbnailUrl");
+					String photoName = data.getString("photo_name");
 					bean.setPhotoCode(photoCode);
 					bean.setPhotoName(photoName);
 					bean.setPhotoOrigin(photoOrigin);
-					bean.setPhotoThumbnail(photoOrigin);
-				//	bean.setPhotoThumbnail(photoThumbnail);
+					bean.setPhotoThumbnail(photoThumbnail);
 					photoList.add(bean);
 					photoAdapter.notifyDataSetChanged();
 				} catch (JSONException e) {
@@ -674,7 +672,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				return;
 			}
 			String headUrl = data.getStringExtra("headUrl");
-			x.image().bind(userheadImv, headUrl, imageOptions);
+			String thumUrl = data.getStringExtra("thumUrl");
+			infoBean.setIconCircle(thumUrl);
+			infoBean.setIconOrigin(headUrl);
+			x.image().bind(userheadImv, thumUrl, imageOptions);
 			break;
 		case UPDATE_INTEREST_TAG:
 			if(resultCode != RESULT_OK){

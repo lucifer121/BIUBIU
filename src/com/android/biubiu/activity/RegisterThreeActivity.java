@@ -226,7 +226,11 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					if(result.equals("0")){
 						//sendSms();
 					}else{
-						toastShort("该手机号已注册");
+						toastShort("该手机号已注册,请直接登录");
+						//启动登录页，因堆栈问题，启动登录注册页
+						Intent intent = new Intent(RegisterThreeActivity.this,LoginOrRegisterActivity.class);
+						intent.putExtra("startActivity", "login");
+						startActivity(intent);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -284,7 +288,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			return;
 		}
 		//验证  验证码
-		/*AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
+		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
@@ -294,8 +298,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});*/
-		getOssToken();
+		});
 	}
 	//鉴权
 	public void getOssToken(){
@@ -453,6 +456,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 							String error=jsons.getString("error");
 							LogUtil.e(TAG, error);
 						}
+						toastShort("注册失败");
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
@@ -503,6 +507,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				//把token 存在本地
 				SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
 				Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 
 			}

@@ -186,7 +186,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			toastShort(getResources().getString(R.string.reg_three_no_password));
 			return;
 		}
-		AVOSCloud.verifySMSCodeInBackground(uYanzhengma.getText().toString(), uPhone.getText().toString(),
+		/*AVOSCloud.verifySMSCodeInBackground(uYanzhengma.getText().toString(), uPhone.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
@@ -196,7 +196,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});
+		});*/
+		UpdatePassword(uPassword.getText().toString(),deviceId);
 	}
 	/**
 	 * 重置密码
@@ -225,7 +226,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.d("mytest", "forget"+arg0.getMessage());
+				LogUtil.d("mytest", "forget"+arg0.getCause());
 			}
 
 			@Override
@@ -237,23 +239,20 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "forget"+arg0);
 				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
-					LogUtil.e(TAG, code);
-					if(code.equals("200")==false){
-						if(code.equals("300")==true){
+					if(!code.equals("200")){
+						if(code.equals("300")){
 							String error=jsons.getString("error");
-							LogUtil.e(TAG, error);
 							toastShort(error);
 						}
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
-					
 					String token = obj.getString("token");
 					SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
-					
 					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

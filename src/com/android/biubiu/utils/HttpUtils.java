@@ -23,7 +23,6 @@ public class HttpUtils {
 		try {
 			requestObject.put("token",token);
 			requestObject.put("device_code", deviceId);
-			LogUtil.d("mytest", "nick=="+infoBean.getNickname());
 			requestObject.put("nickname",infoBean.getNickname());
 			requestObject.put("sex", infoBean.getSex());
 			requestObject.put("birth_date",infoBean.getBirthday());

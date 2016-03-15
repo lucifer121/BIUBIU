@@ -23,6 +23,10 @@ public class LoginOrRegisterActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login_or_register);
+		if(getIntent().getStringExtra("startActivity")!= null && getIntent().getStringExtra("startActivity").equals("login")){
+			Intent intent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
+			startActivity(intent);
+		}
 		initView();
 		initClick();
 	}

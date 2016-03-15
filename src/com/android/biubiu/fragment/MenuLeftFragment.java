@@ -98,16 +98,12 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			Intent intentSet = new Intent(getActivity(),
 					MatchSettingActivity.class);
 			startActivity(intentSet);
-			getActivity().overridePendingTransition(R.anim.right_in_anim,
-					R.anim.no_anim);
 			break;
 		case R.id.left_menu_item4_rl:
 			Toast.makeText(getActivity(), "lead", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.left_menu_item5_rl:
 			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
-			Intent shareIntent=new Intent(getActivity(),MyPagerActivity.class);
-			startActivity(shareIntent);
 			break;
 		case R.id.main_touxiang_rl:
 			if(isLogin){

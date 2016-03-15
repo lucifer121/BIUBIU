@@ -15,7 +15,6 @@
             android:id="@+id/back_changecity_mine_rl"
             android:layout_width="54dp"
             android:layout_height="44dp"
-           
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
 
@@ -42,10 +41,9 @@
             android:id="@+id/city_selector_shengshiqu_rl"
             android:layout_width="64dp"
             android:layout_height="44dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"           
+            android:gravity="center"
             android:background="@drawable/kongjianruoqu_bg"
-            android:gravity="center" >
+            android:layout_alignParentRight="true">
             <TextView
                 android:id="@+id/city_selector_shengshiqu_tv"
                 android:layout_width="wrap_content"

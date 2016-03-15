@@ -319,10 +319,9 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			public void onSuccess() {
 				// TODO Auto-generated method stub
 				LogUtil.e(TAG, "环信退出成功");
-				Intent intent=new Intent(MatchSettingActivity.this,MainActivity.class);
-				startActivity(intent);
 				//清空本地token
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+				finish();
 			}
 			
 			@Override
