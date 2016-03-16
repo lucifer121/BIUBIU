@@ -1,6 +1,7 @@
 package com.android.biubiu.activity;
 
 import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.json.JSONException;
@@ -26,11 +27,15 @@ import com.avos.avoscloud.UpdatePasswordCallback;
 
 
 
+import com.avos.avoscloud.LogUtil.log;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +53,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 	private int totalTime = 60;
 	private int currentTime = 0;
 	String deviceId = "";
+	String phoneNum = "";
 	private TextView sendVerifyTv;
 	
 
@@ -79,9 +85,6 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			
 			@Override
 			public void onClick(View v) {
-//				if(uPhone.getText().length()>0&&uYanzhengma.getText().length()>0&&uPassword.getText().length()>0){
-//					toastShort("提交数据");
-//				}
 				updatePasswordReady();
 				
 			}
@@ -130,7 +133,64 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		}
 
 	}
-	
+	//检测手机号是否已注册
+		private void queryIsHad() {
+			// TODO Auto-generated method stub
+			if(null == uPhone.getText()||uPhone.getText().toString().equals("")){
+				toastShort(getResources().getString(R.string.reg_three_no_phone));
+				return;
+			}
+			RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.IS_REGISTERED);
+			JSONObject jsonObject = new JSONObject();
+			try {
+				jsonObject.put("phone", uPhone.getText().toString());
+				phoneNum = uPhone.getText().toString();
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			params.addBodyParameter("data",jsonObject.toString());
+			x.http().post(params, new CommonCallback<String>() {
+
+				@Override
+				public void onCancelled(CancelledException arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onError(Throwable ex, boolean arg1) {
+					// TODO Auto-generated method stub
+					Log.d("mytest", "error--"+ex.getMessage());
+					Log.d("mytest", "error--"+ex.getCause());
+				}
+
+				@Override
+				public void onFinished() {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(String arg0) {
+					// TODO Auto-generated method stub
+					log.d("mytest", arg0);
+					try {
+						JSONObject  jsonObject = new JSONObject(arg0);
+						JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
+						String result = obj.getString("result");
+						if(result.equals("0")){
+							toastShort("该手机号未注册");
+						}else{
+							sendSms();
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 	//发送验证码
 	private void sendSms() {
 		if(currentTime>0){
@@ -185,18 +245,17 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			toastShort(getResources().getString(R.string.reg_three_no_password));
 			return;
 		}
-		/*AVOSCloud.verifySMSCodeInBackground(uYanzhengma.getText().toString(), uPhone.getText().toString(),
+		AVOSCloud.verifySMSCodeInBackground(uYanzhengma.getText().toString(), uPhone.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-					UpdatePassword(uPassword.getText().toString(),deviceId);
+					UpdatePassword(uPassword.getText().toString());
 				} else {
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});*/
-		UpdatePassword(uPassword.getText().toString());
+		});
 	}
 	/**
 	 * 重置密码
@@ -206,9 +265,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		JSONObject requestObject=new JSONObject();
 		try {
-			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("password", passwprd);
-			requestObject.put("device_code", deviceId);
+			requestObject.put("phone", phoneNum);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -240,9 +298,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				String ss = arg0;
-				LogUtil.d("mytest", "ss---"+ss);
 				LogUtil.d("mytest", "forget"+arg0);
-				/*try {
+				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
@@ -252,14 +309,11 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 						}
 						return;
 					}
-					JSONObject obj = jsons.getJSONObject("data");
-					String token = obj.getString("token");
-					SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
 					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 			}
 		});
 	}
@@ -270,7 +324,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		switch (v.getId()) {
 		//点击获取验证码
 		case R.id.forget_get_verify_tv:
-			sendSms();
+			queryIsHad();
 			break;
 
 		default:

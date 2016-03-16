@@ -160,6 +160,9 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions);
 					photoPager.setAdapter(scanAdapter);
 					if(photoList.size() == 0){
+						Intent intent = new Intent(UserPhotoScanActivity.this,MyPagerActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
 						finish();
 					}else if(currentIndex > (photoList.size()-1)){
 						photoPager.setCurrentItem(currentIndex-1);

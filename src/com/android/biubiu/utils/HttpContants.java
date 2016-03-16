@@ -24,7 +24,7 @@ public class HttpContants {
 	/**
 	 * 更改密码
 	 */
-	public static final String UPDATE_PASSWORD="app/info/updatePassword";
+	public static final String UPDATE_PASSWORD="app/auth/updatePassword";
 	/**
 	 * 获取标签
 	 */
