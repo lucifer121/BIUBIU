@@ -1,11 +1,15 @@
 package com.android.biubiu;
 
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import com.android.biubiu.bean.InterestByCateBean;
+import com.android.biubiu.bean.SettingBean;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -13,6 +17,8 @@ import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
@@ -64,6 +70,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_match_setting);
 		initView();
+		initlodo();
 		setRangeAge();
 	}
 	private void initView() {
@@ -250,6 +257,71 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}
 	}
 	/**
+	 * 加载数据
+	 */
+	public void initlodo(){
+		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", Utils.getDeviceID(this));
+		} catch (JSONException e) {
+		
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, arg0.getMessage());
+				Toast.makeText(x.app(), arg0.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(code.equals("200")==false){
+						if(code.equals("300")==true){
+							String error=jsons.getString("error");
+							toastShort(error);
+						}
+						return;
+					}
+				
+					Gson gson=new Gson();
+					SettingBean settingBean=gson.fromJson(jsons.getString("data".toString()), SettingBean.class);
+					LogUtil.d(TAG, ""+settingBean.getSex());
+						System.err.println(settingBean);	
+				
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+	}
+	/**
 	 * 退出登录
 	 */
 	private void exitApp() {
@@ -346,4 +418,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
+	
 }

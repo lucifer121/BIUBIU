@@ -57,4 +57,12 @@ public class HttpContants {
 	 * 更新用户信息
 	 */
 	public static final String UPDATE_USETINFO = "app/info/updateUserInfo";
+	/**
+	 * 获取用户设置
+	 */	
+	public static final String GET_SETTING="app/info/getSettings";
+	/**
+	 * 更新用户设置
+	 */
+	public static final String UPDATE_SETTING="app/info/updateSettings";
 }
