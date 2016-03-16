@@ -55,7 +55,6 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forget_password);
-		deviceId = Utils.getDeviceID(this);
 		initView();
 	}
 
@@ -197,18 +196,19 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 				}
 			}
 		});*/
-		UpdatePassword(uPassword.getText().toString(),deviceId);
+		UpdatePassword(uPassword.getText().toString());
 	}
 	/**
 	 * 重置密码
 	 */
-	public void UpdatePassword(String passwprd,String device_code){
+	public void UpdatePassword(String passwprd){
 		RequestParams params=new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_PASSWORD+"");
+		deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		JSONObject requestObject=new JSONObject();
 		try {
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("password", passwprd);
-			requestObject.put("device_code", device_code);
+			requestObject.put("device_code", deviceId);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -226,8 +226,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "forget"+arg0.getMessage());
-				LogUtil.d("mytest", "forget"+arg0.getCause());
+				LogUtil.d("mytest", "forgete"+arg0.getMessage());
+				LogUtil.d("mytest", "forgete"+arg0.getCause());
 			}
 
 			@Override
@@ -240,7 +240,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.d("mytest", "forget"+arg0);
-				try {
+				/*try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
@@ -257,7 +257,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 			}
 		});
 	}

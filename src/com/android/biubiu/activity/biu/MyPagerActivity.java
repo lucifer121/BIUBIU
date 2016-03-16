@@ -86,6 +86,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private static final int UPDATE_PERSONAL_TAG = 1003;
 	private static final int UPDATE_INTEREST_TAG = 1004;
 	private static final int UPDATE_HEAD = 1005;
+	private static final int DELETE_PHOTOS = 1006;
 	private ImageView userheadImv;
 	private TextView usernameTv;
 	private ImageView addPhotoImv;
@@ -121,7 +122,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private RelativeLayout userInfoLinear;
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
-	private ArrayList<View> photoPageViews = new ArrayList<View>();
 	private UserPagerPhotoAdapter photoAdapter;
 	//标记个人描述是否已经展开
 	private boolean isOpen = false;
@@ -144,7 +144,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
 		initView();
-		//TestUserBean();
 		getUserInfo();
 	}
 
@@ -205,7 +204,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.ic_launcher)
+		.setLoadingDrawableId(R.drawable.anim)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
 
@@ -242,13 +241,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
-		photoPageViews.clear();
-		for(int i=0;i<photos.size();i++){
-			LayoutInflater inflater = getLayoutInflater();
-			View view = inflater.inflate(R.layout.userpager_photo_item, null);
-			photoPageViews.add(view);
-		}
-		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions, photoPageViews);
+		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions);
 		photoPager.setAdapter(photoAdapter);
 	}
 	private void setInterestTags(ArrayList<InterestTagBean> tags) {
@@ -610,7 +603,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					bean.setPhotoOrigin(photoOrigin);
 					bean.setPhotoThumbnail(photoThumbnail);
 					photoList.add(bean);
-					photoAdapter.notifyDataSetChanged();
+					infoBean.setUserPhotos(photoList);
+					setUserPhotos(photoList);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

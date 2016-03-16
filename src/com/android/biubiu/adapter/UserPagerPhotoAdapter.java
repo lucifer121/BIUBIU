@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -27,13 +28,11 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 	Context context;
 	ArrayList<UserPhotoBean> photos;
 	ImageOptions options;
-	ArrayList<View> viewList ;
-	public UserPagerPhotoAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options,ArrayList<View> viewList) {
+	public UserPagerPhotoAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.photos = photos;
 		this.options = options;
-		this.viewList = viewList;
 		
 	}
 	@Override
@@ -45,17 +44,17 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return viewList.size();
+		return photos.size();
 	}
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		// TODO Auto-generated method stub
-		container.removeView(viewList.get(position));
+		container.removeView((View)object);
 	}
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
 		// TODO Auto-generated method stub
-		View itemView = viewList.get(position);
+		View itemView = LayoutInflater.from(context).inflate(R.layout.userpager_photo_item, null);
 		container.addView(itemView);
 		ImageView imv = (ImageView) itemView.findViewById(R.id.userphoto_imv);
 		x.image().bind(imv, photos.get(position).getPhotoThumbnail(), options);

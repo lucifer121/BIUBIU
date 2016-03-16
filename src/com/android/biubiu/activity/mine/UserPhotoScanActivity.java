@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.adapter.ScanPagerAdapter;
 import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.utils.HttpContants;
@@ -38,7 +40,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 	private int currentIndex = 0;
 	private ScanPagerAdapter scanAdapter;
 	ImageOptions imageOptions;
-	ArrayList<View> photoViews = new ArrayList<View>();
+	boolean hasDelete = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -68,20 +70,14 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.ic_launcher)
+		.setLoadingDrawableId(R.drawable.anim)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
 	}
 	private void setPager() {
 		indexTv.setText((currentIndex+1)+"/"+photoList.size());
-		photoViews.clear();
-		for(int i=0;i<photoList.size();i++){
-			LayoutInflater inflater = getLayoutInflater();
-			View view = inflater.inflate(R.layout.scanpager_photo_item, null);
-			photoViews.add(view);
-		}
 		photoPager.setOffscreenPageLimit(3);
-		scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions, photoViews);
+		scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions);
 		photoPager.setAdapter(scanAdapter);
 		photoPager.setCurrentItem(currentIndex);
 		photoPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -146,6 +142,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				hasDelete = true;
 				LogUtil.d("mytest", "deleteph=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
@@ -158,7 +155,15 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					String token = data.getString("token");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					photoList.remove(currentIndex);
-					scanAdapter.notifyDataSetChanged();
+					scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions);
+					photoPager.setAdapter(scanAdapter);
+					if(photoList.size() == 0){
+						finish();
+					}else if(currentIndex > (photoList.size()-1)){
+						photoPager.setCurrentItem(currentIndex-1);
+					}else{
+						photoPager.setCurrentItem(currentIndex-1);
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -171,6 +176,11 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.title_back_rl:
+			if(hasDelete){
+				Intent intent = new Intent(UserPhotoScanActivity.this,MyPagerActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			}
 			finish();
 			break;
 		case R.id.delete_rl:
@@ -179,5 +189,18 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		default:
 			break;
 		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			if(hasDelete){
+				Intent intent = new Intent(UserPhotoScanActivity.this,MyPagerActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			}
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

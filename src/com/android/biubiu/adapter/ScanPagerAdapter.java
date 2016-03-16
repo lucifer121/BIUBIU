@@ -10,6 +10,7 @@ import com.android.biubiu.bean.UserPhotoBean;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,29 +19,27 @@ public class ScanPagerAdapter extends PagerAdapter{
 	Context context;
 	ArrayList<UserPhotoBean> photos;
 	ImageOptions options;
-	ArrayList<View> viewList ;
-	public ScanPagerAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options,ArrayList<View> viewList) {
+	public ScanPagerAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.photos = photos;
 		this.options = options;
-		this.viewList = viewList;
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return viewList.size();
+		return photos.size();
 	}
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		// TODO Auto-generated method stub
-		container.removeView(viewList.get(position));
+		container.removeView((View)object);
 	}
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		// TODO Auto-generated method stub
 		UserPhotoBean bean = photos.get(position);
-		View view = viewList.get(position);
+		View view = LayoutInflater.from(context).inflate(R.layout.scanpager_photo_item, null);
 		container.addView(view);
 		ImageView imv = (ImageView) view.findViewById(R.id.scan_pager_imv);
 		x.image().bind(imv, bean.getPhotoOrigin(), options);
