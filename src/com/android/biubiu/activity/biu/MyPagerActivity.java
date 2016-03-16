@@ -240,6 +240,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
+		if(photos.size() == 0){
+			return;
+		}
 		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions);
 		photoPager.setAdapter(photoAdapter);
 	}
@@ -291,8 +294,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", result);
 				try {
-					LogUtil.d("mytest", result);
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					JSONObject data = jsons.getJSONObject("data");
@@ -503,7 +506,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		OSSLog.enableLog();
 		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
-		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpg";
+		final String fileName = "photos/"+System.currentTimeMillis()+deviceId+".jpg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
 

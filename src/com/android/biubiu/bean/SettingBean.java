@@ -1,8 +1,9 @@
 package com.android.biubiu.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SettingBean {
+public class SettingBean implements Serializable{
 	private  int sex;
 	private String city;
 	private int age_down;

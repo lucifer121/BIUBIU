@@ -260,11 +260,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 加载数据
 	 */
 	public void initlodo(){
-		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
-			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 		} catch (JSONException e) {
 		
 			e.printStackTrace();
@@ -305,9 +305,9 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						}
 						return;
 					}
-				
+					String data = jsons.getJSONObject("data").toString();
 					Gson gson=new Gson();
-					SettingBean settingBean=gson.fromJson(jsons.getString("data".toString()), SettingBean.class);
+					SettingBean settingBean=gson.fromJson(data, SettingBean.class);
 					LogUtil.d(TAG, ""+settingBean.getSex());
 						System.err.println(settingBean);	
 				

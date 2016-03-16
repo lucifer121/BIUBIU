@@ -107,12 +107,14 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		String fileCode = photoList.get(currentIndex).getPhotoCode();
+		String filename = photoList.get(currentIndex).getPhotoName();
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.DELETE_PHOTO);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token",token);
 			requestObject.put("device_code", deviceId);
 			requestObject.put("photo_code", fileCode);
+			requestObject.put("photo_name", filename);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,8 +163,9 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 						finish();
 					}else if(currentIndex > (photoList.size()-1)){
 						photoPager.setCurrentItem(currentIndex-1);
+						currentIndex = currentIndex-1;
 					}else{
-						photoPager.setCurrentItem(currentIndex-1);
+						photoPager.setCurrentItem(currentIndex);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
