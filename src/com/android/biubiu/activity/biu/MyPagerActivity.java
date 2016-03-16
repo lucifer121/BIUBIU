@@ -127,7 +127,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private boolean isOpen = false;
 	private UserPagerTagAdapter personalAdapter;
 	private UserInterestAdapter interestAdapter;
-	ArrayList<UserPhotoBean> photoList = new ArrayList<UserPhotoBean>();
 	ArrayList<PersonalTagBean> personalTagList = new ArrayList<PersonalTagBean>();
 	ArrayList<InterestTagBean> interestTagList = new ArrayList<InterestTagBean>();
 	//上传文件相关
@@ -602,9 +601,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					bean.setPhotoName(photoName);
 					bean.setPhotoOrigin(photoOrigin);
 					bean.setPhotoThumbnail(photoThumbnail);
-					photoList.add(bean);
-					infoBean.setUserPhotos(photoList);
-					setUserPhotos(photoList);
+					ArrayList<UserPhotoBean> list = new ArrayList<UserPhotoBean>();
+					list.addAll(infoBean.getUserPhotos());
+					list.add(bean);
+					infoBean.setUserPhotos(list);
+					setUserPhotos(list);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

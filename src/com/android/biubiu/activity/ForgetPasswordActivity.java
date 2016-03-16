@@ -202,7 +202,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 	 * 重置密码
 	 */
 	public void UpdatePassword(String passwprd){
-		RequestParams params=new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_PASSWORD+"");
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_PASSWORD);
 		deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		JSONObject requestObject=new JSONObject();
 		try {
@@ -239,6 +239,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				String ss = arg0;
+				LogUtil.d("mytest", "ss---"+ss);
 				LogUtil.d("mytest", "forget"+arg0);
 				/*try {
 					JSONObject jsons = new JSONObject(arg0);
