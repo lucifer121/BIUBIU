@@ -152,7 +152,9 @@
     <string name="receive_biu_tag">个命中标签</string>
     <string name="receive_biu_interest_tag">个兴趣爱好</string>
     <string name="receive_biu_tag_number">[3]</string>
-     <string name="receive_biu_interest_tag_number">[3]</string>
-     <string name="receive_biu_grab">抢biu</string>
+    <string name="receive_biu_interest_tag_number">[3]</string>
+    <string name="receive_biu_grab">抢biu</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_user_list">UserListActivity</string>
 
 </resources>

@@ -15,6 +15,7 @@ import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 
 
 import com.android.biubiu.activity.mine.InterestLabelActivity;
+import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.SharePreferanceUtils;

@@ -6,23 +6,16 @@
     android:orientation="vertical"
     
      >
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:gravity="center"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="13dp"
-        
-        >
+ 
     <TextView 
         android:id="@+id/tag_item_personality_tag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="53dp"
+        android:layout_height="24dp"
+        android:background="@drawable/main_imageview_tab_bg"
         android:textSize="12sp"
         android:gravity="center"
         android:text="111"/>
-    </RelativeLayout>
+   
     
 
 </RelativeLayout>

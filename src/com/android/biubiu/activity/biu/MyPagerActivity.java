@@ -707,7 +707,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			ArrayList<PersonalTagBean> listPa = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
 			infoBean.getPersonalTags().clear();
 			infoBean.getPersonalTags().addAll(listPa);
-			log.e("asdf", ""+listPa.get(0).getIsChoice());
+
 			setPersonalTags(listPa);
 			break;
 		default:

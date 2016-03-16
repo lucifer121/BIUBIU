@@ -241,8 +241,16 @@
             android:label="@string/title_activity_forget_password" >
         </activity>
         <activity
-            android:name="com.android.biubiu.activity.biu.BiuBiuReceiveActivity"
+            android:name=".activity.biu.BiuBiuReceiveActivity"
             android:label="@string/title_activity_biu_biu_receive" >
+        </activity>
+        <activity
+            android:name=".chat.ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
+        <activity
+            android:name="com.android.biubiu.chat.UserListActivity"
+            android:label="@string/title_activity_user_list" >
         </activity>
     </application>
 

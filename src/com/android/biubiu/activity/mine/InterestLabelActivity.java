@@ -396,9 +396,9 @@ public class InterestLabelActivity extends BaseActivity {
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
 		infoBean.setInterestCates(mDataFanhui);
-		if(mDataFanhui.size()==0){
-			return;
-		}
+//		if(mDataFanhui.size()==0){
+//			return;
+//		}
 		ArrayList<InterestTagBean> list = new ArrayList<InterestTagBean>();
 		for(int i=0;i<mDataFanhui.size();i++){
 			list.addAll(mDataFanhui.get(i).getmInterestList());
