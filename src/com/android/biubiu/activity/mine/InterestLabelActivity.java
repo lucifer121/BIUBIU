@@ -37,6 +37,7 @@ import com.android.biubiu.bean.InterestTagBean;
 
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -155,8 +156,8 @@ public class InterestLabelActivity extends BaseActivity {
 					}.getType()); 
 					LogUtil.d(TAG, ""+interestByCateBeansList.size());
 					mDates.addAll(interestByCateBeansList);
-					handler.sendEmptyMessage(1);
-					
+				
+					setView();
 					
 				} catch (JSONException e) {
 					
@@ -265,9 +266,10 @@ public class InterestLabelActivity extends BaseActivity {
 					for(int k=0;k<mDates.size();k++ ){
 						
 						for(int m=0;m<mDates.get(k).getmInterestList().size();m++){
-							if(mDatesReceive.get(i).getmInterestList().get(j).getCode()==mDates.get(k).getmInterestList().get(m).getCode()){
+							if(mDatesReceive.get(i).getmInterestList().get(j).getCode().equals(mDates.get(k).getmInterestList().get(m).getCode())){
 								mDates.get(k).getmInterestList().get(m).setIsChoice(true);
 								LogUtil.e(TAG, mDates.get(k).getmInterestList().get(m).getName());
+								
 							}
 							
 						}
