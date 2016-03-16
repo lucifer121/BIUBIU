@@ -473,6 +473,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 
 					loginHuanXin(username,passwprd,token);
+					
+					//把token 存在本地
+					SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
+					Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

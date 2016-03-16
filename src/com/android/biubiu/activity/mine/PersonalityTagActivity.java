@@ -218,7 +218,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private void initAdapter() {
 		// TODO Auto-generated method stub
 		mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-		mAdapter = new GridRecycleTagAdapter(this, mCheckList);
+		mAdapter = new GridRecycleTagAdapter(this, mList);
 
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setAdapter(mAdapter);
@@ -311,11 +311,11 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					
 				}
 			}
+//			
+//			mCheckList.clear();
+//			mCheckList.addAll(mList);
+		handler.sendEmptyMessage(1);
 			
-			mCheckList.clear();
-			mCheckList.addAll(mList);
-	//	handler.sendEmptyMessage(1);
-			initAdapter();
 			
 		}
 	}
@@ -389,7 +389,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					Intent intent=getIntent();
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("personalTags", (Serializable) mDataFanhui);
-					LogUtil.e(TAG, ""+mDataFanhui.get(0).getIsChoice());
+//					LogUtil.e(TAG, ""+mDataFanhui.get(0).getIsChoice());
 					intent.putExtras(bundle);			
 					setResult(RESULT_OK, intent);
 					finish();
