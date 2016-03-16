@@ -310,6 +310,9 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			
 		}
 	}
+	/**
+	 * 更新上传信息
+	 */
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
 		infoBean.setPersonalTags(mDataFanhui);

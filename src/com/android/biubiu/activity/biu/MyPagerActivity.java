@@ -425,6 +425,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.interest_tag_linear:
 			Intent interestLableIntent=new Intent(MyPagerActivity.this,InterestLabelActivity.class);
 			interestLableIntent.putExtra("interestTags", infoBean.getInterestCates());
+			interestLableIntent.putExtra("userInfoBean", infoBean);
 			startActivityForResult(interestLableIntent, UPDATE_INTEREST_TAG);
 			break;
 		case R.id.back_rl:

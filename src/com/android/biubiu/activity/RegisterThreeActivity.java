@@ -224,7 +224,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
 					String result = obj.getString("result");
 					if(result.equals("0")){
-						//sendSms();
+						sendSms();
 					}else{
 						toastShort("该手机号已注册,请直接登录");
 						//启动登录页，因堆栈问题，启动登录注册页

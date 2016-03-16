@@ -27,6 +27,7 @@ import com.android.biubiu.adapter.InterestLableListViewAdapter;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
@@ -35,6 +36,7 @@ import com.android.biubiu.bean.InterestTagBean;
 
 
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.bean.UserInfoBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -75,12 +77,15 @@ public class InterestLabelActivity extends BaseActivity {
 	public List<InterestByCateBean> mDatesReceive=new ArrayList<InterestByCateBean>();
 
 	private RelativeLayout backLayout,completeLayout;
+	private UserInfoBean infoBean ;
+	private ArrayList<InterestByCateBean> mDataFanhui=new ArrayList<InterestByCateBean>(); 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interest_label);
 		mContext=InterestLabelActivity.this;
 		mDatesReceive=(List<InterestByCateBean>) getIntent().getSerializableExtra("interestTags");
+		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
 		initView();
 		initData();
 		initAdapter();
@@ -103,7 +108,7 @@ public class InterestLabelActivity extends BaseActivity {
 			requestObject.put("type", Constants.INTEREST);
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -111,19 +116,19 @@ public class InterestLabelActivity extends BaseActivity {
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				// TODO Auto-generated method stub
+			
 				
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				toastShort(arg0.getMessage());
 			}
 
 			@Override
 			public void onFinished() {
-				// TODO Auto-generated method stub
+				
 				
 			}
 
@@ -154,7 +159,7 @@ public class InterestLabelActivity extends BaseActivity {
 					
 					
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -179,12 +184,16 @@ public class InterestLabelActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent intent=getIntent();
-				Bundle bundle=new Bundle();
-				bundle.putSerializable("", (Serializable) mDates);
-				intent.putExtras(bundle);
-				setResult(RESULT_OK, intent);
-				finish();
+				
+				
+				fanhuiDate();
+				updateInfo();
+//				Intent intent=getIntent();
+//				Bundle bundle=new Bundle();
+//				bundle.putSerializable("", (Serializable) mDates);
+//				intent.putExtras(bundle);
+//				setResult(RESULT_OK, intent);
+//				finish();
 			}
 		});
 	}
@@ -211,6 +220,35 @@ public class InterestLabelActivity extends BaseActivity {
 		}
 
 	};
+	
+	/**
+	 * 返回更新后的数据
+	 */
+	public void  fanhuiDate(){
+		//TODO
+		for(int i=0;i<mDates.size();i++){
+			for(int j=0;j<mDates.get(i).getmInterestList().size();j++){
+				List<InterestTagBean> mListTags=new ArrayList<InterestTagBean>();
+				
+				if(mDates.get(i).getmInterestList().get(j).getIsChoice()==true){
+
+					mListTags.add(mDates.get(i).getmInterestList().get(j));	
+				}
+				if(mListTags!=null&&mListTags.size()>0){
+					InterestByCateBean item=new InterestByCateBean();
+					item.setTypename(mDates.get(i).getTypename());
+					item.setTypecode(mDates.get(i).getTypecode());
+					item.setmInterestList(mListTags);
+					mDataFanhui.add(item);
+				}
+				
+				
+				
+			}
+			
+		}
+		
+	}
 	
 	/**
 	 * 选中tag
@@ -347,6 +385,69 @@ public class InterestLabelActivity extends BaseActivity {
 			holder.mView.setLayoutParams(params2);
 		}
 		
+	}
+	
+	
+	/**
+	 * 更新上传信息
+	 */
+	protected void updateInfo() {
+		// TODO Auto-generated method stub
+
+		infoBean.setInterestCates(mDataFanhui);
+		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"interested_tags");
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "name=="+result);
+				try {
+					JSONObject jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					LogUtil.d(TAG, state);
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return ;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					Intent intent=getIntent();
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("interestTags", (Serializable) mDataFanhui);
+					if (mDataFanhui!=null) {
+						System.out.println(mDataFanhui);						
+					}
+			//		LogUtil.e(TAG, ""+mDataFanhui.get(0).getmInterestList().get(0).getIsChoice());
+					intent.putExtras(bundle);			
+					setResult(RESULT_OK, intent);
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 
