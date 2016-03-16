@@ -17,6 +17,7 @@ import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -118,7 +119,23 @@ public class ChangeIdentityProfessionActivity extends BaseActivity implements
 	}
 	private void updateInfo(String keys) {
 		// TODO Auto-generated method stub
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,keys);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("isgraduated", infoBean.getIsStudent());
+			requestObject.put("career",infoBean.getCareer());
+			requestObject.put("school", infoBean.getSchool());
+			requestObject.put("company",infoBean.getCompany());
+			requestObject.put("parameters", keys);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override

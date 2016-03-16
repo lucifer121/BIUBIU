@@ -393,9 +393,41 @@ public class InterestLabelActivity extends BaseActivity {
 	 */
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
-
 		infoBean.setInterestCates(mDataFanhui);
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"interested_tags");
+		if(mDataFanhui.size()==0){
+			return;
+		}
+		ArrayList<InterestTagBean> list = new ArrayList<InterestTagBean>();
+		for(int i=0;i<mDataFanhui.size();i++){
+			list.addAll(mDataFanhui.get(i).getmInterestList());
+		}
+		infoBean.setInterestTags(list);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			StringBuffer interTags = new StringBuffer();
+			if(infoBean.getInterestTags().size()>0){
+				ArrayList<InterestTagBean> beans = infoBean.getInterestTags();
+				for(int i=0;i<beans.size();i++){
+					InterestTagBean bean = beans.get(i);
+					if(i == beans.size()-1){
+						interTags.append(bean.getCode());
+						break;
+					}
+					interTags.append(bean.getCode()+",");
+				}
+			}
+			requestObject.put("interested_tags",interTags.toString());
+			requestObject.put("parameters", "interested_tags");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
@@ -438,7 +470,6 @@ public class InterestLabelActivity extends BaseActivity {
 					if (mDataFanhui!=null) {
 						System.out.println(mDataFanhui);						
 					}
-			//		LogUtil.e(TAG, ""+mDataFanhui.get(0).getmInterestList().get(0).getIsChoice());
 					intent.putExtras(bundle);			
 					setResult(RESULT_OK, intent);
 					finish();

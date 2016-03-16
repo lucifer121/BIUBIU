@@ -12,6 +12,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -76,7 +77,20 @@ public class ChangeNameActivity extends BaseActivity {
 	
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"nickname");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("nickname",infoBean.getNickname());
+			requestObject.put("parameters", "nickname");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override

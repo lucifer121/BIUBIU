@@ -679,7 +679,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			if(null == data){
 				return;
 			}
-			ArrayList<InterestByCateBean> listIn = (ArrayList<InterestByCateBean>) data.getSerializableExtra("intertstTags");
+			ArrayList<InterestByCateBean> listIn = (ArrayList<InterestByCateBean>) data.getSerializableExtra("interestTags");
 			ArrayList<InterestTagBean> listTag = new ArrayList<InterestTagBean>();
 			infoBean.getInterestTags().clear();
 			if(null != listIn && listIn.size()>0){

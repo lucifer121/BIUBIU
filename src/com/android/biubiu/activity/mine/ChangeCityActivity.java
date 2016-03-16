@@ -16,6 +16,7 @@ import java.util.List;
 
 
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -44,6 +45,7 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -231,7 +233,20 @@ OnClickListener, OnWheelChangedListener{
 	}
 	private void updateInfo() {
 		// TODO Auto-generated method stub
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"nickname");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("city", infoBean.getCity());
+			requestObject.put("parameters", "city");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override

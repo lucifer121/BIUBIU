@@ -15,6 +15,7 @@ import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -112,7 +113,21 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 	}
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"height,weight");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			requestObject.put("height", infoBean.getHeight());
+			requestObject.put("weight",infoBean.getWeight());
+			requestObject.put("parameters", "height,weight");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override

@@ -23,6 +23,8 @@ import java.util.List;
 
 
 
+
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -40,6 +42,7 @@ import com.android.biubiu.adapter.SchoolListAllAdapter;
 import com.android.biubiu.bean.Schools;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.sqlite.SchoolDao;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -176,7 +179,20 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 
 		protected void updateInfo() {
 			// TODO Auto-generated method stub
-			RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"school");
+			RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+			String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+			String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+			JSONObject requestObject = new JSONObject();
+			try {
+				requestObject.put("token", token);
+				requestObject.put("device_code", deviceId);
+				requestObject.put("school",infoBean.getSchool());
+				requestObject.put("parameters", "school");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			params.addBodyParameter("data", requestObject.toString());
 			x.http().post(params, new CommonCallback<String>() {
 
 				@Override

@@ -21,6 +21,7 @@ import com.android.biubiu.R.id;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.adapter.GridRecycleTagAdapter;
 import com.android.biubiu.adapter.GridRecycleTagAdapter.OnTagsItemClickCallBack;
+import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
@@ -33,6 +34,9 @@ import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+
+
 
 
 
@@ -316,7 +320,32 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
 		infoBean.setPersonalTags(mDataFanhui);
-		RequestParams params = HttpUtils.getUpdateInfoParams(getApplicationContext(), infoBean,"personality_tags");
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
+		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", token);
+			requestObject.put("device_code", deviceId);
+			StringBuffer personalTags = new StringBuffer();
+			if(infoBean.getPersonalTags().size()>0){
+				ArrayList<PersonalTagBean> beans = infoBean.getPersonalTags();
+				for(int i=0;i<beans.size();i++){
+					PersonalTagBean bean = beans.get(i);
+					if(i == beans.size()-1){
+						personalTags.append(bean.getCode());
+						break;
+					}
+					personalTags.append(bean.getCode()+",");
+				}
+			}
+			requestObject.put("personality_tags", personalTags.toString());
+			requestObject.put("parameters", "personality_tags");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", requestObject.toString());
 		x.http().post(params, new CommonCallback<String>() {
 
 			@Override
