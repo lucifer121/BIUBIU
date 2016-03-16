@@ -73,7 +73,11 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		userHeadLayout.setOnClickListener(this);
-		
+	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		String token=SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "");
 		if(token!=null&&token!=""){		
 			isLogin=true;
