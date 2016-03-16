@@ -114,7 +114,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar,
 					Integer minValue, Integer maxValue) {
-				Log.d("mytest","min=="+minValue+"  max=="+maxValue);
 				ageMinTv.setText(minValue+"");
 				ageMaxTv.setText(maxValue+"");
 			}
@@ -380,7 +379,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					setTags(list);
 					setToggle();
 					setRangeAge();
-					LogUtil.d("mytest", ""+settingBean.getSex());
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -410,12 +408,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				for(int i=0;i<tags.size();i++){
 					if(i == tags.size()-1){
 						perStr.append(tags.get(i).getCode());
-						return;
+						break;
 					}
-					perStr.append(tags.get(i).getCode()+",");
+						perStr.append(tags.get(i).getCode()+",");
 				}
 			}
-			requestObject.put("personalized_tags",perStr);
+			LogUtil.d("mytest", perStr.toString());
+			requestObject.put("personalized_tags",perStr.toString());
 			String paramStr = "sex,city,age_down,age_up,personalized_tags";
 			requestObject.put("parameters",paramStr);
 		} catch (JSONException e) {
@@ -478,6 +477,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}else{
 			maxAge = Integer.parseInt(ageMaxTv.getText().toString());
 		}
+		LogUtil.d("mytest", "min"+minAge+"max"+maxAge);
 		setBean.setAgeDown(minAge);
 		setBean.setAgeUp(maxAge);
 		if(isSelBoy){

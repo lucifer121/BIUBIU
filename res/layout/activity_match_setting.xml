@@ -313,6 +313,9 @@
                     android:layout_marginTop="0.5dp"
                     android:background="@color/white"
                     android:horizontalSpacing="24dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
                     android:numColumns="4"
                     android:stretchMode="columnWidth"
                     android:verticalSpacing="13dp" />
