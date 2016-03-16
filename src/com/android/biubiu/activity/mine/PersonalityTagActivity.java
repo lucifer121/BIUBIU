@@ -191,7 +191,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				toastShort("完成");
+				//toastShort("完成");
 				updata();
 				
 				updateInfo();
