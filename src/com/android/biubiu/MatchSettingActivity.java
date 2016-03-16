@@ -305,13 +305,12 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						}
 						return;
 					}
-					String data = jsons.getJSONObject("data").toString();
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson=new Gson();
-					SettingBean settingBean=gson.fromJson(data, SettingBean.class);
-					LogUtil.d(TAG, ""+settingBean.getSex());
-						System.err.println(settingBean);	
-				
-					
+					SettingBean settingBean=gson.fromJson(data.toString(), SettingBean.class);
+					LogUtil.d("mytest", ""+settingBean.getSex());
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

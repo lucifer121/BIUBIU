@@ -138,7 +138,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private SchoolDao schoolDao = new SchoolDao();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
@@ -147,7 +147,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 
 	private void initView() {
-		// TODO Auto-generated method stub
+		
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setOnClickListener(this);
 		//解决scrollview初始在顶部
@@ -211,7 +211,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoPager.setPageMargin(DensityUtil.dip2px(getApplicationContext(), 10));
 	}
 	private void setUserInfoView(UserInfoBean bean) {
-		// TODO Auto-generated method stub
+		
 		//x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		usernameTv.setText(bean.getNickname());
@@ -247,12 +247,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoPager.setAdapter(photoAdapter);
 	}
 	private void setInterestTags(ArrayList<InterestTagBean> tags) {
-		// TODO Auto-generated method stub
+		
 		interestAdapter = new UserInterestAdapter(getApplicationContext(), tags);
 		interestTagGv.setAdapter(interestAdapter);
 	}
 	private void setPersonalTags(ArrayList<PersonalTagBean> tags) {
-		// TODO Auto-generated method stub
+		
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
 	}
@@ -266,7 +266,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -274,20 +274,20 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				// TODO Auto-generated method stub
+			
 
 			}
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				Log.d("mytest", "error--pp"+ex.getMessage());
 				Log.d("mytest", "error--pp"+ex.getCause());
 			}
 
 			@Override
 			public void onFinished() {
-				// TODO Auto-generated method stub
+			
 
 			}
 
@@ -323,10 +323,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 						}
 					}
 					infoBean.setInterestTags(inters);
-					setUserInfoView(bean);
-					setUserPhotos(phos);
 					setPersonalTags(per);
 					setInterestTags(inters);
+					setUserInfoView(bean);
+					setUserPhotos(phos);
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -336,7 +337,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		
 		switch (v.getId()) {
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
@@ -448,26 +449,26 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				// TODO Auto-generated method stub
+			
 
 			}
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
 			public void onFinished() {
-				// TODO Auto-generated method stub
+				
 
 			}
 
 			@Override
 			public void onSuccess(String arg0) {
-				// TODO Auto-generated method stub
+				
 				LogUtil.d("mytest", "userphotoTok=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
@@ -563,26 +564,26 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				// TODO Auto-generated method stub
+				
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
 
 			@Override
 			public void onFinished() {
-				// TODO Auto-generated method stub
+			
 				
 			}
 
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
+				
 				LogUtil.d("mutest", "uploadph=="+result);
 				JSONObject jsons;
 				try {
@@ -619,7 +620,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case UPDATE_INFO:

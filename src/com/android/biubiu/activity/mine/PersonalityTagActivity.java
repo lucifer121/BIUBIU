@@ -69,7 +69,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private List<PersonalTagBean> mList=new ArrayList<PersonalTagBean>();
 	
 	private UserInfoBean infoBean ;
-	
+	private List<PersonalTagBean> mCheckList=new ArrayList<PersonalTagBean>();
 	
 	private int isSelectorTagNumber=0;
 	// 计算recycle 高度
@@ -218,7 +218,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private void initAdapter() {
 		// TODO Auto-generated method stub
 		mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-		mAdapter = new GridRecycleTagAdapter(this, mList);
+		mAdapter = new GridRecycleTagAdapter(this, mCheckList);
 
 		mRecyclerView.setHasFixedSize(true);
 		mRecyclerView.setAdapter(mAdapter);
@@ -301,16 +301,21 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			handler.sendEmptyMessage(1);
 			
 		}else {
-			for(PersonalTagBean bean: mDataReceive){
+			for(int i=0;i<mDataReceive.size();i++){
 				
-				for(PersonalTagBean item : mList){
-					if(bean.getCode()==item.getCode()){
-						item.setIsChoice(true);
+				for(int j=0;j<mList.size();j++){
+					if(mDataReceive.get(i).getCode().equals(mList.get(j).getCode())){
+						mList.get(j).setIsChoice(true);
+						LogUtil.e(TAG, "1");
 					}
 					
 				}
 			}
-			handler.sendEmptyMessage(1);
+			
+			mCheckList.clear();
+			mCheckList.addAll(mList);
+	//	handler.sendEmptyMessage(1);
+			initAdapter();
 			
 		}
 	}

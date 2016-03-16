@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SettingBean implements Serializable{
-	private  int sex;
+	private  String sex;
 	private String city;
 	private int age_down;
 	private int age_up;
@@ -12,11 +12,10 @@ public class SettingBean implements Serializable{
 	private int message;
 	private int sound;
 	private int vibration;
-	private String token;
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public String getCity() {
@@ -61,12 +60,4 @@ public class SettingBean implements Serializable{
 	public void setVibration(int vibration) {
 		this.vibration = vibration;
 	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
- 
-
 }
