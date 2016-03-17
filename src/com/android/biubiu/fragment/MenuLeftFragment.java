@@ -46,8 +46,6 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		if (mView == null) {
 			initView(inflater, container);
 		}
-		
-
 		return mView;
 	}
 
@@ -73,18 +71,15 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		userHeadLayout.setOnClickListener(this);
+		queryLogin();
 	}
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
+	private void queryLogin(){
 		String token=SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "");
 		if(token!=null&&token!=""){		
 			isLogin=true;
 			userName.setText("这里应该是你的名字");
 		}
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -110,6 +105,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.main_touxiang_rl:
+			queryLogin();
 			if(isLogin){
 				Intent intent=new Intent(getActivity(),MyPagerActivity.class);
 				startActivity(intent);

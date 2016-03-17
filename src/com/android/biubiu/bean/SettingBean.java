@@ -1,21 +1,27 @@
 package com.android.biubiu.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SettingBean {
-	private  int sex;
+import com.google.gson.annotations.SerializedName;
+
+public class SettingBean implements Serializable{
+	private  String sex;
 	private String city;
-	private int age_down;
-	private int age_up;
-	private List<PersonalTagBean> personalized_tags;
+	@SerializedName("age_down")
+	private int ageDown;
+	@SerializedName("age_up")
+	private int ageUp;
+	@SerializedName("personalized_tags")
+	private ArrayList<PersonalTagBean> personalTags;
 	private int message;
 	private int sound;
 	private int vibration;
-	private String token;
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public String getCity() {
@@ -24,23 +30,24 @@ public class SettingBean {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public int getAge_down() {
-		return age_down;
+
+	public int getAgeDown() {
+		return ageDown;
 	}
-	public void setAge_down(int age_down) {
-		this.age_down = age_down;
+	public void setAgeDown(int ageDown) {
+		this.ageDown = ageDown;
 	}
-	public int getAge_up() {
-		return age_up;
+	public int getAgeUp() {
+		return ageUp;
 	}
-	public void setAge_up(int age_up) {
-		this.age_up = age_up;
+	public void setAgeUp(int ageUp) {
+		this.ageUp = ageUp;
 	}
-	public List<PersonalTagBean> getPersonalized_tags() {
-		return personalized_tags;
+	public ArrayList<PersonalTagBean> getPersonalTags() {
+		return personalTags;
 	}
-	public void setPersonalized_tags(List<PersonalTagBean> personalized_tags) {
-		this.personalized_tags = personalized_tags;
+	public void setPersonalTags(ArrayList<PersonalTagBean> personalTags) {
+		this.personalTags = personalTags;
 	}
 	public int getMessage() {
 		return message;
@@ -60,12 +67,4 @@ public class SettingBean {
 	public void setVibration(int vibration) {
 		this.vibration = vibration;
 	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
- 
-
 }

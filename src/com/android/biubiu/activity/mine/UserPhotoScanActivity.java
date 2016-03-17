@@ -41,6 +41,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 	private ScanPagerAdapter scanAdapter;
 	ImageOptions imageOptions;
 	boolean hasDelete = false;
+	boolean isMyself = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -58,6 +59,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			photoList.addAll(list);
 		}
 		currentIndex = getIntent().getIntExtra("photoindex", 0);
+		isMyself = getIntent().getBooleanExtra("isMyself", false);
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -65,7 +67,6 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		backRl.setOnClickListener(this);
 		indexTv = (TextView) findViewById(R.id.photo_index_tv);
 		deleteRl = (RelativeLayout) findViewById(R.id.delete_rl);
-		deleteRl.setOnClickListener(this);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_scan_pager);
 		
 		imageOptions = new ImageOptions.Builder()
@@ -73,6 +74,12 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		.setLoadingDrawableId(R.drawable.anim)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
+		if(isMyself){
+			deleteRl.setVisibility(View.VISIBLE);
+			deleteRl.setOnClickListener(this);
+		}else{
+			deleteRl.setVisibility(View.GONE);
+		}
 	}
 	private void setPager() {
 		indexTv.setText((currentIndex+1)+"/"+photoList.size());
@@ -107,12 +114,14 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		String fileCode = photoList.get(currentIndex).getPhotoCode();
+		String filename = photoList.get(currentIndex).getPhotoName();
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.DELETE_PHOTO);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token",token);
 			requestObject.put("device_code", deviceId);
 			requestObject.put("photo_code", fileCode);
+			requestObject.put("photo_name", filename);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,11 +167,15 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions);
 					photoPager.setAdapter(scanAdapter);
 					if(photoList.size() == 0){
+						Intent intent = new Intent(UserPhotoScanActivity.this,MyPagerActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
 						finish();
 					}else if(currentIndex > (photoList.size()-1)){
 						photoPager.setCurrentItem(currentIndex-1);
+						currentIndex = currentIndex-1;
 					}else{
-						photoPager.setCurrentItem(currentIndex-1);
+						photoPager.setCurrentItem(currentIndex);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

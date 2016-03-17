@@ -12,7 +12,11 @@ public class Constants {
 	//头像已审核
 	public static final String ICON_VERIFY = "1";
 	//头像未审核
-	public static final String ICON_NO_VERIFY = "2";	
+	public static final String ICON_NO_VERIFY = "2";
+	//同城
+	public static final String SAME_CITY = "1";
+	//不限
+	public static final String UN_LIMIT = "2";
 	/**
 	 * type 个性标签
 	 */

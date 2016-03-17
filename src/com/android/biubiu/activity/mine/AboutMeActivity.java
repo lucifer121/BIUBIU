@@ -51,6 +51,7 @@ public class AboutMeActivity extends BaseActivity implements OnClickListener{
 		completeRl = (RelativeLayout) findViewById(R.id.complete_rl);
 		completeRl.setOnClickListener(this);
 		aboutEt.setText(infoBean.getAboutMe());
+		aboutEt.setSelection(infoBean.getAboutMe().length());
 	}
 	private void updateInfo() {
 		// TODO Auto-generated method stub

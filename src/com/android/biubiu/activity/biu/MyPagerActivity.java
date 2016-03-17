@@ -52,6 +52,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.AboutMeActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
+import com.android.biubiu.activity.mine.ChangeCompanyActivity;
 import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 import com.android.biubiu.activity.mine.ChangeHeightWeightActivity;
 import com.android.biubiu.activity.mine.ChangeHomeTwonActivity;
@@ -125,6 +126,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private UserPagerPhotoAdapter photoAdapter;
 	//标记个人描述是否已经展开
 	private boolean isOpen = false;
+	private boolean isMyself = false;
 	private UserPagerTagAdapter personalAdapter;
 	private UserInterestAdapter interestAdapter;
 	ArrayList<PersonalTagBean> personalTagList = new ArrayList<PersonalTagBean>();
@@ -136,6 +138,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	String expiration = "";
 	private CityDao cityDao = new CityDao();
 	private SchoolDao schoolDao = new SchoolDao();
+	private String userCode = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -143,6 +146,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
 		initView();
+		if(null != getIntent().getStringExtra("userCode") && !getIntent().getStringExtra("userCode").equals("")){
+			userCode = getIntent().getStringExtra("userCode");
+			isMyself = false;
+		}else{
+			isMyself = true;
+			userCode = SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, "");
+			initOnclick();
+		}
 		getUserInfo();
 	}
 
@@ -156,47 +167,35 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		userheadImv.requestFocus();
 		usernameTv = (TextView) findViewById(R.id.username_tv);
 		addPhotoImv = (ImageView) findViewById(R.id.add_userphoto_imv);
-		addPhotoImv.setOnClickListener(this);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_pager);
 		userInfoTv = (TextView) findViewById(R.id.userinfo_tv);
 		userInfoBigTv = (TextView) findViewById(R.id.userinfo_big_tv);
 		userOpenTv = (TextView) findViewById(R.id.open_tv);
 		userOpenTv.setOnClickListener(this);
 		userInfoLinear = (RelativeLayout) findViewById(R.id.userinfo_linear);
-		userInfoLinear.setOnClickListener(this);
 		nicknameLinear = (LinearLayout) findViewById(R.id.nickname_linear);
-		nicknameLinear.setOnClickListener(this);
 		nicknameTv = (TextView) findViewById(R.id.nickname_tv);
 		sexLinear = (LinearLayout) findViewById(R.id.sex_linear);
 		sexTv = (TextView) findViewById(R.id.sex_tv);
 		birthdayLinear = (LinearLayout) findViewById(R.id.birthday_linear);
-		birthdayLinear.setOnClickListener(this);
 		birthdayTv = (TextView) findViewById(R.id.birthday_tv);
 		starSignLinear = (LinearLayout) findViewById(R.id.starsign_linear);
-		starSignLinear.setOnClickListener(this);
 		starSignTv = (TextView) findViewById(R.id.starsign_tv);
 		cityLinear = (LinearLayout) findViewById(R.id.city_linear);
-		cityLinear.setOnClickListener(this);
 		cityTv = (TextView) findViewById(R.id.city_tv);
 		hometownLinear = (LinearLayout) findViewById(R.id.hometown_linear);
-		hometownLinear.setOnClickListener(this);
 		hometownTv = (TextView) findViewById(R.id.hometown_tv);
 		heightWeightLinear = (LinearLayout) findViewById(R.id.height_weight_linear);
-		heightWeightLinear.setOnClickListener(this);
 		heightWeightTv = (TextView) findViewById(R.id.height_weight_tv);
 		identityLinear = (LinearLayout) findViewById(R.id.identity_linear);
-		identityLinear.setOnClickListener(this);
 		identityTv = (TextView) findViewById(R.id.identity_tv);
 		identityTagTv = (TextView) findViewById(R.id.identity_tag_tv);
 		schoolLinear = (LinearLayout) findViewById(R.id.school_linear);
-		schoolLinear.setOnClickListener(this);
 		schoolTagTv = (TextView) findViewById(R.id.school_tag_tv);
 		schoolTv = (TextView) findViewById(R.id.school_tv);
 		personalTagLinear = (LinearLayout) findViewById(R.id.personal_tag_linear);
-		personalTagLinear.setOnClickListener(this);
 		personalTagGv = (MyGridView) findViewById(R.id.personal_tag_gv);
 		interestTagLinear = (LinearLayout) findViewById(R.id.interest_tag_linear);
-		interestTagLinear.setOnClickListener(this);
 		interestTagGv = (MyGridView) findViewById(R.id.interest_tag_gv);
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
 		backRl.setOnClickListener(this);
@@ -210,8 +209,26 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		photoPager.setOffscreenPageLimit(3);
 		photoPager.setPageMargin(DensityUtil.dip2px(getApplicationContext(), 10));
 	}
+	private void initOnclick(){
+		addPhotoImv.setOnClickListener(this);
+		userInfoLinear.setOnClickListener(this);
+		nicknameLinear.setOnClickListener(this);
+		birthdayLinear.setOnClickListener(this);
+		starSignLinear.setOnClickListener(this);
+		cityLinear.setOnClickListener(this);
+		hometownLinear.setOnClickListener(this);
+		heightWeightLinear.setOnClickListener(this);
+		identityLinear.setOnClickListener(this);
+		schoolLinear.setOnClickListener(this);
+		personalTagLinear.setOnClickListener(this);
+		interestTagLinear.setOnClickListener(this);
+	}
 	private void setUserInfoView(UserInfoBean bean) {
-		
+		if(isMyself){
+			addPhotoImv.setVisibility(View.VISIBLE);
+		}else{
+			addPhotoImv.setVisibility(View.GONE);
+		}
 		//x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		usernameTv.setText(bean.getNickname());
@@ -234,13 +251,20 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			identityTv.setText(bean.getCareer());
 			schoolTv.setText(bean.getCompany());
 		}
-
-		userInfoTv.setText(bean.getAboutMe());
-		userInfoBigTv.setText(bean.getAboutMe());
+		if(isMyself && bean.getAboutMe().equals("")){
+				userInfoTv.setText(getResources().getString(R.string.description_me));
+				userInfoBigTv.setText(getResources().getString(R.string.description_me));
+		}else if(!isMyself && !bean.getAboutMe().equals("")){
+				userInfoTv.setText(getResources().getString(R.string.description_other));
+				userInfoBigTv.setText(getResources().getString(R.string.description_other));
+		}else{
+			userInfoTv.setText(bean.getAboutMe());
+			userInfoBigTv.setText(bean.getAboutMe());
+		}
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
-		
-		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions);
+		// TODO Auto-generated method stub
+		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions,isMyself);
 		photoPager.setAdapter(photoAdapter);
 	}
 	private void setInterestTags(ArrayList<InterestTagBean> tags) {
@@ -259,7 +283,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
-			requestObject.put("code",SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
+			requestObject.put("code",userCode);
 			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
@@ -290,9 +314,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onSuccess(String result) {
-				
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", result);
 				try {
-					LogUtil.d("mytest", result);
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					JSONObject data = jsons.getJSONObject("data");
@@ -339,7 +363,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
 			headIntent.putExtra("userhead", infoBean.getIconOrigin());
-			headIntent.putExtra("isMyself", true);
+			headIntent.putExtra("isMyself", isMyself);
 			startActivityForResult(headIntent, UPDATE_HEAD);
 			break;
 		case R.id.open_tv:
@@ -404,9 +428,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.school_linear:
 			if(infoBean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 				Intent schoolIntent = new Intent(MyPagerActivity.this,ChangeSchoolActivity.class);
-				startActivity(schoolIntent);
+				schoolIntent.putExtra("userInfoBean", infoBean);
+				startActivityForResult(schoolIntent, UPDATE_INFO);
 			}else{
-				
+				Intent companyIntent = new Intent(MyPagerActivity.this,ChangeCompanyActivity.class);
+				companyIntent.putExtra("userInfoBean", infoBean);
+				startActivityForResult(companyIntent, UPDATE_INFO);
 			}
 			break;
 		case R.id.personal_tag_linear:
@@ -504,7 +531,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		OSSLog.enableLog();
 		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
-		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpg";
+		final String fileName = "photos/"+System.currentTimeMillis()+deviceId+".jpg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
 

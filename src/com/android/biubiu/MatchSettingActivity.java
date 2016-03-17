@@ -1,5 +1,7 @@
 package com.android.biubiu;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -8,8 +10,11 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
-import com.android.biubiu.bean.InterestByCateBean;
+import com.android.biubiu.activity.mine.PersonalityTagActivity;
+import com.android.biubiu.adapter.UserPagerTagAdapter;
+import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.SettingBean;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -18,16 +23,13 @@ import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -39,8 +41,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MatchSettingActivity extends BaseActivity implements OnClickListener{
-	//
-
+	private static final int PERSONAL_TAG = 1001;
 	private RelativeLayout backRl;
 	private ToggleButton boyToggle;
 	private ToggleButton girlToggle;
@@ -55,14 +56,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private ToggleButton shockToggle;
 	private RelativeLayout logoutRl;
 	private LinearLayout seekLinear;
-
+	private UserPagerTagAdapter setTagAdapter;
+	
 	private boolean isSelBoy = true;
-	private boolean isSelGirl = true;
 	private boolean isSameCity = true;
-	private boolean isUnLimit = true;
 	private boolean isRecvMsg = true;
 	private boolean isOpenVoice = true;
 	private boolean isOpenShck = true;
+	SettingBean setBean;
 	
 	private String TAG ="MatchSettingActivity";
 	@Override
@@ -71,7 +72,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		setContentView(R.layout.activity_match_setting);
 		initView();
 		initlodo();
-		setRangeAge();
+		initToggle();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -92,21 +93,27 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		logoutRl = (RelativeLayout) findViewById(R.id.logout_rl);
 		logoutRl.setOnClickListener(this);
 		seekLinear = (LinearLayout) findViewById(R.id.seek_linear);
-		initToggle();
+	}
+	private void setTags(ArrayList<PersonalTagBean> tags){
+		setTagAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
+		tagGv.setAdapter(setTagAdapter);
 	}
 	private void setRangeAge() {
-		ageMinTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, 16));
-		ageMaxTv.setText(""+SharePreferanceUtils.getInstance().getMinAge(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, 40));
+		if(setBean.getAgeDown() == 0 ){
+			setBean.setAgeDown(16);
+		}
+		if(setBean.getAgeUp() == 0){
+			setBean.setAgeUp(40);
+		}
+		ageMinTv.setText(""+setBean.getAgeDown());
+		ageMaxTv.setText(""+setBean.getAgeUp());
 		RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(16, 40, this);
-		int maxAge = Integer.parseInt(ageMaxTv.getText().toString());
-		int minAge = Integer.parseInt(ageMinTv.getText().toString());
-		seekBar.setSelectedMaxValue(maxAge);
-		seekBar.setSelectedMinValue(minAge);
+		seekBar.setSelectedMaxValue(setBean.getAgeUp());
+		seekBar.setSelectedMinValue(setBean.getAgeDown());
 		seekBar.setOnRangeSeekBarChangeListener(new OnRangeSeekBarChangeListener<Integer>() {
 			@Override
 			public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar,
 					Integer minValue, Integer maxValue) {
-				Log.d("mytest","min=="+minValue+"  max=="+maxValue);
 				ageMinTv.setText(minValue+"");
 				ageMaxTv.setText(maxValue+"");
 			}
@@ -114,13 +121,55 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		seekBar.setNotifyWhileDragging(true);
 		seekLinear.addView(seekBar);
 	}
-	//保存设置年龄范围
-	private void saveRangeAge() {
-		// TODO Auto-generated method stub
-		int minAge = Integer.parseInt(ageMinTv.getText().toString());
-		SharePreferanceUtils.getInstance().putShared(MatchSettingActivity.this, SharePreferanceUtils.AGE_MIN, minAge);
-		int maxAge = Integer.parseInt(ageMaxTv.getText().toString());
-		SharePreferanceUtils.getInstance().putShared(MatchSettingActivity.this, SharePreferanceUtils.AGE_MAX, maxAge);
+	protected void setToggle() {
+		// 1--选择男生 2--选择女生
+		if(setBean.getSex().equals(Constants.SEX_MALE)){
+			isSelBoy = true;
+			boyToggle.setChecked(true);
+			girlToggle.setChecked(false);
+			boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+			girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
+		}else{
+			isSelBoy = false;
+			boyToggle.setChecked(false);
+			girlToggle.setChecked(true);
+			girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+			boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
+		}
+		//1--同城 2--不限
+		if(setBean.getCity().equals(Constants.SAME_CITY)){
+			isSameCity = true;
+			cityToggle.setChecked(true);
+			unLimitToggle.setChecked(false);
+		}else{
+			isSameCity = false;
+			cityToggle.setChecked(false);
+			unLimitToggle.setChecked(true);
+		}
+		//接收消息 0--关闭，不接收  1--打开，接收
+		if(setBean.getMessage() == 0){
+			isRecvMsg = false;
+			newMsgToggle.setChecked(false);
+		}else{
+			isRecvMsg = true;
+			newMsgToggle.setChecked(true);
+		}
+		//声音 0--关闭 1--打开
+		if(setBean.getSound() == 0){
+			isOpenVoice = false;
+			voiceToggle.setChecked(false);
+		}else{
+			isOpenVoice = true;
+			voiceToggle.setChecked(true);
+		}
+		//振动 0--关闭 1--打开
+		if(setBean.getSound() == 0){
+			isOpenShck = false;
+			shockToggle.setChecked(false);
+		}else{
+			isOpenShck = true;
+			shockToggle.setChecked(true);
+		}
 	}
 	private void initToggle() {
 		// TODO Auto-generated method stub
@@ -132,11 +181,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isSelBoy = false;
 					isChecked = false;
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}else{
 					isSelBoy = true;
 					isChecked = true;
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}
 			}
 		});
@@ -146,13 +197,15 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				if(isChecked){
-					isSelGirl = false;
+					isSelBoy = true;
 					isChecked = false;
-					girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}else{
-					isSelGirl = true;
-					isChecked = true;
 					girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+				}else{
+					isSelBoy = false;
+					isChecked = true;
+					girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}
 			}
 		});
@@ -164,11 +217,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isSameCity = false;
 					isChecked = false;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					cityToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}else{
 					isSameCity = true;
 					isChecked = true;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					cityToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}
 			}
 		});
@@ -178,12 +233,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				if(isChecked){
-					isUnLimit = false;
+					isSameCity = true;
 					isChecked = false;
+					cityToggle.setBackgroundResource(R.drawable.setting_btn_no);
 					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}else{
-					isUnLimit = true;
+					isSameCity = false;
 					isChecked = true;
+					cityToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}
 			}
@@ -196,11 +253,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isRecvMsg = false;
 					isChecked = false;
-					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
 					isRecvMsg = true;
 					isChecked = true;
-					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}
 			}
 		});
@@ -212,11 +269,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isOpenVoice = false;
 					isChecked = false;
-					voiceToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
 					isOpenVoice = true;
 					isChecked = true;
-					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					voiceToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}
 			}
 		});
@@ -228,11 +285,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isOpenShck = false;
 					isChecked = false;
-					shockToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
 					isOpenShck = true;
 					isChecked = true;
-					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					shockToggle.setBackgroundResource(R.drawable.setting_btn_yes);
 				}
 			}
 		});
@@ -242,15 +299,17 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back_rl:
-			saveRangeAge();
+			saveSetInfo();
 			finish();
 			break;
 		case R.id.personal_rl:
+			Intent intent = new Intent(MatchSettingActivity.this,MatchSetTagActivity.class);
+			intent.putExtra("personalTags", (Serializable)setBean.getPersonalTags());
+			startActivityForResult(intent, PERSONAL_TAG);
 			break;
 		case R.id.logout_rl:
 			//退出
 			exitApp();
-			
 			break;
 		default:
 			break;
@@ -260,11 +319,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 加载数据
 	 */
 	public void initlodo(){
-		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
-			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 		} catch (JSONException e) {
 		
 			e.printStackTrace();
@@ -281,7 +340,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				LogUtil.e(TAG, arg0.getMessage());
+				LogUtil.d(TAG, ""+arg0.getMessage());
 				Toast.makeText(x.app(), arg0.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 
@@ -293,6 +352,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 
 			@Override
 			public void onSuccess(String arg0) {
+				LogUtil.d("mytest", "set--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);
@@ -305,13 +365,20 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						}
 						return;
 					}
-				
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson=new Gson();
-					SettingBean settingBean=gson.fromJson(jsons.getString("data".toString()), SettingBean.class);
-					LogUtil.d(TAG, ""+settingBean.getSex());
-						System.err.println(settingBean);	
-				
-					
+					SettingBean settingBean=gson.fromJson(data.toString(), SettingBean.class);
+					if(settingBean == null){
+						return;
+					}
+					setBean = settingBean;
+					ArrayList<PersonalTagBean> list = new ArrayList<PersonalTagBean>();
+					list.addAll(settingBean.getPersonalTags());
+					setTags(list);
+					setToggle();
+					setRangeAge();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -320,6 +387,124 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			}
 		});
 		
+	}
+	/**
+	 * 保存设置信息
+	 */
+	private void saveSetInfo() {
+		updateSetBean();
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_SETTING);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("sex", setBean.getSex());
+			requestObject.put("city", setBean.getCity());
+			requestObject.put("age_down", setBean.getAgeDown());
+			requestObject.put("age_up", setBean.getAgeUp());
+			ArrayList<PersonalTagBean> tags = setBean.getPersonalTags();
+			StringBuffer perStr = new StringBuffer();
+			if(null != tags && tags.size()>0){
+				for(int i=0;i<tags.size();i++){
+					if(i == tags.size()-1){
+						perStr.append(tags.get(i).getCode());
+						break;
+					}
+						perStr.append(tags.get(i).getCode()+",");
+				}
+			}
+			LogUtil.d("mytest", perStr.toString());
+			requestObject.put("personalized_tags",perStr.toString());
+			String paramStr = "sex,city,age_down,age_up,personalized_tags";
+			requestObject.put("parameters",paramStr);
+		} catch (JSONException e) {
+		
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", ex.getMessage()+"");
+				LogUtil.d("mytest", ex.getCause()+"");
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "updateset--"+arg0);
+				try {
+					JSONObject jsons = new JSONObject(arg0);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						toastShort(jsons.getString("error"));
+						return;
+					}
+					String token = (jsons.getJSONObject("data").getString("token"));
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	private void updateSetBean() {
+		// TODO Auto-generated method stub
+		int minAge = 0;
+		int maxAge = 40;
+		if(ageMinTv.getText().toString().equals("")){
+			minAge = 16;
+		}else{
+			minAge = Integer.parseInt(ageMinTv.getText().toString());
+		}
+		if(ageMaxTv.getText().toString().equals("")){
+			maxAge = 40;
+		}else{
+			maxAge = Integer.parseInt(ageMaxTv.getText().toString());
+		}
+		LogUtil.d("mytest", "min"+minAge+"max"+maxAge);
+		setBean.setAgeDown(minAge);
+		setBean.setAgeUp(maxAge);
+		if(isSelBoy){
+			setBean.setSex(Constants.SEX_MALE);
+		}else{
+			setBean.setSex(Constants.SEX_FAMALE);
+		}
+		if(isSameCity){
+			setBean.setCity(Constants.SAME_CITY);
+		}else{
+			setBean.setCity(Constants.UN_LIMIT);
+		}
+		if(isOpenVoice){
+			setBean.setSound(1);
+		}else{
+			setBean.setSound(0);
+		}
+		if(isRecvMsg){
+			setBean.setMessage(1);
+		}else{
+			setBean.setMessage(0);
+		}
+		if(isOpenShck){
+			setBean.setVibration(1);
+		}else{
+			setBean.setVibration(0);
+		}
 	}
 	/**
 	 * 退出登录
@@ -410,14 +595,30 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		});
 	}
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case PERSONAL_TAG:
+			if(resultCode != RESULT_OK){
+				return;
+			}
+			ArrayList<PersonalTagBean> list = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
+			setTags(list);
+			setBean.setPersonalTags(list);
+			break;
+
+		default:
+			break;
+		}
+	}
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			saveRangeAge();
+			saveSetInfo();
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	
 }

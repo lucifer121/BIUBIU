@@ -216,6 +216,10 @@
             android:name=".MatchSettingActivity"
             android:label="@string/title_activity_match_setting" >
         </activity>
+         <activity
+            android:name=".MatchSetTagActivity"
+            android:label="@string/title_activity_match_setting" >
+        </activity>
         <activity
             android:name=".activity.mine.PersonalityTagActivity"
             android:label="@string/title_activity_personality_tag" >
