@@ -121,6 +121,23 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private MyGridView interestTagGv;
 	private RelativeLayout backRl;
 	private RelativeLayout userInfoLinear;
+	private RelativeLayout otherInfoLayout;
+	private TextView locationTv;
+	private TextView matchTv;
+	private TextView timeTv;
+	private ImageView aboutMeArrow;
+	private ImageView nickArrwo;
+	private ImageView starArrow;
+	private ImageView birthArrow;
+	private ImageView heightArrow;
+	private ImageView cityArrow;
+	private ImageView homeArrwo;
+	private ImageView identityArrow;
+	private ImageView schoolArrow;
+	private ImageView personalArrow;
+	private ImageView interestArrow;
+	private LinearLayout loadingLayout;
+	
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private UserPagerPhotoAdapter photoAdapter;
@@ -199,6 +216,22 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		interestTagGv = (MyGridView) findViewById(R.id.interest_tag_gv);
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
 		backRl.setOnClickListener(this);
+		otherInfoLayout = (RelativeLayout) findViewById(R.id.other_info_layout);
+		locationTv = (TextView) findViewById(R.id.location_tv);
+		matchTv = (TextView) findViewById(R.id.match_tv);
+		timeTv = (TextView) findViewById(R.id.time_tv);
+		aboutMeArrow = (ImageView) findViewById(R.id.about_arrow);
+		nickArrwo = (ImageView) findViewById(R.id.nickname_arrow);
+		birthArrow = (ImageView) findViewById(R.id.birth_arrow);
+		starArrow = (ImageView) findViewById(R.id.star_arrow);
+		cityArrow = (ImageView) findViewById(R.id.city_arrow);
+		homeArrwo = (ImageView) findViewById(R.id.home_arrow);
+		heightArrow = (ImageView) findViewById(R.id.height_arrow);
+		identityArrow = (ImageView) findViewById(R.id.identity_arrow);
+		schoolArrow = (ImageView) findViewById(R.id.school_arrow);
+		personalArrow = (ImageView) findViewById(R.id.personal_arrow);
+		interestArrow = (ImageView) findViewById(R.id.interest_arrow);
+		loadingLayout = (LinearLayout) findViewById(R.id.loading_layout);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -226,8 +259,32 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private void setUserInfoView(UserInfoBean bean) {
 		if(isMyself){
 			addPhotoImv.setVisibility(View.VISIBLE);
+			otherInfoLayout.setVisibility(View.GONE);
+			aboutMeArrow.setVisibility(View.VISIBLE);
+			nickArrwo.setVisibility(View.VISIBLE);
+			birthArrow.setVisibility(View.VISIBLE);
+			starArrow.setVisibility(View.VISIBLE);
+			cityArrow.setVisibility(View.VISIBLE);
+			homeArrwo.setVisibility(View.VISIBLE);
+			heightArrow.setVisibility(View.VISIBLE);
+			identityArrow.setVisibility(View.VISIBLE);
+			schoolArrow.setVisibility(View.VISIBLE);
+			personalArrow.setVisibility(View.VISIBLE);
+			interestArrow.setVisibility(View.VISIBLE);
 		}else{
 			addPhotoImv.setVisibility(View.GONE);
+			otherInfoLayout.setVisibility(View.VISIBLE);
+			aboutMeArrow.setVisibility(View.GONE);
+			nickArrwo.setVisibility(View.GONE);
+			birthArrow.setVisibility(View.GONE);
+			starArrow.setVisibility(View.GONE);
+			cityArrow.setVisibility(View.GONE);
+			homeArrwo.setVisibility(View.GONE);
+			heightArrow.setVisibility(View.GONE);
+			identityArrow.setVisibility(View.GONE);
+			schoolArrow.setVisibility(View.GONE);
+			personalArrow.setVisibility(View.GONE);
+			interestArrow.setVisibility(View.GONE);
 		}
 		//x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
@@ -237,9 +294,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		birthdayTv.setText(bean.getBirthday());
 		starSignTv.setText(bean.getStar());
 		//cityTv.setText(bean.getCity());
-		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getCity());
-		hometownTv.setText(cityDao.getCity(bean.getHomeTown()).get(0).getCity());
-		heightWeightTv.setText(bean.getHeight()+"cm,"+bean.getWeight()+"kg");
+		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
+		hometownTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());
+		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
@@ -261,15 +318,30 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			userInfoTv.setText(bean.getAboutMe());
 			userInfoBigTv.setText(bean.getAboutMe());
 		}
+		if(userInfoBigTv.getLayoutParams().height>DensityUtil.dip2px(getApplicationContext(), 50)){
+			userOpenTv.setVisibility(View.VISIBLE);
+		}else{
+			userOpenTv.setVisibility(View.GONE);
+		}
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
 		photoAdapter = new UserPagerPhotoAdapter(getApplicationContext(), photos, imageOptions,isMyself);
 		photoPager.setAdapter(photoAdapter);
 	}
-	private void setInterestTags(ArrayList<InterestTagBean> tags) {
-		
-		interestAdapter = new UserInterestAdapter(getApplicationContext(), tags);
+	private void setInterestTags(ArrayList<InterestByCateBean> cates) {
+		ArrayList<InterestTagBean> inters = new ArrayList<InterestTagBean>();
+		if(cates != null && cates.size()>0){
+			for(int i=0;i<cates.size();i++){
+				for(int j=0;j<cates.get(i).getmInterestList().size();j++){
+					InterestTagBean tagBean = cates.get(i).getmInterestList().get(j);
+					tagBean.setTagType(cates.get(i).getTypename());
+					inters.add(tagBean);
+				}
+			}
+		}
+		infoBean.setInterestTags(inters);
+		interestAdapter = new UserInterestAdapter(getApplicationContext(), inters);
 		interestTagGv.setAdapter(interestAdapter);
 	}
 	private void setPersonalTags(ArrayList<PersonalTagBean> tags) {
@@ -279,6 +351,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	//获取用户主页数据
 	private void getUserInfo(){
+		loadingLayout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -316,6 +389,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
 				LogUtil.d("mytest", result);
+				loadingLayout.setVisibility(View.GONE);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -337,15 +411,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					ArrayList<PersonalTagBean> per = infoBean.getPersonalTags();
 					ArrayList<UserPhotoBean> phos = infoBean.getUserPhotos();
 					ArrayList<InterestByCateBean> cates = infoBean.getInterestCates();
-					ArrayList<InterestTagBean> inters = new ArrayList<InterestTagBean>();
-					if(cates != null && cates.size()>0){
-						for(int i=0;i<cates.size();i++){
-							inters.addAll(cates.get(i).getmInterestList());
-						}
-					}
-					infoBean.setInterestTags(inters);
+					
 					setPersonalTags(per);
-					setInterestTags(inters);
+					setInterestTags(cates);
 					setUserInfoView(bean);
 					setUserPhotos(phos);
 					
@@ -709,17 +777,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				return;
 			}
 			ArrayList<InterestByCateBean> listIn = (ArrayList<InterestByCateBean>) data.getSerializableExtra("interestTags");
-			ArrayList<InterestTagBean> listTag = new ArrayList<InterestTagBean>();
-			infoBean.getInterestTags().clear();
-			if(null != listIn && listIn.size()>0){
-				for(int i=0;i<listIn.size();i++){
-					listTag.addAll(listIn.get(i).getmInterestList());
-				}
-			}
-			infoBean.setInterestCates(listIn);
-			infoBean.setInterestTags(listTag);
-		//	interestAdapter.notifyDataSetChanged();
-			setInterestTags(listTag);
+			setInterestTags(listIn);
 			break;
 		case UPDATE_PERSONAL_TAG:
 			if(resultCode != RESULT_OK){
@@ -731,7 +789,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			ArrayList<PersonalTagBean> listPa = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
 			infoBean.getPersonalTags().clear();
 			infoBean.getPersonalTags().addAll(listPa);
-
 			setPersonalTags(listPa);
 			break;
 		default:

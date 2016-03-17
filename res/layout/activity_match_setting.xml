@@ -261,7 +261,7 @@
                 android:paddingRight="20dp" >
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@color/set_tag_bg"
@@ -275,7 +275,7 @@
                     android:text="@string/setting_character_tags"
                     android:textColor="@color/set_tag_text"
                     android:textSize="12sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -303,7 +303,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
-                        android:src="@drawable/main_chose3_light_icon_right" />
+                        android:src="@drawable/setting_btn_in" />
                 </RelativeLayout>
 
                 <com.android.biubiu.view.MyGridView

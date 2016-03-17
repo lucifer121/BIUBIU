@@ -2,6 +2,12 @@ package com.android.biubiu;
 
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -11,8 +17,10 @@ import com.android.biubiu.R;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LocationUtils;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -79,6 +87,10 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			case LocationUtils.MSG_LOCATION_FINISH:
 				AMapLocation loc = (AMapLocation) msg.obj;
 				String result = LocationUtils.getLocationStr(loc);
+				/*String[] ss = result.split(",");
+				double longitude = Double.parseDouble(ss[1]);
+				double latitide = Double.parseDouble(ss[2]);
+				updateLocation(longitude,latitide);*/
 				LogUtil.d("mytest", result);
 				break;
 				//停止定位
@@ -89,12 +101,70 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			}
 		};
 	};
+
 	private void initPageFragment() {
 		// TODO Auto-generated method stub
 		BiuFragment biuFragment = new BiuFragment();		
 		getSupportFragmentManager().beginTransaction().add(R.id.page_layout, biuFragment)
 		.commit();
 
+	}
+	//更新位置信息
+	protected void updateLocation(double lontitide,double latitude) {
+		if(!LoginUtils.isLogin(getApplicationContext())){
+			return;
+		}
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code",lontitide);
+			requestObject.put("device_code",latitude);
+		} catch (JSONException e) {
+			
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						return;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	private void initViewPager() {
 		leftMenu=(ImageView) findViewById(R.id.id_iv_left);

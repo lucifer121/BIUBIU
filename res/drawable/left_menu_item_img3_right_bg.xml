@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/main_chose3_light_icon_right" android:state_focused="true"></item>
-    <item android:drawable="@drawable/main_chose3_light_icon_right" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/leftbar_imageview_arrow_right_light" android:state_focused="true"></item>
+    <item android:drawable="@drawable/leftbar_imageview_arrow_right_light" android:state_pressed="true"></item>
 	<item android:drawable="@drawable/main_chose3_nomal_icon_right"></item>
 
 </selector>

@@ -65,4 +65,8 @@ public class HttpContants {
 	 * 更新用户设置
 	 */
 	public static final String UPDATE_SETTING="app/info/updateSettings";
+	/**
+	 * 更新用户位置信息
+	 */
+	public static final String UPDATE_LACATION = "app/info/updateLocation";
 }

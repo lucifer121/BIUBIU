@@ -29,4 +29,11 @@ public class Constants {
 	 * type interest兴趣标签
 	 */
 	public static final String INTEREST="interest";
+	/**
+	 * 标签分类
+	 * */
+	public static final String SPORT="运动";
+	public static final String MOVIE="电影";
+	public static final String BOOK="书籍";
+	public static final String MUSIC="音乐";
 }
