@@ -28,11 +28,13 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 	Context context;
 	ArrayList<UserPhotoBean> photos;
 	ImageOptions options;
-	public UserPagerPhotoAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options) {
+	boolean isMyself;
+	public UserPagerPhotoAdapter(Context context,ArrayList<UserPhotoBean> photos,ImageOptions options,boolean isMyself) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.photos = photos;
 		this.options = options;
+		this.isMyself = isMyself;
 		
 	}
 	@Override
@@ -66,6 +68,7 @@ public class UserPagerPhotoAdapter extends PagerAdapter{
 				Intent intent = new Intent(context,UserPhotoScanActivity.class);
 				intent.putExtra("photolist", (Serializable)photos);
 				intent.putExtra("photoindex", position);
+				intent.putExtra("isMyself", isMyself);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				context.startActivity(intent);
 			}

@@ -41,6 +41,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 	private ScanPagerAdapter scanAdapter;
 	ImageOptions imageOptions;
 	boolean hasDelete = false;
+	boolean isMyself = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -58,6 +59,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 			photoList.addAll(list);
 		}
 		currentIndex = getIntent().getIntExtra("photoindex", 0);
+		isMyself = getIntent().getBooleanExtra("isMyself", false);
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -65,7 +67,6 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		backRl.setOnClickListener(this);
 		indexTv = (TextView) findViewById(R.id.photo_index_tv);
 		deleteRl = (RelativeLayout) findViewById(R.id.delete_rl);
-		deleteRl.setOnClickListener(this);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_scan_pager);
 		
 		imageOptions = new ImageOptions.Builder()
@@ -73,6 +74,12 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		.setLoadingDrawableId(R.drawable.anim)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
+		if(isMyself){
+			deleteRl.setVisibility(View.VISIBLE);
+			deleteRl.setOnClickListener(this);
+		}else{
+			deleteRl.setVisibility(View.GONE);
+		}
 	}
 	private void setPager() {
 		indexTv.setText((currentIndex+1)+"/"+photoList.size());

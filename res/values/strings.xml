@@ -91,8 +91,8 @@
     <string name="page_personal_tag">我的个性标签</string>
     <string name="page_interest_tag">我的兴趣标签</string>
     <string name="page_text_bottom">青春校园从biubiu开始</string>
-    <string name="page_test">我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签,我的兴趣标签我的兴趣标签我的兴趣标签
-         我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签.我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签我的兴趣标签</string>
+    <string name="description_me">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
+    <string name="description_other">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
     <string name="title_activity_match_setting">MatchSettingActivity</string>
 
     <!-- 设置相关 -->
