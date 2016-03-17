@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
+
+    <include layout="@layout/loading_layout" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -65,11 +67,91 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/userhead_layout"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="18dp"
                     android:text="周杰伦"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
+
+                <RelativeLayout
+                    android:id="@+id/other_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="11dp" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:src="@drawable/main_imageview_distance" />
+
+                        <TextView
+                            android:id="@+id/location_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5.5dp"
+                            android:text="500m"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="11dp"
+                            android:layout_marginLeft="11dp"
+                            android:background="@drawable/main_imageview_line" />
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_marginLeft="11dp"
+                            android:src="@drawable/main_imageview_fit" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="匹配度"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/match_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5.5dp"
+                            android:text="95%"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="11dp"
+                            android:layout_marginLeft="11dp"
+                            android:background="@drawable/main_imageview_line" />
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="11dp"
+                            android:layout_marginLeft="11dp"
+                            android:src="@drawable/main_imageview_time" />
+
+                        <TextView
+                            android:id="@+id/time_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5.5dp"
+                            android:text="3min"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
             <LinearLayout
@@ -150,6 +232,7 @@
                     android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/about_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_alignParentRight="true"
@@ -217,6 +300,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/nickname_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -300,6 +384,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/birth_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -344,6 +429,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/star_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -388,6 +474,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/city_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -432,6 +519,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/home_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -476,6 +564,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/height_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -530,6 +619,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/identity_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -575,6 +665,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
+                    android:id="@+id/school_arrow"
                     android:layout_width="5dp"
                     android:layout_height="11dp"
                     android:layout_marginLeft="19dp"
@@ -625,6 +716,7 @@
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/personal_arrow"
                         android:layout_width="5dp"
                         android:layout_height="11dp"
                         android:layout_marginLeft="19dp"
@@ -704,6 +796,7 @@
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/interest_arrow"
                         android:layout_width="5dp"
                         android:layout_height="11dp"
                         android:layout_marginLeft="19dp"
@@ -756,4 +849,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

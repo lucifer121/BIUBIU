@@ -192,6 +192,10 @@
             android:name=".activity.mine.ChangeCityActivity"
             android:label="@string/title_activity_change_city_main" >
         </activity>
+         <activity
+            android:name=".activity.mine.ChangeCompanyActivity"
+            android:label="@string/title_activity_change_city_main" >
+        </activity>
         <activity
             android:name=".activity.mine.ChangeConstellationActivity"
             android:label="@string/title_activity_change_constellation" >

@@ -3,12 +3,17 @@ package com.android.biubiu.fragment;
 import java.util.Arrays;
 import java.util.List;
 
+import org.xutils.x;
+import org.xutils.image.ImageOptions;
+
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 
 import android.content.Intent;
@@ -33,7 +38,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			leadLayout, shareLayout;
 	private ImageView userHead;
 	private RelativeLayout userHeadLayout;
-	
+	ImageOptions imageOptions;
 	private TextView userName;
 	/**
 	 * 是否已经登录
@@ -71,15 +76,27 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		userHeadLayout.setOnClickListener(this);
-		queryLogin();
+		
+		imageOptions = new ImageOptions.Builder()
+		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+		.setLoadingDrawableId(R.drawable.anim)
+		.setFailureDrawableId(R.drawable.ic_launcher)
+		.build();
 	}
-	private void queryLogin(){
-		String token=SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "");
-		if(token!=null&&token!=""){		
-			isLogin=true;
-			userName.setText("这里应该是你的名字");
-		}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+			if(LoginUtils.isLogin(getActivity())){		
+				isLogin=true;
+				userName.setText(SharePreferanceUtils.getInstance().getUserName(getActivity(), SharePreferanceUtils.USER_NAME, ""));
+				LogUtil.d("mytest", "head--"+SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.getInstance().USER_HEAD, ""));
+				x.image().bind(userHead,SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.USER_HEAD, ""),imageOptions);
+			}else{
+				isLogin = false;
+			}
 	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -94,9 +111,14 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.left_menu_item3_rl:
 			((MainActivity) getActivity()).closeMenu();
-			Intent intentSet = new Intent(getActivity(),
-					MatchSettingActivity.class);
-			startActivity(intentSet);
+			if(isLogin){
+				Intent intent=new Intent(getActivity(),MatchSettingActivity.class);
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent(getActivity(),
+						LoginOrRegisterActivity.class);
+				startActivity(intent);
+			}	
 			break;
 		case R.id.left_menu_item4_rl:
 			Toast.makeText(getActivity(), "lead", Toast.LENGTH_SHORT).show();
@@ -105,7 +127,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.main_touxiang_rl:
-			queryLogin();
+			((MainActivity) getActivity()).closeMenu();
 			if(isLogin){
 				Intent intent=new Intent(getActivity(),MyPagerActivity.class);
 				startActivity(intent);

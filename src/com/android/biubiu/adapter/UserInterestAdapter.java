@@ -13,6 +13,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.adapter.UserPagerTagAdapter.ViewHolder;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.LogUtil;
 
 public class UserInterestAdapter extends BaseAdapter{
@@ -55,6 +56,15 @@ public class UserInterestAdapter extends BaseAdapter{
 			convertView.setTag(vh);
 		}else{
 			vh = (ViewHolder) convertView.getTag();
+		}
+		if(tag.getName().equals(Constants.BOOK)){
+			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_blue_clk);
+		}else if(tag.getName().equals(Constants.MUSIC)){
+			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_oragne_clk);
+		}else if(tag.getName().equals(Constants.MOVIE)){
+			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_pink_clk);
+		}else{
+			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_green_clk);
 		}
 		vh.tagTv.setText(tag.getName());
 		return convertView;

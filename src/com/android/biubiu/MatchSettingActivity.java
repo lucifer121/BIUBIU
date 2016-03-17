@@ -253,6 +253,12 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				if(isChecked){
 					isRecvMsg = false;
 					isChecked = false;
+					isOpenVoice = false;
+					isOpenShck = false;
+					shockToggle.setChecked(false);
+					voiceToggle.setChecked(false);
+					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
+					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
 					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
 					isRecvMsg = true;
@@ -271,6 +277,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					isChecked = false;
 					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
+					if(!isRecvMsg){
+						isRecvMsg = true;
+						newMsgToggle.setChecked(true);
+						newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					}
 					isOpenVoice = true;
 					isChecked = true;
 					voiceToggle.setBackgroundResource(R.drawable.setting_btn_yes);
@@ -287,6 +298,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					isChecked = false;
 					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
 				}else{
+					if(!isRecvMsg){
+						isRecvMsg = true;
+						newMsgToggle.setChecked(true);
+						newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
+					}
 					isOpenShck = true;
 					isChecked = true;
 					shockToggle.setBackgroundResource(R.drawable.setting_btn_yes);
@@ -554,6 +570,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						}
 						return;
 					}
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 					exitHuanxin();
 					
 					
@@ -578,6 +596,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				LogUtil.e(TAG, "环信退出成功");
 				//清空本地token
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+				LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 				finish();
 			}
 			
