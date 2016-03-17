@@ -280,11 +280,11 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int position, long arg3) {
 					if(null != infoBean){
-						infoBean.setSchool(schoolsAlllList.get(position).getUnivsId());
+						infoBean.setSchool(list.get(position).getUnivsId());
 						updateInfo();
 					}else{
 						Intent intent = new Intent();
-						intent.putExtra("school", (Serializable)schoolsAlllList.get(position));
+						intent.putExtra("school", (Serializable)list.get(position));
 						setResult(RESULT_OK, intent);
 						finish();
 					}

@@ -92,6 +92,9 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:background="@null"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:maxLength="11"
             android:hint="@string/register_three_phone"
             android:textColor="@color/register_name_text"
             android:textSize="13sp" >
@@ -172,6 +175,7 @@
             android:background="@null"
             android:hint="@string/register_three_psd"
             android:textColor="@color/register_name_text"
+            android:inputType="textPassword"
             android:textSize="13sp" />
     </LinearLayout>
 

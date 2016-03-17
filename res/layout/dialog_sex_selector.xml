@@ -83,16 +83,6 @@
                 android:layout_height="50dp"
                 android:background="@drawable/register_sex_girl_bg"
                  />
-
-            <!--
-                 <TextView
-                android:id="@+id/tv_woman_sexselector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:text="女生" />
-            -->
         </LinearLayout>
     </RelativeLayout>
 
