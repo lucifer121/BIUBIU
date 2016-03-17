@@ -57,6 +57,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -327,8 +328,9 @@ public class InterestLabelActivity extends BaseActivity {
 				holder.mGridView=(GridView) convertView.findViewById(R.id.id_gridView_interest);
 				holder.mView=convertView.findViewById(R.id.id_view_interest);
 				holder.interest=(TextView) convertView.findViewById(R.id.interest_item_tv);
+				holder.img=(ImageView) convertView.findViewById(R.id.img_item_interest_);
 				holder.bottomLayout=(RelativeLayout) convertView.findViewById(R.id.bottom_item_interest);
-				mAdapterGridView=new GridViewLableAdapter(mContext, mDateLables);
+				mAdapterGridView=new GridViewLableAdapter(mContext, mDateLables,item.getTypename());
 				holder.mGridView.setAdapter(mAdapterGridView);
 				holder.mGridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -356,6 +358,18 @@ public class InterestLabelActivity extends BaseActivity {
 			if(position==(mDates.size()-1)){
 				holder.bottomLayout.setVisibility(View.VISIBLE);
 			}
+			if(item.getTypename().equals("音乐")){
+				holder.img.setImageResource(R.drawable.main_tab_imageview_left_orange);
+				
+			}else if(item.getTypename().equals("电影")){
+				holder.img.setImageResource(R.drawable.main_tab_imageview_left_pink);
+				
+			}else if(item.getTypename().equals("书籍")){
+				holder.img.setImageResource(R.drawable.main_tab_imageview_left_blue);
+				
+			}else{
+				holder.img.setImageResource(R.drawable.main_tab_imageview_left_green);	
+			}
 
 			return convertView;
 		}
@@ -365,6 +379,7 @@ public class InterestLabelActivity extends BaseActivity {
 			private GridView mGridView;
 			private View mView;
 			private RelativeLayout bottomLayout;
+			private ImageView img;
 
 		}
 		/**

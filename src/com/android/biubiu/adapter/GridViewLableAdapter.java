@@ -17,13 +17,16 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-@SuppressLint("InflateParams") public class GridViewLableAdapter extends BaseAdapter{
+@SuppressLint("InflateParams") 
+public class GridViewLableAdapter extends BaseAdapter{
 	private Context mContext;
 	private List<InterestTagBean> mDates;
 	private Boolean isSelector;
-	public GridViewLableAdapter(Context context,List<InterestTagBean> mDates){
+	private String typeName;
+	public GridViewLableAdapter(Context context,List<InterestTagBean> mDates,String typeName){
 		this.mContext=context;
 		this.mDates=mDates;
+		this.typeName=typeName;
 	}
 
 	@Override
@@ -68,28 +71,40 @@ import android.widget.TextView;
 		holder.lable.setText(item.getName());
 		if(item.getIsChoice()){
 			holder.lable.setTextColor(mContext.getResources().getColor(R.color.white));
-			holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
+			
+			if(typeName.equals("音乐")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_oragne_clk);
+				
+			}else if(typeName.equals("电影")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_pink_clk);
+				
+			}else if(typeName.equals("书籍")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_blue_clk);
+				
+			}else{
+				holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);	
+			}
+			
 		}else{
 			holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));
-			holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);
+			
+			
+			if(typeName.equals("音乐")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_orange);
+				
+			}else if(typeName.equals("电影")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_pink);
+				
+			}else if(typeName.equals("书籍")){
+				holder.lable.setBackgroundResource(R.drawable.main_tab_imageview_blue);
+				
+			}else{
+				holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);	
+			}
+			
+			
 		}
-//		holder.mLayout.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				// TODO Auto-generated method stub
-//				if(isSelector==false){
-//					holder.lable.setTextColor(mContext.getResources().getColor(R.color.white));
-//					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby_clk);
-//					isSelector=true;
-//				}else{
-//					holder.lable.setTextColor(mContext.getResources().getColor(R.color.black));
-//					holder.lable.setBackgroundResource(R.drawable.main_imageview_tabhobby);
-//					isSelector=false;
-//				}
-//				
-//			}
-//		});
+
 
 		
 
