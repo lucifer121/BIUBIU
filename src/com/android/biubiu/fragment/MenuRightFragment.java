@@ -31,45 +31,35 @@ import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
-@SuppressWarnings("unused")
+
 public class MenuRightFragment extends EaseConversationListFragment{
 	private View mView;
 	
 	 private TextView errorText;
 
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//			Bundle savedInstanceState){
-//		if(mView == null)
-//		{
-//			mView = inflater.inflate(R.layout.right_menu, container, false);
-//		}
-//		return mView ;
-//	}
-	
+
 	@Override
     protected void initView() {
         super.initView();
         View errorView = (LinearLayout) View.inflate(getActivity(),R.layout.right_menu, null);
         errorItemContainer.addView(errorView);
         errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        
     }
     
     @Override
     protected void setUpView() {
-        super.setUpView();
-        
-//       EaseTitleBar titleBar=new EaseTitleBar(getActivity());
-//       titleBar.setBackgroundColor(getResources().getColor(R.drawable.title_bar));
-//       titleBar.setRightImageResource(R.drawable.ease_blue_add);
-//       titleBar.setRightLayoutClickListener(new OnClickListener() {
-//		
-//		@Override
-//		public void onClick(View v) {
-//			 startActivity(new Intent(getActivity(), UserListActivity.class));
-//			
-//		}
-//	});
+    	 super.setUpView();
+    	 
+       titleBar.setRightImageResource(R.drawable.ease_blue_add);
+       titleBar.setRightLayoutClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			 startActivity(new Intent(getActivity(), UserListActivity.class));
+			
+		}
+	});
       
         // 注册上下文菜单
         registerForContextMenu(conversationListView);
@@ -89,6 +79,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
                 }
             }
         });
+       
     }
 
     @Override
