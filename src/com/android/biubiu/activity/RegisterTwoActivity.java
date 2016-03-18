@@ -17,7 +17,8 @@ import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
-import com.android.biubiu.common.city.WheelView;
+import com.android.biubiu.common.city.OnWheelChangedListener2;
+import com.android.biubiu.common.city.WheelView2;
 
 
 import com.android.biubiu.sqlite.CityDao;
@@ -44,11 +45,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class RegisterTwoActivity extends BaseCityActivity implements OnClickListener,OnWheelChangedListener{
+public class RegisterTwoActivity extends BaseCityActivity implements OnClickListener,OnWheelChangedListener2{
 	private static final int SELECT_SCHOOL = 1001;
 	private RelativeLayout nextLayout;
 	private RelativeLayout cityLayout,schoolLayout;
-	private WheelView	mViewProvince,mViewCity,mViewDistrict,mViewProfesstion;
+	private WheelView2	mViewProvince,mViewCity,mViewDistrict,mViewProfesstion;
 	private TextView mBtnConfirm;
 	private CityDao cityDao = new CityDao();
 	private TextView cityTextView;
@@ -139,7 +140,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			popWindowProfession.setBackgroundDrawable(colorDrawable);
 			// tvTitle=(TextView)view.findViewById(R.id.tvcolectList);
 
-			mViewProfesstion = (WheelView) view.findViewById(R.id.id_professtion_wheelView);
+			mViewProfesstion = (WheelView2) view.findViewById(R.id.id_professtion_wheelView);
 			mViewProfesstion.addChangingListener(RegisterTwoActivity.this);
 			TextView complete=(TextView) view.findViewById(R.id.professtion_selector_tv);
 
@@ -181,9 +182,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			popupWindowCity.setBackgroundDrawable(colorDrawable);
 			// tvTitle=(TextView)view.findViewById(R.id.tvcolectList);
 
-			mViewProvince = (WheelView) view.findViewById(R.id.id_province);
-			mViewCity = (WheelView) view.findViewById(R.id.id_city);
-			mViewDistrict = (WheelView) view.findViewById(R.id.id_district);
+			mViewProvince = (WheelView2) view.findViewById(R.id.id_province);
+			mViewCity = (WheelView2) view.findViewById(R.id.id_city);
+			mViewDistrict = (WheelView2) view.findViewById(R.id.id_district);
 			mBtnConfirm = (TextView) view
 					.findViewById(R.id.city_selector_shengshiqu_tv);
 
@@ -333,7 +334,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
-			cityTextView.setText("北京市 东城区");
+			cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName);
 			changeNextBg();
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 200);
@@ -378,7 +379,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 
 	}
 	@Override
-	public void onChanged(WheelView wheel, int oldValue, int newValue) {
+	public void onChanged(WheelView2 wheel, int oldValue, int newValue) {
 		// TODO Auto-generated method stub
 		if (wheel == mViewProvince) {
 			updateCities();

@@ -11,6 +11,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.PerfectInformation;
 import com.android.biubiu.utils.BitmapUtils;
+import com.android.biubiu.utils.CloseJianpan;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DateUtils;
 
@@ -61,6 +62,11 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private static final int CROUP_PHOTO = 1002;
 	Bitmap userheadBitmap = null;
 	String headPath = "";
+	
+	private RelativeLayout sexDiolagLayout;
+	
+	private Boolean isSex=false;//是否点击了性别选择器
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +102,33 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 
 		addHeadTv.setVisibility(View.VISIBLE);
 		verifyTv.setVisibility(View.GONE);
+		sexDiolagLayout=(RelativeLayout) findViewById(R.id.sex_dialog_sex_selector_rl);
+		
+		ivman_selector = 
+				(ImageView) findViewById(R.id.iv_man_sexselector);
+		ivwoman_selector = (ImageView) 
+				findViewById(R.id.iv_woman_sexselector);
+		ivman_selector.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				uSexTv.setText("男");
+				changeNextBg();
+				sexDiolagLayout.setVisibility(View.GONE);
+			}
+		});
+		ivwoman_selector.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				uSexTv.setText("女");
+				changeNextBg();
+				
+				sexDiolagLayout.setVisibility(View.GONE);
+			}
+		});
 	}
 
 	/**
@@ -165,9 +197,18 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			showHeadDialog();
 			break;
 		case R.id.registerone_center3_rl:
-			initPopupWindowSex();
-			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
-
+//			initPopupWindowSex();
+//			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
+			
+			if(isSex==false){
+				isSex=true;
+				CloseJianpan.closeKeyboard(this, uNameEt);
+				sexDiolagLayout.setVisibility(View.VISIBLE);
+			}else{
+				isSex=false;
+			
+				sexDiolagLayout.setVisibility(View.GONE);
+			}
 			break;
 		case R.id.next_registerone_rl:
 			nextStep();

@@ -81,7 +81,7 @@ public class InterestLableListViewAdapter extends BaseAdapter {
 			holder.mView=convertView.findViewById(R.id.id_view_interest);
 			holder.interest=(TextView) convertView.findViewById(R.id.interest_item_tv);
 			holder.bottomLayout=(RelativeLayout) convertView.findViewById(R.id.bottom_item_interest);
-			mAdapter=new GridViewLableAdapter(mContext, mDateLables);
+			mAdapter=new GridViewLableAdapter(mContext, mDateLables,item.getTypename());
 			holder.mGridView.setAdapter(mAdapter);
 			holder.mGridView.setOnItemClickListener(new OnItemClickListener() {
 
