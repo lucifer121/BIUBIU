@@ -32,8 +32,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.BounceInterpolator;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,28 +45,35 @@ import android.widget.ToggleButton;
 public class MatchSettingActivity extends BaseActivity implements OnClickListener{
 	private static final int PERSONAL_TAG = 1001;
 	private RelativeLayout backRl;
-	private ToggleButton boyToggle;
-	private ToggleButton girlToggle;
-	private ToggleButton cityToggle;
-	private ToggleButton unLimitToggle;
+	private ImageView boyToggle;
+	private ImageView girlToggle;
+	private ImageView cityToggle;
+	private ImageView unLimitToggle;
 	private TextView ageMinTv;
 	private TextView ageMaxTv;
 	private RelativeLayout personalTagRl;
 	private MyGridView tagGv;
-	private ToggleButton newMsgToggle;
-	private ToggleButton voiceToggle;
-	private ToggleButton shockToggle;
+	private ImageView newMsgToggle;
+	private ImageView voiceToggle;
+	private ImageView shockToggle;
 	private RelativeLayout logoutRl;
 	private LinearLayout seekLinear;
 	private UserPagerTagAdapter setTagAdapter;
-	
+	private RelativeLayout boyLayout;
+	private RelativeLayout girlLayout;
+	private RelativeLayout cityLayout;
+	private RelativeLayout unLimitLayout;
+	private RelativeLayout msgLayout;
+	private RelativeLayout voiceLayout;
+	private RelativeLayout shockLayout;
+
 	private boolean isSelBoy = true;
 	private boolean isSameCity = true;
 	private boolean isRecvMsg = true;
 	private boolean isOpenVoice = true;
 	private boolean isOpenShck = true;
 	SettingBean setBean;
-	
+
 	private String TAG ="MatchSettingActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,27 +81,40 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		setContentView(R.layout.activity_match_setting);
 		initView();
 		initlodo();
-		initToggle();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
-		backRl.setOnClickListener(this);
-		boyToggle = (ToggleButton) findViewById(R.id.boy_toggle);
-		girlToggle = (ToggleButton) findViewById(R.id.girl_toggle);
-		cityToggle = (ToggleButton) findViewById(R.id.city_toggle);
-		unLimitToggle = (ToggleButton) findViewById(R.id.unlimit_toggle);
+		boyToggle = (ImageView) findViewById(R.id.boy_toggle);
+		girlToggle = (ImageView) findViewById(R.id.girl_toggle);
+		cityToggle = (ImageView) findViewById(R.id.city_toggle);
+		unLimitToggle = (ImageView) findViewById(R.id.unlimit_toggle);
 		ageMinTv = (TextView) findViewById(R.id.age_min_tv);
 		ageMaxTv = (TextView) findViewById(R.id.age_max_tv);
 		personalTagRl = (RelativeLayout) findViewById(R.id.personal_rl);
 		personalTagRl.setOnClickListener(this);
 		tagGv = (MyGridView) findViewById(R.id.interest_tag_gv);
-		newMsgToggle = (ToggleButton) findViewById(R.id.newmsg_toggle);
-		voiceToggle = (ToggleButton) findViewById(R.id.voice_toggle);
-		shockToggle = (ToggleButton) findViewById(R.id.shock_toggle);
+		newMsgToggle = (ImageView) findViewById(R.id.newmsg_toggle);
+		voiceToggle = (ImageView) findViewById(R.id.voice_toggle);
+		shockToggle = (ImageView) findViewById(R.id.shock_toggle);
 		logoutRl = (RelativeLayout) findViewById(R.id.logout_rl);
 		logoutRl.setOnClickListener(this);
 		seekLinear = (LinearLayout) findViewById(R.id.seek_linear);
+		boyLayout = (RelativeLayout) findViewById(R.id.boy_layout);
+		boyLayout.setOnClickListener(this);
+		girlLayout = (RelativeLayout) findViewById(R.id.girl_layout);
+		girlLayout.setOnClickListener(this);
+		cityLayout = (RelativeLayout) findViewById(R.id.city_layout);
+		cityLayout.setOnClickListener(this);
+		unLimitLayout = (RelativeLayout) findViewById(R.id.unlimit_layout);
+		unLimitLayout.setOnClickListener(this);
+		msgLayout = (RelativeLayout) findViewById(R.id.msg_layout);
+		msgLayout.setOnClickListener(this);
+		voiceLayout = (RelativeLayout) findViewById(R.id.voice_layout);
+		voiceLayout.setOnClickListener(this);
+		shockLayout = (RelativeLayout) findViewById(R.id.shock_layout);
+		shockLayout.setOnClickListener(this);
+
 	}
 	private void setTags(ArrayList<PersonalTagBean> tags){
 		setTagAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
@@ -125,195 +147,135 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		// 1--选择男生 2--选择女生
 		if(setBean.getSex().equals(Constants.SEX_MALE)){
 			isSelBoy = true;
-			boyToggle.setChecked(true);
-			girlToggle.setChecked(false);
-			boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-			girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
+			boyToggle.setImageResource(R.drawable.setting_btn_no);
+			girlToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
 			isSelBoy = false;
-			boyToggle.setChecked(false);
-			girlToggle.setChecked(true);
-			girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-			boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
+			boyToggle.setImageResource(R.drawable.setting_btn_yes);;
+			girlToggle.setImageResource(R.drawable.setting_btn_no);;
 		}
 		//1--同城 2--不限
 		if(setBean.getCity().equals(Constants.SAME_CITY)){
 			isSameCity = true;
-			cityToggle.setChecked(true);
-			unLimitToggle.setChecked(false);
+			cityToggle.setImageResource(R.drawable.setting_btn_no);
+			unLimitToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
 			isSameCity = false;
-			cityToggle.setChecked(false);
-			unLimitToggle.setChecked(true);
-		}
-		//接收消息 0--关闭，不接收  1--打开，接收
-		if(setBean.getMessage() == 0){
-			isRecvMsg = false;
-			newMsgToggle.setChecked(false);
-		}else{
-			isRecvMsg = true;
-			newMsgToggle.setChecked(true);
+			cityToggle.setImageResource(R.drawable.setting_btn_yes);
+			unLimitToggle.setImageResource(R.drawable.setting_btn_no);
 		}
 		//声音 0--关闭 1--打开
 		if(setBean.getSound() == 0){
 			isOpenVoice = false;
-			voiceToggle.setChecked(false);
+			voiceToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
 			isOpenVoice = true;
-			voiceToggle.setChecked(true);
+			voiceToggle.setImageResource(R.drawable.setting_btn_no);
 		}
 		//振动 0--关闭 1--打开
 		if(setBean.getSound() == 0){
 			isOpenShck = false;
-			shockToggle.setChecked(false);
+			shockToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
 			isOpenShck = true;
-			shockToggle.setChecked(true);
+			shockToggle.setImageResource(R.drawable.setting_btn_no);
 		}
-	}
-	private void initToggle() {
-		// TODO Auto-generated method stub
-		boyToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isSelBoy = false;
-					isChecked = false;
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}else{
-					isSelBoy = true;
-					isChecked = true;
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}
-			}
-		});
-		girlToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isSelBoy = true;
-					isChecked = false;
-					girlToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}else{
-					isSelBoy = false;
-					isChecked = true;
-					girlToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					boyToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}
-			}
-		});
-		cityToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isSameCity = false;
-					isChecked = false;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}else{
-					isSameCity = true;
-					isChecked = true;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}
-			}
-		});
-		unLimitToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isSameCity = true;
-					isChecked = false;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}else{
-					isSameCity = false;
-					isChecked = true;
-					cityToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					unLimitToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}
-			}
-		});
-		newMsgToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isRecvMsg = false;
-					isChecked = false;
-					isOpenVoice = false;
-					isOpenShck = false;
-					shockToggle.setChecked(false);
-					voiceToggle.setChecked(false);
-					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
-					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}else{
-					isRecvMsg = true;
-					isChecked = true;
-					newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}
-			}
-		});
-		voiceToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isOpenVoice = false;
-					isChecked = false;
-					voiceToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}else{
-					if(!isRecvMsg){
-						isRecvMsg = true;
-						newMsgToggle.setChecked(true);
-						newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					}
-					isOpenVoice = true;
-					isChecked = true;
-					voiceToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}
-			}
-		});
-		shockToggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					isOpenShck = false;
-					isChecked = false;
-					shockToggle.setBackgroundResource(R.drawable.setting_btn_no);
-				}else{
-					if(!isRecvMsg){
-						isRecvMsg = true;
-						newMsgToggle.setChecked(true);
-						newMsgToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-					}
-					isOpenShck = true;
-					isChecked = true;
-					shockToggle.setBackgroundResource(R.drawable.setting_btn_yes);
-				}
-			}
-		});
+		//接收消息 0--关闭，不接收  1--打开，接收
+		if(setBean.getMessage() == 0){
+			isRecvMsg = false;
+			newMsgToggle.setImageResource(R.drawable.setting_btn_yes);
+			isOpenVoice = false;
+			voiceToggle.setImageResource(R.drawable.setting_btn_yes);
+			isOpenShck = false;
+			shockToggle.setImageResource(R.drawable.setting_btn_yes);
+		}else{
+			isRecvMsg = true;
+			newMsgToggle.setImageResource(R.drawable.setting_btn_no);
+		}
 	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
+		case R.id.boy_layout:
+			if(isSelBoy){
+				isSelBoy = false;
+				boyToggle.setImageResource(R.drawable.setting_btn_yes);
+				girlToggle.setImageResource(R.drawable.setting_btn_no);
+			}else{
+				isSelBoy = true;
+				boyToggle.setImageResource(R.drawable.setting_btn_no);
+				girlToggle.setImageResource(R.drawable.setting_btn_yes);
+			}
+			break;
+		case R.id.girl_layout:
+			if(isSelBoy){
+				isSelBoy = false;
+				boyToggle.setImageResource(R.drawable.setting_btn_yes);
+				girlToggle.setImageResource(R.drawable.setting_btn_no);
+			}else{
+				isSelBoy = true;
+				boyToggle.setImageResource(R.drawable.setting_btn_no);
+				girlToggle.setImageResource(R.drawable.setting_btn_yes);
+			}
+			break;
+		case R.id.city_layout:
+			if(isSameCity){
+				isSameCity = false;
+				cityToggle.setImageResource(R.drawable.setting_btn_yes);
+				unLimitToggle.setImageResource(R.drawable.setting_btn_no);
+			}else{
+				isSameCity = true;
+				cityToggle.setImageResource(R.drawable.setting_btn_no);
+				unLimitToggle.setImageResource(R.drawable.setting_btn_yes);
+			}
+			break;
+		case R.id.unlimit_layout:
+			if(isSameCity){
+				isSameCity = false;
+				cityToggle.setImageResource(R.drawable.setting_btn_yes);
+				unLimitToggle.setImageResource(R.drawable.setting_btn_no);
+			}else{
+				isSameCity = true;
+				cityToggle.setImageResource(R.drawable.setting_btn_no);
+				unLimitToggle.setImageResource(R.drawable.setting_btn_yes);
+			}
+			break;
+		case R.id.msg_layout:
+			if(isRecvMsg){
+				isRecvMsg = false;
+				newMsgToggle.setImageResource(R.drawable.setting_btn_yes);
+				isOpenVoice = false;
+				voiceToggle.setImageResource(R.drawable.setting_btn_yes);
+				isOpenShck = false;
+				shockToggle.setImageResource(R.drawable.setting_btn_yes);
+			}else{
+				isRecvMsg = true;
+				newMsgToggle.setImageResource(R.drawable.setting_btn_no);
+			}
+			break;
+		case R.id.voice_layout:
+			if(isOpenVoice){
+				isOpenVoice = false;
+				voiceToggle.setImageResource(R.drawable.setting_btn_yes);
+			}else{
+				isRecvMsg = true;
+				newMsgToggle.setImageResource(R.drawable.setting_btn_no);
+				isOpenVoice = true;
+				voiceToggle.setImageResource(R.drawable.setting_btn_no);
+			}
+			break;
+		case R.id.shock_layout:
+			if(isOpenShck){
+				isOpenShck = false;
+				shockToggle.setImageResource(R.drawable.setting_btn_yes);
+			}else{
+				isRecvMsg = true;
+				newMsgToggle.setImageResource(R.drawable.setting_btn_no);
+				isOpenShck = true;
+				shockToggle.setImageResource(R.drawable.setting_btn_no);
+			}
+			break;
 		case R.id.back_rl:
 			saveSetInfo();
 			finish();
@@ -341,7 +303,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 		} catch (JSONException e) {
-		
+
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -350,7 +312,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -363,7 +325,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -399,10 +361,10 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
-		
+
 	}
 	/**
 	 * 保存设置信息
@@ -415,7 +377,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("sex", setBean.getSex());
-			requestObject.put("city", setBean.getCity());
+
 			requestObject.put("age_down", setBean.getAgeDown());
 			requestObject.put("age_up", setBean.getAgeUp());
 			ArrayList<PersonalTagBean> tags = setBean.getPersonalTags();
@@ -426,15 +388,18 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						perStr.append(tags.get(i).getCode());
 						break;
 					}
-						perStr.append(tags.get(i).getCode()+",");
+					perStr.append(tags.get(i).getCode()+",");
 				}
 			}
 			LogUtil.d("mytest", perStr.toString());
 			requestObject.put("personalized_tags",perStr.toString());
-			String paramStr = "sex,city,age_down,age_up,personalized_tags";
+			requestObject.put("message", setBean.getMessage());
+			requestObject.put("sound", setBean.getSound());
+			requestObject.put("vibration", setBean.getVibration());
+			String paramStr = "sex,city,age_down,age_up,personalized_tags,message,sound,vibration";
 			requestObject.put("parameters",paramStr);
 		} catch (JSONException e) {
-		
+
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -443,7 +408,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -456,7 +421,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -532,7 +497,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", Utils.getDeviceID(this));
 		} catch (JSONException e) {
-		
+
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -541,7 +506,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -553,7 +518,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -573,23 +538,23 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 					LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 					exitHuanxin();
-					
-					
+
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
-	
+
 	}
 	/**
 	 * 退出环信登录
 	 */
 	public void exitHuanxin(){
 		EMClient.getInstance().logout(true ,new EMCallBack() {
-			
+
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
@@ -599,13 +564,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 				finish();
 			}
-			
+
 			@Override
 			public void onProgress(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onError(int arg0, String arg1) {
 				// TODO Auto-generated method stub
