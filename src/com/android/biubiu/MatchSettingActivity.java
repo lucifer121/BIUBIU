@@ -85,6 +85,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private void initView() {
 		// TODO Auto-generated method stub
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
+		backRl.setOnClickListener(this);
 		boyToggle = (ImageView) findViewById(R.id.boy_toggle);
 		girlToggle = (ImageView) findViewById(R.id.girl_toggle);
 		cityToggle = (ImageView) findViewById(R.id.city_toggle);
