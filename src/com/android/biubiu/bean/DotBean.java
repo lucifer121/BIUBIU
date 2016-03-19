@@ -1,15 +1,15 @@
 package com.android.biubiu.bean;
 
 public class DotBean {
-	//�ָ�������
+	//分割点横坐标
 	double x;
-	//�ָ��������
+	//分割点纵坐标
 	double y;
-	//�������Ƿ����
+	//此区域是否被填充
 	boolean isAdd;
-	//������Ϊ���ֵĵڼ���
+	//此区域为划分的第几个
 	int index;
-	
+
 	public double getX() {
 		return x;
 	}
@@ -34,5 +34,5 @@ public class DotBean {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
+
 }

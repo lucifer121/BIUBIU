@@ -1,5 +1,7 @@
 package com.android.biubiu;
 
+import com.android.biubiu.utils.SharePreferanceUtils;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
@@ -11,6 +13,7 @@ public class BaseActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, true);
 	}
 	/**
 	 * 显示Toast长通知
@@ -28,5 +31,11 @@ public class BaseActivity extends Activity{
 	 */
 	public void toastShort(CharSequence msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 	}
 }

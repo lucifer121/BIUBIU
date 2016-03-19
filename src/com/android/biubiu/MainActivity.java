@@ -22,6 +22,8 @@ import com.android.biubiu.utils.LocationUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -38,11 +40,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends SlidingFragmentActivity implements AMapLocationListener{
-	public ImageView leftMenu;
-	public ImageView rightMenu;
+	public RelativeLayout leftRl;
+	public RelativeLayout rightRl;
 	//定位相关
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
@@ -59,6 +62,9 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		//注册一个监听连接状态的listener
 		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		location();
+		//启动百度云推送
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"v3FkYC4w53w46uuvw9L6qBF1");
+		LogUtil.d("mytest", "start push"+PushManager.isPushEnabled(getApplicationContext()));
 	}
 	private void location() {
 		// TODO Auto-generated method stub
@@ -91,7 +97,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 				double longitude = Double.parseDouble(ss[1]);
 				double latitide = Double.parseDouble(ss[2]);
 				updateLocation(longitude,latitide);*/
-				LogUtil.d("mytest", result);
+				LogUtil.d("mytest", "gaode"+result);
 				break;
 				//停止定位
 			case LocationUtils.MSG_LOCATION_STOP:
@@ -122,7 +128,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			requestObject.put("device_code",lontitide);
 			requestObject.put("device_code",latitude);
 		} catch (JSONException e) {
-			
+
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -131,19 +137,19 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -167,9 +173,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		});
 	}
 	private void initViewPager() {
-		leftMenu=(ImageView) findViewById(R.id.id_iv_left);
-		rightMenu=(ImageView) findViewById(R.id.id_iv_right);
-		leftMenu.setOnClickListener(new OnClickListener() {
+		leftRl = (RelativeLayout) findViewById(R.id.title_left_rl);
+		leftRl.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -177,7 +182,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 				showLeftMenu();
 			}
 		});
-		rightMenu.setOnClickListener(new OnClickListener() {
+		rightRl = (RelativeLayout) findViewById(R.id.title_right_rl);
+		rightRl.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {

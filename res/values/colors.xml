@@ -13,13 +13,14 @@
     <color name="tou">#00000000</color>
     <color name="text_huise">#808080</color>
     <color name="text_huise2">#565656</color>
+     <color name="home_txt_yello">#ffff8f</color>
     
     <!-- 自定义city 控件 上下划线 颜色 -->
     <color name="province_line_border">#C7C7C7</color>
     <!-- 首页 页面相关 -->
-    <color name="circle_strok">#00FFFF</color>
-    <color name="circle">#E0FFFF</color>
-    <color name="task_text">#1A1A1A</color>
+    <color name="circle_strok">#33c6e5</color>
+    <color name="circle">#ffffac</color>
+    <color name="task_text">#33c6e5</color>
     <!-- login or register 页面相关 -->
     <color name="login_register_bg">#FCFCF4</color>
     <color name="login_register_text1">#73747d</color>

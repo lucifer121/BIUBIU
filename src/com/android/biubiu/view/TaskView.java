@@ -93,6 +93,7 @@ public class TaskView extends View{
 		mTextPaint = new Paint();  
 		mTextPaint.setAntiAlias(true);  
 		mTextPaint.setStyle(Paint.Style.FILL);
+		mTextPaint.setTextSize(18);
 		mTextPaint.setColor(getResources().getColor(R.color.task_text));  
 	}
 	public void updeteTask(int current){
@@ -111,7 +112,7 @@ public class TaskView extends View{
 			oval.right = mRingRadius * 2 + (mXCenter - mRingRadius);  
 			oval.bottom = mRingRadius * 2 + (mYCenter - mRingRadius);
 			canvas.drawArc(oval, -90, ((float)mProgress / mTotalProgress) * 360, false, mRingPaint); //  
-			String txt = mProgress+"";  
+			String txt = mProgress+"s";  
 			mTxtWidth = mTextPaint.measureText(txt, 0, txt.length());  
 			canvas.drawText(txt, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4, mTextPaint);  
 		}  

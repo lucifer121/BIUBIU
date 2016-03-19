@@ -2,9 +2,20 @@ package com.android.biubiu.bean;
 
 public class UserBean {
 	String id;
+	String nickname;
+	String sex;
+	String age;
+	String isStudent;
+	String career;
+	String star;
+	String school;
+	//bean加入的时间
 	long time;
+	//bean在圆圈上的位置index
 	int index;
+	//bean的x坐标
 	int x;
+	//bean的y坐标
 	int y;
 	
 	public int getX() {

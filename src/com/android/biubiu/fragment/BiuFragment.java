@@ -9,11 +9,14 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
+
+
 
 
 
@@ -36,23 +39,25 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 @SuppressLint("NewApi")
-public class BiuFragment extends Fragment {
+public class BiuFragment extends Fragment implements PushInterface{
 	View view;
 	//启动发biubiu页面的requestcode
 	public static final int SEND_BIU_REQUEST = 1001;
 	//屏幕宽高
 	int width = 0;
-	int height = 0;
+	//int height = 0;
 	Handler handler;
 	//圆心坐标
 	float x0 = 0;
 	float y0 = 0;
+	float y1 = 0;
 	//三个圆的半径
 	float circleR1;
 	float circleR2;
@@ -66,7 +71,7 @@ public class BiuFragment extends Fragment {
 	int n2 = 8;
 	int n3 = 10;
 	//倒计时总时间和当前时间
-	int totalTime = 60;
+	int totalTime = 90;
 	int currentTime = 0;
 	//放三个圆圈的分割点
 	ArrayList<DotBean> c1DotList = new ArrayList<DotBean>();
@@ -101,6 +106,12 @@ public class BiuFragment extends Fragment {
 	TaskView taskView;
 	//放置接受用户信息layout
 	AbsoluteLayout userGroupLayout;
+	private TextView nameTv;
+	private TextView sexTv;
+	private TextView ageTv;
+	private TextView starTv;
+	private TextView schoolTv;
+	private LinearLayout infoLayout;
 
 	//测试按钮
 	Button testBtn;
@@ -121,10 +132,10 @@ public class BiuFragment extends Fragment {
 	private void init() {
 		// TODO Auto-generated method stub
 		width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-		height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+		//height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
 		handler = new Handler();
 		x0 = width / 2;
-		y0 = width *3/ 5;
+		y0 = width *417/720;
 
 		biuView = (BiuView) view.findViewById(R.id.biu_view);
 		biuLayout = (RelativeLayout) view.findViewById(R.id.biu_layout);
@@ -133,18 +144,26 @@ public class BiuFragment extends Fragment {
 		backgroundGif = (GifView) view.findViewById(R.id.background_gif);
 		taskView = (TaskView) view.findViewById(R.id.task_view);
 		userGroupLayout = (AbsoluteLayout) view.findViewById(R.id.user_group_layout);
-
-		backgroundGif.setGifImage(R.drawable.background);
+		nameTv = (TextView) view.findViewById(R.id.name_tv);
+		sexTv = (TextView) view.findViewById(R.id.sex_tv);
+		ageTv = (TextView) view.findViewById(R.id.age_tv);
+		starTv = (TextView) view.findViewById(R.id.star_tv);
+		schoolTv = (TextView) view.findViewById(R.id.school_tv);
+		infoLayout = (LinearLayout) view.findViewById(R.id.info_layout);
+		/**
+		 * 此处用于设置背景动画 暂时注释
+		 */
+		/*backgroundGif.setGifImage(R.drawable.background);
 		backgroundGif.setShowDimension(width, height);
-		backgroundGif.setGifImageType(GifImageType.COVER);
+		backgroundGif.setGifImageType(GifImageType.COVER);*/
 
 		testBtn = (Button) view.findViewById(R.id.test_btn);
 	}
 	private void drawBiuView() {
 		// TODO Auto-generated method stub
-		circleR1 = width/5;
-		circleR2 = width*2/5;
-		circleR3 = width*11/20;
+		circleR1 = width*111/360;
+		circleR2 = width*81/180;
+		circleR3 = width*49/90;
 		//设置半径
 		biuView.setCircleR(circleR1, circleR2, circleR3);
 		//设置圆心
@@ -154,23 +173,23 @@ public class BiuFragment extends Fragment {
 		/**
 		 * 外层动画
 		 */
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width/5, width/5);
-		params.leftMargin = width *2/5 ;
-		params.topMargin = width / 2;
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width*125/360, width*125/360);
+		params.leftMargin = width *235/720 ;
+		params.topMargin = width*267/720;
 		biuLayout.setLayoutParams(params);
-		RelativeLayout.LayoutParams animParams = new RelativeLayout.LayoutParams(width/5, width/5);
+		RelativeLayout.LayoutParams animParams = new RelativeLayout.LayoutParams(width*31/90, width*31/90);
 		userGif.setLayoutParams(animParams);
 		//设置闪烁动画相关
 		userGif.setGifImage(R.drawable.anim);
-		userGif.setShowDimension(width/5, width/5);
+		userGif.setShowDimension(width*125/360, width*125/360);
 		userGif.setGifImageType(GifImageType.COVER);
 		userGif.setVisibility(View.GONE);
 		/***
 		 * 头像及倒计时
 		 */
-		RelativeLayout.LayoutParams imvParams = new RelativeLayout.LayoutParams(width*3/20, width*3/20);
-		imvParams.leftMargin = width / 40 ;
-		imvParams.topMargin = width / 40;
+		RelativeLayout.LayoutParams imvParams = new RelativeLayout.LayoutParams(width*65/360, width*65/360);
+		imvParams.leftMargin = width*30/360 ;
+		imvParams.topMargin = width*30/360;
 		userBiuImv.setLayoutParams(imvParams);
 		//倒计时view
 		drawTaskView();
@@ -194,8 +213,8 @@ public class BiuFragment extends Fragment {
 	//设置倒计时按钮
 	private void drawTaskView() {
 		// TODO Auto-generated method stub
-		taskView.setDot(width / 2, width *3/ 5);
-		taskView.setRadius(width *5/80, width/80);
+		taskView.setDot(x0, y0);
+		taskView.setRadius(width*65/720, 2);
 		taskView.setTotal(totalTime);
 	}
 	//倒计时线程
@@ -217,9 +236,9 @@ public class BiuFragment extends Fragment {
 	//放置接收到的用户
 	private void initUserGroup() {
 		//给三个头像layout赋值
-		userD1 = width/8;
-		userD2 = width/10;
-		userD3 = width*3/40;
+		userD1 = width*58/360;
+		userD2 = width*34/360;
+		userD3 = width*25/360;
 		//计算分割区域
 		c1DotList.clear();
 		c1DotList.addAll(BiuUtil.caculateCircle(n1, circleR1, x0, y0)) ;
@@ -257,7 +276,7 @@ public class BiuFragment extends Fragment {
 				int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
 				userBean.setX(xLocation);
 				userBean.setY(yLocation);
-				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean);
+				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,false);
 				c1DotList.get(i).setAdd(true);
 				user1List.add(userBean);
 				break ;
@@ -342,6 +361,39 @@ public class BiuFragment extends Fragment {
 			moveTwoToThree(oneUserBean,twoUserBean);
 		}
 	}
+	//删除被抢的view
+	private void removeView(UserBean bean){
+		if(user3List.size()>0){
+			for(int i=0;i<user3List.size();i++){
+				if(bean.getId().equals(user3List.get(i).getId())){
+					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					 userGroupLayout.removeView(rl);
+					c1DotList.get(user3List.get(i).getIndex()).setAdd(false);
+					return;
+				}
+			}
+		}
+		if(user2List.size()>0){
+			for(int i=0;i<user2List.size();i++){
+				if(bean.getId().equals(user2List.get(i).getId())){
+					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					 userGroupLayout.removeView(rl);
+					c2DotList.get(user2List.get(i).getIndex()).setAdd(false);
+					return;
+				}
+			}
+		}
+		if(user1List.size()>0){
+			for(int i=0;i<user1List.size();i++){
+				if(bean.getId().equals(user1List.get(i).getId())){
+					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					 userGroupLayout.removeView(rl);
+					c1DotList.get(user1List.get(i).getIndex()).setAdd(false);
+					return;
+				}
+			}
+		}
+	}
 	//按照时间排序
 	class SorByTime implements Comparator {
 		public int compare(Object o1, Object o2) {
@@ -352,8 +404,8 @@ public class BiuFragment extends Fragment {
 			return 0;
 		}
 	}
-	//创建第一圈上新的view
-	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,UserBean bean){
+	//创建第一圈上新的view,宽高为要创建view的宽高
+	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,UserBean bean,boolean isFirst){
 		final RelativeLayout rl = new RelativeLayout(getActivity());
 		rl.setTag(retivTag+bean.getId());
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
@@ -367,37 +419,55 @@ public class BiuFragment extends Fragment {
 		gifView.setShowDimension(lWidth, lHeight);
 		gifView.setGifImageType(GifImageType.COVER);
 		rl.addView(gifView, gifP);
-		if(lWidth != userD1){
+		if(isFirst){
 			gifView.setVisibility(View.GONE);
 		}
-		ImageView imageView = new ImageView(getActivity());
-		int margin = 35;
+		//layout与头像宽高差 像素
+		int margin = (58-46)*2;
 		if(lWidth != userD1){
 			margin = (int) (margin*lWidth/userD1);
 		}
+		ImageView imageViewbg = new ImageView(getActivity());
+		RelativeLayout.LayoutParams imagebg = new RelativeLayout.LayoutParams(
+				lWidth-margin,
+				lHeight-margin);
+		imageViewbg.setId(Integer.parseInt(bean.getId()));
+		imageViewbg.setTag(imvHeadTag+bean.getId());
+		imagebg.addRule(RelativeLayout.CENTER_IN_PARENT); 
+		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
+		rl.addView(imageViewbg, imagebg);
+		if(lWidth != userD1){
+			margin = margin+4;
+		}else{
+			margin = margin+8;
+		}
+		ImageView imageView = new ImageView(getActivity());
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
 				lWidth-margin,
 				lHeight-margin);
-		imageView.setId(1001);
+		imageView.setId(Integer.parseInt(bean.getId()));
 		imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageView.setImageResource(R.drawable.chat_img_profiles_default);
 		rl.addView(imageView, imageP);
 
 		final ImageView imageViewL = new ImageView(getActivity());
-		int dotD = 20;
+		//红点layout直径
+		int dotD = 16;
 		if(lWidth != userD1){
 			dotD = (int) (dotD*lWidth/userD1);
 		}
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
-		imagePL.leftMargin = dotD/4;
+		//基于头像底部 右侧 偏移d/4
+		//imagePL.leftMargin = dotD/4;
+		imagePL.rightMargin = 8;
 		imageViewL.setTag(imvDotTag+bean.getId());
-		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageView.getId());
-		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
-		imageViewL.setImageResource(R.drawable.new_dot);
+		imagePL.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		imagePL.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		imageViewL.setImageResource(R.drawable.biu_imageview_photo_news_s);
 		rl.addView(imageViewL, imagePL);
 
-		TextView tv = new TextView(getActivity());
+		/*TextView tv = new TextView(getActivity());
 		RelativeLayout.LayoutParams tvP = new RelativeLayout.LayoutParams(LayoutParams .WRAP_CONTENT,LayoutParams .WRAP_CONTENT);
 		tvP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM); 
 		tvP.addRule(RelativeLayout.CENTER_HORIZONTAL); 
@@ -408,10 +478,10 @@ public class BiuFragment extends Fragment {
 		tv.setTextColor(getResources().getColor(R.color.white));
 		tv.setTag(tvTag+bean.getId());
 		rl.addView(tv, tvP);
-		userGroupLayout.addView(rl, llParams);
 		if(lWidth!=userD1){
 			tv.setVisibility(View.GONE);
-		}
+		}*/
+		userGroupLayout.addView(rl, llParams);
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -433,22 +503,25 @@ public class BiuFragment extends Fragment {
 	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float viewD1,float viewD2){
 		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getId());
 		float scale = 0;
+		float d = 0;
 		if(rl.getWidth() == viewD2){
-			scale = viewD/viewD2;
+			scale = viewD2/viewD2;
+			d = viewD*(1-scale)/2;
 		}else{
 			scale = viewD/viewD1;
+			d = viewD1*(1-scale)/2;
 		}
-		float d = viewD*(1-scale)/2;
 		ObjectAnimator anim1 = ObjectAnimator.ofFloat(rl, "x", (float)startX,(float)(endX-d));
 		ObjectAnimator anim2 = ObjectAnimator.ofFloat(rl, "y", (float)startY,(float)(endY-d));
 		ObjectAnimator anim3 = ObjectAnimator.ofFloat(rl, "scaleX",  1.0f, scale);  
 		ObjectAnimator anim4 = ObjectAnimator.ofFloat(rl, "scaleY",   1.0f, scale);  
+		ObjectAnimator anim5 = ObjectAnimator.ofFloat(rl, "alpha", 1.0f,0.8f);
 		AnimatorSet animSet = new AnimatorSet();
 		animSet.setDuration(500);
-		animSet.playTogether(anim1, anim2,anim3,anim4);
+		animSet.playTogether(anim1, anim2,anim3,anim4,anim5);
 		animSet.start();
-		TextView tv = (TextView) rl.findViewWithTag(tvTag+userBean.getId());
-		tv.setVisibility(View.GONE);
+		/*TextView tv = (TextView) rl.findViewWithTag(tvTag+userBean.getId());
+		tv.setVisibility(View.GONE);*/
 	}
 	private void initTestBtn() {
 		// TODO Auto-generated method stub
@@ -510,7 +583,7 @@ public class BiuFragment extends Fragment {
 					int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
 					userBean.setX(xLocation);
 					userBean.setY(yLocation);
-					createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean);
+					createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,true);
 					c1DotList.get(i).setAdd(true);
 					user1List.add(userBean);
 					break;
@@ -529,7 +602,7 @@ public class BiuFragment extends Fragment {
 					int y2 = BiuUtil.getLocationY(randomAngle, userD2, circleR2, y0);
 					userBean.setX(x2);
 					userBean.setY(y2);
-					createCir1NewView(x2, y2, (int)userD2, (int)userD2, userBean);
+					createCir1NewView(x2, y2, (int)userD2, (int)userD2, userBean,true);
 					userBean.setIndex(k);
 					c2DotList.get(k).setAdd(true);
 					user2List.add(userBean);
@@ -548,7 +621,7 @@ public class BiuFragment extends Fragment {
 					double randomAngle = BiuUtil.getRandomAngleBig(edgeAngleList, n3, l, userD1, circleR3);
 					int x3 = BiuUtil.getLocationX(randomAngle, userD3, circleR3, x0);
 					int y3 = BiuUtil.getLocationY(randomAngle, userD3, circleR3, y0);
-					createCir1NewView(x3, y3, (int)userD3, (int)userD3, userBean);
+					createCir1NewView(x3, y3, (int)userD3, (int)userD3, userBean,true);
 					userBean.setX(x3);
 					userBean.setY(y3);
 					c3DotList.get(l).setAdd(true);
@@ -584,5 +657,10 @@ public class BiuFragment extends Fragment {
 		default:
 			break;
 		}
+	}
+	@Override
+	public void updateView(UserBean userBean) {
+		// TODO Auto-generated method stub
+		addCircle1View(newUserBean);
 	}
 }

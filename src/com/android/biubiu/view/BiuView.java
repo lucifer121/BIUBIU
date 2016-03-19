@@ -13,6 +13,8 @@ import android.view.View;
 
 public class BiuView extends View{
 	private Paint mPaintCircle;
+	private Paint mPaintCircle2;
+	private Paint mPaintCircle3;
 	//半径
 	float circleR1 = 0;
     float circleR2 = 0;
@@ -51,6 +53,18 @@ public class BiuView extends View{
         mPaintCircle.setStrokeWidth(2);//设置线宽
         mPaintCircle.setAntiAlias(true);//设置是否抗锯齿
         mPaintCircle.setStyle(Paint.Style.STROKE);//设置绘制风格
+        mPaintCircle2 = new Paint();
+        mPaintCircle2.setColor(getResources().getColor(R.color.white));//设置颜色
+        mPaintCircle2.setStrokeWidth(2);//设置线宽
+        mPaintCircle2.setAntiAlias(true);//设置是否抗锯齿
+        mPaintCircle2.setStyle(Paint.Style.STROKE);//设置绘制风格
+        mPaintCircle2.setAlpha(143);
+        mPaintCircle3 = new Paint();
+        mPaintCircle3.setColor(getResources().getColor(R.color.white));//设置颜色
+        mPaintCircle3.setStrokeWidth(2);//设置线宽
+        mPaintCircle3.setAntiAlias(true);//设置是否抗锯齿
+        mPaintCircle3.setStyle(Paint.Style.STROKE);//设置绘制风格
+        mPaintCircle3.setAlpha(122);
         
 	}
 	@Override
@@ -59,8 +73,8 @@ public class BiuView extends View{
 		super.onDraw(canvas);
         //画出圆
         canvas.drawCircle(dotX, dotY, circleR1, mPaintCircle);
-        canvas.drawCircle(dotX, dotY, circleR2, mPaintCircle);
-        canvas.drawCircle(dotX, dotY, circleR3, mPaintCircle);
+        canvas.drawCircle(dotX, dotY, circleR2, mPaintCircle2);
+        canvas.drawCircle(dotX, dotY, circleR3, mPaintCircle3);
 	}
 
 }

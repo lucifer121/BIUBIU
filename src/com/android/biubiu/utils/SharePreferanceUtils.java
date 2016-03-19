@@ -12,6 +12,7 @@ public class SharePreferanceUtils {
 	public static String USER_NAME="username";
 	public static String USER_HEAD="userhead";
 	public static String USER_CODE="usercode";
+	public static String IS_APP_OPEN="is_app_open";
 
 	public static SharePreferanceUtils shareUtils ;
 	public static SharePreferanceUtils getInstance(){
@@ -39,6 +40,10 @@ public class SharePreferanceUtils {
 	}
 	//获取是否为第一次安装
 	public boolean isFirstInstall(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取是否打开应用程序
+	public boolean isAppOpen(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取设置保存最小年龄
