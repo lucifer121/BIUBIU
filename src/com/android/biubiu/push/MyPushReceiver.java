@@ -27,6 +27,9 @@ import com.baidu.android.pushservice.PushMessageReceiver;
 public class MyPushReceiver extends PushMessageReceiver{
 
 	PushInterface updateBean;
+	public MyPushReceiver(Context context) {
+		// TODO Auto-generated constructor stub
+	}
 	public void setUpdateBean(PushInterface updateBean) {
 		this.updateBean = updateBean;
 	}

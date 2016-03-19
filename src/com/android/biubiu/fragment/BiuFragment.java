@@ -9,12 +9,14 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
+
 
 
 
@@ -117,11 +119,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 	Button testBtn;
 	//是否一次性全部加上
 	boolean isAddAll = true;
+	MyPushReceiver pushReceiver;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
+		pushReceiver = new MyPushReceiver(getActivity());
+		pushReceiver.setUpdateBean(this);
 		init();
 		drawBiuView();
 		setBiuLayout();
