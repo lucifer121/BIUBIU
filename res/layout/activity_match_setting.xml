@@ -93,15 +93,21 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-                        <ToggleButton
-                            android:id="@+id/boy_toggle"
-                            android:layout_width="34dp"
-                            android:layout_height="23dp"
-                            android:layout_centerVertical="true"
+                        <RelativeLayout
+                            android:id="@+id/boy_layout"
+                            android:layout_width="46dp"
+                            android:layout_height="35dp"
                             android:layout_marginLeft="39dp"
-                            android:background="@drawable/setting_btn_no"
-                            android:textOff=""
-                            android:textOn="" />
+                            android:padding="6dp" >
+
+                            <ImageView
+                                android:id="@+id/boy_toggle"
+                                android:layout_width="34dp"
+                                android:layout_height="23dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/setting_btn_no"
+                                />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -118,15 +124,20 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-                        <ToggleButton
-                            android:id="@+id/girl_toggle"
-                            android:layout_width="34dp"
-                            android:layout_height="23dp"
-                            android:layout_centerVertical="true"
+                        <RelativeLayout
+                            android:id="@+id/girl_layout"
+                            android:layout_width="46dp"
+                            android:layout_height="35dp"
                             android:layout_marginLeft="39dp"
-                            android:background="@drawable/setting_btn_no"
-                            android:textOff=""
-                            android:textOn="" />
+                            android:padding="6dp" >
+
+                            <ImageView
+                                android:id="@+id/girl_toggle"
+                                android:layout_width="34dp"
+                                android:layout_height="23dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/setting_btn_no" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -159,15 +170,20 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-                        <ToggleButton
-                            android:id="@+id/city_toggle"
-                            android:layout_width="34dp"
-                            android:layout_height="23dp"
-                            android:layout_centerVertical="true"
+                        <RelativeLayout
+                            android:id="@+id/city_layout"
+                            android:layout_width="46dp"
+                            android:layout_height="35dp"
                             android:layout_marginLeft="39dp"
-                            android:background="@drawable/setting_btn_no"
-                            android:textOff=""
-                            android:textOn="" />
+                            android:padding="6dp" >
+
+                            <ImageView
+                                android:id="@+id/city_toggle"
+                                android:layout_width="34dp"
+                                android:layout_height="23dp"
+                                android:layout_centerVertical="true"
+                               android:src="@drawable/setting_btn_no" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -184,15 +200,20 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
-                        <ToggleButton
-                            android:id="@+id/unlimit_toggle"
-                            android:layout_width="34dp"
-                            android:layout_height="23dp"
-                            android:layout_centerVertical="true"
+                        <RelativeLayout
+                            android:id="@+id/unlimit_layout"
+                            android:layout_width="46dp"
+                            android:layout_height="35dp"
                             android:layout_marginLeft="39dp"
-                            android:background="@drawable/setting_btn_no"
-                            android:textOff=""
-                            android:textOn="" />
+                            android:padding="6dp" >
+
+                            <ImageView
+                                android:id="@+id/unlimit_toggle"
+                                android:layout_width="34dp"
+                                android:layout_height="23dp"
+                                android:layout_centerVertical="true"
+                               android:src="@drawable/setting_btn_no" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -231,8 +252,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/set_tag_text"
                         android:text="岁-"
+                        android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
 
                     <TextView
@@ -241,11 +262,12 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/set_tag_text"
                         android:text="岁"
+                        android:textColor="@color/set_tag_text"
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
@@ -310,12 +332,12 @@
                     android:id="@+id/interest_tag_gv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="0.5dp"
                     android:background="@color/white"
                     android:horizontalSpacing="24dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="20dp"
                     android:numColumns="4"
                     android:stretchMode="columnWidth"
                     android:verticalSpacing="13dp" />
@@ -353,16 +375,21 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <ToggleButton
-                    android:id="@+id/newmsg_toggle"
-                    android:layout_width="34dp"
-                    android:layout_height="23dp"
+                <RelativeLayout
+                    android:id="@+id/msg_layout"
+                    android:layout_width="46dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/setting_btn_no"
-                    android:textOff=""
-                    android:textOn="" />
+                    android:padding="6dp" >
+
+                    <ImageView
+                        android:id="@+id/newmsg_toggle"
+                        android:layout_width="34dp"
+                        android:layout_height="23dp"
+                       android:src="@drawable/setting_btn_no" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <View
@@ -385,16 +412,21 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <ToggleButton
-                    android:id="@+id/voice_toggle"
-                    android:layout_width="34dp"
-                    android:layout_height="23dp"
+                <RelativeLayout
+                    android:id="@+id/voice_layout"
+                    android:layout_width="46dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/setting_btn_no"
-                    android:textOff=""
-                    android:textOn="" />
+                    android:padding="6dp" >
+
+                    <ImageView
+                        android:id="@+id/voice_toggle"
+                        android:layout_width="34dp"
+                        android:layout_height="23dp"
+                       android:src="@drawable/setting_btn_no"/>
+                </RelativeLayout>
             </RelativeLayout>
 
             <View
@@ -417,16 +449,21 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <ToggleButton
-                    android:id="@+id/shock_toggle"
-                    android:layout_width="34dp"
-                    android:layout_height="23dp"
+                <RelativeLayout
+                    android:id="@+id/shock_layout"
+                    android:layout_width="46dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/setting_btn_no"
-                    android:textOff=""
-                    android:textOn="" />
+                    android:padding="6dp" >
+
+                    <ImageView
+                        android:id="@+id/shock_toggle"
+                        android:layout_width="34dp"
+                        android:layout_height="23dp"
+                       android:src="@drawable/setting_btn_no"/>
+                </RelativeLayout>
             </RelativeLayout>
 
             <View
