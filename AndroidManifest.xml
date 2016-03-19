@@ -349,8 +349,12 @@
             android:label="@string/title_activity_chat" >
         </activity>
         <activity
-            android:name="com.android.biubiu.chat.UserListActivity"
+            android:name=".chat.UserListActivity"
             android:label="@string/title_activity_user_list" >
+        </activity>
+        <activity
+            android:name=".ContextMenuActivity"
+            android:label="@string/title_activity_context_menu" >
         </activity>
     </application>
 

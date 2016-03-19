@@ -66,6 +66,9 @@
             android:layout_marginLeft="18dp"
             android:hint="@string/login_phone_hint"
             android:textColor="@color/login_text_hint"
+            android:singleLine="true"
+            android:inputType="phone"
+            
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
             android:textSize="16sp" />
@@ -103,6 +106,7 @@
             android:textColor="@color/login_text_hint"
             android:textColorHint="@color/login_text_hint"
             android:background="@null"
+            android:inputType="textPassword"
             android:textSize="16sp" />
     </LinearLayout>
 

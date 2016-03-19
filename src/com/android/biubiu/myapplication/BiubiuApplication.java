@@ -30,19 +30,21 @@ public class BiubiuApplication extends Application{
 		x.Ext.init(this);
 
         x.Ext.setDebug(BuildConfig.DEBUG);
-        EMOptions options = new EMOptions();
+     //   EMOptions options = new EMOptions();
      //   options.setAutoLogin(false);
-        EaseUI.getInstance().init(applicationContext, options);
+     //   EaseUI.getInstance().init(applicationContext, options);
         
         LogUtil.e(TAG, "APPICATION  start");
      //   DemoHelper.getInstance().init(applicationContext);
-        EMClient.getInstance().setDebugMode(true);
+     //   EMClient.getInstance().setDebugMode(true);
+        
         
 		//   EaseUI.getInstance().init(context, options);
 		AVOSCloud.initialize(this,
 				"tcd4rj3s3c54bdlkv1vfu5puvu9c2k96ur9kge3qvptqxp8p",
 				"8fpp7j815746jg9x26f0d3c5p76xqkyqm586v2onvx3m2k7a");
-	
+		 DemoHelper.getInstance().init(applicationContext);
+		
 
 
 	}

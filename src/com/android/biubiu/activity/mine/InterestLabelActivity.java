@@ -486,7 +486,7 @@ public class InterestLabelActivity extends BaseActivity {
 					bundle.putSerializable("interestTags", (Serializable) mDataFanhui);
 					if (mDataFanhui!=null) {
 						System.out.println(mDataFanhui);						
-					}
+					} 
 					intent.putExtras(bundle);			
 					setResult(RESULT_OK, intent);
 					finish();

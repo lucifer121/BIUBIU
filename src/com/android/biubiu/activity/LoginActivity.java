@@ -204,6 +204,7 @@ public class LoginActivity extends BaseActivity{
 					String userCode = obj.getString("code");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
 					loginHuanXin(hxName,HxPassword,token);
+					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
 					
 					
 				} catch (JSONException e) {
