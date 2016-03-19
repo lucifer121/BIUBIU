@@ -94,6 +94,8 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 				x.image().bind(userHead,SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.USER_HEAD, ""),imageOptions);
 			}else{
 				isLogin = false;
+				userName.setText("登录注册");
+				userHead.setImageResource(R.drawable.main_touxiang);
 			}
 	}
 	

@@ -156,5 +156,6 @@
     <string name="receive_biu_grab">抢biu</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_user_list">UserListActivity</string>
+    <string name="title_activity_context_menu">ContextMenuActivity</string>
 
 </resources>

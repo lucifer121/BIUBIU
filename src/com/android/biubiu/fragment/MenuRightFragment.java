@@ -50,7 +50,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
     @Override
     protected void setUpView() {
     	 super.setUpView();
-    	 
+    	 titleBar.setBackgroundColor(getResources().getColor(R.color.main_green)); 
        titleBar.setRightImageResource(R.drawable.ease_blue_add);
        titleBar.setRightLayoutClickListener(new OnClickListener() {
 		

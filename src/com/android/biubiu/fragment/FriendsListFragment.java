@@ -1,6 +1,9 @@
 package com.android.biubiu.fragment;
 
+import com.android.biubiu.R;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
+import com.hyphenate.easeui.widget.EaseContactList;
 
 public class FriendsListFragment extends EaseContactListFragment{
 
@@ -8,31 +11,26 @@ public class FriendsListFragment extends EaseContactListFragment{
 	protected void initView() {
 		// TODO Auto-generated method stub
 		super.initView();
+		
+		contactListLayout=(EaseContactList) getView().findViewById(R.id.contact_list);
+		//初始化时需要传入联系人list
+//		EaseUser item=new EaseUser("10035");
+//		contactList.add(item);
+//		contactListLayout.init(contactList);
+		//刷新列表
+		contactListLayout.refresh();
+		
 	}
 
 	@Override
 	protected void setUpView() {
 		// TODO Auto-generated method stub
 		super.setUpView();
+		titleBar.setBackgroundColor(getResources().getColor(R.color.main_green));
 	}
+	
 
-	@Override
-	protected void getContactList() {
-		// TODO Auto-generated method stub
-		super.getContactList();
-	}
-
-	@Override
-	protected void onConnectionDisconnected() {
-		// TODO Auto-generated method stub
-		super.onConnectionDisconnected();
-	}
-
-	@Override
-	protected void onConnectionConnected() {
-		// TODO Auto-generated method stub
-		super.onConnectionConnected();
-	}
+	
 	
 	
 
