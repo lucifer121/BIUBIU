@@ -35,11 +35,11 @@ public class MyPushReceiver extends PushMessageReceiver{
 	}
 	@Override
 	public void onBind(Context context, int errorCode, String appid,
-            String userId, String channelId, String requestId) {
+			String userId, String channelId, String requestId) {
 		// TODO Auto-generated method stub
 		String responseString = "onBind errorCode=" + errorCode + " appid="
-                + appid + " userId=" + userId + " channelId=" + channelId
-                + " requestId=" + requestId;
+				+ appid + " userId=" + userId + " channelId=" + channelId
+				+ " requestId=" + requestId;
 		LogUtil.d("mytest", responseString);
 	}
 
@@ -47,22 +47,24 @@ public class MyPushReceiver extends PushMessageReceiver{
 	public void onDelTags(Context arg0, int arg1, List<String> arg2,
 			List<String> arg3, String arg4) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onListTags(Context arg0, int arg1, List<String> arg2,
 			String arg3) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onMessage(Context context, String message,
-            String customContentString) {
-        String messageString = "透传消息 message=\"" + message
-                + "\" customContentString=" + customContentString;
-        LogUtil.d("mytest", messageString);
+			String customContentString) {
+		Log.d("mytest", "透传消息");
+		String messageString = "透传消息 message=\"" + message
+				+ "\" customContentString=" + customContentString;
+		Log.d("mytest", messageString);
+		showNotification(context);
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, false);
 		if(isOpen){
 			playSound(context);
@@ -78,42 +80,43 @@ public class MyPushReceiver extends PushMessageReceiver{
 	}
 
 	@Override
-	public void onNotificationArrived(Context arg0, String arg1, String arg2,
+	public void onNotificationArrived(Context context, String arg1, String arg2,
 			String arg3) {
 		// TODO Auto-generated method stub
-		
+		Log.d("mytest", "通知消息");
+		showNotification(context);
 	}
 
 	@Override
 	public void onNotificationClicked(Context arg0, String arg1, String arg2,
 			String arg3) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onSetTags(Context arg0, int arg1, List<String> arg2,
 			List<String> arg3, String arg4) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onUnbind(Context arg0, int arg1, String arg2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	private void showNotification(Context context){
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Builder mBuilder = new NotificationCompat.Builder(context);
 		mBuilder.setContentTitle("测试标题")
-				.setContentText("测试内容")
-				.setTicker("测试通知来啦")//通知首次出现在通知栏，带上升动画效果的
-				.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
-				.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
-				.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
-				//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
-				.setSmallIcon(com.android.biubiu.R.drawable.biu_btn_biu);
+		.setContentText("测试内容")
+		.setTicker("测试通知来啦")//通知首次出现在通知栏，带上升动画效果的
+		.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
+		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
+		.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
+		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
+		.setSmallIcon(com.android.biubiu.R.drawable.biu_btn_biu);
 		playSound(context);
 		Intent resultIntent = new Intent(context, MainActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -122,13 +125,12 @@ public class MyPushReceiver extends PushMessageReceiver{
 		mNotificationManager.notify(0, mBuilder.build());
 	}
 	//播放自定义的声音  
-		public void playSound(Context context) {  
-
-			Log.d("mytest", "播放自己的提示音");
-			 String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.duolaam;  //自己把铃声放在raw文件夹下就行了
-	        Uri no=Uri.parse(uri);  
-	        Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(),  
-	                no);  
-	        r.play();  
-		}  
+	public void playSound(Context context) {  
+		Log.d("mytest", "播放自己的提示音");
+		String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.duolaam;  //自己把铃声放在raw文件夹下就行了
+		Uri no=Uri.parse(uri);  
+		Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(),  
+				no);  
+		r.play();  
+	}  
 }

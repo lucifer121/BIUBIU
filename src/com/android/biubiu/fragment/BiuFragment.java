@@ -126,7 +126,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
 		pushReceiver = new MyPushReceiver(getActivity());
-		pushReceiver.setUpdateBean(this);
+		//pushReceiver.setUpdateBean(this);
 		init();
 		drawBiuView();
 		setBiuLayout();
