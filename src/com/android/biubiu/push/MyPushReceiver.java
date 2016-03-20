@@ -3,7 +3,11 @@ package com.android.biubiu.push;
 import java.util.List;
 import java.util.Random;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,8 +25,12 @@ import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserBean;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.Utils;
 import com.baidu.android.pushservice.PushMessageReceiver;
 
 public class MyPushReceiver extends PushMessageReceiver{
@@ -40,6 +48,10 @@ public class MyPushReceiver extends PushMessageReceiver{
 				+ appid + " userId=" + userId + " channelId=" + channelId
 				+ " requestId=" + requestId;
 		Log.d("mytest", responseString);
+		if(null != channelId && !channelId.equals("")){
+			SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.CHANNEL_ID, channelId);
+			HttpUtils.commitChannelId(context);
+		}
 	}
 
 	@Override

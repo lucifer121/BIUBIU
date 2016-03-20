@@ -62,7 +62,6 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		//注册一个监听连接状态的listener
 		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		location();
-		
 	}
 	private void location() {
 		// TODO Auto-generated method stub
@@ -91,11 +90,13 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			case LocationUtils.MSG_LOCATION_FINISH:
 				AMapLocation loc = (AMapLocation) msg.obj;
 				String result = LocationUtils.getLocationStr(loc);
-				/*String[] ss = result.split(",");
-				double longitude = Double.parseDouble(ss[1]);
-				double latitide = Double.parseDouble(ss[2]);
-				updateLocation(longitude,latitide);*/
-				LogUtil.d("mytest", "gaode"+result);
+				String[] ss = result.split(",");
+				if(ss.length==2){
+					double longitude = Double.parseDouble(ss[0]);
+					double latitide = Double.parseDouble(ss[1]);
+					updateLocation(longitude,latitide);
+					LogUtil.d("mytest", "gaode"+result);
+				}
 				break;
 				//停止定位
 			case LocationUtils.MSG_LOCATION_STOP:
@@ -118,13 +119,13 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		if(!LoginUtils.isLogin(getApplicationContext())){
 			return;
 		}
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_LACATION);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
-			requestObject.put("device_code",lontitide);
-			requestObject.put("device_code",latitude);
+			requestObject.put("longitude",lontitide);
+			requestObject.put("dimension",latitude);
 		} catch (JSONException e) {
 
 			e.printStackTrace();
@@ -153,6 +154,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "location--"+result);
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(result);

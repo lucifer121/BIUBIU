@@ -69,4 +69,8 @@ public class HttpContants {
 	 * 更新用户位置信息
 	 */
 	public static final String UPDATE_LACATION = "app/info/updateLocation";
+	/**
+	 * 更新CHANNELID
+	 */
+	public static final String UPDATE_CHANNEL = "app/biubiu/updateChannelIdAndDeviceType";
 }

@@ -15,10 +15,14 @@ import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpUtils;
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
+
+
 
 
 
@@ -134,6 +138,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
+		//检查是否提交了channelID
+		if(!SharePreferanceUtils.getInstance().getShared(getActivity(), SharePreferanceUtils.IS_COMMIT_CHANNEL, false)){
+			HttpUtils.commitChannelId(getActivity());
+		}
+		//接口通信赋值
 		MyPushReceiver.setUpdateBean(this);
 		init();
 		drawBiuView();
@@ -141,6 +150,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 		initTestBtn();
 		initUserGroup();
 		return view;
+	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		//执行加载页面所有信息的请求
 	}
 	private void init() {
 		// TODO Auto-generated method stub

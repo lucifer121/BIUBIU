@@ -30,8 +30,10 @@ public class LocationUtils {
 		if(location.getErrorCode() == 0){
 			//sb.append("定位成功" + "\n");
 			//sb.append("定位类型: " + location.getLocationType() + "\n");
-			sb.append("经    度    : " + location.getLongitude() + ",");
-			sb.append("纬    度    : " + location.getLatitude());
+			//经    度    
+			sb.append(location.getLongitude() + ",");
+			//纬    度  
+			sb.append(location.getLatitude());
 			//sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
 			//sb.append("提供者    : " + location.getProvider() + "\n");
 			
