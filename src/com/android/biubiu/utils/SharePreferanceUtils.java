@@ -15,6 +15,9 @@ public class SharePreferanceUtils {
 	public static String IS_APP_OPEN="is_app_open";
 	public static String CHANNEL_ID = "channel_id";
 	public static String IS_COMMIT_CHANNEL = "is_commit_channel";
+	
+	public static String HX_USER_NAME="hx_user_name";
+	public static String HX_USER_PASSWORD="hx_user_password";
 
 	public static SharePreferanceUtils shareUtils ;
 	public static SharePreferanceUtils getInstance(){
@@ -31,6 +34,26 @@ public class SharePreferanceUtils {
 	 * @return
 	 */
 	public String getToken(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	/**
+	 * 获取环信账号
+	 * @param context
+	 * @param prefKey
+	 * @param defValue
+	 * @return
+	 */
+	public String getHxUserName(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	/**
+	 * 获取hx ps
+	 * @param context
+	 * @param prefKey
+	 * @param defValue
+	 * @return
+	 */
+	public String getHxUserPassword(Context context,String prefKey,String defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取设备编码
