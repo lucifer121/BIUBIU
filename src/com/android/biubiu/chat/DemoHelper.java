@@ -342,6 +342,15 @@ public class DemoHelper {
 		    return easeUI.getNotifier();
 		}
 		
+		/**
+		 * 是否登录成功过
+		 * 
+		 * @return
+		 */
+		public boolean isLoggedIn() {
+			return EMClient.getInstance().isLoggedInBefore();
+		}
+		
 
 	   
 
