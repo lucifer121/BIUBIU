@@ -3,17 +3,22 @@ package com.android.biubiu.chat;
 import java.util.List;
 import java.util.Map;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMMessage.Type;
-
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.easeui.controller.EaseUI.EaseEmojiconInfoProvider;
 import com.hyphenate.easeui.controller.EaseUI.EaseSettingsProvider;
@@ -21,14 +26,21 @@ import com.hyphenate.easeui.controller.EaseUI.EaseUserProfileProvider;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
+import com.hyphenate.util.EMLog;
 
 public class DemoHelper {
     protected static final String TAG = "DemoHelper";
     private Context appContext;
     private EaseUI easeUI=null;
     private static DemoHelper instance = null;
+    
+    /**
+     * EMEventListener
+     */
+    protected EMMessageListener messageListener = null;
     
     public synchronized static DemoHelper getInstance() {
 		if (instance == null) {
@@ -60,6 +72,8 @@ public class DemoHelper {
 		//	setGlobalListeners();
 		//	broadcastManager = LocalBroadcastManager.getInstance(appContext);
 	     //   initDbDao();
+		    //注册消息事件监听
+	        registerEventListener();
 		}
 	}
 	private EMOptions initChatOptions(){
@@ -78,9 +92,9 @@ public class DemoHelper {
         
         //使用gcm和mipush时，把里面的参数替换成自己app申请的
         //设置google推送，需要的GCM的app可以设置此参数
-        options.setGCMNumber("324169311137");
+        options.setGCMNumber("242253255366");
         //在小米手机上当app被kill时使用小米推送进行消息提示，同GCM一样不是必须的
-        options.setMipushConfig("2882303761517426801", "5381742660801");
+        options.setMipushConfig("2882303761517451967", "5541745124967");
         
 //        options.allowChatroomOwnerLeave(getModel().isChatroomOwnerLeaveAllowed());
 //        options.setDeleteMessagesAsExitGroup(getModel().isDeleteMessagesAsExitGroup());
@@ -245,6 +259,87 @@ public class DemoHelper {
 //	            user = getRobotList().get(username);
 //	        }
 	        return user;
+		}
+		
+		 /**
+	     * 全局事件监听
+	     * 因为可能会有UI页面先处理到这个消息，所以一般如果UI页面已经处理，这里就不需要再次处理
+	     * activityList.size() <= 0 意味着所有页面都已经在后台运行，或者已经离开Activity Stack
+	     */
+	    protected void registerEventListener() {
+	    	messageListener = new EMMessageListener() {
+	            private BroadcastReceiver broadCastReceiver = null;
+				
+				@Override
+				public void onMessageReceived(List<EMMessage> messages) {
+				    for (EMMessage message : messages) {
+				        EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
+				        //应用在后台，不需要刷新UI,通知栏提示新消息
+				        if(!easeUI.hasForegroundActivies()){
+				            getNotifier().onNewMsg(message);
+				        }
+				    }
+				}
+				
+				@Override
+				public void onCmdMessageReceived(List<EMMessage> messages) {
+				    for (EMMessage message : messages) {
+	                    EMLog.d(TAG, "收到透传消息");
+	                    //获取消息body
+	                    EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
+	                    final String action = cmdMsgBody.action();//获取自定义action
+
+	                    //获取扩展属性 此处省略
+	                    //message.getStringAttribute("");
+	                    EMLog.d(TAG, String.format("透传消息：action:%s,message:%s", action,message.toString()));
+	                    final String str = appContext.getString(R.string.receive_the_passthrough);
+
+	                    final String CMD_TOAST_BROADCAST = "hyphenate.demo.cmd.toast";
+	                    IntentFilter cmdFilter = new IntentFilter(CMD_TOAST_BROADCAST);
+
+	                    if(broadCastReceiver == null){
+	                        broadCastReceiver = new BroadcastReceiver(){
+
+	                            @Override
+	                            public void onReceive(Context context, Intent intent) {
+	                                // TODO Auto-generated method stub
+	                                Toast.makeText(appContext, intent.getStringExtra("cmd_value"), Toast.LENGTH_SHORT).show();
+	                            }
+	                        };
+
+	                        //注册广播接收者
+	                        appContext.registerReceiver(broadCastReceiver,cmdFilter);
+	                    }
+
+	                    Intent broadcastIntent = new Intent(CMD_TOAST_BROADCAST);
+	                    broadcastIntent.putExtra("cmd_value", str+action);
+	                    appContext.sendBroadcast(broadcastIntent, null);
+	                }
+				}
+
+				@Override
+				public void onMessageReadAckReceived(List<EMMessage> messages) {
+				}
+				
+				@Override
+				public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+				}
+				
+				@Override
+				public void onMessageChanged(EMMessage message, Object change) {
+					
+				}
+			};
+			
+	        EMClient.getInstance().chatManager().addMessageListener(messageListener);
+	    }
+	    
+		/**
+		 * 获取消息通知类
+		 * @return
+		 */
+		public EaseNotifier getNotifier(){
+		    return easeUI.getNotifier();
 		}
 		
 

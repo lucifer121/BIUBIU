@@ -210,6 +210,66 @@
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
         <!-- push结束 -->
+        
+        
+      <!-- 开机自启动服务 -->
+        <receiver android:name="com.android.biubiu.chat.StartServiceReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+        
+               <!-- gcm start -->
+        <receiver
+            android:name="com.hyphenate.chat.EMGCMBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.android.biubiu" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.hyphenate.chat.EMGCMListenerService"
+            android:exported="false" >
+        </service>
+        
+        <receiver 
+            android:name="com.android.biubiu.chat.GCMPushBroadCast"
+            android:exported="false">
+            <intent-filter >
+                <action android:name="com.hyphenate.sdk.push"/>
+                <category android:name="com.android.biubiu"/>
+            </intent-filter>
+        </receiver>
+        <!-- gcm end -->
+        
+               <!-- mi push -->
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" />
+ 
+        <receiver
+            android:name="com.hyphenate.chat.EMMipushReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <!-- mi push end -->
 
 
         <!-- 在百度开发者中心查询应用的API Key -->
@@ -345,6 +405,24 @@
         <activity
             android:name=".ContextMenuActivity"
             android:label="@string/title_activity_context_menu" >
+        </activity>
+        
+               <!-- 显示下载大图页面 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
+        <!-- 地图 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
         </activity>
     </application>
 

@@ -1,10 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:id="@+id/container_user_list"
     >
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/main_green">
+        <RelativeLayout 
+            android:id="@+id/back_chat_userList_rl"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/kongjianruoqu_bg">
+            <ImageView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_icon_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/chat_userlist_title"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+            
+		<RelativeLayout android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:visibility="gone"
+          >
+            <ImageView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            </RelativeLayout>
+            
+        </RelativeLayout>
+        
+    	<ListView 
+    	    android:id="@+id/chat_user_list_listView"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="match_parent"
+    	    />
 
    
 
-</FrameLayout>
+</LinearLayout>

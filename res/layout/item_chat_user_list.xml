@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/gray">
+
+        <ImageView
+            android:id="@+id/userHead_chat_user_list_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ease_delete_expression" />
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/userHead_chat_user_list_img"
+            >
+            <TextView 
+                android:id="@+id/userName_chat_user_List_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_main"/>
+            <TextView 
+                android:id="@+id/userInfo_chat_user_List_tv"
+                android:layout_below="@id/userName_chat_user_List_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_main"/>
+            </RelativeLayout>
+        
+        </RelativeLayout>
+    
+
+</LinearLayout>

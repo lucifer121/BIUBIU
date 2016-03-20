@@ -157,5 +157,8 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_activity_context_menu">ContextMenuActivity</string>
+    
+    <!-- chat 相关 -->
+    <string name="chat_userlist_title">匹配列表</string>
 
 </resources>
