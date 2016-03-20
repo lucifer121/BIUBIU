@@ -1,6 +1,9 @@
 package com.android.biubiu;
 
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +17,8 @@ public class BaseActivity extends Activity{
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, true);
+		//启动百度云推送
+		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"v3FkYC4w53w46uuvw9L6qBF1");
 	}
 	/**
 	 * 显示Toast长通知
@@ -36,6 +41,5 @@ public class BaseActivity extends Activity{
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 	}
 }

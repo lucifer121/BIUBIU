@@ -18,8 +18,11 @@ import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,11 +40,11 @@ import android.widget.Toast;
 public class WelcomeActivity extends BaseActivity {
 	private boolean isFirstInstall = false;
 	//导入城市数据库到本地
-	
+
 	private  DBManagerCity dbHelperCity;
 	//导入学校数据库到本地
 	private DBManager dbHelperSchool;
-		
+
 	Handler handler ;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +59,15 @@ public class WelcomeActivity extends BaseActivity {
 		dbHelperCity = new DBManagerCity(this);
 		dbHelperCity.openDatabase();
 		dbHelperCity.closeDatabase();
-		
+
 		dbHelperSchool=new DBManager(this);
 		dbHelperSchool.openDatabase();
 		dbHelperSchool.closeDatabase();
-		
+
 		//读取设备ID
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
 		next();
+		
 	}
 
 	private void next() {
@@ -90,10 +94,10 @@ public class WelcomeActivity extends BaseActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-					// 允许用户使用应用
-					Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
-					startActivity(intent);
-					finish();
+				// 允许用户使用应用
+				Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		}, 2000);
 	}

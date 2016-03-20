@@ -20,18 +20,17 @@ import android.util.Log;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.baidu.android.pushservice.PushMessageReceiver;
 
 public class MyPushReceiver extends PushMessageReceiver{
 
-	PushInterface updateBean;
-	public MyPushReceiver(Context context) {
-		// TODO Auto-generated constructor stub
-	}
-	public void setUpdateBean(PushInterface updateBean) {
-		this.updateBean = updateBean;
+	static PushInterface updateface;
+	
+	public static void setUpdateBean(PushInterface updateBean) {
+		updateface = updateBean;
 	}
 	@Override
 	public void onBind(Context context, int errorCode, String appid,
@@ -40,7 +39,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		String responseString = "onBind errorCode=" + errorCode + " appid="
 				+ appid + " userId=" + userId + " channelId=" + channelId
 				+ " requestId=" + requestId;
-		LogUtil.d("mytest", responseString);
+		Log.d("mytest", responseString);
 	}
 
 	@Override
@@ -57,6 +56,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 
 	}
 
+	
 	@Override
 	public void onMessage(Context context, String message,
 			String customContentString) {
@@ -64,16 +64,29 @@ public class MyPushReceiver extends PushMessageReceiver{
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
 		Log.d("mytest", messageString);
-		showNotification(context);
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, false);
 		if(isOpen){
 			playSound(context);
 			UserBean newUserBean = new UserBean();
 			Random random = new Random();
 			int idRandom = random.nextInt(10000);
-			newUserBean.setId(String.valueOf(idRandom));
+			//newUserBean.setId(String.valueOf(idRandom));
+			newUserBean.setId("10001");
 			newUserBean.setTime(System.currentTimeMillis());
-			updateBean.updateView(newUserBean);
+			newUserBean.setAge("20");
+			newUserBean.setNickname("hello");
+			newUserBean.setStar("天蝎座");
+			newUserBean.setSchool("清华大学");
+			newUserBean.setIsStudent(Constants.IS_STUDENT_FLAG);
+			newUserBean.setCareer("程序猿");
+			newUserBean.setUserHead("");
+			if(messageString.contains("00")){
+				updateface.updateView(newUserBean,0);
+			}else if(messageString.contains("11")){
+				updateface.updateView(newUserBean,1);
+			}else{
+				updateface.updateView(newUserBean,2);
+			}
 		}else{
 			showNotification(context);
 		}

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
+import org.xutils.x;
+
 import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
@@ -12,10 +14,14 @@ import com.android.biubiu.bean.UserBean;
 import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
+
+
+
 
 
 
@@ -31,6 +37,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -55,7 +62,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//屏幕宽高
 	int width = 0;
 	//int height = 0;
-	Handler handler;
+	Handler taskHandler;
+	Handler infoHandler;
 	//圆心坐标
 	float x0 = 0;
 	float y0 = 0;
@@ -119,14 +127,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 	Button testBtn;
 	//是否一次性全部加上
 	boolean isAddAll = true;
-	MyPushReceiver pushReceiver;
+	//中间是否为biubiu可发送状态
+	boolean isBiuState = true;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
-		pushReceiver = new MyPushReceiver(getActivity());
-		//pushReceiver.setUpdateBean(this);
+		MyPushReceiver.setUpdateBean(this);
 		init();
 		drawBiuView();
 		setBiuLayout();
@@ -138,7 +146,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
 		//height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
-		handler = new Handler();
+		taskHandler = new Handler();
+		infoHandler = new Handler();
 		x0 = width / 2;
 		y0 = width *417/720;
 
@@ -209,9 +218,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 				if(currentTime > 0){
 					return;
 				}
-				//启动发送biubiu界面
-				Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
-				startActivityForResult(intent, SEND_BIU_REQUEST);
+				if(isBiuState){
+					//启动发送biubiu界面
+					Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+					startActivityForResult(intent, SEND_BIU_REQUEST);
+				}else{
+					isBiuState = true;
+					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
+					userGif.setVisibility(View.GONE);
+					//进入聊天界面
+				}
 			}
 		});
 	}
@@ -223,7 +239,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		taskView.setTotal(totalTime);
 	}
 	//倒计时线程
-	Runnable r=new Runnable() {
+	Runnable taskR=new Runnable() {
 
 		@Override
 		public void run() {
@@ -232,10 +248,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 				taskView.setVisibility(View.GONE);
 				userBiuImv.setVisibility(View.VISIBLE);
 				currentTime = 0;
-				handler.removeCallbacks(r);
+				taskHandler.removeCallbacks(taskR);
 				return;
 			}
-			handler.postDelayed(r, 1000);
+			taskHandler.postDelayed(taskR, 1000);
 		}
 	};
 	//放置接收到的用户
@@ -268,6 +284,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//往第一个圈上放view
 	private void addCircle1View(UserBean userBean) {
+		showInfoLayout(userBean);
 		boolean haveSpace = false;
 		for(int i=0;i<n1;i++){
 			DotBean bean = c1DotList.get(i);
@@ -366,13 +383,52 @@ public class BiuFragment extends Fragment implements PushInterface{
 			moveTwoToThree(oneUserBean,twoUserBean);
 		}
 	}
+	//biubiu被抢后显示view
+	private void updateBiuView(UserBean bean){
+		if(currentTime > 0){
+			taskView.setVisibility(View.GONE);
+			userBiuImv.setVisibility(View.VISIBLE);
+			userGif.setVisibility(View.VISIBLE);
+			currentTime = 0;
+			taskHandler.removeCallbacks(taskR);
+			return;
+		}
+		if(userGif.getVisibility() == View.GONE){
+			userGif.setVisibility(View.VISIBLE);
+		}
+		//x.image().bind(userBiuImv, bean.getUserHead());
+		userBiuImv.setImageResource(R.drawable.chat_img_profiles_default);
+	}
+	//显示底部的信息view
+	private void showInfoLayout(UserBean bean) {
+		// TODO Auto-generated method stub
+		infoHandler.removeCallbacks(infoR);
+		infoLayout.setVisibility(View.VISIBLE);
+		nameTv.setText(bean.getNickname());
+		ageTv.setText(bean.getAge());
+		starTv.setText(bean.getStar());
+		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+			schoolTv.setText(bean.getSchool());
+		}else{
+			schoolTv.setText(bean.getCareer());
+		}
+		infoHandler.postDelayed(infoR, 5000);
+	}
+	Runnable infoR =new Runnable() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			infoLayout.setVisibility(View.GONE);
+		}
+	};
 	//删除被抢的view
 	private void removeView(UserBean bean){
 		if(user3List.size()>0){
 			for(int i=0;i<user3List.size();i++){
 				if(bean.getId().equals(user3List.get(i).getId())){
-					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
-					 userGroupLayout.removeView(rl);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					userGroupLayout.removeView(rl);
 					c1DotList.get(user3List.get(i).getIndex()).setAdd(false);
 					return;
 				}
@@ -381,8 +437,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(user2List.size()>0){
 			for(int i=0;i<user2List.size();i++){
 				if(bean.getId().equals(user2List.get(i).getId())){
-					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
-					 userGroupLayout.removeView(rl);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					userGroupLayout.removeView(rl);
 					c2DotList.get(user2List.get(i).getIndex()).setAdd(false);
 					return;
 				}
@@ -391,8 +447,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(user1List.size()>0){
 			for(int i=0;i<user1List.size();i++){
 				if(bean.getId().equals(user1List.get(i).getId())){
-					 RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
-					 userGroupLayout.removeView(rl);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+bean.getId());
+					userGroupLayout.removeView(rl);
 					c1DotList.get(user1List.get(i).getIndex()).setAdd(false);
 					return;
 				}
@@ -465,10 +521,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		//基于头像底部 右侧 偏移d/4
 		//imagePL.leftMargin = dotD/4;
-		imagePL.rightMargin = 8;
+		imagePL.rightMargin = 4;
+		imagePL.bottomMargin = 2;
 		imageViewL.setTag(imvDotTag+bean.getId());
-		imagePL.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		imagePL.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
+		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());
 		imageViewL.setImageResource(R.drawable.biu_imageview_photo_news_s);
 		rl.addView(imageViewL, imagePL);
 
@@ -534,20 +591,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 			@Override
 			public void onClick(View v) {
-				/*if(currentTime > 0){
-					taskView.setVisibility(View.GONE);
-					userBiuImv.setVisibility(View.VISIBLE);
-					userGif.setVisibility(View.VISIBLE);
-					currentTime = 0;
-					handler.removeCallbacks(r);
-					return;
-				}
-				if(userGif.getVisibility() == View.GONE){
-					userGif.setVisibility(View.VISIBLE);
-				}else{
-					userGif.setVisibility(View.GONE);
-				}
-				 */
 				if(isAddAll){
 					ArrayList<UserBean> list = new ArrayList<UserBean>();
 					for(int i=0;i<15;i++){
@@ -643,7 +686,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	public void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		handler.removeCallbacks(r);
+		taskHandler.removeCallbacks(taskR);
 	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -656,7 +699,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			taskView.setVisibility(View.VISIBLE);
 			userBiuImv.setVisibility(View.GONE);
 			taskView.updeteTask(currentTime);
-			handler.post(r);
+			taskHandler.post(taskR);
 			break;
 
 		default:
@@ -664,8 +707,24 @@ public class BiuFragment extends Fragment implements PushInterface{
 		}
 	}
 	@Override
-	public void updateView(UserBean userBean) {
+	public void updateView(UserBean userBean,int type) {
 		// TODO Auto-generated method stub
-		addCircle1View(newUserBean);
+		switch (type) {
+		case 0:
+			//有新的匹配消息
+			addCircle1View(userBean);
+			break;
+		case 1:
+			//biubiu被抢啦
+			isBiuState = false;
+			updateBiuView(userBean);
+			break;
+		case 2:
+			//匹配的人被抢啦
+			removeView(userBean);
+			break;
+		default:
+			break;
+		}
 	}
 }

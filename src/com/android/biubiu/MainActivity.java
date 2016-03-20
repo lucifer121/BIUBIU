@@ -62,9 +62,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		//注册一个监听连接状态的listener
 		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		location();
-		//启动百度云推送
-		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"v3FkYC4w53w46uuvw9L6qBF1");
-		LogUtil.d("mytest", "start push"+PushManager.isPushEnabled(getApplicationContext()));
+		
 	}
 	private void location() {
 		// TODO Auto-generated method stub
@@ -281,6 +279,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		if (null != locationClient) {
 			// 停止定位
 			locationClient.stopLocation();
