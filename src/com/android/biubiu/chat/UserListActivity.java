@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -105,6 +106,16 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 		mListView.setAdapter(mAdapter);
 		
 		mListView.setOnItemClickListener(this);
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+
+				
+				return false;
+			}
+		});
 	}
 
 
@@ -126,6 +137,11 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		// TODO Auto-generated method stub
 		LogUtil.d(TAG, ""+position);
+	}
+	
+	public void deleteDiolag(String potion){
+		
+		
 	}
 
 
