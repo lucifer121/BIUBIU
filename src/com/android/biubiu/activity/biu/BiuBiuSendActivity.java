@@ -1,7 +1,23 @@
 package com.android.biubiu.activity.biu;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.Flowlayout;
 
 
@@ -12,12 +28,17 @@ import com.android.biubiu.view.Flowlayout;
 
 
 
+import com.avos.avoscloud.LogUtil.log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -43,13 +64,99 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	private RelativeLayout backLayout;
 	private EditText mEditText;
 	private Button button;
+	private List<PersonalTagBean> mList=new ArrayList<PersonalTagBean>();
+	private String TAG="BiuBiuSendActivity";
+	private TextView number;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_biu_biu_send);
 		initView();
-		initChildViews();
+		initData();
+//		initChildViews();
+	}
+	/**
+	 * 网络加载话题标签
+	 */
+	private void initData() {
+		// TODO Auto-generated method stub
+		
+
+			RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
+			JSONObject requestObject = new JSONObject();		
+			try {
+				requestObject.put("device_code", Utils.getDeviceID(this));
+				requestObject.put("type", Constants.CHAT);
+				requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			params.addBodyParameter("data",requestObject.toString());
+			x.http().post(params, new CommonCallback<String>() {
+
+				@Override
+				public void onCancelled(CancelledException arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onError(Throwable arg0, boolean arg1) {
+					// TODO Auto-generated method stub
+					toastShort(arg0.getMessage());
+				}
+
+				@Override
+				public void onFinished() {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(String arg0) {
+					Log.d(TAG, "result--"+arg0);
+					JSONObject jsons;
+					try {
+						jsons=new JSONObject(arg0);
+						String code = jsons.getString("state");
+						LogUtil.d(TAG, ""+code);
+						if(!code.equals("200")){
+							toastShort(""+jsons.getString("error"));	
+							return;
+						}
+						
+						JSONObject obj = jsons.getJSONObject("data");
+//						System.out.println(obj.get("tags"));
+						String dataTag=obj.getString("tags").toString();
+						Gson gson=new Gson();
+						
+						
+						LogUtil.e(TAG, dataTag);
+						List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
+				                new TypeToken<List<PersonalTagBean>>() {  
+				                }.getType()); 
+						LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
+					       for (PersonalTagBean tag : personalTagBeansList) {  
+					    	 
+					            mList.add(tag);
+					            log.e(TAG, tag.getName());
+					    
+					        }  
+	
+						initChildViews();
+						
+						
+					} catch (JSONException e) {
+						
+						e.printStackTrace();
+					}
+				}
+			});
+			
+			
+
 	}
 	@SuppressLint("CutPasteId") 
 	private void initView() {
@@ -59,13 +166,19 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		backLayout=(RelativeLayout) findViewById(R.id.back_send_biu_mine_rl);
 		mEditText=(EditText) findViewById(R.id.topic_send_biu_et);
 		mEditText.addTextChangedListener(watcher);
+		number=(TextView) findViewById(R.id.number_send_biu_tv);
 		button=(Button) findViewById(R.id.send_biu);
 		button.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				toastShort("fasong");
+				
+				if(mEditText.getText().length()<=0){
+					toastShort("请选择话题标签");
+				}else{
+					sendBiu(mEditText.getText().toString());
+				}
 			}
 		});
 		backLayout.setOnClickListener(new OnClickListener() {
@@ -94,7 +207,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		
 		@Override
 		public void afterTextChanged(Editable arg0) {
-			// TODO Auto-generated method stub
+			number.setText(""+arg0.length());
+			
 			changeBG();
 		}
 	};
@@ -116,10 +230,10 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 //		lp.rightMargin = 5;
 		lp.topMargin = 45;
 //		lp.bottomMargin = 5;
-		for(int i = 0; i < mNames.length; i ++){
+		for(int i = 0; i < mList.size(); i ++){
 			final TextView view = new TextView(this);
 
-			view.setText(mNames[i]);
+			view.setText(mList.get(i).getName());
 			view.setTextColor(getResources().getColor(R.color.textview_item_send_bg));
 			view.setTextSize(11);
 			
@@ -136,6 +250,71 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			});
 			mFlowLayout.addView(view,lp);
 		}
+	}
+	/**
+	 * 发送biu
+	 */
+	private void sendBiu(String chatTag){
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.SEND_BIU);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().
+					getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().
+					getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("chat_tags", chatTag);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		params.addBodyParameter("data", requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				Log.d(TAG, "result--"+arg0);
+				JSONObject jsons;
+			
+					try {
+						jsons=new JSONObject(arg0);
+						String code = jsons.getString("state");
+						LogUtil.d(TAG, ""+code);
+						if(!code.equals("200")){
+							toastShort(""+jsons.getString("error"));	
+							return;
+						}						
+						JSONObject obj = jsons.getJSONObject("data");
+						String token=obj.getString("token");
+						LogUtil.d(TAG, token);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					toastShort("发送成功");
+				finish();	
+				
+			}
+		});
+		
+		
 	}
 	@Override
 	public void onClick(View v) {

@@ -70,6 +70,16 @@ public class HttpContants {
 	 */
 	public static final String UPDATE_LACATION = "app/info/updateLocation";
 	/**
+
+	 * 发送biu
+	 */
+	public static final String SEND_BIU="app/biubiu/sendBiu";
+	
+	/**
+	 * 抢biu
+	 */
+	public static final String GRAB_BIU="app/biubiu/grabBiu";
+	/**
 	 * 更新CHANNELID
 	 */
 	public static final String UPDATE_CHANNEL = "app/biubiu/updateChannelIdAndDeviceType";

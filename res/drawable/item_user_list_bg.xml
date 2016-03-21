@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- // 获取焦点时候按钮的背景状态 -->
+<item android:drawable="@color/gray_user_list" android:state_pressed="true" />
+<!-- // 被按下时候按钮的背景状态 -->
+<item android:drawable="@color/gray_user_list" android:state_focused="true" />
+
+<item android:drawable="@color/white" android:state_window_focused="true"/>"
+
+</selector>

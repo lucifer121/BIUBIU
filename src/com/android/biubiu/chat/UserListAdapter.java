@@ -1,11 +1,13 @@
 package com.android.biubiu.chat;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
-
 import com.android.biubiu.R;
 
 
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 
 public class UserListAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<String> mData;
+	private List<String> mData=new ArrayList<String>();
 	
 
 	public UserListAdapter(Context context,List<String> mData){
@@ -26,7 +28,7 @@ public class UserListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 10;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class UserListAdapter extends BaseAdapter {
 		return arg0;
 	}
 
-	@Override
+	@SuppressLint("InflateParams") @Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder=null;
@@ -54,8 +56,8 @@ public class UserListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.userName.setText(mData.get(position));
-		return null;
+//		holder.userName.setText(mData.get(position));
+		return convertView;
 	}
 	
 	private class ViewHolder{
@@ -63,5 +65,7 @@ public class UserListAdapter extends BaseAdapter {
 		private TextView userName;
 		private TextView userInfo;
 	}
+
+
 
 }

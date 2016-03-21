@@ -90,7 +90,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/biu_receive_imageview_dian2"
+                                android:drawableLeft="@drawable/biu_receive_imageview_distance"
                                 android:drawablePadding="5dp"
                                 android:text="@string/receive_biu_distance"
                                 android:textColor="@color/text_huise" />
@@ -112,16 +112,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/biu_receive_imageview_dian2"
+                                android:drawableLeft="@drawable/biu_receive_imageview_fit"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_distance"
+                                android:text="@string/receive_biu_compatibility"
                                 android:textColor="@color/text_huise" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="13dp"
-                                android:text="@string/receive_biu_distance"
+                                android:text="@string/receive_biu_number_compatibility"
                                 android:textColor="@color/text_huise" />
 
                             <View
@@ -137,9 +137,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="11dp"
                             android:layout_weight="1"
-                            android:drawableLeft="@drawable/biu_receive_imageview_dian2"
+                            android:drawableLeft="@drawable/biu_receive_imageview_time"
                             android:drawablePadding="5dp"
-                            android:text="@string/receive_biu_distance"
+                            android:text="@string/receive_biu_time"
                             android:textColor="@color/text_huise" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -348,6 +348,22 @@
                 android:background="@drawable/biu_btn_normal"
                 android:text="@string/receive_biu_grab"
                 android:textSize="13sp" />
+            <RelativeLayout
+                android:id="@+id/never_grag_biu_receive_biu_rl" 
+                android:layout_width="109dp"
+                android:layout_height="42dp"
+                 android:layout_below="@id/grab_biu_receive_biu_bt"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                  
+                    android:textColor="#808080"
+                    android:text="@string/receive_biu_no_grab"
+                    />
+                
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
