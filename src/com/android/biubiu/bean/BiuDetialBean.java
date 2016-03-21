@@ -2,57 +2,81 @@ package com.android.biubiu.bean;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 import android.R.integer;
 
 public class BiuDetialBean {
+	
+	@SerializedName("token")
 	private String token;
 	/**
 	 * 头像url
 	 */
+	@SerializedName("icon_thumbnailUrl")
 	private String icon_thumbnailUrl;
 	/**
 	 * 用户的code
 	 */
+	@SerializedName("user_code")
 	private String user_code;
 	/**
 	 * 距离 单位m
 	 */
-	private String distance;
+	@SerializedName("distance")
+	private long distance;
+	
+	@SerializedName("description")
+	private String description;
 	/**
 	 * 匹配度
 	 */
-	private String matching_score;
-	
-	private int sex;
+	@SerializedName("matching_score")
+	private int matching_score;
+	@SerializedName("sex")
+	private String sex;
+	@SerializedName("age")
 	private int age;
 	/**
 	 * 星座
 	 */
-	private int starsign;
+	@SerializedName("starsign")
+	private String starsign;
 	/**
 	 * 是否毕业
 	 */
+	@SerializedName("isgraduated")
 	private String isgraduated;
 	/**
 	 * 学校
 	 */
-	private int school;
+	@SerializedName("school")
+	private String school;
+	
+	@SerializedName("timebefore")
+	private int timebefore;
 	/**
 	 * 公司
 	 */
-	private integer company;
+	@SerializedName("company")
+	private String company;
 	/**
 	 * 命中个性标签个数
 	 */
+	@SerializedName("hit_tags_num")
 	private int  hit_tags_num;
 	
+	@SerializedName("hit_tags")
 	private List<PersonalTagBean> hit_tags;
 	
 	/**
 	 * 共同兴趣个数
 	 */
+	@SerializedName("interested_tags_num")
 	private int interested_tags_num;
-	
+	@SerializedName("carrer")
+	private String carrer;
+	@SerializedName("interested_tags")
 	private List<InterestByCateBean> interested_tags;
 
 	public String getToken() {
@@ -79,27 +103,27 @@ public class BiuDetialBean {
 		this.user_code = user_code;
 	}
 
-	public String getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(String distance) {
+	public void setDistance(Long distance) {
 		this.distance = distance;
 	}
 
-	public String getMatching_score() {
+	public int getMatching_score() {
 		return matching_score;
 	}
 
-	public void setMatching_score(String matching_score) {
+	public void setMatching_score(int matching_score) {
 		this.matching_score = matching_score;
 	}
 
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
@@ -111,11 +135,11 @@ public class BiuDetialBean {
 		this.age = age;
 	}
 
-	public int getStarsign() {
+	public String getStarsign() {
 		return starsign;
 	}
 
-	public void setStarsign(int starsign) {
+	public void setStarsign(String starsign) {
 		this.starsign = starsign;
 	}
 
@@ -127,19 +151,19 @@ public class BiuDetialBean {
 		this.isgraduated = isgraduated;
 	}
 
-	public int getSchool() {
+	public String getSchool() {
 		return school;
 	}
 
-	public void setSchool(int school) {
+	public void setSchool(String school) {
 		this.school = school;
 	}
 
-	public integer getCompany() {
+	public String getCompany() {
 		return company;
 	}
 
-	public void setCompany(integer company) {
+	public void setCompany(String company) {
 		this.company = company;
 	}
 
@@ -173,6 +197,30 @@ public class BiuDetialBean {
 
 	public void setInterested_tags(List<InterestByCateBean> interested_tags) {
 		this.interested_tags = interested_tags;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getTimebefore() {
+		return timebefore;
+	}
+
+	public void setTimebefore(int timebefore) {
+		this.timebefore = timebefore;
+	}
+
+	public String getCarrer() {
+		return carrer;
+	}
+
+	public void setCarrer(String carrer) {
+		this.carrer = carrer;
 	}
 	
 	

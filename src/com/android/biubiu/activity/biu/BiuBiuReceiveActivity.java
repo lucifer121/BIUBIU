@@ -20,6 +20,7 @@ import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 
 import android.os.Bundle;
@@ -130,14 +131,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					Gson gson=new Gson();
 					biuDEtialBean=gson.fromJson(jsons.getJSONObject("data").toString(), BiuDetialBean.class);
 					
-					userName.setText(biuDEtialBean.getUser_code());
-					distance.setText(biuDEtialBean.getDistance());
-					matchingScore.setText(biuDEtialBean.getMatching_score());
+					userName.setText(""+biuDEtialBean.getUser_code());
+					distance.setText(""+biuDEtialBean.getDistance());
+					matchingScore.setText(""+biuDEtialBean.getMatching_score());
 					
 					System.out.println(biuDEtialBean.toString());
 					
 				} catch (Exception e) {
 					// TODO: handle exception
+					log.e(TAG, e);
 				}
 			}
 
@@ -174,7 +176,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		grabBT=(Button)findViewById(R.id.grab_biu_receive_biu_bt);
 		neverGrab=(RelativeLayout) findViewById(R.id.never_grag_biu_receive_biu_rl);
 		userName=(TextView) findViewById(R.id.name_receive_biu_tv);
-		distance=(TextView) findViewById(R.id.matching_score_receive_biu_tv);
+		distance=(TextView) findViewById(R.id.distanse_receive_biu_tv);
+		matchingScore=(TextView) findViewById(R.id.matching_score_receive_biu_tv);
 		
 		neverGrab.setOnClickListener(new OnClickListener() {
 			
