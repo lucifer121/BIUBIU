@@ -67,6 +67,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -132,8 +134,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 	GifView backgroundGif;
 	//中间biubiu layout
 	RelativeLayout biuLayout;
-	//biubiu动画
-	GifView userGif;
 	//头像IMv
 	ImageView userBiuImv;
 	//倒计时view
@@ -147,6 +147,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 	private TextView schoolTv;
 	private LinearLayout infoLayout;
 	ImageOptions imageOptions;
+	ImageView userBiuBg;
+	Animation animationAlpha;
+	Animation animationHide;
 
 	//中间是否为biubiu可发送状态
 	boolean isBiuState = true;
@@ -186,7 +189,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		biuView = (BiuView) view.findViewById(R.id.biu_view);
 		biuLayout = (RelativeLayout) view.findViewById(R.id.biu_layout);
-		userGif = (GifView) view.findViewById(R.id.user_receive_anim);
 		userBiuImv = (ImageView) view.findViewById(R.id.user_biu);
 		backgroundGif = (GifView) view.findViewById(R.id.background_gif);
 		taskView = (TaskView) view.findViewById(R.id.task_view);
@@ -197,6 +199,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		starTv = (TextView) view.findViewById(R.id.star_tv);
 		schoolTv = (TextView) view.findViewById(R.id.school_tv);
 		infoLayout = (LinearLayout) view.findViewById(R.id.info_layout);
+		userBiuBg = (ImageView) view.findViewById(R.id.user_biu_bg);
+		animationAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
+		animationHide = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_anim);
 		
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -226,15 +231,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 		 */
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width*125/360, width*125/360);
 		params.leftMargin = width *235/720 ;
-		params.topMargin = width*267/720;
+		params.topMargin = width*146/360;
 		biuLayout.setLayoutParams(params);
-		RelativeLayout.LayoutParams animParams = new RelativeLayout.LayoutParams(width*31/90, width*31/90);
-		userGif.setLayoutParams(animParams);
-		//设置闪烁动画相关
-		userGif.setGifImage(R.drawable.anim);
-		userGif.setShowDimension(width*125/360, width*125/360);
-		userGif.setGifImageType(GifImageType.COVER);
-		userGif.setVisibility(View.GONE);
+		RelativeLayout.LayoutParams animParams = new RelativeLayout.LayoutParams(width*125/360, width*125/360);
+		userBiuBg.setLayoutParams(animParams);
 		/***
 		 * 头像及倒计时
 		 */
@@ -242,6 +242,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imvParams.leftMargin = width*30/360 ;
 		imvParams.topMargin = width*30/360;
 		userBiuImv.setLayoutParams(imvParams);
+		userBiuBg.startAnimation(animationAlpha);
 		//倒计时view
 		drawTaskView();
 		/**
@@ -256,13 +257,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 					return;
 				}
 				if(isBiuState){
+					userBiuBg.startAnimation(animationHide);
+					userBiuBg.setVisibility(View.GONE);
 					//启动发送biubiu界面
 					Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
 					startActivityForResult(intent, SEND_BIU_REQUEST);
 				}else{
 					isBiuState = true;
 					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
-					userGif.setVisibility(View.GONE);
 					//进入聊天界面
 					
 				}
@@ -426,13 +428,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(currentTime > 0){
 			taskView.setVisibility(View.GONE);
 			userBiuImv.setVisibility(View.VISIBLE);
-			userGif.setVisibility(View.VISIBLE);
+			userBiuBg.setVisibility(View.VISIBLE);
 			currentTime = 0;
 			taskHandler.removeCallbacks(taskR);
 			return;
-		}
-		if(userGif.getVisibility() == View.GONE){
-			userGif.setVisibility(View.VISIBLE);
 		}
 		//x.image().bind(userBiuImv, bean.getUserHead());
 		userBiuImv.setImageResource(R.drawable.chat_img_profiles_default);
@@ -725,12 +724,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case SEND_BIU_REQUEST:
-			//开始倒计时
-			currentTime = totalTime;
-			taskView.setVisibility(View.VISIBLE);
-			userBiuImv.setVisibility(View.GONE);
-			taskView.updeteTask(currentTime);
-			taskHandler.post(taskR);
+			if(resultCode == BiuBiuSendActivity.RESULT_OK){
+				//开始倒计时
+				currentTime = totalTime;
+				taskView.setVisibility(View.VISIBLE);
+				userBiuImv.setVisibility(View.GONE);
+				taskView.updeteTask(currentTime);
+				taskHandler.post(taskR);
+			}
 			break;
 
 		default:

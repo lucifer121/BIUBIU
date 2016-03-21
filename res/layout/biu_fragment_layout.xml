@@ -19,7 +19,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+             >
 
             <com.android.biubiu.view.BiuView
                 android:id="@+id/biu_view"
@@ -37,11 +38,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
-                <com.ant.liao.GifView
-                    android:id="@+id/user_receive_anim"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/anim" />
+                <ImageView
+                    android:id="@+id/user_biu_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/biu_circle" />
 
                 <ImageView
                     android:id="@+id/user_biu"

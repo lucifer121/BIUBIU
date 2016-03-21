@@ -17,6 +17,7 @@ import com.android.biubiu.bean.SettingBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
@@ -66,6 +67,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private RelativeLayout msgLayout;
 	private RelativeLayout voiceLayout;
 	private RelativeLayout shockLayout;
+	private LinearLayout loading_layout;
 
 	private boolean isSelBoy = true;
 	private boolean isSameCity = true;
@@ -115,6 +117,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		voiceLayout.setOnClickListener(this);
 		shockLayout = (RelativeLayout) findViewById(R.id.shock_layout);
 		shockLayout.setOnClickListener(this);
+		loading_layout = (LinearLayout) findViewById(R.id.loading_layout);
 
 	}
 	private void setTags(ArrayList<PersonalTagBean> tags){
@@ -298,6 +301,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 加载数据
 	 */
 	public void initlodo(){
+		loading_layout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -331,6 +335,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 
 			@Override
 			public void onSuccess(String arg0) {
+				loading_layout.setVisibility(View.GONE);
 				LogUtil.d("mytest", "set--"+arg0);
 				JSONObject jsons;
 				try {
@@ -447,6 +452,9 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	}
 	private void updateSetBean() {
 		// TODO Auto-generated method stub
+		if(null == setBean){
+			return;
+		}
 		int minAge = 0;
 		int maxAge = 40;
 		if(ageMinTv.getText().toString().equals("")){

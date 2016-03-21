@@ -37,6 +37,10 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -105,8 +109,7 @@
                                 android:layout_width="34dp"
                                 android:layout_height="23dp"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/setting_btn_no"
-                                />
+                                android:src="@drawable/setting_btn_no" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -182,7 +185,7 @@
                                 android:layout_width="34dp"
                                 android:layout_height="23dp"
                                 android:layout_centerVertical="true"
-                               android:src="@drawable/setting_btn_no" />
+                                android:src="@drawable/setting_btn_no" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -212,7 +215,7 @@
                                 android:layout_width="34dp"
                                 android:layout_height="23dp"
                                 android:layout_centerVertical="true"
-                               android:src="@drawable/setting_btn_no" />
+                                android:src="@drawable/setting_btn_no" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -388,7 +391,7 @@
                         android:id="@+id/newmsg_toggle"
                         android:layout_width="34dp"
                         android:layout_height="23dp"
-                       android:src="@drawable/setting_btn_no" />
+                        android:src="@drawable/setting_btn_no" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -425,7 +428,7 @@
                         android:id="@+id/voice_toggle"
                         android:layout_width="34dp"
                         android:layout_height="23dp"
-                       android:src="@drawable/setting_btn_no"/>
+                        android:src="@drawable/setting_btn_no" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -462,7 +465,7 @@
                         android:id="@+id/shock_toggle"
                         android:layout_width="34dp"
                         android:layout_height="23dp"
-                       android:src="@drawable/setting_btn_no"/>
+                        android:src="@drawable/setting_btn_no" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -490,4 +493,8 @@
         </LinearLayout>
     </ScrollView>
 
+    <include
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+</FrameLayout>
 </LinearLayout>
