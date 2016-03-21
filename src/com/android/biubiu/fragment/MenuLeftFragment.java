@@ -90,7 +90,6 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			if(LoginUtils.isLogin(getActivity())){		
 				isLogin=true;
 				userName.setText(SharePreferanceUtils.getInstance().getUserName(getActivity(), SharePreferanceUtils.USER_NAME, ""));
-				LogUtil.d("mytest", "head--"+SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.getInstance().USER_HEAD, ""));
 				x.image().bind(userHead,SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.USER_HEAD, ""),imageOptions);
 			}else{
 				isLogin = false;

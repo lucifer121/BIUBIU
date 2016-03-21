@@ -47,7 +47,6 @@ public class UserInterestAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder vh = null;
-		LogUtil.d("mytest", "tagii--"+position);
 		InterestTagBean tag = tags.get(position);
 		if(convertView == null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.userpager_tag_item, null);

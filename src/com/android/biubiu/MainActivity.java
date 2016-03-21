@@ -63,6 +63,12 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		location();
 	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, true);
+	}
 	private void location() {
 		// TODO Auto-generated method stub
 		locationClient = new AMapLocationClient(this.getApplicationContext());
@@ -281,8 +287,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		if (null != locationClient) {
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 			// 停止定位
 			locationClient.stopLocation();
 			/**

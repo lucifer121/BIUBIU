@@ -1,16 +1,38 @@
 package com.android.biubiu.bean;
 
-public class UserBean {
+import java.io.Serializable;
+
+import com.google.gson.annotations.SerializedName;
+
+public class UserBean implements Serializable{
+	@SerializedName("user_code")
 	String id;
+	@SerializedName("nickname")
 	String nickname;
+	@SerializedName("sex")
 	String sex;
+	@SerializedName("age")
 	String age;
+	@SerializedName("isgraduated")
 	String isStudent;
+	@SerializedName("carrer")
 	String career;
+	@SerializedName("starsign")
 	String star;
+	@SerializedName("school")
 	String school;
+	@SerializedName("icon_thumbnailUrl")
 	String userHead;
+	@SerializedName("already_seen")
+	String alreadSeen;
+	@SerializedName("company")
+	String company;
+	@SerializedName("chat_id")
+	String chatId;
+	@SerializedName("reference_id")
+	String referenceId;
 	//bean加入的时间
+	@SerializedName("time")
 	long time;
 	//bean在圆圈上的位置index
 	int index;
@@ -96,6 +118,30 @@ public class UserBean {
 	}
 	public void setUserHead(String userHead) {
 		this.userHead = userHead;
+	}
+	public String getAlreadSeen() {
+		return alreadSeen;
+	}
+	public void setAlreadSeen(String alreadSeen) {
+		this.alreadSeen = alreadSeen;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getChatId() {
+		return chatId;
+	}
+	public void setChatId(String chatId) {
+		this.chatId = chatId;
+	}
+	public String getReferenceId() {
+		return referenceId;
+	}
+	public void setReferenceId(String referenceId) {
+		this.referenceId = referenceId;
 	}
 
 }
