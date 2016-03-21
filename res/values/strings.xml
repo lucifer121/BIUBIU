@@ -158,7 +158,7 @@
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_activity_context_menu">ContextMenuActivity</string>
     <string name="receive_biu_no_grab">不想见到TA</string>
-    <string name="receive_biu_number_compatibility">95%</string>
+    <string name="receive_biu_number_compatibility">15%</string>
     
     <!-- chat 相关 -->
     <string name="chat_userlist_title">biubiu的人</string>

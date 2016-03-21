@@ -264,6 +264,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
 					userGif.setVisibility(View.GONE);
 					//进入聊天界面
+					
 				}
 			}
 		});
@@ -602,6 +603,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 				imageViewL.setVisibility(View.GONE);
 				Intent intent = new Intent(getActivity(),BiuBiuReceiveActivity.class);
 				intent.putExtra("referenceId", bean.getReferenceId());
+				intent.putExtra("userCode", bean.getId());
+				intent.putExtra("chatId", bean.getChatId());
 				startActivity(intent);
 			}
 		});

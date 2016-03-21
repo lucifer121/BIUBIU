@@ -87,4 +87,6 @@ public class HttpContants {
 	 * 获取biubiu列表
 	 */
 	public static final String GET_BIU_LIST = "app/biubiu/biubiuList";
+	
+	public static final String BIU_DETIAL="app/biubiu/biuDetails";
 }
