@@ -30,6 +30,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private UserInterestAdapter interestAdapter;
 	private ArrayList<InterestTagBean> mList=new ArrayList<InterestTagBean>();
 	private Button grabBT;
+	private RelativeLayout neverGrab;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		mGridViewTag=(GridView) findViewById(R.id.gridview_receive_biubiu_tag);
 		mGridViewInterestTag=(GridView) findViewById(R.id.gridview_receive_biubiu_interest_tag);
 		grabBT=(Button)findViewById(R.id.grab_biu_receive_biu_bt);
+		neverGrab=(RelativeLayout) findViewById(R.id.never_grag_biu_receive_biu_rl);
+		neverGrab.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				toastShort("不见你");
+			}
+		});
 		grabBT.setOnClickListener(new OnClickListener() {
 			
 			@Override

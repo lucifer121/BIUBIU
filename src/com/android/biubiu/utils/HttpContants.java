@@ -69,4 +69,13 @@ public class HttpContants {
 	 * 更新用户位置信息
 	 */
 	public static final String UPDATE_LACATION = "app/info/updateLocation";
+	/**
+	 * 发送biu
+	 */
+	public static final String SEND_BIU="app/biubiu/sendBiu";
+	
+	/**
+	 * 抢biu
+	 */
+	public static final String GRAB_BIU="app/biubiu/grabBiu";
 }

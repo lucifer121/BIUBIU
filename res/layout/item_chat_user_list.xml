@@ -3,36 +3,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/gray">
 
-        <ImageView
-            android:id="@+id/userHead_chat_user_list_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ease_delete_expression" />
-        <RelativeLayout 
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:background="@drawable/item_user_list_bg" >
+
+        <RelativeLayout
+            android:id="@+id/userHead_chat_user_list_rl"
+            android:layout_width="65dp"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/userHead_chat_user_list_img"
-            >
-            <TextView 
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/userHead_chat_user_list_img"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/biu_receive_imageview_photo" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/userHead_chat_user_list_rl" >
+
+            <TextView
                 android:id="@+id/userName_chat_user_List_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name_main"/>
-            <TextView 
-                android:id="@+id/userInfo_chat_user_List_tv"
-                android:layout_below="@id/userName_chat_user_List_tv"
+                android:text="@string/name_main"
+                android:textColor="#515151"
+                android:textSize="15sp" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name_main"/>
-            </RelativeLayout>
-        
+                android:layout_below="@id/userName_chat_user_List_tv"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/userInfo_chat_user_List_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_main"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/userXingzuo_chat_user_List_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/mes_imageview_dian"
+                    android:drawablePadding="7dp"
+                    android:text="@string/name_main"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/userJob_chat_user_List_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/mes_imageview_dian"
+                    android:drawablePadding="7dp"
+                    android:text="@string/name_main"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </RelativeLayout>
-    
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="65dp"
+        android:background="@color/gray" />
 
 </LinearLayout>
