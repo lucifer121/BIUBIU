@@ -106,6 +106,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				public void onError(Throwable arg0, boolean arg1) {
 					// TODO Auto-generated method stub
 					toastShort(arg0.getMessage());
+					log.e(TAG, arg0.getMessage());
 				}
 
 				@Override
@@ -244,7 +245,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					Toast.makeText(getApplicationContext(), view.getText(), Toast.LENGTH_SHORT).show();
+				//	Toast.makeText(getApplicationContext(), view.getText(), Toast.LENGTH_SHORT).show();
 					mEditText.setText(view.getText());
 				}
 			});
