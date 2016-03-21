@@ -52,7 +52,7 @@
                             android:layout_width="89dp"
                             android:layout_height="89dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/main_imageview_photo2" />
+                            android:src="@drawable/main_imageview_photo" />
 
                         <ImageView
                             android:id="@+id/userhead_imv"
@@ -849,6 +849,7 @@
                 </LinearLayout>
             </LinearLayout>
     </ScrollView>
-     <include layout="@layout/loading_layout"/>
+     <include layout="@layout/loading_layout"
+         android:visibility="gone"/>
 </FrameLayout>
 </LinearLayout>

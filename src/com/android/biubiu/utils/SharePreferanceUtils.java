@@ -13,6 +13,8 @@ public class SharePreferanceUtils {
 	public static String USER_HEAD="userhead";
 	public static String USER_CODE="usercode";
 	public static String IS_APP_OPEN="is_app_open";
+	public static String CHANNEL_ID = "channel_id";
+	public static String IS_COMMIT_CHANNEL = "is_commit_channel";
 	
 	public static String HX_USER_NAME="hx_user_name";
 	public static String HX_USER_PASSWORD="hx_user_password";
@@ -67,6 +69,14 @@ public class SharePreferanceUtils {
 	}
 	//获取是否打开应用程序
 	public boolean isAppOpen(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取channelId
+	public String getChannelId(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取是否提交channelID
+	public boolean isCommitChannel(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取设置保存最小年龄
