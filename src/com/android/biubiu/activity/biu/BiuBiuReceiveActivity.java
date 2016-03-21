@@ -128,7 +128,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						return;
 					}	
 					Gson gson=new Gson();
-					biuDEtialBean=gson.fromJson(jsons.getString("data"), BiuDetialBean.class);
+					biuDEtialBean=gson.fromJson(jsons.getJSONObject("data").toString(), BiuDetialBean.class);
 					
 					userName.setText(biuDEtialBean.getUser_code());
 					distance.setText(biuDEtialBean.getDistance());

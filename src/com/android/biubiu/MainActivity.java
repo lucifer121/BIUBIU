@@ -1,7 +1,4 @@
 package com.android.biubiu;
-
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -54,6 +51,9 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		if(!com.android.biubiu.utils.NetUtils.isNetworkConnected(getApplicationContext())){
+			Toast.makeText(getApplicationContext(), "网络未连接", 1000).show();
+		}
 		initPageFragment();
 		// 初始化SlideMenu
 		initRightMenu();

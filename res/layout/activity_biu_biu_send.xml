@@ -114,6 +114,7 @@
         android:layout_marginBottom="64dp"
         android:background="@drawable/biu_btn_disabled"
         android:text="@string/send_biu_send"
+        android:textColor="@color/white"
         android:textSize="13sp" />
     
     <ImageView
