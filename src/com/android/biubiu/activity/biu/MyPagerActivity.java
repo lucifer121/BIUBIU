@@ -76,6 +76,7 @@ import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.MyGridView;
 import com.avos.avoscloud.LogUtil.log;
@@ -351,13 +352,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	//获取用户主页数据
 	private void getUserInfo(){
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			loadingLayout.setVisibility(View.GONE);
+			toastShort("网络未连接");
+			return;
+		}
 		loadingLayout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("code",userCode);
-			LogUtil.d("mytest","token"+ SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 			

@@ -309,6 +309,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 						e.printStackTrace();
 					}
 					toastShort("发送成功");
+					setResult(RESULT_OK);
 				finish();	
 				
 			}

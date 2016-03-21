@@ -68,6 +68,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private RelativeLayout voiceLayout;
 	private RelativeLayout shockLayout;
 	private LinearLayout loading_layout;
+	RangeSeekBar<Integer> seekBar;
 
 	private boolean isSelBoy = true;
 	private boolean isSameCity = true;
@@ -119,6 +120,19 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		shockLayout.setOnClickListener(this);
 		loading_layout = (LinearLayout) findViewById(R.id.loading_layout);
 
+		seekBar = new RangeSeekBar<Integer>(16, 40, this);
+
+		seekBar.setOnRangeSeekBarChangeListener(new OnRangeSeekBarChangeListener<Integer>() {
+			@Override
+			public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar,
+					Integer minValue, Integer maxValue) {
+				ageMinTv.setText(minValue+"");
+				ageMaxTv.setText(maxValue+"");
+			}
+		});       
+		seekBar.setNotifyWhileDragging(true);
+		seekLinear.addView(seekBar);
+
 	}
 	private void setTags(ArrayList<PersonalTagBean> tags){
 		setTagAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
@@ -133,19 +147,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}
 		ageMinTv.setText(""+setBean.getAgeDown());
 		ageMaxTv.setText(""+setBean.getAgeUp());
-		RangeSeekBar<Integer> seekBar = new RangeSeekBar<Integer>(16, 40, this);
 		seekBar.setSelectedMaxValue(setBean.getAgeUp());
 		seekBar.setSelectedMinValue(setBean.getAgeDown());
-		seekBar.setOnRangeSeekBarChangeListener(new OnRangeSeekBarChangeListener<Integer>() {
-			@Override
-			public void onRangeSeekBarValuesChanged(RangeSeekBar<?> bar,
-					Integer minValue, Integer maxValue) {
-				ageMinTv.setText(minValue+"");
-				ageMaxTv.setText(maxValue+"");
-			}
-		});       
-		seekBar.setNotifyWhileDragging(true);
-		seekLinear.addView(seekBar);
 	}
 	protected void setToggle() {
 		// 1--选择男生 2--选择女生
@@ -301,6 +304,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 加载数据
 	 */
 	public void initlodo(){
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			loading_layout.setVisibility(View.GONE);
+			toastShort("网络未连接");
+			return;
+		}
 		loading_layout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
 		JSONObject requestObject = new JSONObject();
@@ -376,6 +384,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 保存设置信息
 	 */
 	private void saveSetInfo() {
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			loading_layout.setVisibility(View.GONE);
+			toastShort("网络未连接");
+			return;
+		}
 		updateSetBean();
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_SETTING);
 		JSONObject requestObject = new JSONObject();
@@ -500,6 +513,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 退出登录
 	 */
 	private void exitApp() {
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			loading_layout.setVisibility(View.GONE);
+			toastShort("网络未连接");
+			return;
+		}
 		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.EXIT);
 		JSONObject requestObject = new JSONObject();
 		try {
