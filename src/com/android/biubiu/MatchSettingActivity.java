@@ -396,7 +396,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("sex", setBean.getSex());
-
 			requestObject.put("age_down", setBean.getAgeDown());
 			requestObject.put("age_up", setBean.getAgeUp());
 			ArrayList<PersonalTagBean> tags = setBean.getPersonalTags();

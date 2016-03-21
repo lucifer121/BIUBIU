@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.utils.HttpContants;
@@ -309,6 +310,9 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 						}
 						return;
 					}
+					Intent intent=new Intent(ForgetPasswordActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
 					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

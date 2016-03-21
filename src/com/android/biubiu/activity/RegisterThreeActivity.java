@@ -479,7 +479,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
-
+					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
