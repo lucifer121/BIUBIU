@@ -17,6 +17,16 @@ public class Constants {
 	public static final String SAME_CITY = "1";
 	//不限
 	public static final String UN_LIMIT = "2";
+	//未查看过匹配
+	public static final String UN_SEEN = "0";
+	//已查看过匹配
+	public static final String ALREADY_SEEN = "1";
+	//推送消息类型 0--推送匹配
+	public static final String MSG_TYPE_MATCH = "0";
+	//推送消息类型 2--你匹配的人biubiu被抢了
+	public static final String MSG_TYPE_DEL = "2";
+	//推送消息类型 1--你的biubiu被抢了
+	public static final String MSG_TYPE_GRAB = "1";
 	/**
 	 * type 个性标签
 	 */

@@ -83,5 +83,8 @@ public class HttpContants {
 	 * 更新CHANNELID
 	 */
 	public static final String UPDATE_CHANNEL = "app/biubiu/updateChannelIdAndDeviceType";
-
+	/**
+	 * 获取biubiu列表
+	 */
+	public static final String GET_BIU_LIST = "app/biubiu/biubiuList";
 }

@@ -3,8 +3,6 @@ package com.android.biubiu.push;
 import java.util.List;
 import java.util.Random;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
@@ -21,6 +19,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserBean;
@@ -79,25 +79,36 @@ public class MyPushReceiver extends PushMessageReceiver{
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, false);
 		if(isOpen){
 			playSound(context);
-			UserBean newUserBean = new UserBean();
-			Random random = new Random();
-			int idRandom = random.nextInt(10000);
-			//newUserBean.setId(String.valueOf(idRandom));
-			newUserBean.setId("10001");
-			newUserBean.setTime(System.currentTimeMillis());
-			newUserBean.setAge("20");
-			newUserBean.setNickname("hello");
-			newUserBean.setStar("天蝎座");
-			newUserBean.setSchool("清华大学");
-			newUserBean.setIsStudent(Constants.IS_STUDENT_FLAG);
-			newUserBean.setCareer("程序猿");
-			newUserBean.setUserHead("");
-			if(messageString.contains("00")){
-				updateface.updateView(newUserBean,0);
-			}else if(messageString.contains("11")){
-				updateface.updateView(newUserBean,1);
-			}else{
-				updateface.updateView(newUserBean,2);
+			try {
+				JSONObject jsons = JSONObject.parseObject(message);
+				String msgType = jsons.getString("messageType");
+				UserBean newUserBean = new UserBean();
+				newUserBean.setTime(Long.parseLong(jsons.getString("time")));
+				newUserBean.setChatId(jsons.getString("chat_id"));
+				newUserBean.setAlreadSeen(Constants.UN_SEEN);
+				
+				if(msgType.contains(Constants.MSG_TYPE_MATCH)){
+					newUserBean.setId(jsons.getString("user_code"));
+					newUserBean.setNickname(jsons.getString("nickname"));
+					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
+					newUserBean.setAge(jsons.getString("age"));
+					newUserBean.setSex(jsons.getString("sex"));
+					newUserBean.setStar(jsons.getString("starsign"));
+					newUserBean.setIsStudent(jsons.getString("isgraduated"));
+					newUserBean.setSchool(jsons.getString("isgraduated"));
+					newUserBean.setCareer(jsons.getString("career"));
+					newUserBean.setReferenceId("reference_id");
+					updateface.updateView(newUserBean,0);
+				}else if(msgType.contains(Constants.MSG_TYPE_GRAB)){
+					newUserBean.setId(jsons.getString("user_code"));
+					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
+					updateface.updateView(newUserBean,1);
+				}else{
+					updateface.updateView(newUserBean,2);
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}else{
 			showNotification(context);
@@ -137,6 +148,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		mBuilder.setContentTitle("测试标题")
 		.setContentText("测试内容")
 		.setTicker("测试通知来啦")//通知首次出现在通知栏，带上升动画效果的
+		.setAutoCancel(true)
 		.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
 		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
 		.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：

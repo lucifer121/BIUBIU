@@ -20,6 +20,11 @@ public class BaseActivity extends Activity{
 		//启动百度云推送
 		PushManager.startWork(getApplicationContext(),PushConstants.LOGIN_TYPE_API_KEY,"v3FkYC4w53w46uuvw9L6qBF1");
 	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
 	/**
 	 * 显示Toast长通知
 	 * 
