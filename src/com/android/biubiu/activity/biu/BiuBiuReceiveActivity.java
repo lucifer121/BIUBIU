@@ -109,8 +109,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		});
 		
 		
-	}
-	
+	}	
 	/**
 	 * 设置 Gridview高度
 	 */
@@ -126,6 +125,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		params.height = mHight;
 		mGridView.setLayoutParams(params);
 
+	}
+	/**
+	 * 抢biu
+	 */
+	public void grabBiu(){
+		
 	}
 
 	
