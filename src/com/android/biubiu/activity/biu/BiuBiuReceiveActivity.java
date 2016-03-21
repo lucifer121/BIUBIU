@@ -122,7 +122,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					Gson gson=new Gson();
 					biuDEtialBean=gson.fromJson(jsons.getJSONObject("data").toString(), BiuDetialBean.class);
 					
-					userName.setText(""+biuDEtialBean.getUser_code());
+					
+					mList.addAll(biuDEtialBean.getHit_tags());
+					
+					
+					interestAdapter.notifyDataSetChanged();
+					userName.setText(""+biuDEtialBean.getNickname());
 					distance.setText(biuDEtialBean.getDistance()+"m");
 					matchingScore.setText(""+biuDEtialBean.getMatching_score()+"%");
 					
