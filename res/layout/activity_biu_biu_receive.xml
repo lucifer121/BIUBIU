@@ -64,6 +64,7 @@
                     android:gravity="center" >
 
                     <TextView
+                        android:id="@+id/name_receive_biu_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/receive_biu_name"
@@ -88,6 +89,7 @@
                             android:layout_weight="1" >
 
                             <TextView
+                                android:id="@+id/distanse_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/biu_receive_imageview_distance"
@@ -118,6 +120,7 @@
                                 android:textColor="@color/text_huise" />
 
                             <TextView
+                                android:id="@+id/matching_score_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="13dp"
@@ -133,6 +136,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/time_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="11dp"
@@ -170,6 +174,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/sex_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -180,6 +185,7 @@
                             android:textSize="13sp" />
 
                         <TextView
+                              android:id="@+id/age_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
@@ -191,6 +197,7 @@
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/starsign_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
@@ -202,6 +209,7 @@
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/school_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="13dp"
@@ -229,7 +237,8 @@
                         android:layout_centerInParent="true"
                         android:orientation="horizontal" >
 
-                        <TextView
+                        <TextView 
+                            android:id="@+id/number_in_personalTag_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receive_biu_interest_tag_number" />
@@ -288,6 +297,7 @@
                         android:orientation="horizontal" >
 
                         <TextView
+                            android:id="@+id/number_interestTag_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receive_biu_interest_tag_number" />

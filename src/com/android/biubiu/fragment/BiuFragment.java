@@ -266,6 +266,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					isBiuState = true;
 					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
 					//进入聊天界面
+					
 				}
 			}
 		});
