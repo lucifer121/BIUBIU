@@ -26,6 +26,7 @@ import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
@@ -543,7 +544,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			gifIv.setVisibility(View.GONE);
 		}
 		//layout与头像宽高差 像素
-		int margin = (58-46)*2;
+		int margin = DensityUtil.dip2px(getActivity(), (58-46));
 		if(lWidth != userD1){
 			margin = (int) (margin*lWidth/userD1);
 		}
@@ -557,9 +558,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
 		rl.addView(imageViewbg, imagebg);
 		if(lWidth != userD1){
-			margin = margin+4;
+			margin = margin+DensityUtil.dip2px(getActivity(), 2);
 		}else{
-			margin = margin+8;
+			margin = margin+DensityUtil.dip2px(getActivity(), 4);
 		}
 		ImageView imageView = new ImageView(getActivity());
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
@@ -573,15 +574,15 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		final ImageView imageViewL = new ImageView(getActivity());
 		//红点layout直径
-		int dotD = 16;
+		int dotD = DensityUtil.dip2px(getActivity(), 8);
 		if(lWidth != userD1){
 			dotD = (int) (dotD*lWidth/userD1);
 		}
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		//基于头像底部 右侧 偏移d/4
 		//imagePL.leftMargin = dotD/4;
-		imagePL.rightMargin = 4;
-		imagePL.bottomMargin = 2;
+		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 4);
+		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
 		imageViewL.setTag(imvDotTag+bean.getChatId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());

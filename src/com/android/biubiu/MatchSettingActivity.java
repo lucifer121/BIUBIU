@@ -23,6 +23,7 @@ import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.baidu.android.pushservice.PushManager;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -581,6 +582,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 
 			@Override
 			public void onSuccess(String arg0) {
+				PushManager.stopWork(getApplicationContext());
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);
