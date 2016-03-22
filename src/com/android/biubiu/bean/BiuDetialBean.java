@@ -121,7 +121,7 @@ public class BiuDetialBean {
 		this.user_code = user_code;
 	}
 
-	public double getDistance() {
+	public long getDistance() {
 		return distance;
 	}
 

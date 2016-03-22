@@ -33,6 +33,15 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentLi
 		// TODO Auto-generated method stub
 		super.setUpView();
 	     // 设置标题栏点击事件
+		titleBar.setRightImageResource(R.drawable.mes_btn_right);
+		titleBar.setRightLayoutClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getActivity(), "更多", Toast.LENGTH_SHORT).show();
+			}
+		});
         titleBar.setLeftLayoutClickListener(new OnClickListener() {
 
             @Override
