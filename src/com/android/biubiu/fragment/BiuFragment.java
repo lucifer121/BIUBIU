@@ -16,6 +16,7 @@ import org.xutils.image.ImageOptions;
 
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.bean.DotBean;
@@ -25,9 +26,11 @@ import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.TaskView;
@@ -50,6 +53,7 @@ import com.ant.liao.GifView.GifImageType;
 
 
 
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -63,6 +67,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.support.v4.app.Fragment;
+import android.text.LoginFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +96,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	Handler taskHandler;
 	Handler infoHandler;
 	Handler removeHandler;
+	//抢biubiu的用户，有则显示 没有则不显示
+	UserBean userBiuBean;
 	//圆心坐标
 	float x0 = 0;
 	float y0 = 0;
@@ -169,6 +176,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 		init();
 		drawBiuView();
 		setBiuLayout();
+		if(!LoginUtils.isLogin(getActivity())){
+			//获取未登录时的biubiu列表
+			getBiuListUnlogin();
+		}
 		return view;
 	}
 	@Override
@@ -176,8 +187,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		super.onResume();
 		initUserGroup();
-		//执行加载页面所有信息的请求
-		getAllUser();
+		if(LoginUtils.isLogin(getActivity())){
+			//执行加载页面所有信息的请求
+			getAllUser();
+		}
 	}
 	private void init() {
 		// TODO Auto-generated method stub
@@ -205,7 +218,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		animationAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
 		animationHide = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_anim);
 		animationUserBg = AnimationUtils.loadAnimation(getActivity(), R.anim.user_gif_alpha);
-		
+
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.chat_img_profiles_default)
@@ -256,6 +269,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(!LoginUtils.isLogin(getActivity())){
+					Intent intent = new Intent(getActivity(),LoginOrRegisterActivity.class);
+					startActivity(intent);
+					return;
+				}
 				if(currentTime > 0){
 					return;
 				}
@@ -266,8 +284,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 				}else{
 					isBiuState = true;
 					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
+					//标记抢我biubiu的人为已读
+					updateBiuState();
 					//进入聊天界面
-					
+
 				}
 			}
 		});
@@ -432,10 +452,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 			userBiuImv.setVisibility(View.VISIBLE);
 			currentTime = 0;
 			taskHandler.removeCallbacks(taskR);
-			return;
 		}
 		x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
-		userBiuImv.setImageResource(R.drawable.chat_img_profiles_default);
 	}
 	//显示底部的信息view
 	private void showInfoLayout(UserBean bean) {
@@ -525,7 +543,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			gifIv.setVisibility(View.GONE);
 		}
 		//layout与头像宽高差 像素
-		int margin = (58-46)*2;
+		int margin = DensityUtil.dip2px(getActivity(), (58-46));
 		if(lWidth != userD1){
 			margin = (int) (margin*lWidth/userD1);
 		}
@@ -539,9 +557,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
 		rl.addView(imageViewbg, imagebg);
 		if(lWidth != userD1){
-			margin = margin+4;
+			margin = margin+DensityUtil.dip2px(getActivity(), 2);
 		}else{
-			margin = margin+8;
+			margin = margin+DensityUtil.dip2px(getActivity(), 4);
 		}
 		ImageView imageView = new ImageView(getActivity());
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
@@ -555,15 +573,15 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		final ImageView imageViewL = new ImageView(getActivity());
 		//红点layout直径
-		int dotD = 16;
+		int dotD = DensityUtil.dip2px(getActivity(), 8);
 		if(lWidth != userD1){
 			dotD = (int) (dotD*lWidth/userD1);
 		}
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		//基于头像底部 右侧 偏移d/4
 		//imagePL.leftMargin = dotD/4;
-		imagePL.rightMargin = 4;
-		imagePL.bottomMargin = 2;
+		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 4);
+		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
 		imageViewL.setTag(imvDotTag+bean.getChatId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());
@@ -760,6 +778,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 2:
 			//匹配的人被抢啦
 			String chatId = userBean.getChatId();
+			LogUtil.d("mytest", chatId);
 			removeView(chatId);
 			break;
 		default:
@@ -816,6 +835,15 @@ public class BiuFragment extends Fragment implements PushInterface{
 					int biuCoin = data.getInt("virtual_currency");
 					MainActivity.biuCoinTv.setText(""+biuCoin);
 					Gson gson = new Gson();
+					JSONObject biuObject = data.getJSONObject("mylatestbiu");
+					UserBean bean = gson.fromJson(biuObject.toString(), UserBean.class);
+					if(null != bean){
+						userBiuBean = bean;
+						if(userBiuBean.getAlreadSeen().equals(Constants.UN_SEEN)){
+							isBiuState = false;
+							x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
+						}
+					}
 					ArrayList<UserBean> list = gson.fromJson(userArray.toString(), new TypeToken<List<UserBean>>(){}.getType());
 					if(null != list && list.size()>0){
 						addAllView(list);
@@ -827,8 +855,68 @@ public class BiuFragment extends Fragment implements PushInterface{
 			}
 		});
 	}
-	Runnable removeR = new Runnable() {
+	//标记抢我biubiu币的人为已读
+	protected void updateBiuState() {
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_BIU_STATE);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+			LogUtil.d("mytest", "biubean--"+userBiuBean.getChatId());
+			requestObject.put("chat_id",userBiuBean.getChatId());
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				LogUtil.d("mytest", "updatebiu--"+result);
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						return;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	//获取未登录时的biubiu列表
+	private void getBiuListUnlogin() {
+		// TODO Auto-generated method stub
 		
+	}
+	Runnable removeR = new Runnable() {
+
 		@Override
 		public void run() {
 			if(null != user1List && user1List.size()>0){

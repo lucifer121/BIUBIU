@@ -137,8 +137,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView schoolArrow;
 	private ImageView personalArrow;
 	private ImageView interestArrow;
-	private LinearLayout loadingLayout;
-	
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private UserPagerPhotoAdapter photoAdapter;
@@ -232,7 +230,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		schoolArrow = (ImageView) findViewById(R.id.school_arrow);
 		personalArrow = (ImageView) findViewById(R.id.personal_arrow);
 		interestArrow = (ImageView) findViewById(R.id.interest_arrow);
-		loadingLayout = (LinearLayout) findViewById(R.id.loading_layout);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -352,12 +349,21 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	//获取用户主页数据
 	private void getUserInfo(){
+		showLoadingLayout(getResources().getString(R.string.loading));
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
-			loadingLayout.setVisibility(View.GONE);
-			toastShort("网络未连接");
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					getUserInfo();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
 			return;
 		}
-		loadingLayout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.MY_PAGER_INFO);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -379,7 +385,16 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						getUserInfo();
+					}
+				});
 				Log.d("mytest", "error--pp"+ex.getMessage());
 				Log.d("mytest", "error--pp"+ex.getCause());
 			}
@@ -394,7 +409,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
 				LogUtil.d("mytest", result);
-				loadingLayout.setVisibility(View.GONE);
+				dismissLoadingLayout();
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
@@ -402,6 +417,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					String info = data.getJSONObject("userinfo").toString();
 					String token = data.getString("token");
 					if(!state.equals("200")){
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								getUserInfo();
+							}
+						});
 						toastShort("获取数据失败");
 						return;
 					}
@@ -552,7 +576,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				
+				dismissLoadingLayout();
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
@@ -626,6 +650,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 			@Override
 			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				dismissLoadingLayout();
 				// 请求异常
 				if (clientExcepion != null) {
 					// 本地异常如网络异常等
@@ -667,7 +692,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
-				
+				dismissLoadingLayout();
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
@@ -680,7 +705,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onSuccess(String result) {
-				
+				dismissLoadingLayout();
 				LogUtil.d("mutest", "uploadph=="+result);
 				JSONObject jsons;
 				try {
@@ -751,6 +776,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				cursor.moveToFirst();
 				//最后根据索引值获取图片路径
 				String path = cursor.getString(column_index);
+				showLoadingLayout(getResources().getString(R.string.uploading));
+				if(!NetUtils.isNetworkConnected(getApplicationContext())){
+					dismissLoadingLayout();
+					toastShort(getResources().getString(R.string.net_error));
+					return;
+				}
 				//上传图片鉴权
 				getOssToken(path);
 			} catch (FileNotFoundException e) {

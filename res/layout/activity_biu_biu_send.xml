@@ -17,6 +17,7 @@
             android:layout_height="44dp"
             android:background="@drawable/kongjianruoqu_bg"
             android:gravity="center" >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,16 +94,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/id_send_biu_top_rl"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_centerInParent="true"
-             />
-        <View 
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="120.5dp"
             android:layout_below="@id/flowlayout"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
     </RelativeLayout>
 
     <Button
@@ -116,23 +116,26 @@
         android:text="@string/send_biu_send"
         android:textColor="@color/white"
         android:textSize="13sp" />
-    
+
     <ImageView
         android:id="@+id/photo_head_senbiu_img_bg"
         android:layout_width="82dp"
         android:layout_height="82dp"
-        android:layout_marginTop="50dp"
         android:layout_below="@+id/top__send_biu_rl"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:src="@drawable/biu_imageview_photo_circle" />
 
     <ImageView
         android:id="@+id/photo_head_senbiu_img"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="50dp"
         android:layout_below="@+id/top__send_biu_rl"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:src="@drawable/biu_imageview_photo" />
+
+    <include layout="@layout/loading_layout" 
+        android:visibility="gone"/>
 
 </RelativeLayout>

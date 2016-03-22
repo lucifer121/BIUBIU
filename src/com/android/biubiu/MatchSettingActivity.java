@@ -23,6 +23,7 @@ import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.baidu.android.pushservice.PushManager;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -67,7 +68,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private RelativeLayout msgLayout;
 	private RelativeLayout voiceLayout;
 	private RelativeLayout shockLayout;
-	private LinearLayout loading_layout;
 	RangeSeekBar<Integer> seekBar;
 
 	private boolean isSelBoy = true;
@@ -118,7 +118,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		voiceLayout.setOnClickListener(this);
 		shockLayout = (RelativeLayout) findViewById(R.id.shock_layout);
 		shockLayout.setOnClickListener(this);
-		loading_layout = (LinearLayout) findViewById(R.id.loading_layout);
 
 		seekBar = new RangeSeekBar<Integer>(16, 40, this);
 
@@ -309,12 +308,21 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 加载数据
 	 */
 	public void initlodo(){
+		showLoadingLayout(getResources().getString(R.string.loading));
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
-			loading_layout.setVisibility(View.GONE);
-			toastShort("网络未连接");
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					initlodo();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
 			return;
 		}
-		loading_layout.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_SETTING);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -336,6 +344,16 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						initlodo();
+					}
+				});
 				LogUtil.d(TAG, ""+arg0.getMessage());
 				Toast.makeText(x.app(), arg0.getMessage(), Toast.LENGTH_SHORT).show();
 			}
@@ -348,7 +366,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 
 			@Override
 			public void onSuccess(String arg0) {
-				loading_layout.setVisibility(View.GONE);
+				dismissLoadingLayout();
 				LogUtil.d("mytest", "set--"+arg0);
 				JSONObject jsons;
 				try {
@@ -357,6 +375,15 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					LogUtil.d(TAG, ""+code);
 					if(code.equals("200")==false){
 						if(code.equals("300")==true){
+							showErrorLayout(new OnClickListener() {
+								
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									dismissErrorLayout();
+									initlodo();
+								}
+							});
 							String error=jsons.getString("error");
 							toastShort(error);
 						}
@@ -390,8 +417,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 */
 	private void saveSetInfo() {
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
-			loading_layout.setVisibility(View.GONE);
-			toastShort("网络未连接");
+			dismissLoadingLayout();
+			finish();
 			return;
 		}
 		updateSetBean();
@@ -471,6 +498,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private void updateSetBean() {
 		// TODO Auto-generated method stub
 		if(null == setBean){
+			finish();
 			return;
 		}
 		int minAge = 0;
@@ -519,8 +547,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 */
 	private void exitApp() {
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
-			loading_layout.setVisibility(View.GONE);
-			toastShort("网络未连接");
+			toastShort(getResources().getString(R.string.net_error));
 			return;
 		}
 		RequestParams params = new RequestParams(""+HttpContants.HTTP_ADDRESS+HttpContants.EXIT);
@@ -555,6 +582,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 
 			@Override
 			public void onSuccess(String arg0) {
+				PushManager.stopWork(getApplicationContext());
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);

@@ -14,6 +14,7 @@ import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.LogUtil.log;
@@ -84,6 +85,11 @@ public class LoginActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(!NetUtils.isNetworkConnected(getApplicationContext())){
+					toastShort(getResources().getString(R.string.net_error));
+					return;
+				}
+				showLoadingLayout(getResources().getString(R.string.logining));
 				login(phoneEt.getText().toString(),passwordEt.getText().toString());
 				
 			}
@@ -181,6 +187,7 @@ public class LoginActivity extends BaseActivity{
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				Log.d("mytest", "result--"+arg0);
 		//		Toast.makeText(x.app(), arg0, Toast.LENGTH_LONG).show();
 				JSONObject jsons;
@@ -205,8 +212,10 @@ public class LoginActivity extends BaseActivity{
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
 					loginHuanXin(hxName,HxPassword,token);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
-					
-					
+					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

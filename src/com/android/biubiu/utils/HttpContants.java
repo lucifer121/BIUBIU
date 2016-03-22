@@ -87,6 +87,16 @@ public class HttpContants {
 	 * 获取biubiu列表
 	 */
 	public static final String GET_BIU_LIST = "app/biubiu/biubiuList";
-	
+	/**
+	 * 获取biubiu详情
+	 */
 	public static final String BIU_DETIAL="app/biubiu/biuDetails";
+	/**
+	 * 修改抢biubiu人状态
+	 */
+	public static final String UPDATE_BIU_STATE="app/biubiu/updateChatListState";
+	/**
+	 * 获取未登录时biubiu列表
+	 */
+	public static final String GET_UNLOGIN_BIU_LIST="app/biubiu/updateChatListState";
 }
