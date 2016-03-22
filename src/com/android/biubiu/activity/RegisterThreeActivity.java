@@ -34,6 +34,7 @@ import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.AVException;
@@ -169,6 +170,10 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			overridePendingTransition(0,R.anim.right_out_anim);
 			break;
 		case R.id.register_get_verify_tv:
+			if(!NetUtils.isNetworkConnected(getApplicationContext())){
+				toastShort(getResources().getString(R.string.net_error));
+				return;
+			}
 			queryIsHad();
 			break;
 		case R.id.register_compl_layout:
@@ -287,6 +292,11 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			toastShort(getResources().getString(R.string.reg_three_no_password));
 			return;
 		}
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		showLoadingLayout(getResources().getString(R.string.registering));
 		//验证  验证码
 		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
@@ -295,6 +305,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				if (e == null) {
 					getOssToken();
 				} else {
+					dismissLoadingLayout();
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
@@ -447,6 +458,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
@@ -462,6 +474,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					JSONObject obj = jsons.getJSONObject("data");
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, username);
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, passwprd);
 					String token = obj.getString("token");
 					String nickname = obj.getString("nickname");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
@@ -512,10 +526,6 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				LogUtil.e(TAG, "登录成功环信");
 				//把token 存在本地
 				SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
-				Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-
 			}
 
 			@Override

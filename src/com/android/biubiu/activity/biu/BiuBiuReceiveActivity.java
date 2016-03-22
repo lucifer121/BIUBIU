@@ -20,6 +20,7 @@ import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
@@ -104,7 +105,6 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-			
 			grabBiu();
 			}
 		});
@@ -122,8 +122,21 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	}	
 
 	private void initData() {
-
-		LogUtil.d(TAG, "diao detial");
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					initData();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		showLoadingLayout(getResources().getString(R.string.loading));
 		//初始化页面
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.BIU_DETIAL);
 		JSONObject requestObject = new JSONObject();
@@ -151,6 +164,16 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						initData();
+					}
+				});
 				LogUtil.d(TAG, arg0.getMessage());
 			}
 
@@ -163,6 +186,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				LogUtil.e(TAG, arg0);
 				JSONObject jsons;				
 				try {
@@ -170,6 +194,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					String code = jsons.getString("state");
 					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								initData();
+							}
+						});
 						toastShort(""+jsons.getString("error"));	
 						return;
 					}	
@@ -246,24 +279,6 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	}
 
 
-	Handler handler=new Handler(){
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-
-				break;
-
-			default:
-				break;
-			}
-		}
-		
-		
-	};
 	/**
 	 * 设置 Gridview高度
 	 */
@@ -286,6 +301,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	 * 抢biu
 	 */
 	public void grabBiu(){
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		showLoadingLayout(getResources().getString(R.string.grabing));
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GRAB_BIU);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -322,6 +342,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				Log.d(TAG, "result--"+arg0);
 				JSONObject jsons;
 			

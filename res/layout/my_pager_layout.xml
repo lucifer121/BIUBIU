@@ -848,5 +848,7 @@
     </ScrollView>
      <include layout="@layout/loading_layout"
          android:visibility="gone"/>
+     <include layout="@layout/load_error_layout"
+         android:visibility="gone"/>
 </FrameLayout>
 </LinearLayout>

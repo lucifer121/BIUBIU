@@ -36,7 +36,9 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
+<FrameLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -398,5 +400,7 @@
                 android:src="@drawable/biu_imageview_photo" />
         </RelativeLayout>
     </ScrollView>
-
+    <include  layout="@layout/loading_layout"/>
+    <include  layout="@layout/load_error_layout"/>
+</FrameLayout>
 </RelativeLayout>

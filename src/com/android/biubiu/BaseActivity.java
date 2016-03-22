@@ -1,16 +1,30 @@
 package com.android.biubiu;
 
+import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.ant.liao.GifView;
+import com.ant.liao.GifView.GifImageType;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.google.android.gms.internal.er;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BaseActivity extends Activity{
+	private LinearLayout loadingLayout;
+	private GifView loadGif;
+	private TextView loadTv;
+	private LinearLayout errorLayout;
+	private LinearLayout reloadLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,5 +60,47 @@ public class BaseActivity extends Activity{
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+	}
+	//显示加载中
+	public void showLoadingLayout(String loadingStr){
+		if(loadingLayout == null){
+			loadingLayout = (LinearLayout) findViewById(R.id.loading_layout);
+		}
+		if(loadGif == null){
+			loadGif = (GifView) findViewById(R.id.load_gif);
+		}
+		if(loadTv == null){
+			loadTv = (TextView) findViewById(R.id.loading_tv);
+		}
+		loadGif.setGifImage(R.drawable.loadingbbbb);
+		loadGif.setShowDimension(DensityUtil.dip2px(getApplicationContext(), 30), DensityUtil.dip2px(getApplicationContext(), 30));
+		loadGif.setGifImageType(GifImageType.COVER);
+		loadTv.setText(loadingStr);
+		loadingLayout.setVisibility(View.VISIBLE);
+	}
+	//加载完毕隐藏
+	public void dismissLoadingLayout(){
+		if(loadingLayout == null){
+			loadingLayout = (LinearLayout) findViewById(R.id.loading_layout);
+		}
+		loadingLayout.setVisibility(View.GONE);
+	}
+	//显示错误界面
+	public void showErrorLayout(OnClickListener listener){
+		if(errorLayout == null){
+			errorLayout = (LinearLayout) findViewById(R.id.error_layout);
+		}
+		if(reloadLayout == null){
+			reloadLayout = (LinearLayout) findViewById(R.id.reloading_layout);
+		}
+		reloadLayout.setOnClickListener(listener);
+		errorLayout.setVisibility(View.VISIBLE);
+	}
+	//显示错误界面
+	public void dismissErrorLayout(){
+		if(errorLayout == null){
+			errorLayout = (LinearLayout) findViewById(R.id.error_layout);
+		}
+		errorLayout.setVisibility(View.GONE);
 	}
 }

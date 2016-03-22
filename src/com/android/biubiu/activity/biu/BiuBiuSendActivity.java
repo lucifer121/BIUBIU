@@ -16,6 +16,7 @@ import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.Flowlayout;
@@ -81,8 +82,6 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void initData() {
 		// TODO Auto-generated method stub
-		
-
 			RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 			JSONObject requestObject = new JSONObject();		
 			try {
@@ -256,6 +255,11 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	 * 发送biu
 	 */
 	private void sendBiu(String chatTag){
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		showLoadingLayout(getResources().getString(R.string.sending));
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.SEND_BIU);
 		JSONObject requestObject = new JSONObject();
 		try {

@@ -1,211 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:background="@color/register_bg"
-    android:orientation="vertical" >
-
-   <RelativeLayout
-        android:id="@+id/registerthree_top_rl"
+    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/main_green" >
+        android:layout_height="match_parent"
+        android:background="@color/register_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/back_registerone_rl"
-            android:layout_width="52dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/kongjianruoqu_bg" >
+            android:id="@+id/registerthree_top_rl"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/main_green" >
+
+            <RelativeLayout
+                android:id="@+id/back_registerone_rl"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/kongjianruoqu_bg" >
+
+                <ImageView
+                    android:id="@+id/title_left_imv"
+                    android:layout_width="22dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14dp"
+                    android:padding="6dp"
+                    android:src="@drawable/main_name_btn_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/login_title_text"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+ <include layout="@layout/loading_layout" /> 
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="59dp"
+            android:gravity="center" >
 
             <ImageView
-                android:id="@+id/title_left_imv"
-                android:layout_width="22dp"
-                android:layout_height="26dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="14dp"
-                android:padding="6dp"
-                android:src="@drawable/main_name_btn_back" />
+                android:id="@+id/userhead_imv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/regist_imageview_intophoto" />
+
+            <TextView
+                android:id="@+id/virify_tv"
+                android:layout_width="58.5dp"
+                android:layout_height="22dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/register_imageview_photo_bg"
+                android:gravity="center"
+                android:text="待审核"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/photo_imageview" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/login_title_text"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-    <RelativeLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="59dp"
-        android:gravity="center" >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/login_imaginview_phone" />
 
-        <ImageView
-            android:id="@+id/userhead_imv"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/regist_imageview_intophoto" />
+            <EditText
+                android:id="@+id/register_phone_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/register_three_phone"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="@color/register_name_text"
+                android:textSize="13sp" >
 
-        <TextView
-            android:id="@+id/virify_tv"
-            android:layout_width="58.5dp"
-            android:layout_height="22dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/register_imageview_photo_bg"
-            android:gravity="center"
-            android:text="待审核"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/photo_imageview" />
-    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/register_view" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="45dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/login_imaginview_phone" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/login_imaginview_number" />
 
-        <EditText
-            android:id="@+id/register_phone_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:inputType="phone"
-            android:singleLine="true"
-            android:maxLength="11"
-            android:hint="@string/register_three_phone"
-            android:textColor="@color/register_name_text"
-            android:textSize="13sp" >
+            <EditText
+                android:id="@+id/register_verify_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/register_three_verify"
+                android:textColor="@color/register_name_text"
+                android:textSize="13sp" />
 
-            <requestFocus />
-        </EditText>
+            <TextView
+                android:id="@+id/register_get_verify_tv"
+                android:layout_width="75dp"
+                android:layout_height="22dp"
+                android:background="@drawable/register_phone_btn"
+                android:gravity="center"
+                android:text="@string/register_three_send_verify"
+                android:textColor="@color/main_text_gray"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/register_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/login_imaginview_number" />
+
+            <EditText
+                android:id="@+id/register_psd_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/register_three_psd"
+                android:inputType="textPassword"
+                android:textColor="@color/register_name_text"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/register_view" />
+
+        <RelativeLayout
+            android:id="@+id/register_compl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="62.5dp"
+            android:layout_marginRight="62.5dp"
+            android:layout_marginTop="78dp"
+            android:background="@drawable/register_btn_disabled" >
+
+            <TextView
+                android:id="@+id/verify_colplete_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/register_complete"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@color/register_view" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/login_imaginview_number" />
-
-        <EditText
-            android:id="@+id/register_verify_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="@string/register_three_verify"
-            android:textColor="@color/register_name_text"
-            android:textSize="13sp" />
-        <TextView
-            android:id="@+id/register_get_verify_tv"
-            android:layout_width="75dp"
-            android:layout_height="22dp"
-            android:gravity="center"
-            android:background="@drawable/register_phone_btn"
-            android:textSize="10sp"
-            android:textColor="@color/main_text_gray"
-            android:text="@string/register_three_send_verify" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@color/register_view" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/login_imaginview_number" />
-
-        <EditText
-            android:id="@+id/register_psd_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="@string/register_three_psd"
-            android:textColor="@color/register_name_text"
-            android:inputType="textPassword"
-            android:textSize="13sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@color/register_view" />
-
-    <RelativeLayout
-        android:id="@+id/register_compl_layout"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="62.5dp"
-        android:layout_marginRight="62.5dp"
-        android:layout_marginTop="78dp"
-
-        android:background="@drawable/register_btn_disabled" >
-
-
-        <TextView
-            android:id="@+id/verify_colplete_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/register_complete"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-</LinearLayout>
