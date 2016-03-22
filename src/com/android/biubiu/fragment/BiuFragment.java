@@ -176,10 +176,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		init();
 		drawBiuView();
 		setBiuLayout();
-		if(!LoginUtils.isLogin(getActivity())){
-			//获取未登录时的biubiu列表
-			getBiuListUnlogin();
-		}
 		return view;
 	}
 	@Override
@@ -190,6 +186,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(LoginUtils.isLogin(getActivity())){
 			//执行加载页面所有信息的请求
 			getAllUser();
+		}else{
+			//获取未登录时的biubiu列表
+			getBiuListUnlogin();
 		}
 	}
 	private void init() {
@@ -656,7 +655,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		tv.setVisibility(View.GONE);*/
 	}
 	//加入所有list中的view
-	protected void addAllView(ArrayList<UserBean> list) {
+	protected void addAllView(ArrayList<UserBean> list,boolean isLogin) {
 		int length = 0;
 		if(list.size()>25){
 			length = 25;
@@ -729,7 +728,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 			}
 		}
-		//removeHandler.post(removeR);
+		if(isLogin){
+			removeHandler.post(removeR);
+		}
 	}
 	@Override
 	public void onPause() {
@@ -773,6 +774,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 1:
 			//biubiu被抢啦
 			isBiuState = false;
+			userBiuBean = userBean;
 			updateBiuView(userBean);
 			break;
 		case 2:
@@ -836,17 +838,19 @@ public class BiuFragment extends Fragment implements PushInterface{
 					MainActivity.biuCoinTv.setText(""+biuCoin);
 					Gson gson = new Gson();
 					JSONObject biuObject = data.getJSONObject("mylatestbiu");
-					UserBean bean = gson.fromJson(biuObject.toString(), UserBean.class);
-					if(null != bean){
-						userBiuBean = bean;
-						if(userBiuBean.getAlreadSeen().equals(Constants.UN_SEEN)){
-							isBiuState = false;
-							x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
+					if(biuObject!=null && !biuObject.toString().equals("{}")){
+						UserBean bean = gson.fromJson(biuObject.toString(), UserBean.class);
+						if(null != bean){
+							userBiuBean = bean;
+							if(userBiuBean.getAlreadSeen().equals(Constants.UN_SEEN)){
+								isBiuState = false;
+								x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
+							}
 						}
 					}
 					ArrayList<UserBean> list = gson.fromJson(userArray.toString(), new TypeToken<List<UserBean>>(){}.getType());
 					if(null != list && list.size()>0){
-						addAllView(list);
+						addAllView(list,true);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -913,32 +917,87 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//获取未登录时的biubiu列表
 	private void getBiuListUnlogin() {
 		// TODO Auto-generated method stub
-		
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_UNLOGIN_BIU_LIST);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "getall--"+result);
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						return;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					JSONArray userArray = data.getJSONArray("users");
+					Gson gson = new Gson();
+					ArrayList<UserBean> list = gson.fromJson(userArray.toString(), new TypeToken<List<UserBean>>(){}.getType());
+					if(null != list && list.size()>0){
+						addAllView(list,false);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	Runnable removeR = new Runnable() {
 
 		@Override
 		public void run() {
+			long current = System.currentTimeMillis();
 			if(null != user1List && user1List.size()>0){
 				Collections.sort(user1List,new SorByTime());
 				UserBean bean = user1List.get(0);
-				if(bean.getTime()>1000*60*60){
+				if((current - bean.getTime())>1000*60*60){
 					removeView(bean.getChatId());
 				}
 			}
 			if(null != user2List && user2List.size()>0){
 				Collections.sort(user2List,new SorByTime());
 				UserBean bean = user2List.get(0);
-				if(bean.getTime()>1000*60*60){
+				if((current - bean.getTime())>1000*60*60){
 					removeView(bean.getChatId());
 				}
 			}
 			if(null != user3List && user3List.size()>0){
 				Collections.sort(user3List,new SorByTime());
 				UserBean bean = user3List.get(0);
-				if(bean.getTime()>1000*60*60){
+				if((current - bean.getTime())>1000*60*60){
 					removeView(bean.getChatId());
 				}
+				removeHandler.removeCallbacks(removeR);
 			}
 			removeHandler.postDelayed(removeR, 1000);
 		}

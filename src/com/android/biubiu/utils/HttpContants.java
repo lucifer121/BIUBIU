@@ -98,5 +98,5 @@ public class HttpContants {
 	/**
 	 * 获取未登录时biubiu列表
 	 */
-	public static final String GET_UNLOGIN_BIU_LIST="app/biubiu/updateChatListState";
+	public static final String GET_UNLOGIN_BIU_LIST="app/auth/biubiuListUnlogin";
 }
