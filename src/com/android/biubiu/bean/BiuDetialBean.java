@@ -8,6 +8,8 @@ import android.R.integer;
 
 public class BiuDetialBean {
 	
+	private String nickname;
+	
 	@SerializedName("token")
 	private String token;
 	/**
@@ -67,7 +69,7 @@ public class BiuDetialBean {
 	private int  hit_tags_num;
 	
 	@SerializedName("hit_tags")
-	private List<PersonalTagBean> hit_tags;
+	private List<InterestTagBean> hit_tags;
 	
 	/**
 	 * 共同兴趣个数
@@ -82,6 +84,22 @@ public class BiuDetialBean {
 	public String getToken() {
 		return token;
 	}
+	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+	public void setDistance(long distance) {
+		this.distance = distance;
+	}
+
 
 	public void setToken(String token) {
 		this.token = token;
@@ -175,11 +193,11 @@ public class BiuDetialBean {
 		this.hit_tags_num = hit_tags_num;
 	}
 
-	public List<PersonalTagBean> getHit_tags() {
+	public List<InterestTagBean> getHit_tags() {
 		return hit_tags;
 	}
 
-	public void setHit_tags(List<PersonalTagBean> hit_tags) {
+	public void setHit_tags(List<InterestTagBean> hit_tags) {
 		this.hit_tags = hit_tags;
 	}
 
