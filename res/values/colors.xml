@@ -67,5 +67,6 @@
     
     <!--  发biu-->
     <color name="set_biu_bg">#efebe8</color>
+    <color name="hui">#e7eeed</color>
 
 </resources>
