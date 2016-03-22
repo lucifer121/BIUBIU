@@ -167,5 +167,12 @@
   	<string name="chat_userlist_delete_dismiss">取消</string>
   	<string name="chat_userlist_delete_ok">返回抢biu</string>
   	
+  	<string name="chat_item_go_userHome">查看个人主页</string>
+  	<string name="chat_item_delete_messages">清空聊天记录</string>
+  	<string name="chat_item_jubao">举报</string>
+  	<string name="chat_item_delete_friends">解除关系</string>
+  	<string name="chat_item_dismiss">取消</string>
+  	
+  	
 
 </resources>
