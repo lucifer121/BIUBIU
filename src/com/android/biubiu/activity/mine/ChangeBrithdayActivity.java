@@ -2,6 +2,8 @@ package com.android.biubiu.activity.mine;
 
 
 
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -17,11 +19,15 @@ import com.android.biubiu.R.layout;
 
 
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.common.MyDatePicker;
 import com.android.biubiu.utils.DateUtils;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.okhttp.Callback;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.Response;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -96,8 +102,22 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 
 					birthLong = DateUtils.getStringToDate(birthday.getText()
 							.toString());
+					
 				}
+				
 			}, year, month, day).show();
+//			new MyDatePicker(ChangeBrithdayActivity.this, new OnDateSetListener() {
+//				
+//				@Override
+//				public void onDateSet(DatePicker arg0, int year, int month, int day
+//						) {
+//					// TODO Auto-generated method stub
+//					birthday.setText(year + "-" + (month + 1) + "-" + day);
+//
+//					birthLong = DateUtils.getStringToDate(birthday.getText()
+//							.toString());
+//				}
+//			}, year, month, day,1).show();
 			break;
 		// 点击 完成 上传时间
 		case R.id.mine_changebirth_wancheng_rl:
