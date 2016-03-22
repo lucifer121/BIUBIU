@@ -1,5 +1,6 @@
 package com.android.biubiu.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -69,7 +70,7 @@ public class BiuDetialBean {
 	private int  hit_tags_num;
 	
 	@SerializedName("hit_tags")
-	private List<InterestTagBean> hit_tags;
+	private List<PersonalTagBean> hit_tags;
 	
 	/**
 	 * 共同兴趣个数
@@ -79,7 +80,7 @@ public class BiuDetialBean {
 	@SerializedName("carrer")
 	private String carrer;
 	@SerializedName("interested_tags")
-	private List<InterestByCateBean> interested_tags;
+	private ArrayList<InterestByCateBean> interested_tags;
 
 	public String getToken() {
 		return token;
@@ -193,11 +194,11 @@ public class BiuDetialBean {
 		this.hit_tags_num = hit_tags_num;
 	}
 
-	public List<InterestTagBean> getHit_tags() {
+	public List<PersonalTagBean> getHit_tags() {
 		return hit_tags;
 	}
 
-	public void setHit_tags(List<InterestTagBean> hit_tags) {
+	public void setHit_tags(List<PersonalTagBean> hit_tags) {
 		this.hit_tags = hit_tags;
 	}
 
@@ -209,11 +210,11 @@ public class BiuDetialBean {
 		this.interested_tags_num = interested_tags_num;
 	}
 
-	public List<InterestByCateBean> getInterested_tags() {
+	public ArrayList<InterestByCateBean> getInterested_tags() {
 		return interested_tags;
 	}
 
-	public void setInterested_tags(List<InterestByCateBean> interested_tags) {
+	public void setInterested_tags(ArrayList<InterestByCateBean> interested_tags) {
 		this.interested_tags = interested_tags;
 	}
 
