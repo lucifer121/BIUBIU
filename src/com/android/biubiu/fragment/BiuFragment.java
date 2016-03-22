@@ -14,6 +14,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
@@ -105,7 +106,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//三个圈放置view数
 	int n1 = 5;
 	int n2 = 8;
-	int n3 = 10;
+	int n3 = 12;
 	//倒计时总时间和当前时间
 	int totalTime = 90;
 	int currentTime = 0;
@@ -150,6 +151,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	ImageView userBiuBg;
 	Animation animationAlpha;
 	Animation animationHide;
+	Animation animationUserBg;
 
 	//中间是否为biubiu可发送状态
 	boolean isBiuState = true;
@@ -202,6 +204,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		userBiuBg = (ImageView) view.findViewById(R.id.user_biu_bg);
 		animationAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
 		animationHide = AnimationUtils.loadAnimation(getActivity(), R.anim.hide_anim);
+		animationUserBg = AnimationUtils.loadAnimation(getActivity(), R.anim.user_gif_alpha);
 		
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -507,16 +510,19 @@ public class BiuFragment extends Fragment implements PushInterface{
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
 				lWidth,
 				lHeight, xLocation, yLocation);
-		final GifView gifView = new GifView(getActivity());
+		//final GifView gifView = new GifView(getActivity());
+		final ImageView gifIv = new ImageView(getActivity());
 		RelativeLayout.LayoutParams gifP = new RelativeLayout.LayoutParams(
 				lWidth,
 				lHeight);
-		gifView.setGifImage(R.drawable.anim);
+		/*gifView.setGifImage(R.drawable.anim);
 		gifView.setShowDimension(lWidth, lHeight);
-		gifView.setGifImageType(GifImageType.COVER);
-		rl.addView(gifView, gifP);
+		gifView.setGifImageType(GifImageType.COVER);*/
+		gifIv.setImageResource(R.drawable.biu_imageview_photo_circle);
+		gifIv.startAnimation(animationUserBg);
+		rl.addView(gifIv, gifP);
 		if(isFirst){
-			gifView.setVisibility(View.GONE);
+			gifIv.setVisibility(View.GONE);
 		}
 		//layout与头像宽高差 像素
 		int margin = (58-46)*2;
@@ -589,7 +595,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				gifView.setVisibility(View.GONE);
+				gifIv.startAnimation(animationHide);
+				gifIv.setVisibility(View.GONE);
 			}
 		}, 1000);
 		rl.setOnClickListener(new OnClickListener() {
@@ -633,8 +640,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//加入所有list中的view
 	protected void addAllView(ArrayList<UserBean> list) {
 		int length = 0;
-		if(list.size()>23){
-			length = 23;
+		if(list.size()>25){
+			length = 25;
 		}else{
 			length = list.size();
 		}
@@ -806,6 +813,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 					String token = data.getString("token");
 					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 					JSONArray userArray = data.getJSONArray("users");
+					int biuCoin = data.getInt("virtual_currency");
+					MainActivity.biuCoinTv.setText(""+biuCoin);
 					Gson gson = new Gson();
 					ArrayList<UserBean> list = gson.fromJson(userArray.toString(), new TypeToken<List<UserBean>>(){}.getType());
 					if(null != list && list.size()>0){

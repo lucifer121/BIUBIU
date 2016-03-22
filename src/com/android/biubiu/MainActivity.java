@@ -38,11 +38,13 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends SlidingFragmentActivity implements AMapLocationListener{
 	public RelativeLayout leftRl;
 	public RelativeLayout rightRl;
+	public static TextView biuCoinTv;
 	//定位相关
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
@@ -54,6 +56,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		if(!com.android.biubiu.utils.NetUtils.isNetworkConnected(getApplicationContext())){
 			Toast.makeText(getApplicationContext(), "网络未连接", 1000).show();
 		}
+		biuCoinTv = (TextView) findViewById(R.id.biu_coin_tv);
 		initPageFragment();
 		// 初始化SlideMenu
 		initRightMenu();

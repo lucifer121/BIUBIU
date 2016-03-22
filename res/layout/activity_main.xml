@@ -72,9 +72,9 @@
                     android:background="@drawable/biu_btn_biub" />
 
                 <TextView
+                    android:id="@+id/biu_coin_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15"
                     android:textSize="11sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/home_txt_yello" />
