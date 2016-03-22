@@ -36,7 +36,13 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
     <ImageView
         android:layout_width="65dp"
         android:layout_height="65dp"
@@ -178,5 +184,7 @@
                  />
         </LinearLayout>
     </RelativeLayout>
-
+</LinearLayout>
+<include layout="@layout/loading_layout"/>
+</FrameLayout>
 </LinearLayout>

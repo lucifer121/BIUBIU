@@ -96,7 +96,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 				newUserBean.setChatId(jsons.getString("chat_id"));
 				newUserBean.setAlreadSeen(Constants.UN_SEEN);
 				
-				if(msgType.contains(Constants.MSG_TYPE_MATCH)){
+				if(msgType.equals(Constants.MSG_TYPE_MATCH)){
 					newUserBean.setId(jsons.getString("user_code"));
 					newUserBean.setNickname(jsons.getString("nickname"));
 					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
@@ -108,7 +108,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 					newUserBean.setCareer(jsons.getString("career"));
 					newUserBean.setReferenceId("reference_id");
 					updateface.updateView(newUserBean,0);
-				}else if(msgType.contains(Constants.MSG_TYPE_GRAB)){
+				}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
 					newUserBean.setId(jsons.getString("user_code"));
 					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
 					updateface.updateView(newUserBean,1);

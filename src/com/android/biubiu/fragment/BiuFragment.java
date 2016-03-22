@@ -53,6 +53,7 @@ import com.ant.liao.GifView.GifImageType;
 
 
 
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -451,10 +452,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 			userBiuImv.setVisibility(View.VISIBLE);
 			currentTime = 0;
 			taskHandler.removeCallbacks(taskR);
-			return;
 		}
 		x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
-		userBiuImv.setImageResource(R.drawable.chat_img_profiles_default);
 	}
 	//显示底部的信息view
 	private void showInfoLayout(UserBean bean) {
@@ -779,6 +778,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 2:
 			//匹配的人被抢啦
 			String chatId = userBean.getChatId();
+			LogUtil.d("mytest", chatId);
 			removeView(chatId);
 			break;
 		default:
@@ -863,6 +863,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+			LogUtil.d("mytest", "biubean--"+userBiuBean.getChatId());
 			requestObject.put("chat_id",userBiuBean.getChatId());
 		} catch (JSONException e) {
 
