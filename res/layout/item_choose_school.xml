@@ -41,7 +41,7 @@
            
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@drawable/item_selector_schools_bg" />
+            android:background="@drawable/item_selector_listview_bg" />
     </LinearLayout>
     
 

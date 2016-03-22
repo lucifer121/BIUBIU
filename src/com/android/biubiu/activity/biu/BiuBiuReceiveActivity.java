@@ -16,6 +16,7 @@ import com.android.biubiu.adapter.UserInterestAdapter;
 import com.android.biubiu.bean.BiuDetialBean;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -35,6 +36,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,7 +53,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	
 	private BiuDetialBean biuDEtialBean=new BiuDetialBean();
 	
-	private TextView userName,distance,matchingScore,timeBefore,sex,age,starsign,school,numberInTag,numberInInterestTag;
+	private TextView userName,distance,matchingScore,timeBefore,sex,age,starsign,
+	school,numberInTag,numberInInterestTag,description;
+	private ImageView userPhoto;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +65,61 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		userCode=getIntent().getStringExtra("userCode");
 		chatId=getIntent().getStringExtra("chatId");
 		LogUtil.e(TAG, "referenceId=="+referenceId+"||userCode=="+userCode+"||chatId=="+chatId);
-		
+		 
 		initView();
 		initData();
 		initAdapter();
 	}
+	
+	private void initView() {
+		// TODO Auto-generated method stub
+		backLayout=(RelativeLayout) findViewById(R.id.back_receive_biu_mine_rl);
+		mGridViewTag=(GridView) findViewById(R.id.gridview_receive_biubiu_tag);
+		mGridViewInterestTag=(GridView) findViewById(R.id.gridview_receive_biubiu_interest_tag);
+		grabBT=(Button)findViewById(R.id.grab_biu_receive_biu_bt);
+		neverGrab=(RelativeLayout) findViewById(R.id.never_grag_biu_receive_biu_rl);
+		userName=(TextView) findViewById(R.id.name_receive_biu_tv);
+		distance=(TextView) findViewById(R.id.distanse_receive_biu_tv);
+		matchingScore=(TextView) findViewById(R.id.matching_score_receive_biu_tv);
+		timeBefore=(TextView) findViewById(R.id.time_receive_biu_tv);
+		age=(TextView) findViewById(R.id.age_receive_biu_tv);
+		sex=(TextView) findViewById(R.id.sex_receive_biu_tv);
+		school=(TextView) findViewById(R.id.school_receive_biu_tv);
+		starsign=(TextView) findViewById(R.id.starsign_receive_biu_tv);
+		description=(TextView) findViewById(R.id.description_receive_biu_tv);
+		numberInTag=(TextView) findViewById(R.id.number_in_personalTag_tv);
+		numberInInterestTag=(TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
+		userPhoto=(ImageView) findViewById(R.id.photo_head_senbiu_img);
+		
+		neverGrab.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				toastShort("不见你");
+			}
+		});
+		grabBT.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+			
+			grabBiu();
+			}
+		});
+		
+		backLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				finish();
+				
+			}
+		});
+	
+	}	
 
 	private void initData() {
 
@@ -131,20 +185,35 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					distance.setText(biuDEtialBean.getDistance()+"m");
 					matchingScore.setText(""+biuDEtialBean.getMatching_score()+"%");
 					
+					timeBefore.setText(biuDEtialBean.getTimebefore()+"分钟");
 					
+//					age=(TextView) findViewById(R.id.age_receive_biu_tv);
+//					sex=(TextView) findViewById(R.id.sex_receive_biu_tv);
+//					school=(TextView) findViewById(R.id.school_receive_biu_tv);
+//					starsign=(TextView) findViewById(R.id.starsign_receive_biu_tv);
+//					
+//					numberInTag=(TextView) findViewById(R.id.number_in_personalTag_tv);
+//					numberInInterestTag=(TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
 					
-					age=(TextView) findViewById(R.id.age_receive_biu_tv);
-					sex=(TextView) findViewById(R.id.sex_receive_biu_tv);
-					school=(TextView) findViewById(R.id.school_receive_biu_tv);
-					starsign=(TextView) findViewById(R.id.starsign_receive_biu_tv);
+					numberInTag.setText("["+biuDEtialBean.getHit_tags_num()+"]");
+					numberInInterestTag.setText("["+biuDEtialBean.getInterested_tags_num()+"]");
+					age.setText(biuDEtialBean.getAge()+"岁");
+					description.setText(biuDEtialBean.getDescription());
+					if(biuDEtialBean.getSex().equals("1")){
+						sex.setText("男生");
+					}else{
+						sex.setText("女生");
+					}	
+					if(biuDEtialBean.getIsgraduated().equals("2")){
+						school.setText(biuDEtialBean.getCarrer()+"");
+					}else{
+						SchoolDao schoolDao=new SchoolDao();
+						
+						school.setText(schoolDao.getschoolName(biuDEtialBean.getSchool()).get(0).getUnivsNameString());
+					}
 					
-					numberInTag=(TextView) findViewById(R.id.number_in_personalTag_tv);
-					numberInInterestTag=(TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
-					age.setText(biuDEtialBean.getAge()+"");
-					sex.setText(biuDEtialBean.getSex()+"");
-					school.setText(biuDEtialBean.getSchool()+"");
 					starsign.setText(biuDEtialBean.getStarsign()+"");
-				
+				x.image().bind(userPhoto, biuDEtialBean.getIcon_thumbnailUrl());
 					
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -152,7 +221,6 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				}
 			}
 
-	
 		});
 		
 	}
@@ -177,54 +245,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		});
 	}
 
-	private void initView() {
-		// TODO Auto-generated method stub
-		backLayout=(RelativeLayout) findViewById(R.id.back_receive_biu_mine_rl);
-		mGridViewTag=(GridView) findViewById(R.id.gridview_receive_biubiu_tag);
-		mGridViewInterestTag=(GridView) findViewById(R.id.gridview_receive_biubiu_interest_tag);
-		grabBT=(Button)findViewById(R.id.grab_biu_receive_biu_bt);
-		neverGrab=(RelativeLayout) findViewById(R.id.never_grag_biu_receive_biu_rl);
-		userName=(TextView) findViewById(R.id.name_receive_biu_tv);
-		distance=(TextView) findViewById(R.id.distanse_receive_biu_tv);
-		matchingScore=(TextView) findViewById(R.id.matching_score_receive_biu_tv);
-		timeBefore=(TextView) findViewById(R.id.time_receive_biu_tv);
-		age=(TextView) findViewById(R.id.age_receive_biu_tv);
-		sex=(TextView) findViewById(R.id.sex_receive_biu_tv);
-		school=(TextView) findViewById(R.id.school_receive_biu_tv);
-		starsign=(TextView) findViewById(R.id.starsign_receive_biu_tv);
-		
-		numberInTag=(TextView) findViewById(R.id.number_in_personalTag_tv);
-		numberInInterestTag=(TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
-		
-		neverGrab.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				toastShort("不见你");
-			}
-		});
-		grabBT.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-			
-			grabBiu();
-			}
-		});
-		
-		backLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				finish();
-				
-			}
-		});
-	
-	}	
+
 	Handler handler=new Handler(){
 
 		@Override
@@ -252,7 +273,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		int mHight;
 		if (mList.size() != 0 && (mList.size()) % 4 == 0) {
 			mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(this, 37);
-		} else {
+		} else if(mList.size()==0){
+			mHight=0;
+		}else{
 			mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(this, 37);
 		}
 		params.height = mHight;
@@ -311,6 +334,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 							return;
 						}
 						toastShort("抢中了啊");
+						finish();
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
