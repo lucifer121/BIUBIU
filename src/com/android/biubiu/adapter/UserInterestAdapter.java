@@ -56,11 +56,11 @@ public class UserInterestAdapter extends BaseAdapter{
 		}else{
 			vh = (ViewHolder) convertView.getTag();
 		}
-		if(tag.getName().equals(Constants.BOOK)){
+		if(tag.getTagType().equals(Constants.BOOK)){
 			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_blue_clk);
-		}else if(tag.getName().equals(Constants.MUSIC)){
+		}else if(tag.getTagType().equals(Constants.MUSIC)){
 			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_oragne_clk);
-		}else if(tag.getName().equals(Constants.MOVIE)){
+		}else if(tag.getTagType().equals(Constants.MOVIE)){
 			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_pink_clk);
 		}else{
 			vh.tagTv.setBackgroundResource(R.drawable.main_tab_imageview_green_clk);

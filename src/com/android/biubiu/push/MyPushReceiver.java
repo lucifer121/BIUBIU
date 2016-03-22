@@ -10,11 +10,13 @@ import org.xutils.http.RequestParams;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
@@ -76,9 +78,16 @@ public class MyPushReceiver extends PushMessageReceiver{
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
 		Log.d("mytest", messageString);
-		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, false);
-		if(isOpen){
-			playSound(context);
+		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, true);
+		boolean isOpenVoice = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_OPEN_VOICE, true);
+		boolean isShock = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_SHOCK, true);
+		if(isOpen){ 
+			if(isOpenVoice){
+				playSound(context);
+			}
+			if(isShock){
+				shock(context);
+			}
 			try {
 				JSONObject jsons = JSONObject.parseObject(message);
 				String msgType = jsons.getString("messageType");
@@ -111,7 +120,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 				e.printStackTrace();
 			}
 		}else{
-			showNotification(context);
+			showNotification(context,isShock,isOpenVoice);
 		}
 	}
 
@@ -120,7 +129,6 @@ public class MyPushReceiver extends PushMessageReceiver{
 			String arg3) {
 		// TODO Auto-generated method stub
 		Log.d("mytest", "通知消息");
-		showNotification(context);
 	}
 
 	@Override
@@ -142,7 +150,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		// TODO Auto-generated method stub
 
 	}
-	private void showNotification(Context context){
+	private void showNotification(Context context,boolean isShock,boolean isOpenVoice){
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Builder mBuilder = new NotificationCompat.Builder(context);
 		mBuilder.setContentTitle("测试标题")
@@ -151,10 +159,15 @@ public class MyPushReceiver extends PushMessageReceiver{
 		.setAutoCancel(true)
 		.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
 		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
-		.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
+		//.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
 		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
 		.setSmallIcon(com.android.biubiu.R.drawable.biu_btn_biu);
-		playSound(context);
+		if(isShock){
+			mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
+		}
+		if(isOpenVoice){
+			playSound(context);
+		}
 		Intent resultIntent = new Intent(context, MainActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0);
@@ -170,4 +183,8 @@ public class MyPushReceiver extends PushMessageReceiver{
 				no);  
 		r.play();  
 	}  
+	public void shock(Context context){
+		Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+		vibrator.vibrate(1000);
+	}
 }

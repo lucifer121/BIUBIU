@@ -257,8 +257,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 					return;
 				}
 				if(isBiuState){
-					userBiuBg.startAnimation(animationHide);
-					userBiuBg.setVisibility(View.GONE);
 					//启动发送biubiu界面
 					Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
 					startActivityForResult(intent, SEND_BIU_REQUEST);
@@ -285,6 +283,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		public void run() {
 			taskView.updeteTask(currentTime--);
 			if(currentTime <= 0){
+				Toast.makeText(getActivity(), "你的biubiu暂时无人应答，请重新发送", 1000).show();
 				taskView.setVisibility(View.GONE);
 				userBiuImv.setVisibility(View.VISIBLE);
 				currentTime = 0;
@@ -324,11 +323,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//往第一个圈上放view
 	private void addCircle1View(UserBean userBean) {
-		showInfoLayout(userBean);
 		boolean haveSpace = false;
 		for(int i=0;i<n1;i++){
 			DotBean bean = c1DotList.get(i);
 			if(!bean.isAdd()){
+				showInfoLayout(userBean);
 				//添加区域标记
 				userBean.setIndex(i);
 				haveSpace = true;
@@ -428,12 +427,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(currentTime > 0){
 			taskView.setVisibility(View.GONE);
 			userBiuImv.setVisibility(View.VISIBLE);
-			userBiuBg.setVisibility(View.VISIBLE);
 			currentTime = 0;
 			taskHandler.removeCallbacks(taskR);
 			return;
 		}
-		//x.image().bind(userBiuImv, bean.getUserHead());
+		x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
 		userBiuImv.setImageResource(R.drawable.chat_img_profiles_default);
 	}
 	//显示底部的信息view
@@ -827,21 +825,21 @@ public class BiuFragment extends Fragment implements PushInterface{
 			if(null != user1List && user1List.size()>0){
 				Collections.sort(user1List,new SorByTime());
 				UserBean bean = user1List.get(0);
-				if(bean.getTime()>1000*60){
+				if(bean.getTime()>1000*60*60){
 					removeView(bean.getChatId());
 				}
 			}
 			if(null != user2List && user2List.size()>0){
 				Collections.sort(user2List,new SorByTime());
 				UserBean bean = user2List.get(0);
-				if(bean.getTime()>1000*60){
+				if(bean.getTime()>1000*60*60){
 					removeView(bean.getChatId());
 				}
 			}
 			if(null != user3List && user3List.size()>0){
 				Collections.sort(user3List,new SorByTime());
 				UserBean bean = user3List.get(0);
-				if(bean.getTime()>1000*60){
+				if(bean.getTime()>1000*60*60){
 					removeView(bean.getChatId());
 				}
 			}

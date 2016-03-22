@@ -15,7 +15,9 @@ public class SharePreferanceUtils {
 	public static String IS_APP_OPEN="is_app_open";
 	public static String CHANNEL_ID = "channel_id";
 	public static String IS_COMMIT_CHANNEL = "is_commit_channel";
-	
+	public static String IS_SHOCK = "is_shock";
+	public static String IS_OPEN_VOICE = "is_open_voice";
+
 	public static String HX_USER_NAME="hx_user_name";
 	public static String HX_USER_PASSWORD="hx_user_password";
 
@@ -99,8 +101,14 @@ public class SharePreferanceUtils {
 	public String getUserCode(Context context,String prefKey,String defValue){
 		return getShared(context, prefKey,defValue);
 	}
-
-
+	//获取是否打开振动
+	public boolean isShock(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取是否打开声音
+	public boolean isOpenVoice(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
 	public  String getShared(Context ctx, String prefKey, String defValue) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(prefKey, defValue);
 	}

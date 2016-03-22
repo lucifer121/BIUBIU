@@ -173,22 +173,28 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}
 		//声音 0--关闭 1--打开
 		if(setBean.getSound() == 0){
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false);
 			isOpenVoice = false;
 			voiceToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, true);
 			isOpenVoice = true;
 			voiceToggle.setImageResource(R.drawable.setting_btn_no);
 		}
 		//振动 0--关闭 1--打开
-		if(setBean.getSound() == 0){
+		if(setBean.getVibration() == 0){
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, false);
 			isOpenShck = false;
 			shockToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, true);
 			isOpenShck = true;
 			shockToggle.setImageResource(R.drawable.setting_btn_no);
 		}
 		//接收消息 0--关闭，不接收  1--打开，接收
 		if(setBean.getMessage() == 0){
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, false);
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false);
 			isRecvMsg = false;
 			newMsgToggle.setImageResource(R.drawable.setting_btn_yes);
 			isOpenVoice = false;
@@ -285,7 +291,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			break;
 		case R.id.back_rl:
 			saveSetInfo();
-			finish();
 			break;
 		case R.id.personal_rl:
 			Intent intent = new Intent(MatchSettingActivity.this,MatchSetTagActivity.class);
@@ -461,6 +466,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				}
 			}
 		});
+		finish();
 	}
 	private void updateSetBean() {
 		// TODO Auto-generated method stub
@@ -627,7 +633,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK){
 			saveSetInfo();
-			finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}
