@@ -375,12 +375,12 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "name=="+result);
+				LogUtil.d("mytest", "personal=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("获取标签信息失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");

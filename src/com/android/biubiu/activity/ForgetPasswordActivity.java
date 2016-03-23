@@ -181,9 +181,14 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
-				log.d("mytest", arg0);
+				log.d("mytest", "isregister--"+arg0);
 				try {
 					JSONObject  jsonObject = new JSONObject(arg0);
+					String state = jsonObject.getString("state");
+					if(!state.equals("200")){
+						toastShort("获取注册信息失败");
+						return;
+					}
 					JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
 					String result = obj.getString("result");
 					if(result.equals("0")){
@@ -316,10 +321,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
-						if(code.equals("300")){
-							String error=jsons.getString("error");
-							toastShort(error);
-						}
+						String error=jsons.getString("error");
+						toastShort("重置密码失败");
 						return;
 					}
 					login(uPhone.getText().toString(),passwprd);

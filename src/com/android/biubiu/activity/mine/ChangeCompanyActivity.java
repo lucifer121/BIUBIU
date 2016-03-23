@@ -122,7 +122,7 @@ public class ChangeCompanyActivity extends BaseActivity implements OnClickListen
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("修改信息失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");

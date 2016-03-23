@@ -91,7 +91,7 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				toastShort(arg0.getMessage());
+				Log.d("mytest", "setTag--"+arg0.getMessage());
 			}
 
 			@Override
@@ -102,17 +102,18 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 
 			@Override
 			public void onSuccess(String arg0) {
-				Log.d("mytest", "result--"+arg0);
+				Log.d("mytest", "setTag--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons=new JSONObject(arg0);
 					String code = jsons.getString("state");
-					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
-						toastShort(""+jsons.getString("error"));	
+						toastShort("获取标签信息失败");	
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
+					String token = (jsons.getJSONObject("data").getString("token"));
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String dataTag=obj.getString("tags").toString();
 					Gson gson=new Gson();
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  

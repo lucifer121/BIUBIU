@@ -191,6 +191,11 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 				LogUtil.d("mytest", "edithead=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
+					String state = jsonObjs.getString("state");
+					if(!state.equals("200")){
+						toastShort("修改头像失败");
+						return;
+					}
 					JSONObject obj = jsonObjs.getJSONObject("data");
 					accessKeyId = obj.getString("accessKeyId");
 					accessKeySecret = obj.getString("accessKeySecret");
@@ -248,6 +253,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			}
 			@Override
 			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				toastShort("修改头像失败");
 				// 请求异常
 				if (clientExcepion != null) {
 					// 本地异常如网络异常等
@@ -306,7 +312,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("修改头像失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
