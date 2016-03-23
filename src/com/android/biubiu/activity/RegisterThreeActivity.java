@@ -204,7 +204,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -217,7 +217,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -256,7 +256,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-					
+
 				} else {
 
 				}
@@ -325,6 +325,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
+				//dismissLoadingLayout();
+				toastShort("注册失败");
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
 			}
@@ -341,6 +343,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				LogUtil.d("mytest", "ret=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
+					String  state = jsonObjs.getString("state");
+					if(!state.equals("200")){
+						//dismissLoadingLayout();
+						toastShort("注册失败");
+						return;
+					}
 					JSONObject obj = jsonObjs.getJSONObject("data");
 					//JSONObject obj = new JSONObject(jsonObjs.getString("data"));
 					accessKeyId = obj.getString("accessKeyId");
@@ -359,7 +367,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	public void asyncPutObjectFromLocalFile() {
 		String endpoint = HttpContants.A_LI_YUN;
 		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
-		OSSCredentialProvider credetialProvider = new OSSFederationCredentialProvider() {
+		OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
 			@Override
 			public OSSFederationToken getFederationToken() {
 
@@ -372,8 +380,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
 		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
 		OSSLog.enableLog();
-		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
-		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".png";
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpeg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, headPath);
 
@@ -395,6 +403,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			}
 			@Override
 			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				//dismissLoadingLayout();
+				toastShort("注册失败");
 				// 请求异常
 				if (clientExcepion != null) {
 					// 本地异常如网络异常等
@@ -445,6 +455,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
+				//dismissLoadingLayout();
+				toastShort("注册失败");
 				Log.d("mytest", "error--pp"+ex.getMessage());
 				Log.d("mytest", "error--pp"+ex.getCause());
 			}
@@ -458,16 +470,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
-				dismissLoadingLayout();
+				//dismissLoadingLayout();
 				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					LogUtil.e(TAG, code);
-					if(code.equals("200")==false){
-						if(code.equals("300")==true){
-							String error=jsons.getString("error");
-							LogUtil.e(TAG, error);
-						}
+					if(!code.equals("200")){
 						toastShort("注册失败");
 						return;
 					}
@@ -486,8 +494,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 
-				//	loginHuanXin(username,passwprd,token);
-					
+					loginHuanXin(username,passwprd,token);
+
 					//把token 存在本地
 					SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
 					Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);

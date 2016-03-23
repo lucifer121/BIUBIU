@@ -157,7 +157,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("删除照片失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");

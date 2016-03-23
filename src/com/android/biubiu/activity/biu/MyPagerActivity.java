@@ -44,6 +44,7 @@ import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
+import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
@@ -410,12 +411,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				// TODO Auto-generated method stub
 				LogUtil.d("mytest", result);
 				dismissLoadingLayout();
+				dismissErrorLayout();
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
-					JSONObject data = jsons.getJSONObject("data");
-					String info = data.getJSONObject("userinfo").toString();
-					String token = data.getString("token");
 					if(!state.equals("200")){
 						showErrorLayout(new OnClickListener() {
 							
@@ -429,6 +428,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 						toastShort("获取数据失败");
 						return;
 					}
+					JSONObject data = jsons.getJSONObject("data");
+					String info = data.getJSONObject("userinfo").toString();
+					String token = data.getString("token");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson = new Gson();
 					UserInfoBean bean = gson.fromJson(info, UserInfoBean.class);
@@ -589,10 +591,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onSuccess(String arg0) {
-				
 				LogUtil.d("mytest", "userphotoTok=="+arg0);
 				try {
 					JSONObject jsonObjs = new JSONObject(arg0);
+					String state = jsonObjs.getString("state");
+					if(!state.equals("200")){
+						toastShort("上传照片失败");
+						return;
+					}
 					JSONObject obj = jsonObjs.getJSONObject("data");
 					accessKeyId = obj.getString("accessKeyId");
 					accessKeySecret = obj.getString("accessKeySecret");
@@ -613,7 +619,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	public void asyncPutObjectFromLocalFile(String path) {
 		String endpoint = HttpContants.A_LI_YUN;
 		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
-		OSSCredentialProvider credetialProvider = new OSSFederationCredentialProvider() {
+		OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
 			@Override
 			public OSSFederationToken getFederationToken() {
 
@@ -626,9 +632,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
 		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
 		OSSLog.enableLog();
-		OSS oss = new OSSClient(getApplicationContext(), endpoint, credetialProvider, conf);
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
-		final String fileName = "photos/"+System.currentTimeMillis()+deviceId+".jpg";
+		final String fileName = "photos/"+System.currentTimeMillis()+deviceId+".jpeg";
 		// 构造上传请求
 		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, path);
 
@@ -642,9 +648,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
 			@Override
 			public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-				Log.d("PutObject", "UploadSuccess");
-				Log.d("ETag", result.getETag());
-				Log.d("RequestId", result.getRequestId());
+				Log.d("mytest", "UploadSuccess");
+				Log.d("mytest", result.getETag());
+				Log.d("mytest", result.getRequestId());
 				//上传照片成功，调用修改头像接口
 				uploadPhoto(fileName);
 			}
@@ -658,10 +664,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				}
 				if (serviceException != null) {
 					// 服务异常
-					Log.e("ErrorCode", serviceException.getErrorCode());
-					Log.e("RequestId", serviceException.getRequestId());
-					Log.e("HostId", serviceException.getHostId());
-					Log.e("RawMessage", serviceException.getRawMessage());
+					Log.d("mytest", serviceException.getErrorCode());
+					Log.d("mytest", serviceException.getRequestId());
+					Log.d("mytest", serviceException.getHostId());
+					Log.d("mytest", serviceException.getRawMessage());
 				}
 			}
 		});
@@ -712,7 +718,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("上传照片失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");

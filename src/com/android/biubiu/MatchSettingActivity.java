@@ -312,7 +312,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			dismissLoadingLayout();
 			showErrorLayout(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -346,7 +346,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				showErrorLayout(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -367,26 +367,23 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onSuccess(String arg0) {
 				dismissLoadingLayout();
+				dismissErrorLayout();
 				LogUtil.d("mytest", "set--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
-					LogUtil.d(TAG, ""+code);
-					if(code.equals("200")==false){
-						if(code.equals("300")==true){
-							showErrorLayout(new OnClickListener() {
-								
-								@Override
-								public void onClick(View v) {
-									// TODO Auto-generated method stub
-									dismissErrorLayout();
-									initlodo();
-								}
-							});
-							String error=jsons.getString("error");
-							toastShort(error);
-						}
+					if(!code.equals("200")){
+						showErrorLayout(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								initlodo();
+							}
+						});
+						toastShort("获取设置信息失败");
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
@@ -417,7 +414,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 */
 	private void saveSetInfo() {
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
-			dismissLoadingLayout();
 			finish();
 			return;
 		}
@@ -428,6 +424,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("sex", setBean.getSex());
+			requestObject.put("city", setBean.getCity());
 			requestObject.put("age_down", setBean.getAgeDown());
 			requestObject.put("age_up", setBean.getAgeUp());
 			ArrayList<PersonalTagBean> tags = setBean.getPersonalTags();
@@ -441,7 +438,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					perStr.append(tags.get(i).getCode()+",");
 				}
 			}
-			LogUtil.d("mytest", perStr.toString());
 			requestObject.put("personalized_tags",perStr.toString());
 			requestObject.put("message", setBean.getMessage());
 			requestObject.put("sound", setBean.getSound());
@@ -464,6 +460,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
+				toastShort("保存失败");
 				LogUtil.d("mytest", ex.getMessage()+"");
 				LogUtil.d("mytest", ex.getCause()+"");
 			}
@@ -482,7 +479,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					JSONObject jsons = new JSONObject(arg0);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("保存失败");
 						return;
 					}
 					String token = (jsons.getJSONObject("data").getString("token"));
@@ -513,7 +510,6 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		}else{
 			maxAge = Integer.parseInt(ageMaxTv.getText().toString());
 		}
-		LogUtil.d("mytest", "min"+minAge+"max"+maxAge);
 		setBean.setAgeDown(minAge);
 		setBean.setAgeUp(maxAge);
 		if(isSelBoy){
@@ -588,18 +584,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					LogUtil.d(TAG, ""+code);
-					if(code.equals("200")==false){
-						if(code.equals("300")==true){
-							String error=jsons.getString("error");
-							toastShort(error);
-						}
+					if(!code.equals("200")){
+						String error=jsons.getString("error");
+						toastShort(error);
 						return;
 					}
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
-					LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 					exitHuanxin();
-
-
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -624,9 +615,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, "");
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, "");
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, "");
-				
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, "");
-			
 				SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, "");
 				LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 				finish();

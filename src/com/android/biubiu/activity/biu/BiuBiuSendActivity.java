@@ -102,7 +102,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				@Override
 				public void onError(Throwable arg0, boolean arg1) {
 					// TODO Auto-generated method stub
-				//	toastShort(arg0.getMessage());
+					toastShort("获取话题标签失败");	
 					log.e(TAG, arg0.getMessage());
 				}
 
@@ -121,7 +121,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 						String code = jsons.getString("state");
 						LogUtil.d(TAG, ""+code);
 						if(!code.equals("200")){
-							toastShort(""+jsons.getString("error"));	
+							toastShort("获取话题标签失败");	
 							return;
 						}
 						

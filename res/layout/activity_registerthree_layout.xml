@@ -219,6 +219,7 @@
         </LinearLayout>
 
         <include layout="@layout/loading_layout" />
+         <include layout="@layout/load_error_layout" />
     </FrameLayout>
 
 </LinearLayout>

@@ -244,6 +244,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
+				dismissErrorLayout();
 				LogUtil.e(TAG, arg0);
 				JSONObject jsons;
 				try {
@@ -260,7 +261,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 								initData();
 							}
 						});
-						toastShort(""+jsons.getString("error"));	
+						toastShort("获取biu信息失败");	
 						return;
 					}
 					Gson gson = new Gson();

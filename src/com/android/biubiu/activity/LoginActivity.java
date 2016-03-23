@@ -189,7 +189,6 @@ public class LoginActivity extends BaseActivity{
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				Log.d("mytest", "result--"+arg0);
-		//		Toast.makeText(x.app(), arg0, Toast.LENGTH_LONG).show();
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(arg0);

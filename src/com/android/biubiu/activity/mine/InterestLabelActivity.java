@@ -469,13 +469,13 @@ public class InterestLabelActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "name=="+result);
+				LogUtil.d("mytest", "interes=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					LogUtil.d(TAG, state);
 					if(!state.equals("200")){
-						toastShort(jsons.getString("error"));
+						toastShort("获取标签信息失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
