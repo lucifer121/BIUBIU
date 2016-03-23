@@ -215,10 +215,7 @@ public class LoginActivity extends BaseActivity{
 					
 					loginHuanXin(hxName,HxPassword,token);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
-					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
-					finish();
+	
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -251,7 +248,7 @@ public class LoginActivity extends BaseActivity{
 				Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-				
+				finish();
 			}
 			
 			@Override

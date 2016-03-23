@@ -231,14 +231,13 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		lp.topMargin = 45;
 //		lp.bottomMargin = 5;
 		for(int i = 0; i < mList.size(); i ++){
+			
 			final TextView view = new TextView(this);
-
 			view.setText(mList.get(i).getName());
 			view.setTextColor(getResources().getColor(R.color.textview_item_send_bg));
-			view.setTextSize(11);
-			
+			view.setTextSize(11);			
 		//	view.setPadding(24, 24, 24, 24);
-			view.setBackgroundDrawable(getResources().getDrawable(R.drawable.textview_bg));
+			view.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_send_biu_img_bg));
 			view.setOnClickListener(new OnClickListener() {
 
 				@Override

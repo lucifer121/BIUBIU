@@ -3,9 +3,15 @@ package com.android.biubiu.chat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
+
+import org.xutils.x;
+
 import com.android.biubiu.R;
 
 
+
+import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.sqlite.SchoolDao;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,17 +24,18 @@ import android.widget.TextView;
 
 public class UserListAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<String> mData=new ArrayList<String>();
-	
+	private List<UserFriends> mData=new ArrayList<UserFriends>();
+	private SchoolDao schoolDao;
 
-	public UserListAdapter(Context context,List<String> mData){
+	public UserListAdapter(Context context,List<UserFriends> mData){
 		this.mContext=context;
 		this.mData=mData;
+		schoolDao=new SchoolDao();
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 10;
+		return mData.size();
 	}
 
 	@Override
@@ -47,16 +54,29 @@ public class UserListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder=null;
+		UserFriends item=mData.get(position);
 		if(convertView==null){
 			holder=new ViewHolder();
 			convertView=LayoutInflater.from(mContext).inflate(R.layout.item_chat_user_list, null);
 			holder.img=(ImageView) convertView.findViewById(R.id.userHead_chat_user_list_img);
 			holder.userName=(TextView) convertView.findViewById(R.id.userName_chat_user_List_tv);
+			holder.age=(TextView) convertView.findViewById(R.id.userInfo_chat_user_List_tv);
+			holder.star=(TextView) convertView.findViewById(R.id.userXingzuo_chat_user_List_tv);
+			holder.school=(TextView) convertView.findViewById(R.id.userJob_chat_user_List_tv);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-//		holder.userName.setText(mData.get(position));
+		holder.userName.setText(item.getNickname());
+		holder.age.setText(item.getAge()+"岁");
+		holder.star.setText(item.getStarsign()+"");
+		if(item.getIsgraduated().equals("1")){
+			holder.school.setText(schoolDao.getschoolName(item.getSchool()).get(0).getUnivsNameString());
+		}else{
+			holder.school.setText(item.getCarrer());
+		}
+		x.image().bind(holder.img, item.getIcon_thumbnailUrl());
+		
 		return convertView;
 	}
 	
@@ -64,6 +84,9 @@ public class UserListAdapter extends BaseAdapter {
 		private ImageView img;
 		private TextView userName;
 		private TextView userInfo;
+		private TextView age;
+		private TextView star;
+		private TextView school;
 	}
 
 
