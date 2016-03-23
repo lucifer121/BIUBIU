@@ -191,10 +191,12 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		case R.id.registerone_center4_rl:
 			//生日点击
 			selectTime();
+			sexDiolagLayout.setVisibility(View.GONE);
 			break;
 		case R.id.registerone_center1_rl:
 			//头像点击
 			showHeadDialog();
+			sexDiolagLayout.setVisibility(View.GONE);
 			break;
 		case R.id.registerone_center3_rl:
 //			initPopupWindowSex();
@@ -212,6 +214,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.next_registerone_rl:
 			nextStep();
+			sexDiolagLayout.setVisibility(View.GONE);
 			break;
 		default:
 			break;
@@ -230,13 +233,19 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onDateSet(DatePicker arg0, int year, int month, int day) {
 				// TODO Auto-generated method stub
-				birthTv.setText(year + "-" + (month + 1) + "-" + day);
-				changeNextBg();
+				birthTv.setText(year + "-" + (month + 1) + "-" + day);				
 				// 转成时间戳
 				birthLong = DateUtils.getStringToDate(birthTv.getText()
 						.toString());
+				if(birthLong>System.currentTimeMillis()){
+					toastShort("请选择有效日期");	
+					birthTv.setText("");
+				}else{
+					birthTv.setText(year + "-" + (month + 1) + "-" + day);
+				}
+				changeNextBg();
 			}
-		}, year, month, day).show();
+		}, 1995, 0, 1).show();
 	}
 
 	private void nextStep() {

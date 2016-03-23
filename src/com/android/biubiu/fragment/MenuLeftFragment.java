@@ -40,6 +40,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 	private RelativeLayout userHeadLayout;
 	ImageOptions imageOptions;
 	private TextView userName;
+	private TextView  hintPHoto;
 	/**
 	 * 是否已经登录
 	 */
@@ -66,6 +67,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.left_menu_item4_rl);
 		shareLayout = (RelativeLayout) mView
 				.findViewById(R.id.left_menu_item5_rl);
+		hintPHoto=(TextView) mView.findViewById(R.id.hint_your_photo_tv);
 		userHead = (ImageView) mView.findViewById(R.id.main_touxiang_img);
 		userHeadLayout = (RelativeLayout) mView
 				.findViewById(R.id.main_touxiang_rl);
@@ -89,11 +91,13 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		super.onResume();
 			if(LoginUtils.isLogin(getActivity())){		
 				isLogin=true;
+				hintPHoto.setVisibility(View.GONE);
 				userName.setText(SharePreferanceUtils.getInstance().getUserName(getActivity(), SharePreferanceUtils.USER_NAME, ""));
 				x.image().bind(userHead,SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.USER_HEAD, ""),imageOptions);
 			}else{
 				isLogin = false;
 				userName.setText("登录注册");
+				hintPHoto.setVisibility(View.VISIBLE);
 				userHead.setImageResource(R.drawable.main_touxiang);
 			}
 	}
@@ -102,11 +106,11 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_menu_item1_rl:
-			Toast.makeText(getActivity(), "biu", Toast.LENGTH_SHORT).show();
+		//	Toast.makeText(getActivity(), "biu", Toast.LENGTH_SHORT).show();
 			((MainActivity) getActivity()).closeMenu();
 			break;
 		case R.id.left_menu_item2_rl:
-			Toast.makeText(getActivity(), "message", Toast.LENGTH_SHORT).show();
+		//	Toast.makeText(getActivity(), "message", Toast.LENGTH_SHORT).show();
 			((MainActivity) getActivity()).showSecondaryMenu();
 			;
 			break;

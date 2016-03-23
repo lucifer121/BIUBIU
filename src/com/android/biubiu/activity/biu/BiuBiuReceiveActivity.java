@@ -387,6 +387,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
+				toastShort(arg0.getMessage());
 				LogUtil.d(TAG, arg0.getMessage());
 			}
 

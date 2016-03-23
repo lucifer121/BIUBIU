@@ -215,6 +215,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		mViewDistrict.setVisibleItems(7);
 		updateCities();
 		updateAreas();
+		cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName);
 	}
 
 	/**
@@ -334,7 +335,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
-			cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName);
+			
 			changeNextBg();
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 200);

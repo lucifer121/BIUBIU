@@ -202,6 +202,8 @@ public class LoginActivity extends BaseActivity{
 					String token = obj.getString("token");
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, hxName);
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, HxPassword);
 					SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
 					String nickname = obj.getString("nickname");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
@@ -209,6 +211,7 @@ public class LoginActivity extends BaseActivity{
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
 					String userCode = obj.getString("code");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
+					
 					loginHuanXin(hxName,HxPassword,token);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
 					Intent intent=new Intent(LoginActivity.this,MainActivity.class);

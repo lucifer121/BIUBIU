@@ -39,7 +39,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/hint_your_photo_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
