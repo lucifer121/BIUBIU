@@ -46,6 +46,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,10 +56,6 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	private String mNames[] = {
 			"我想认识你","披星戴月",
 			"哦","啊","今天是个好日子啊","真是个忧伤的故事",
-//			"jordan","layout","viewgroup",
-//			"margin","padding","text",
-//			"name","type","search","logcat"
-
 	};
 	private Flowlayout mFlowLayout;
 	Button sendBiuBtn;
@@ -68,6 +65,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	private List<PersonalTagBean> mList=new ArrayList<PersonalTagBean>();
 	private String TAG="BiuBiuSendActivity";
 	private TextView number;
+	private ImageView userPhoto;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +102,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				@Override
 				public void onError(Throwable arg0, boolean arg1) {
 					// TODO Auto-generated method stub
-					toastShort(arg0.getMessage());
+				//	toastShort(arg0.getMessage());
 					log.e(TAG, arg0.getMessage());
 				}
 
@@ -155,12 +153,13 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				}
 			});
 			
-			
+			x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD, ""));
 
 	}
 	@SuppressLint("CutPasteId") 
 	private void initView() {
 		// TODO Auto-generated method stub
+		userPhoto=(ImageView) findViewById(R.id.photo_head_senbiu_img);
 		sendBiuBtn = (Button) findViewById(R.id.send_biu);
 		sendBiuBtn.setOnClickListener(this);
 		backLayout=(RelativeLayout) findViewById(R.id.back_send_biu_mine_rl);
@@ -168,6 +167,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		mEditText.addTextChangedListener(watcher);
 		number=(TextView) findViewById(R.id.number_send_biu_tv);
 		button=(Button) findViewById(R.id.send_biu);
+		
 		button.setOnClickListener(new OnClickListener() {
 			
 			@Override

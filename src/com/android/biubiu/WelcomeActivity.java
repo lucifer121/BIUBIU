@@ -98,7 +98,7 @@ public class WelcomeActivity extends BaseActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				// 允许用户使用应用
-				Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+				Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);  
 				startActivity(intent);
 				finish();
 			}

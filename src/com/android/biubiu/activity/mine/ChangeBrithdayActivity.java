@@ -102,10 +102,16 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 
 					birthLong = DateUtils.getStringToDate(birthday.getText()
 							.toString());
+					if(birthLong>System.currentTimeMillis()){
+						toastShort("请选择有效日期");	
+						birthday.setText("");
+					}else{
+						birthday.setText(year + "-" + (month + 1) + "-" + day);
+					}
 					
 				}
 				
-			}, year, month, day).show();
+			}, 1995, 0, 1).show();
 //			new MyDatePicker(ChangeBrithdayActivity.this, new OnDateSetListener() {
 //				
 //				@Override

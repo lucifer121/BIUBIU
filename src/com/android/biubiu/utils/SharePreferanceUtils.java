@@ -109,14 +109,6 @@ public class SharePreferanceUtils {
 	public boolean isOpenVoice(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
-	//获取环信用户名
-	public String getHxName(Context context,String prefKey,String defValue){
-		return getShared(context, prefKey,defValue);
-	}
-	//获取环信密码
-	public String getHxPssword(Context context,String prefKey,String defValue){
-		return getShared(context, prefKey,defValue);
-	}
 	public  String getShared(Context ctx, String prefKey, String defValue) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getString(prefKey, defValue);
 	}

@@ -11,6 +11,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.LoginActivity;
+import com.android.biubiu.chat.DemoHelper;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
@@ -19,8 +21,10 @@ import com.android.biubiu.utils.LocationUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -28,6 +32,7 @@ import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,13 +53,14 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	//定位相关
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
+	private String TAG="MainActivity";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		if(!com.android.biubiu.utils.NetUtils.isNetworkConnected(getApplicationContext())){
-			Toast.makeText(getApplicationContext(), "网络未连接", 1000).show();
+			Toast.makeText(getApplicationContext(), "网络未连接", Toast.LENGTH_SHORT).show();
 		}
 		biuCoinTv = (TextView) findViewById(R.id.biu_coin_tv);
 		initPageFragment();
@@ -63,7 +69,16 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		// 初始化ViewPager
 		initViewPager();
 		//注册一个监听连接状态的listener
-		EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+	//	EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+		if(DemoHelper.getInstance().isLoggedIn()==false){
+			LogUtil.e(TAG, "未登录环信");			
+			if(!SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
+				LogUtil.e(TAG, "有token");
+				loginHuanXin(SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, ""),
+						SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, ""));
+			}
+		}
+		
 		location();
 	}
 	@Override
@@ -302,6 +317,41 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			locationClient = null;
 			locationOption = null;
 		}
+	}
+	
+	/**
+	 * 登录环信客户端 建立长连接
+	 * @param username
+	 * @param password
+	 */
+	public void loginHuanXin(String username,String password){
+		if(password.equals("")||username.equals("")){
+			return;			
+		}
+		EMClient.getInstance().login(username, password, new EMCallBack() {
+			
+			@Override
+			public void onSuccess() {
+				LogUtil.e(TAG, "登录成功环信");				
+				Intent intent=new Intent(MainActivity.this,MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				
+			}
+			
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, "登陆环信失败！");
+			}
+		});
+		
 	}
 }
 

@@ -486,7 +486,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 
-					loginHuanXin(username,passwprd,token);
+				//	loginHuanXin(username,passwprd,token);
 					
 					//把token 存在本地
 					SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
