@@ -9,6 +9,15 @@ import android.R.integer;
 
 public class BiuDetialBean {
 	
+	/**
+	 * 我的biu币
+	 */
+	private int havevc;
+	/**
+	 * 抢一次需要消耗的biu 币
+	 */
+	private int needvc;
+	
 	private String nickname;
 	
 	@SerializedName("token")
@@ -86,6 +95,26 @@ public class BiuDetialBean {
 		return token;
 	}
 	
+
+	public int getHavevc() {
+		return havevc;
+	}
+
+
+	public void setHavevc(int havevc) {
+		this.havevc = havevc;
+	}
+
+
+	public int getNeedvc() {
+		return needvc;
+	}
+
+
+	public void setNeedvc(int needvc) {
+		this.needvc = needvc;
+	}
+
 
 	public String getNickname() {
 		return nickname;

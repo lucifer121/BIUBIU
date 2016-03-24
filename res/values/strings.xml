@@ -167,6 +167,13 @@
     <string name="title_activity_context_menu">ContextMenuActivity</string>
     <string name="receive_biu_no_grab">不想见到TA</string>
     <string name="receive_biu_number_compatibility">15%</string>
+    <string name="receive_biu_no_biumoney_hint">你的biu币不足啦，发biu和兑换都能积攒biu币</string>
+    <string name="receive_biu_duihuan">兑换</string>
+     <string name="receive_biu_go_sendbiu">发biu</string>
+    
+    	<string name="dialog_dismiss">取消</string>
+    	<string name="dialog_goLogin">登录</string>
+    	<string name="dialog_hint_receivebiu">登陆后就能抢他的biu了</string>
 
     <!-- chat 相关 -->
     <string name="chat_userlist_title">biubiu的人</string>

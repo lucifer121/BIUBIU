@@ -3,10 +3,23 @@ package com.android.biubiu.chat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
+import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
+import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.common.Constant;
 import com.android.biubiu.fragment.FriendsListFragment;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
@@ -18,6 +31,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -32,10 +46,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class UserListActivity extends FragmentActivity implements OnItemClickListener{
+public class UserListActivity extends BaseActivity implements OnItemClickListener{
 	private RelativeLayout backLayout;
 	private ListView mListView;
-	private List<String> mData=new ArrayList<String>();
+	private List<UserFriends> mData=new ArrayList<UserFriends>();
 	private UserListAdapter mAdapter;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private String TAG="UserListActivity";
@@ -59,7 +73,7 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 	
 		initView();
 		initData();
-		initAdapter();
+		
 	}
 	
 	private void initView() {
@@ -80,7 +94,7 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 					@Override
 					public void run() {
 						
-						mAdapter.notifyDataSetChanged();
+						initData();
 						 swipeRefreshLayout.setRefreshing(false);
 					}
 				}, 600);
@@ -106,12 +120,25 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 		mListView.setAdapter(mAdapter);
 		
 		mListView.setOnItemClickListener(this);
+		
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(UserListActivity.this,ChatActivity.class);
+				intent.putExtra(Constant.EXTRA_USER_ID, mData.get(position).getUserCode());
+				startActivity(intent);
+			}
+		});
+
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-
+				removeFriend(mData.get(position).getUserCode());
 				
 				return false;
 			}
@@ -119,17 +146,79 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 	}
 
 
-
+/**
+ * 加载好友列表
+ */
 	private void initData() {
 		// TODO Auto-generated method stub
 		
+
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_FRIDENS_LIST);
+		JSONObject object=new JSONObject();
 		try {
-			List<String> usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
-			mData.addAll(usernames);
-		} catch (HyphenateException e) {
+			object.put("token", SharePreferanceUtils.getInstance().
+					getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			object.put("device_code", SharePreferanceUtils.getInstance().
+					getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			
+			
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		params.addBodyParameter("data", object.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				toastShort(arg0.getMessage());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, arg0);
+				JSONObject jsons;			
+					try {
+						jsons = new JSONObject(arg0);					
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(!code.equals("200")){
+						toastShort(""+jsons.getString("error"));	
+						return;
+					}
+					JSONObject obj = jsons.getJSONObject("data");
+					Gson gson=new Gson();
+					
+					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
+							new TypeToken<List<UserFriends>>() {}.getType());
+					mData.clear();
+					mData.addAll(userFriendsList);
+					LogUtil.e(TAG, ""+userFriendsList.size()+" ||"+mData.size());
+					
+					initAdapter();
+							
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+			}
+		});
+		
 		
 	}
 
@@ -143,8 +232,71 @@ public class UserListActivity extends FragmentActivity implements OnItemClickLis
 		
 		
 	}
+/**
+ * 删除好友
+ */
+	private void removeFriend(String userCode){
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REMOVE_FRIEND);
+		JSONObject object=new JSONObject();
+		try {
+			object.put("token", SharePreferanceUtils.getInstance().
+					getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			object.put("device_code", SharePreferanceUtils.getInstance().
+					getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			object.put("user_code", userCode);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", object.toString());
+		x.http().post(params, new CommonCallback<String>() {
 
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
 
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, arg0.toString());
+				JSONObject jsonObject=new JSONObject();
+				try {
+					String state=jsonObject.getString("state");
+					LogUtil.e(TAG, state);
+					if(!state.equals("200")){
+						toastShort(jsonObject.getString("error"));					
+					}
+					JSONObject jsonObject2=new JSONObject();
+					jsonObject2=jsonObject.getJSONObject("data");
+					String token=jsonObject2.getString("token");
+					if(!token.equals("")&&token!=null){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+					}
+					mAdapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+	}
 
 	
 	

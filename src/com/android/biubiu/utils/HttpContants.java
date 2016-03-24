@@ -99,4 +99,17 @@ public class HttpContants {
 	 * 获取未登录时biubiu列表
 	 */
 	public static final String GET_UNLOGIN_BIU_LIST="app/auth/biubiuListUnlogin";
+	/**
+	 * 抢biu时 不想见到他
+	 */
+	public static  final String NO_LONGER_MATCH="app/biubiu/nolongerMatch";
+	
+	/**
+	 * 获取好友列表
+	 */
+	public static final String GET_FRIDENS_LIST="app/biubiu/getFriendsList";
+	/**
+	 * 解除匹配关系
+	 */
+	public static final String REMOVE_FRIEND="app/biubiu/removeFriend";
 }
