@@ -47,6 +47,7 @@ public class ChatFragment extends EaseChatFragment implements
 	protected void setUpView() {
 		// TODO Auto-generated method stub
 		super.setUpView();
+		setChatFragmentListener(this);
 		// 设置标题栏点击事件
 		titleBar.setRightImageResource(R.drawable.mes_btn_right);
 		titleBar.setRightLayoutClickListener(new OnClickListener() {
@@ -94,7 +95,7 @@ public class ChatFragment extends EaseChatFragment implements
 		// TODO Auto-generated method stub
 		// 头像点击事件 进入他人主页
 		Intent intent = new Intent(getActivity(), MyPagerActivity.class);
-		intent.putExtra("username", username);
+		intent.putExtra("userCode", username);
 		startActivity(intent);
 	}
 

@@ -35,6 +35,7 @@ import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.avos.avoscloud.LogUtil.log;
 import com.baidu.android.pushservice.PushMessageReceiver;
 
 public class MyPushReceiver extends PushMessageReceiver{
@@ -192,7 +193,14 @@ public class MyPushReceiver extends PushMessageReceiver{
 		Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
 		vibrator.vibrate(1000);
 	}
+	/**
+	 * 保存用户信息
+	 * @param code
+	 * @param name
+	 * @param url
+	 */
 	public void saveUserFriend(String code,String name, String url){
+		log.e("保存用户信息");
 		UserFriends item=new UserFriends();
 		item.setUserCode(code);
 		item.setIcon_thumbnailUrl(url);

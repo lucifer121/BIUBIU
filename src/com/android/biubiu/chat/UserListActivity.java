@@ -16,9 +16,11 @@ import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.common.Constant;
 import com.android.biubiu.fragment.FriendsListFragment;
+import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
@@ -36,6 +38,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -54,6 +57,7 @@ public class UserListActivity extends BaseActivity {
 	private UserListAdapter mAdapter;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private String TAG="UserListActivity";
+	private UserDao userDao;
 	
 
 	@Override
@@ -71,7 +75,7 @@ public class UserListActivity extends BaseActivity {
 ////		 args.putString(EaseConstant.EXTRA_USER_ID, userID);
 ////		 contastListFragment.setArguments(args);		 
 //		 getSupportFragmentManager().beginTransaction().add(R.id.container_user_list, userfragment).commit();
-	
+		userDao=new UserDao(this);
 		initView();
 		initData();
 		
@@ -222,6 +226,16 @@ public class UserListActivity extends BaseActivity {
 					mData.clear();
 					mData.addAll(userFriendsList);
 					LogUtil.e(TAG, ""+userFriendsList.size()+" ||"+mData.size());
+					int number=mData.size();
+					Log.e(TAG, ""+number);
+					if(number!=0){
+						userDao.deleteAllUser();
+						for(int i=0;i<mData.size();i++){
+							userDao.insertOrReplaceUser(mData.get(i));
+						}						
+					log.e(TAG, userDao.queryUserAll().size()+"");
+					}			
+					
 					
 					initAdapter();
 							
