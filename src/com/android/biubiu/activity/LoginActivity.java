@@ -214,6 +214,10 @@ public class LoginActivity extends BaseActivity{
 					
 					loginHuanXin(hxName,HxPassword,token);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
+					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					finish();
 	
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -244,10 +248,6 @@ public class LoginActivity extends BaseActivity{
 				LogUtil.e(TAG, "登录成功环信");
 				//把token 存在本地
 				SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
-				Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				finish();
 			}
 			
 			@Override

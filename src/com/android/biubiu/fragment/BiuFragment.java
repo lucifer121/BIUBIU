@@ -63,6 +63,7 @@ import android.annotation.SuppressLint;
 
 
 import android.content.Intent;
+import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract.CommonDataKinds.Nickname;
@@ -621,12 +622,17 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				imageViewL.setVisibility(View.GONE);
-				Intent intent = new Intent(getActivity(),BiuBiuReceiveActivity.class);
-				intent.putExtra("referenceId", bean.getReferenceId());
-				intent.putExtra("userCode", bean.getId());
-				intent.putExtra("chatId", bean.getChatId());
-				startActivity(intent);
+				if(LoginUtils.isLogin(getActivity())){
+					imageViewL.setVisibility(View.GONE);
+					Intent intent = new Intent(getActivity(),BiuBiuReceiveActivity.class);
+					intent.putExtra("referenceId", bean.getReferenceId());
+					intent.putExtra("userCode", bean.getId());
+					intent.putExtra("chatId", bean.getChatId());
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(getActivity(),LoginOrRegisterActivity.class);
+					startActivity(intent);
+				}
 			}
 		});
 	}

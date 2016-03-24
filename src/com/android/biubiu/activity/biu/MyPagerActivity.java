@@ -158,7 +158,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private String userCode = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
@@ -175,7 +175,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 
 	private void initView() {
-		
+
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setOnClickListener(this);
 		//解决scrollview初始在顶部
@@ -297,7 +297,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		starSignTv.setText(bean.getStar());
 		//cityTv.setText(bean.getCity());
 		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
-		hometownTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());
+		if(bean.getHomeTown()!=null && !bean.getHomeTown().equals("")){
+			hometownTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
+		}
 		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
@@ -311,11 +313,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolTv.setText(bean.getCompany());
 		}
 		if(isMyself && bean.getAboutMe().equals("")){
-				userInfoTv.setText(getResources().getString(R.string.description_me));
-				userInfoBigTv.setText(getResources().getString(R.string.description_me));
+			userInfoTv.setText(getResources().getString(R.string.description_me));
+			userInfoBigTv.setText(getResources().getString(R.string.description_me));
 		}else if(!isMyself && !bean.getAboutMe().equals("")){
-				userInfoTv.setText(getResources().getString(R.string.description_other));
-				userInfoBigTv.setText(getResources().getString(R.string.description_other));
+			userInfoTv.setText(getResources().getString(R.string.description_other));
+			userInfoBigTv.setText(getResources().getString(R.string.description_other));
 		}else{
 			userInfoTv.setText(bean.getAboutMe());
 			userInfoBigTv.setText(bean.getAboutMe());
@@ -347,7 +349,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		interestTagGv.setAdapter(interestAdapter);
 	}
 	private void setPersonalTags(ArrayList<PersonalTagBean> tags) {
-		
+
 		personalAdapter = new UserPagerTagAdapter(getApplicationContext(), tags);
 		personalTagGv.setAdapter(personalAdapter);
 	}
@@ -357,7 +359,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			dismissLoadingLayout();
 			showErrorLayout(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -375,7 +377,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			requestObject.put("code",userCode);
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
-			
+
 			e.printStackTrace();
 		}
 		params.addBodyParameter("data",requestObject.toString());
@@ -383,7 +385,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-			
+
 
 			}
 
@@ -391,7 +393,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			public void onError(Throwable ex, boolean arg1) {
 				dismissLoadingLayout();
 				showErrorLayout(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -405,14 +407,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onFinished() {
-			
+
 
 			}
 
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
 				LogUtil.d("mytest", result);
+
+				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				dismissErrorLayout();
 				try {
@@ -420,7 +423,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
 						showErrorLayout(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub
@@ -445,12 +448,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					ArrayList<PersonalTagBean> per = infoBean.getPersonalTags();
 					ArrayList<UserPhotoBean> phos = infoBean.getUserPhotos();
 					ArrayList<InterestByCateBean> cates = infoBean.getInterestCates();
-					
+
 					setPersonalTags(per);
 					setInterestTags(cates);
 					setUserInfoView(bean);
 					setUserPhotos(phos);
-					
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -460,7 +463,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		
+
 		switch (v.getId()) {
 		case R.id.userhead_imv:
 			Intent headIntent = new Intent(MyPagerActivity.this,ScanUserHeadActivity.class);
@@ -575,7 +578,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-			
+
 
 			}
 
@@ -588,7 +591,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onFinished() {
-				
+
 
 			}
 
@@ -695,8 +698,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				
-				
+
+
 			}
 
 			@Override
@@ -708,8 +711,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onFinished() {
-			
-				
+
+
 			}
 
 			@Override
@@ -751,7 +754,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case UPDATE_INFO:
