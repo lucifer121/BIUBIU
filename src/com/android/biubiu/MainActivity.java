@@ -1,4 +1,6 @@
 package com.android.biubiu;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -27,7 +29,9 @@ import com.baidu.android.pushservice.PushManager;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -76,8 +80,11 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 				LogUtil.e(TAG, "有token");
 				loginHuanXin(SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, ""),
 						SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, ""));
+			}else{
+				EMClient.getInstance().chatManager().addMessageListener(msgListener);
 			}
 		}
+		
 		
 		location();
 	}
@@ -353,5 +360,40 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		});
 		
 	}
+	/**
+	 * 会话消息监听
+	 */
+	EMMessageListener msgListener = new EMMessageListener() {
+		 
+		@Override
+		public void onMessageReceived(List<EMMessage> messages) {
+			//收到消息
+		}
+	 
+		@Override
+		public void onCmdMessageReceived(List<EMMessage> messages) {
+			//收到透传消息
+		}
+	 
+		@Override
+		public void onMessageReadAckReceived(List<EMMessage> messages) {
+			//收到已读回执
+		}
+	 
+		@Override
+		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+			//收到已送达回执
+		}
+	 
+		@Override
+		public void onMessageChanged(EMMessage message, Object change) {
+			//消息状态变动
+		}
+	};
+	 
+//	记得在不需要的时候移除listener，如在activity的onDestroy()时
+//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+//	监听
+	
 }
 
