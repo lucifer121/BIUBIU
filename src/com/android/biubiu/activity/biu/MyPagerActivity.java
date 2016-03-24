@@ -296,16 +296,16 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		birthdayTv.setText(bean.getBirthday());
 		starSignTv.setText(bean.getStar());
 		//cityTv.setText(bean.getCity());
-		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
+		/*cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
 		if(bean.getHomeTown()!=null && !bean.getHomeTown().equals("")){
 			hometownTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
-		}
+		}*/
 		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
 			identityTv.setText("学生");
-			schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
+			//schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
 		}else{
 			identityTagTv.setText("职业");
 			schoolTagTv.setText("公司");

@@ -312,7 +312,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		public void run() {
 			taskView.updeteTask(currentTime--);
 			if(currentTime <= 0){
-				Toast.makeText(getActivity(), "你的biubiu暂时无人应答，请重新发送", 1000).show();
+				if(getActivity() != null){
+					Toast.makeText(getActivity(), "你的biubiu暂时无人应答，请重新发送", 1000).show();
+				}
 				taskView.setVisibility(View.GONE);
 				userBiuImv.setVisibility(View.VISIBLE);
 				currentTime = 0;
