@@ -55,6 +55,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	public RelativeLayout leftRl;
 	public RelativeLayout rightRl;
 	public static TextView biuCoinTv;
+	public static RelativeLayout biuCoinLayout;
 	//定位相关
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
@@ -69,6 +70,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			Toast.makeText(getApplicationContext(), "网络未连接", Toast.LENGTH_SHORT).show();
 		}
 		biuCoinTv = (TextView) findViewById(R.id.biu_coin_tv);
+		biuCoinLayout = (RelativeLayout) findViewById(R.id.title_coin_rl);
 		initPageFragment();
 		// 初始化SlideMenu
 		initRightMenu();

@@ -304,15 +304,16 @@
         <activity
             android:name=".TestActivity"
             android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name=".WelcomeActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/app_name" >
+            
         </activity>
         <activity
             android:name=".MainActivity"
@@ -345,6 +346,10 @@
         <activity
             android:name=".activity.biu.BiuBiuSendActivity"
             android:label="@string/title_activity_biu_biu_send" >
+        </activity>
+        <activity
+            android:name=".activity.biu.BiuChargeActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activity.biu.MyPagerActivity"

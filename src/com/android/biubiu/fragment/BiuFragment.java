@@ -19,6 +19,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
+import com.android.biubiu.activity.biu.BiuChargeActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserBean;
@@ -841,10 +842,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
-					MainActivity.biuCoinTv.setText(""+biuCoin);
+					initBiuView(biuCoin);
 					Gson gson = new Gson();
-					JSONObject biuObject = data.getJSONObject("mylatestbiu");
-					if(biuObject!=null && !biuObject.toString().equals("{}")){
+					JSONObject biuObject = data.optJSONObject("mylatestbiu");
+					if(biuObject!=null){
 						UserBean bean = gson.fromJson(biuObject.toString(), UserBean.class);
 						if(null != bean){
 							userBiuBean = bean;
@@ -862,6 +863,21 @@ public class BiuFragment extends Fragment implements PushInterface{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+		});
+	}
+	//设置biubiu币相关
+	protected void initBiuView(final int biuCoin) {
+		// TODO Auto-generated method stub
+		MainActivity.biuCoinTv.setText(""+biuCoin);
+		MainActivity.biuCoinLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(),BiuChargeActivity.class);
+				intent.putExtra("coin", biuCoin);
+				startActivity(intent);
 			}
 		});
 	}
