@@ -23,6 +23,8 @@ import com.android.biubiu.activity.biu.BiuChargeActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.chat.ChatActivity;
+import com.android.biubiu.chat.Constant;
 import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.utils.BiuUtil;
@@ -57,6 +59,7 @@ import com.ant.liao.GifView.GifImageType;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.easeui.EaseConstant;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -288,7 +291,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 					//标记抢我biubiu的人为已读
 					updateBiuState();
 					//进入聊天界面
-
+					Intent intent=new Intent(getActivity(),ChatActivity.class);
+					intent.putExtra(Constant.EXTRA_USER_ID, userBiuBean.getId());
+					startActivity(intent);
 				}
 			}
 		});

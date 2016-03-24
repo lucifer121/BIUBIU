@@ -21,7 +21,11 @@ import com.android.biubiu.bean.InterestByCateBean;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.TokenBean;
+import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.chat.ChatActivity;
+import com.android.biubiu.chat.Constant;
 import com.android.biubiu.sqlite.SchoolDao;
+import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -29,6 +33,7 @@ import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
+import com.hyphenate.easeui.EaseConstant;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -79,6 +84,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	
 	private RelativeLayout noBiuMoneyLayout,isGrabLayout;
 	private RelativeLayout chongzhiLayout,goSendBiuLayout;
+	private UserDao userDao;
+	private String userCodeString,userNameString,userUrlString;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +96,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		chatId = getIntent().getStringExtra("chatId");
 		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
 				+ userCode + "||chatId==" + chatId);
+		userDao=new UserDao(this);
 		initView();
 		initData();
 		initAdapter();
@@ -171,7 +179,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		});
 
 	}
-
+/**
+ * 初始化数据
+ */
 	private void initData() {
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			dismissLoadingLayout();
@@ -316,6 +326,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						isGrabLayout.setVisibility(View.VISIBLE);
 						noBiuMoneyLayout.setVisibility(View.GONE);	
 					}
+					userCodeString=biuDEtialBean.getUser_code();
+					userNameString=biuDEtialBean.getNickname();
+					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -457,8 +470,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						toastShort("" + jsons.getString("error"));
 						return;
 					}
+					saveUserFriend(userCodeString,userNameString,userUrlString);
 					toastShort("抢中了啊");
 					finish();
+					Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
+					intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
+					startActivity(intent);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -603,6 +620,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				
 			}
 		});
+	}
+	
+	public void saveUserFriend(String code,String name, String url){
+		UserFriends item=new UserFriends();
+		item.setUserCode(code);
+		item.setIcon_thumbnailUrl(url);
+		item.setNickname(name);
+		userDao.insertOrReplaceUser(item);
+		
 	}
 
 }

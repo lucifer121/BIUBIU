@@ -1,5 +1,12 @@
 package com.android.biubiu.chat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.View;
@@ -13,6 +20,10 @@ import com.android.biubiu.ContextMenuActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.MyPagerActivity;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
+import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
@@ -36,6 +47,7 @@ public class ChatFragment extends EaseChatFragment implements
 	protected void setUpView() {
 		// TODO Auto-generated method stub
 		super.setUpView();
+		setChatFragmentListener(this);
 		// 设置标题栏点击事件
 		titleBar.setRightImageResource(R.drawable.mes_btn_right);
 		titleBar.setRightLayoutClickListener(new OnClickListener() {
@@ -83,7 +95,7 @@ public class ChatFragment extends EaseChatFragment implements
 		// TODO Auto-generated method stub
 		// 头像点击事件 进入他人主页
 		Intent intent = new Intent(getActivity(), MyPagerActivity.class);
-		intent.putExtra("username", username);
+		intent.putExtra("userCode", username);
 		startActivity(intent);
 	}
 
@@ -183,8 +195,23 @@ public class ChatFragment extends EaseChatFragment implements
 				// TODO Auto-generated method stub
 				portraidlg.dismiss();
 				
-                EMClient.getInstance().chatManager().deleteConversation(toChatUsername, true);
-                messageList.refresh();
+				MyHintDialog.getDialog(getActivity(), "清空聊天记录", "嗨~确定要清空聊天记录吗？", "确定", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub
+			             EMClient.getInstance().chatManager().deleteConversation(toChatUsername, true);
+			                messageList.refresh();
+			                Toast.makeText(getActivity(), "清除成功", Toast.LENGTH_SHORT).show();;
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+   
 			}
 		});
 		deleteFriendLayout.setOnClickListener(new OnClickListener() {
@@ -193,6 +220,22 @@ public class ChatFragment extends EaseChatFragment implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				portraidlg.dismiss();
+				
+				MyHintDialog.getDialog(getActivity(), "解除关系", "嗨~确定解除和Ta的关系吗？", "确定", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub
+						removeFriend(toChatUsername);
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
 			}
 		});
 		dismissLayout.setOnClickListener(new OnClickListener() {
@@ -209,8 +252,110 @@ public class ChatFragment extends EaseChatFragment implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				portraidlg.dismiss();
+				MyHintDialog.getDialog(getActivity(), "举报Ta", "嗨~确定要举报Ta吗？", "确定", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub  缺少举报接口
+
+			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 		});
 	}
+	
+	/**
+	 * 删除好友
+	 */
+		private void removeFriend(String userCode){
+			RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REMOVE_FRIEND);
+			JSONObject object=new JSONObject();
+			try {
+				object.put("token", SharePreferanceUtils.getInstance().
+						getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+				object.put("device_code", SharePreferanceUtils.getInstance().
+						getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
+				object.put("user_code", userCode);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			params.addBodyParameter("data", object.toString());
+			x.http().post(params, new CommonCallback<String>() {
+
+				@Override
+				public void onCancelled(CancelledException arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onError(Throwable arg0, boolean arg1) {
+					// TODO Auto-generated method stub
+					
+					Toast.makeText(getActivity(), "解除关系失败", Toast.LENGTH_SHORT).show();
+					LogUtil.e(TAG, "解除匹配失败");
+				}
+
+				@Override
+				public void onFinished() {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(String arg0) {
+					// TODO Auto-generated method stub
+					LogUtil.e(TAG, arg0.toString());
+					JSONObject jsonObject=new JSONObject();
+					try {
+						String state=jsonObject.getString("state");
+						LogUtil.e(TAG, state);
+						if(!state.equals("200")){
+								
+							Toast.makeText(getActivity(), jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+						}
+						
+						Toast.makeText(getActivity(), "解除关系成功", Toast.LENGTH_SHORT).show();
+						LogUtil.e(TAG, "解除匹配成功");
+						JSONObject jsonObject2=new JSONObject();
+						jsonObject2=jsonObject.getJSONObject("data");
+						String token=jsonObject2.getString("token");
+						if(!token.equals("")&&token!=null){
+							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, "");
+						}						
+					Intent intent=getActivity().getIntent();
+					//100表示解除成功
+					getActivity().setResult(getActivity().RESULT_OK, intent);
+					getActivity().finish();	
+									
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			});
+			
+		}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		Intent intent=getActivity().getIntent();
+		//100表示解除成功
+		getActivity().setResult(getActivity().RESULT_CANCELED, intent);
+		getActivity().finish();	
+	}
+		
 
 }

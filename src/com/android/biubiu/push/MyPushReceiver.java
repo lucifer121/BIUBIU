@@ -26,6 +26,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
@@ -33,11 +35,13 @@ import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.avos.avoscloud.LogUtil.log;
 import com.baidu.android.pushservice.PushMessageReceiver;
 
 public class MyPushReceiver extends PushMessageReceiver{
 
 	static PushInterface updateface;
+	private UserDao userDao;
 	
 	public static void setUpdateBean(PushInterface updateBean) {
 		updateface = updateBean;
@@ -74,6 +78,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 	@Override
 	public void onMessage(Context context, String message,
 			String customContentString) {
+		userDao=new UserDao(context);
 		Log.d("mytest", "透传消息");
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
@@ -108,6 +113,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 					newUserBean.setCareer(jsons.getString("career"));
 					newUserBean.setReferenceId("reference_id");
 					updateface.updateView(newUserBean,0);
+					saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
 				}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
 					newUserBean.setId(jsons.getString("user_code"));
 					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
@@ -186,5 +192,20 @@ public class MyPushReceiver extends PushMessageReceiver{
 	public void shock(Context context){
 		Vibrator vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
 		vibrator.vibrate(1000);
+	}
+	/**
+	 * 保存用户信息
+	 * @param code
+	 * @param name
+	 * @param url
+	 */
+	public void saveUserFriend(String code,String name, String url){
+		log.e("保存用户信息");
+		UserFriends item=new UserFriends();
+		item.setUserCode(code);
+		item.setIcon_thumbnailUrl(url);
+		item.setNickname(name);
+		userDao.insertOrReplaceUser(item);
+		
 	}
 }

@@ -123,6 +123,7 @@ public class InterestLabelActivity extends BaseActivity {
 		try {
 			requestObject.put("device_code", Utils.getDeviceID(this));
 			requestObject.put("type", Constants.INTEREST);
+			requestObject.put("sex", infoBean.getSex());
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 			
