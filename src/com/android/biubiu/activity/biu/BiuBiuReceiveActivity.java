@@ -252,15 +252,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					String code = jsons.getString("state");
 					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
-//						showErrorLayout(new OnClickListener() {
-//							
-//							@Override
-//							public void onClick(View v) {
-//								// TODO Auto-generated method stub
-//								dismissErrorLayout();
-//								initData();
-//							}
-//						});
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								initData();
+							}
+						});
 						toastShort("获取biu信息失败");	
 						return;
 					}

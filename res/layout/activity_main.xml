@@ -40,14 +40,26 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" >
+            android:gravity="center" >
 
+            <RelativeLayout 
+                android:layout_width="22dp"
+                android:layout_height="19dp"
+                 android:layout_centerInParent="true" >
             <ImageView
                 android:id="@+id/id_iv_right"
+                android:layout_width="22dp"
+                android:layout_height="19dp"                             
+               android:src="@drawable/biu_btn_news_normal" />
+            <ImageView 
+                android:id="@+id/new_message_main_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/biu_btn_news_normal" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/biu_imageview_info_dian"
+                android:visibility="gone"/>
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout

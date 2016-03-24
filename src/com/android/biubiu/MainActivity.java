@@ -58,6 +58,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
 	private String TAG="MainActivity";
+	private ImageView newMessage;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +82,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 				loginHuanXin(SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, ""),
 						SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, ""));
 			}else{
+				log.e(TAG, "注册接收消息监听");
 				EMClient.getInstance().chatManager().addMessageListener(msgListener);
 			}
 		}
@@ -204,6 +206,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		});
 	}
 	private void initViewPager() {
+		newMessage=(ImageView) findViewById(R.id.new_message_main_img);
 		leftRl = (RelativeLayout) findViewById(R.id.title_left_rl);
 		leftRl.setOnClickListener(new OnClickListener() {
 
@@ -220,6 +223,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				showRightMenu();
+				newMessage.setVisibility(View.GONE);
 			}
 		});
 
@@ -364,10 +368,13 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	 * 会话消息监听
 	 */
 	EMMessageListener msgListener = new EMMessageListener() {
+		
 		 
 		@Override
 		public void onMessageReceived(List<EMMessage> messages) {
 			//收到消息
+			newMessage.setVisibility(View.VISIBLE);
+			log.e(TAG, "收到消息");
 		}
 	 
 		@Override
