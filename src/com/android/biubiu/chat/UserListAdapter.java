@@ -71,7 +71,10 @@ public class UserListAdapter extends BaseAdapter {
 		holder.age.setText(item.getAge()+"岁");
 		holder.star.setText(item.getStarsign()+"");
 		if(item.getIsgraduated().equals("1")){
-			holder.school.setText(schoolDao.getschoolName(item.getSchool()).get(0).getUnivsNameString());
+			if(schoolDao.getschoolName(item.getSchool()).get(0).getUnivsNameString()!=null){
+				holder.school.setText(schoolDao.getschoolName(item.getSchool()).get(0).getUnivsNameString());
+			}
+			
 		}else{
 			holder.school.setText(item.getCarrer());
 		}
