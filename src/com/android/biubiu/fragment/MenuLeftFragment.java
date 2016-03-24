@@ -81,7 +81,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.anim)
+		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
 	}

@@ -73,87 +73,121 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		setContentView(R.layout.activity_biu_biu_send);
 		initView();
 		initData();
-//		initChildViews();
+		//		initChildViews();
 	}
 	/**
 	 * 网络加载话题标签
 	 */
 	private void initData() {
-		// TODO Auto-generated method stub
-			RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
-			JSONObject requestObject = new JSONObject();		
-			try {
-				requestObject.put("device_code", Utils.getDeviceID(this));
-				requestObject.put("type", Constants.CHAT);
-				requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			params.addBodyParameter("data",requestObject.toString());
-			x.http().post(params, new CommonCallback<String>() {
+		showLoadingLayout(getResources().getString(R.string.loading));
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
 
 				@Override
-				public void onCancelled(CancelledException arg0) {
+				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onError(Throwable arg0, boolean arg1) {
-					// TODO Auto-generated method stub
-					toastShort("获取话题标签失败");	
-					log.e(TAG, arg0.getMessage());
-				}
-
-				@Override
-				public void onFinished() {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onSuccess(String arg0) {
-					Log.d(TAG, "result--"+arg0);
-					JSONObject jsons;
-					try {
-						jsons=new JSONObject(arg0);
-						String code = jsons.getString("state");
-						LogUtil.d(TAG, ""+code);
-						if(!code.equals("200")){
-							toastShort("获取话题标签失败");	
-							return;
-						}
-						
-						JSONObject obj = jsons.getJSONObject("data");
-//						System.out.println(obj.get("tags"));
-						String dataTag=obj.getString("tags").toString();
-						Gson gson=new Gson();
-						
-						
-						LogUtil.e(TAG, dataTag);
-						List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
-				                new TypeToken<List<PersonalTagBean>>() {  
-				                }.getType()); 
-						LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
-					       for (PersonalTagBean tag : personalTagBeansList) {  
-					    	 
-					            mList.add(tag);
-					            log.e(TAG, tag.getName());
-					    
-					        }  
-	
-						initChildViews();
-						
-						
-					} catch (JSONException e) {
-						
-						e.printStackTrace();
-					}
+					dismissErrorLayout();
+					initData();
 				}
 			});
-			
-			x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD, ""));
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
+		JSONObject requestObject = new JSONObject();		
+		try {
+			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("type", Constants.CHAT);
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						initData();
+					}
+				});
+				toastShort("获取话题标签失败");	
+				log.e(TAG, arg0.getMessage());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				dismissLoadingLayout();
+				Log.d(TAG, "sendtag--"+arg0);
+				JSONObject jsons;
+				try {
+					jsons=new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(!code.equals("200")){
+						showErrorLayout(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								initData();
+							}
+						});
+						toastShort("获取话题标签失败");	
+						return;
+					}
+
+					JSONObject obj = jsons.getJSONObject("data");
+					//						System.out.println(obj.get("tags"));
+					String dataTag=obj.getJSONArray("tags").toString();
+					Gson gson=new Gson();
+
+
+					LogUtil.e(TAG, dataTag);
+					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
+							new TypeToken<List<PersonalTagBean>>() {  
+					}.getType()); 
+					LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
+					for (PersonalTagBean tag : personalTagBeansList) {  
+
+						mList.add(tag);
+						log.e(TAG, tag.getName());
+
+					}  
+
+					initChildViews();
+
+
+				} catch (JSONException e) {
+
+					e.printStackTrace();
+				}
+			}
+		});
+
+		x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD, ""));
 
 	}
 	@SuppressLint("CutPasteId") 
@@ -167,13 +201,13 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		mEditText.addTextChangedListener(watcher);
 		number=(TextView) findViewById(R.id.number_send_biu_tv);
 		button=(Button) findViewById(R.id.send_biu);
-		
+
 		button.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 				if(mEditText.getText().length()<=0){
 					toastShort("请选择话题标签");
 				}else{
@@ -182,7 +216,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			}
 		});
 		backLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -191,24 +225,24 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		});
 	}
 	private TextWatcher watcher=new TextWatcher() {
-		
+
 		@Override
 		public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
+
 		@Override
 		public void afterTextChanged(Editable arg0) {
 			number.setText(""+arg0.length());
-			
+
 			changeBG();
 		}
 	};
@@ -227,24 +261,24 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		MarginLayoutParams lp = new MarginLayoutParams(
 				LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		lp.leftMargin = 30;
-//		lp.rightMargin = 5;
+		//		lp.rightMargin = 5;
 		lp.topMargin = 45;
-//		lp.bottomMargin = 5;
+		//		lp.bottomMargin = 5;
 		for(int i = 0; i < mList.size(); i ++){
 			final TextView view = new TextView(this);
 
 			view.setText(mList.get(i).getName());
 			view.setTextColor(getResources().getColor(R.color.textview_item_send_bg));
 			view.setTextSize(11);
-			
-		//	view.setPadding(24, 24, 24, 24);
+
+			//	view.setPadding(24, 24, 24, 24);
 			view.setBackgroundDrawable(getResources().getDrawable(R.drawable.textview_bg));
 			view.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-				//	Toast.makeText(getApplicationContext(), view.getText(), Toast.LENGTH_SHORT).show();
+					//	Toast.makeText(getApplicationContext(), view.getText(), Toast.LENGTH_SHORT).show();
 					mEditText.setText(view.getText());
 				}
 			});
@@ -277,19 +311,19 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -297,30 +331,30 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				// TODO Auto-generated method stub
 				Log.d(TAG, "result--"+arg0);
 				JSONObject jsons;
-			
-					try {
-						jsons=new JSONObject(arg0);
-						String code = jsons.getString("state");
-						LogUtil.d(TAG, ""+code);
-						if(!code.equals("200")){
-							toastShort(""+jsons.getString("error"));	
-							return;
-						}						
-						JSONObject obj = jsons.getJSONObject("data");
-						String token=obj.getString("token");
-						LogUtil.d(TAG, token);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					toastShort("发送成功");
-					setResult(RESULT_OK);
+
+				try {
+					jsons=new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(!code.equals("200")){
+						toastShort(""+jsons.getString("error"));	
+						return;
+					}						
+					JSONObject obj = jsons.getJSONObject("data");
+					String token=obj.getString("token");
+					LogUtil.d(TAG, token);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				toastShort("发送成功");
+				setResult(RESULT_OK);
 				finish();	
-				
+
 			}
 		});
-		
-		
+
+
 	}
 	@Override
 	public void onClick(View v) {

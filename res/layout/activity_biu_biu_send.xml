@@ -41,7 +41,6 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/top__send_biu_rl"
         android:layout_marginLeft="37dp"
         android:layout_marginRight="37dp"
         android:layout_marginTop="92dp"
@@ -135,7 +134,8 @@
         android:layout_marginTop="50dp"
         android:src="@drawable/biu_imageview_photo" />
 
-    <include layout="@layout/loading_layout" 
-        android:visibility="gone"/>
+    <include layout="@layout/loading_layout" />
+
+    <include layout="@layout/load_error_layout" />
 
 </RelativeLayout>

@@ -29,11 +29,13 @@ import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 
 
 
@@ -95,7 +97,21 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
  * 加载tag 数据
  */
 	private void loadData() {
-
+		showLoadingLayout(getResources().getString(R.string.loading));
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					loadData();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 		JSONObject requestObject = new JSONObject();		
 		try {
@@ -118,7 +134,17 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				toastShort(arg0.getMessage());
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						loadData();
+					}
+				});
+				toastShort("获取标签失败");
 			}
 
 			@Override
@@ -129,24 +155,28 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 
 			@Override
 			public void onSuccess(String arg0) {
+				dismissLoadingLayout();
 				Log.d("mytest", "result--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons=new JSONObject(arg0);
 					String code = jsons.getString("state");
-					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
-						toastShort(""+jsons.getString("error"));	
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								loadData();
+							}
+						});
+						toastShort("获取标签失败");
 						return;
 					}
-					
 					JSONObject obj = jsons.getJSONObject("data");
-//					System.out.println(obj.get("tags"));
-					String dataTag=obj.getString("tags").toString();
+					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
-					
-					
-					log.e(TAG, dataTag);
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
 			                new TypeToken<List<PersonalTagBean>>() {  
 			                }.getType()); 
@@ -155,17 +185,8 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 				    	 
 				            mList.add(tag);
 				            log.e(TAG, tag.getName());
-				       //     toastShort(tag.getName());
 				        }  
-				    
-					LogUtil.e(TAG, "personalTagBeansList"+personalTagBeansList.size());
-
-				//	mList.addAll(personalTagBeansList);
-
-				//    handler.sendEmptyMessage(1);
 					setView();
-					
-					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

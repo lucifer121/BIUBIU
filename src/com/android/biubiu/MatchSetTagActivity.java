@@ -20,6 +20,7 @@ import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.LogUtil.log;
@@ -69,6 +70,21 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 	 * 加载tag 数据
 	 */
 	private void loadData() {
+		showLoadingLayout(getResources().getString(R.string.loading));
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					loadData();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 		JSONObject requestObject = new JSONObject();		
 		try {
@@ -92,6 +108,16 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 				Log.d("mytest", "setTag--"+arg0.getMessage());
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						loadData();
+					}
+				});
 			}
 
 			@Override
@@ -102,19 +128,29 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 
 			@Override
 			public void onSuccess(String arg0) {
+				dismissLoadingLayout();
 				Log.d("mytest", "setTag--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons=new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								loadData();
+							}
+						});
 						toastShort("获取标签信息失败");	
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
 					String token = (jsons.getJSONObject("data").getString("token"));
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					String dataTag=obj.getString("tags").toString();
+					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
 							new TypeToken<List<PersonalTagBean>>() {  

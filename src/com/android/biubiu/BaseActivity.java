@@ -68,14 +68,15 @@ public class BaseActivity extends Activity{
 		}
 		if(loadGif == null){
 			loadGif = (GifView) findViewById(R.id.load_gif);
+			loadGif.setGifImage(R.drawable.loadingbbbb);
+			loadGif.setShowDimension(DensityUtil.dip2px(getApplicationContext(), 30), DensityUtil.dip2px(getApplicationContext(), 30));
+			loadGif.setGifImageType(GifImageType.COVER);
 		}
 		if(loadTv == null){
 			loadTv = (TextView) findViewById(R.id.loading_tv);
 		}
-		loadGif.setGifImage(R.drawable.loadingbbbb);
-		loadGif.setShowDimension(DensityUtil.dip2px(getApplicationContext(), 30), DensityUtil.dip2px(getApplicationContext(), 30));
-		loadGif.setGifImageType(GifImageType.COVER);
 		loadTv.setText(loadingStr);
+		loadGif.setVisibility(View.VISIBLE);
 		loadingLayout.setVisibility(View.VISIBLE);
 	}
 	//加载完毕隐藏
@@ -86,7 +87,7 @@ public class BaseActivity extends Activity{
 		if(loadGif == null){
 			loadGif = (GifView) findViewById(R.id.load_gif);
 		}
-		loadGif = null;
+		loadGif.setVisibility(View.GONE);
 		loadingLayout.setVisibility(View.GONE);
 	}
 	//显示错误界面

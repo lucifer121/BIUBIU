@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/page_tag_bg">
+    android:background="@color/page_tag_bg"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/top_selector_personality_tag_rl"
@@ -60,23 +60,38 @@
         android:layout_height="1px"
         android:background="#cccccc" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_recyclerView_personality_tag"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/top_selector_personality_tag_rl"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginTop="11dp" >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/hint_personality_tag_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/id_recyclerView_personality_tag"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/personality_tag_hint" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_recyclerView_personality_tag"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/top_selector_personality_tag_rl"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
+                android:layout_marginTop="11dp" >
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/hint_personality_tag_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/id_recyclerView_personality_tag"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/personality_tag_hint" />
+        </LinearLayout>
+
+        <include layout="@layout/loading_layout" />
+
+        <include layout="@layout/load_error_layout" />
+    </FrameLayout>
 
 </LinearLayout>

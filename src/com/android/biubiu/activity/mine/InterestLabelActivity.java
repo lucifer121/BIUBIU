@@ -29,6 +29,7 @@ import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.android.biubiu.bean.InterestByCateBean;
@@ -102,7 +103,21 @@ public class InterestLabelActivity extends BaseActivity {
 	 * 网上请求数据
 	 */
 	private void initData() {
-
+		showLoadingLayout(getResources().getString(R.string.loading));
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			dismissLoadingLayout();
+			showErrorLayout(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					dismissErrorLayout();
+					initData();
+				}
+			});
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 		JSONObject requestObject = new JSONObject();		
 		try {
@@ -125,7 +140,17 @@ public class InterestLabelActivity extends BaseActivity {
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				
-				toastShort(arg0.getMessage());
+				dismissLoadingLayout();
+				showErrorLayout(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dismissErrorLayout();
+						initData();
+					}
+				});
+				toastShort("获取标签信息失败");	
 			}
 
 			@Override
@@ -136,19 +161,28 @@ public class InterestLabelActivity extends BaseActivity {
 
 			@Override
 			public void onSuccess(String arg0) {
-				Log.d("mytest", "result--"+arg0);
+				dismissLoadingLayout();
+				Log.d("mytest", "inter--"+arg0);
 				JSONObject jsons;
 				try {
 					jsons=new JSONObject(arg0);
 					String code = jsons.getString("state");
-					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
-						toastShort(""+jsons.getString("error"));	
+						showErrorLayout(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								initData();
+							}
+						});
+						toastShort("获取标签信息失败");	
 						return;
 					}
 					
 					JSONObject obj = jsons.getJSONObject("data");
-					String dataTags=obj.getString("tags").toString();
+					String dataTags=obj.getJSONArray("tags").toString();
 					System.out.println(obj.get("tags"));
 					Gson gson=new Gson();
 					List<InterestByCateBean> interestByCateBeansList=gson.fromJson(dataTags,  

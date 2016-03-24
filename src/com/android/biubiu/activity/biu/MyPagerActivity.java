@@ -234,7 +234,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.anim)
+		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.ic_launcher)
 		.build();
 
@@ -271,6 +271,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			personalArrow.setVisibility(View.VISIBLE);
 			interestArrow.setVisibility(View.VISIBLE);
 		}else{
+			locationTv.setText(""+bean.getDistance());
+			timeTv.setText(""+bean.getTime()+"min");
+			matchTv.setText(""+bean.getMatchScore()+"%");
 			addPhotoImv.setVisibility(View.GONE);
 			otherInfoLayout.setVisibility(View.VISIBLE);
 			aboutMeArrow.setVisibility(View.GONE);

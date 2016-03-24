@@ -92,7 +92,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	public static final int SEND_BIU_REQUEST = 1001;
 	//屏幕宽高
 	int width = 0;
-	//int height = 0;
+	int height = 0;
 	Handler taskHandler;
 	Handler infoHandler;
 	Handler removeHandler;
@@ -194,7 +194,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	private void init() {
 		// TODO Auto-generated method stub
 		width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-		//height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+		height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
 		taskHandler = new Handler();
 		infoHandler = new Handler();
 		removeHandler = new Handler();
@@ -226,7 +226,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		/**
 		 * 此处用于设置背景动画 暂时注释
 		 */
-		/*backgroundGif.setGifImage(R.drawable.background);
+		/*backgroundGif.setGifImage(R.drawable.home_andriod);
 		backgroundGif.setShowDimension(width, height);
 		backgroundGif.setGifImageType(GifImageType.COVER);*/
 	}

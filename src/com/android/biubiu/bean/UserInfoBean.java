@@ -47,7 +47,31 @@ public class UserInfoBean implements Serializable{
 	@SerializedName("interested_tags")
 	private ArrayList<InterestByCateBean> interestCates;
 	private ArrayList<InterestTagBean> interestTags;
+	@SerializedName("matching_score")
+	private int matchScore;
+	@SerializedName("distance")
+	private long distance;
+	@SerializedName("time")
+	private int time;
 	
+	public int getMatchScore() {
+		return matchScore;
+	}
+	public void setMatchScore(int matchScore) {
+		this.matchScore = matchScore;
+	}
+	public long getDistance() {
+		return distance;
+	}
+	public void setDistance(long distance) {
+		this.distance = distance;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
+	}
 	public String getIconOrigin() {
 		return iconOrigin;
 	}
