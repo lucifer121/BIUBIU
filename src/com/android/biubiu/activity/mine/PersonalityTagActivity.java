@@ -82,6 +82,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private ArrayList<PersonalTagBean> mDataReceive=new ArrayList<PersonalTagBean>(); 
 	private ArrayList<PersonalTagBean> mDataFanhui=new ArrayList<PersonalTagBean>(); 
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,6 +118,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		try {
 			requestObject.put("device_code", Utils.getDeviceID(this));
 			requestObject.put("type", Constants.PERSONALIED);
+			requestObject.put("sex", infoBean.getSex());
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -187,6 +189,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 				            log.e(TAG, tag.getName());
 				        }  
 					setView();
+					setRecycleviewHight();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -332,9 +335,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					
 				}
 			}
-//			
-//			mCheckList.clear();
-//			mCheckList.addAll(mList);
+
 		handler.sendEmptyMessage(1);
 			
 			

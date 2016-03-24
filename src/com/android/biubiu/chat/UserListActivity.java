@@ -13,6 +13,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.common.Constant;
 import com.android.biubiu.fragment.FriendsListFragment;
 import com.android.biubiu.utils.HttpContants;
@@ -46,7 +47,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class UserListActivity extends BaseActivity implements OnItemClickListener{
+public class UserListActivity extends BaseActivity {
 	private RelativeLayout backLayout;
 	private ListView mListView;
 	private List<UserFriends> mData=new ArrayList<UserFriends>();
@@ -119,7 +120,7 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 		mAdapter=new UserListAdapter(this, mData);
 		mListView.setAdapter(mAdapter);
 		
-		mListView.setOnItemClickListener(this);
+
 		
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -129,7 +130,7 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(UserListActivity.this,ChatActivity.class);
 				intent.putExtra(Constant.EXTRA_USER_ID, mData.get(position).getUserCode());
-				startActivity(intent);
+				startActivityForResult(intent, 0);
 			}
 		});
 
@@ -137,8 +138,21 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				removeFriend(mData.get(position).getUserCode());
+					final int position, long arg3) {
+
+				MyHintDialog.getDialog(UserListActivity.this, "解除关系", "嗨~确定要解除和他的关系吗", "返回抢biu",new OnDialogClick() {				
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub
+						toastShort("ok");
+						removeFriend(mData.get(position).getUserCode());
+					}				
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+					//	toastShort("no");
+					}
+				});
 				
 				return false;
 			}
@@ -222,16 +236,8 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 		
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		// TODO Auto-generated method stub
-		LogUtil.d(TAG, ""+position);
-	}
-	
-	public void deleteDiolag(String potion){
-		
-		
-	}
+
+
 /**
  * 删除好友
  */
@@ -261,7 +267,7 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+				toastShort("解除匹配失败");
 			}
 
 			@Override
@@ -281,6 +287,7 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 					if(!state.equals("200")){
 						toastShort(jsonObject.getString("error"));					
 					}
+					toastShort("解除匹配成功");
 					JSONObject jsonObject2=new JSONObject();
 					jsonObject2=jsonObject.getJSONObject("data");
 					String token=jsonObject2.getString("token");
@@ -297,6 +304,25 @@ public class UserListActivity extends BaseActivity implements OnItemClickListene
 		});
 		
 	}
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	// TODO Auto-generated method stub
+	super.onActivityResult(requestCode, resultCode, data);
+	switch (requestCode) {
+	case 0:
+		if(resultCode==RESULT_OK){
+			initData();
+		}
+		
+		break;
+
+	default:
+		break;
+	}	
+}
+	
+	
 
 	
 	

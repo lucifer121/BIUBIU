@@ -15,6 +15,7 @@ import com.android.biubiu.activity.mine.ChangeConstellationActivity;
 
 
 import com.android.biubiu.activity.mine.InterestLabelActivity;
+import com.android.biubiu.chat.LoadUserFriend;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.sqlite.DBManager;
 import com.android.biubiu.sqlite.DBManagerCity;
@@ -59,6 +60,7 @@ public class WelcomeActivity extends BaseActivity {
 		//读取设备ID
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
 		next();
+		LoadUserFriend.getUserFriends(this);
 		
 	}
 

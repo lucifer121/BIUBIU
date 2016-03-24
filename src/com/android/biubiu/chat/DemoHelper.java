@@ -11,6 +11,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.sqlite.UserDao;
+import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
@@ -37,6 +41,7 @@ public class DemoHelper {
     private EaseUI easeUI=null;
     private static DemoHelper instance = null;
     
+    private UserDao userDao;
     /**
      * EMEventListener
      */
@@ -57,6 +62,7 @@ public class DemoHelper {
 		if (EaseUI.getInstance().init(context, options)) {
 		    appContext = context;
 		    
+		    userDao=new UserDao(appContext);
 		    //设为调试模式，打成正式包时，最好设为false，以免消耗额外的资源
 		    EMClient.getInstance().setDebugMode(true);
 		    //get easeui instance
@@ -258,6 +264,23 @@ public class DemoHelper {
 //	        if(user == null && getRobotList() != null){
 //	            user = getRobotList().get(username);
 //	        }
+	        user=new EaseUser(username);
+	        
+
+	       if(username.equals(SharePreferanceUtils.getInstance().getUserCode(appContext, SharePreferanceUtils.USER_CODE, ""))){
+	    	   //是我自己
+	    	   user.setAvatar(SharePreferanceUtils.getInstance().getUserHead(appContext, SharePreferanceUtils.USER_HEAD, ""));
+	    	   user.setNick(SharePreferanceUtils.getInstance().getUserName(appContext, SharePreferanceUtils.USER_NAME, ""));
+	       } else{
+	           List<UserFriends>  list= userDao.queryUser(username);
+		       
+		        if (list!=null&&list.size()>0) {
+		        	 user.setAvatar(list.get(0).getIcon_thumbnailUrl());
+		 	         user.setNick(list.get(0).getNickname());
+				}
+	       }
+	
+	       
 	        return user;
 		}
 		

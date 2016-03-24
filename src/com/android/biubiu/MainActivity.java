@@ -31,6 +31,7 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -81,14 +82,19 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 				LogUtil.e(TAG, "有token");
 				loginHuanXin(SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, ""),
 						SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, ""));
-			}else{
-				log.e(TAG, "注册接收消息监听");
-				EMClient.getInstance().chatManager().addMessageListener(msgListener);
 			}
+		}else{
+			log.e(TAG, "注册接收消息监听");
+			EMClient.getInstance().chatManager().addMessageListener(msgListener);
+	
+
+	
+			
 		}
 		
-		
+	//	newMessage.setVisibility(View.VISIBLE);
 		location();
+		log.e("Token", SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 	}
 	@Override
 	protected void onResume() {
@@ -223,7 +229,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				showRightMenu();
-				newMessage.setVisibility(View.GONE);
+	//			newMessage.setVisibility(View.GONE);
 			}
 		});
 
@@ -380,6 +386,9 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		@Override
 		public void onCmdMessageReceived(List<EMMessage> messages) {
 			//收到透传消息
+			//收到消息
+			newMessage.setVisibility(View.VISIBLE);
+			log.e(TAG, "收到透传消息");
 		}
 	 
 		@Override
