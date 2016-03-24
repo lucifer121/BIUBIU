@@ -163,7 +163,7 @@
                         android:id="@+id/fitity_um_layout"
                         android:layout_width="117dp"
                         android:layout_height="34dp"
-                        android:background="@drawable/pay_btn_buybiubi_normal"
+                        android:background="@drawable/pay_btn_buybiubi_light"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -191,7 +191,7 @@
                         android:layout_width="117dp"
                         android:layout_height="34dp"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/pay_btn_buybiubi_light"
+                        android:background="@drawable/pay_btn_buybiubi_normal"
                         android:orientation="horizontal" >
 
                         <TextView

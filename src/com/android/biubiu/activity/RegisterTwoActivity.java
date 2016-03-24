@@ -420,10 +420,12 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case SELECT_SCHOOL:
-			Schools school = (Schools) data.getSerializableExtra("school");
-			schoolTv.setText(school.getUnivsNameString());
-			schoolCode = school.getUnivsId();
-			changeNextBg();
+			if(resultCode == RESULT_OK){
+				Schools school = (Schools) data.getSerializableExtra("school");
+				schoolTv.setText(school.getUnivsNameString());
+				schoolCode = school.getUnivsId();
+				changeNextBg();
+			}
 			break;
 
 		default:

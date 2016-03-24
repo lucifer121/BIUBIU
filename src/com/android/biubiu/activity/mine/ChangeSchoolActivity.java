@@ -303,9 +303,9 @@ public class ChangeSchoolActivity extends BaseActivity implements OnClickListene
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.back_changeschool_mine_rl:
-				/*Intent intent2 = new Intent();
+				Intent intent2 = new Intent();
 				intent2.putExtra("school", school);
-				ChangeSchoolActivity.this.setResult(RESULT_CANCELED, intent2);*/
+				ChangeSchoolActivity.this.setResult(RESULT_CANCELED, intent2);
 				finish();
 
 				break;

@@ -487,10 +487,10 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					String token = obj.getString("token");
 					String nickname = obj.getString("nickname");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
-					String userHead = obj.getString("icon_url");
+					String userHead = obj.getString("icon_thumbnailUrl");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
 					String userCode = obj.getString("code");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, code);
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
 
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 

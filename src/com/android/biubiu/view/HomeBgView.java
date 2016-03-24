@@ -52,6 +52,7 @@ public class HomeBgView extends RelativeLayout{
 		setAnimin();
 	}
 	public void setAnimin(){
+		//ValueAnimator.getFrameDelay();
 		valueAnimator = ValueAnimator.ofObject(new BezierEvaluator(), new PointF(600,1000),new PointF(600,500));
 		valueAnimator.setDuration(2000);		
 		valueAnimator.addUpdateListener(new AnimatorUpdateListener() {			
