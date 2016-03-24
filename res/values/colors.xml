@@ -15,7 +15,8 @@
     <color name="text_huise">#808080</color>
     <color name="text_huise2">#565656</color>
      <color name="home_txt_yello">#ffff8f</color>
-    <color name="hui">#e7eeed</color>
+    <color name="pay_blue_txt">#4db8e8</color>
+    <color name="pay_green_txt">#93d287</color>
     <!-- 自定义city 控件 上下划线 颜色 -->
     <color name="province_line_border">#C7C7C7</color>
     <!-- 首页 页面相关 -->

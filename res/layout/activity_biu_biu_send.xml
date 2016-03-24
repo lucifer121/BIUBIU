@@ -132,6 +132,7 @@
         android:layout_below="@+id/top__send_biu_rl"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:layout_alignParentTop="true"
         android:src="@drawable/biu_imageview_photo" />
 
     <include layout="@layout/loading_layout" />

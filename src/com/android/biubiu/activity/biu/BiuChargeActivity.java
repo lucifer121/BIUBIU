@@ -74,7 +74,7 @@ public class BiuChargeActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.biu_charge_layout);
-		chargeBtn = (Button) findViewById(R.id.charge_zfb);
+		chargeBtn = (Button) findViewById(R.id.zfb_pay_btn);
 		chargeBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -83,7 +83,7 @@ public class BiuChargeActivity extends BaseActivity{
 				payZfb("1001001001", 0.01f);
 			}
 		});
-		chargeBtn2 = (Button) findViewById(R.id.charge_wx);
+		chargeBtn2 = (Button) findViewById(R.id.wx_pay_btn);
 		chargeBtn2.setOnClickListener(new OnClickListener() {
 
 			@Override
