@@ -843,8 +843,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 					int biuCoin = data.getInt("virtual_currency");
 					MainActivity.biuCoinTv.setText(""+biuCoin);
 					Gson gson = new Gson();
-					JSONObject biuObject = data.getJSONObject("mylatestbiu");
-					if(biuObject!=null && !biuObject.toString().equals("{}")){
+					JSONObject biuObject = data.optJSONObject("mylatestbiu");
+					if(biuObject!=null){
 						UserBean bean = gson.fromJson(biuObject.toString(), UserBean.class);
 						if(null != bean){
 							userBiuBean = bean;
