@@ -112,4 +112,12 @@ public class HttpContants {
 	 * 解除匹配关系
 	 */
 	public static final String REMOVE_FRIEND="app/biubiu/removeFriend";
+	/**
+	 * 获取订单编号
+	 */
+	public static final String GET_ORDER_CODE="app/biubiu/createBill";
+	/**
+	 * 查询订单是否成功
+	 */
+	public static final String QUERY_PAY="app/biubiu/checkBill";
 }

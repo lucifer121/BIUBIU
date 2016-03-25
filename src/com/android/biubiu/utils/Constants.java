@@ -27,6 +27,10 @@ public class Constants {
 	public static final String MSG_TYPE_DEL = "2";
 	//推送消息类型 1--你的biubiu被抢了
 	public static final String MSG_TYPE_GRAB = "1";
+	//U米充值成功
+	public static final String PAY_SUC = "1";
+	//U米充值失败
+	public static final String PAY_FAIL = "0";
 	/**
 	 * type 个性标签
 	 */

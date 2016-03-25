@@ -173,7 +173,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="8dp"
                             android:text="50U米"
-                            android:textColor="@color/text_huise2"
+                            android:textColor="@color/white"
                             android:textSize="13dp" />
 
                         <TextView
@@ -201,7 +201,7 @@
                             android:gravity="center_vertical"
                             android:paddingLeft="8dp"
                             android:text="500U米"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_huise2"
                             android:textSize="13dp" />
 
                         <TextView
@@ -355,6 +355,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/pay_btn_normal_blue"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal" >
 
                 <Button

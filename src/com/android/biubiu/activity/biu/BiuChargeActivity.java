@@ -3,6 +3,12 @@ package com.android.biubiu.activity.biu;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +26,11 @@ import cn.beecloud.entity.BCPayResult;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.chat.Constant;
+import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
 
 public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	private RelativeLayout backRl;
@@ -44,6 +54,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	int umCount = 50;
 	//当前选中的U米数对应价格
 	int umCountPrice = 10;
+	String orderCode = "";
 	//支付结果返回入口
 	BCCallback bcCallback = new BCCallback() {
 		@Override
@@ -60,7 +71,9 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		                      所有支付渠道建议以服务端的状态金额为准，此处返回的RESULT_SUCCESS仅仅代表手机端支付成功
 					 */
 					if (result.equals(BCPayResult.RESULT_SUCCESS)) {
-						//成功
+						//成功,校验是否支付成功
+						isPaySuc();
+						
 					} else if (result.equals(BCPayResult.RESULT_CANCEL)){
 						//取消
 					}else if (result.equals(BCPayResult.RESULT_FAIL)) {
@@ -92,18 +105,41 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			});
 		}
 	};
+	int myUmCount = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.biu_charge_layout);
+		myUmCount = getIntent().getIntExtra("coin", 0);
 		initView();
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
 		zfbPayBtn = (Button) findViewById(R.id.zfb_pay_btn);
+		zfbPayBtn.setOnClickListener(this);
 		wxPayBtn = (Button) findViewById(R.id.wx_pay_btn);
+		wxPayBtn.setOnClickListener(this);
+		myUmTv = (TextView) findViewById(R.id.my_um_tv);
+		myUmTv.setText(myUmCount+"粒");
+		payLayout = (LinearLayout) findViewById(R.id.pay_layout);
+		fitityUmLayout = (LinearLayout) findViewById(R.id.fitity_um_layout);
+		fitityUmLayout.setOnClickListener(this);
+		fitityUmTv = (TextView) findViewById(R.id.fitity_um_tv);
+		oneHdUmLayout = (LinearLayout) findViewById(R.id.one_hdum_layout);
+		oneHdUmLayout.setOnClickListener(this);
+		oneHdUmTv = (TextView) findViewById(R.id.one_hdum_tv);
+		fiveHdUmLayout = (LinearLayout) findViewById(R.id.five_hdum_layout);
+		fiveHdUmLayout.setOnClickListener(this);
+		fiveHdUmTv = (TextView) findViewById(R.id.five_hdum_tv);
+		oneThUmLayout = (LinearLayout) findViewById(R.id.one_thum_layout);
+		oneThUmLayout.setOnClickListener(this);
+		oneThUntv = (TextView) findViewById(R.id.one_thum_tv);
+		selectUmTv = (TextView) findViewById(R.id.select_um_tv);
+		umPriceTv = (TextView) findViewById(R.id.um_price_tv);
+		backRl = (RelativeLayout) findViewById(R.id.back_rl);
+		backRl.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -111,7 +147,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.zfb_pay_btn:
 			if(isZfbPay){
-				payZfb("1001001001", 0.01f);
+				getOrderCode();
 			}else{
 				isZfbPay = true;
 				payLayout.setBackgroundResource(R.drawable.pay_btn_normal_blue);
@@ -123,7 +159,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.wx_pay_btn:
 			if(!isZfbPay){
-				payWeiXin("1002001001", 0.01f);
+				getOrderCode();
 			}else{
 				isZfbPay = false;
 				payLayout.setBackgroundResource(R.drawable.pay_btn_normal_green);
@@ -197,10 +233,145 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				umPriceTv.setText("¥ 100");
 			}
 			break;
+		case R.id.back_rl:
+			finish();
 		default:
 			break;
 		}
 
+	}
+	//获取订单号
+	private void getOrderCode(){
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_ORDER_CODE);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("bill_type","Um");
+			if(isZfbPay){
+				requestObject.put("channel","ALI");
+			}else{
+				requestObject.put("channel","WX");
+			}
+			requestObject.put("title","U米充值");
+			requestObject.put("totalfee",umCountPrice);
+			requestObject.put("totalnum",umCount);
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "eee"+arg0.getMessage());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "get order--"+result);
+				JSONObject jsons;
+					try {
+						jsons = new JSONObject(result);
+						String code = jsons.getString("state");
+						if(!code.equals("200")){
+							toastShort("提交订单信息失败");
+							return;
+						}
+						JSONObject data = jsons.getJSONObject("data");
+						String token = data.getString("token");
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+						orderCode = data.getString("bill_no");
+						if(isZfbPay){
+							payZfb(orderCode, 0.01f);
+						}else{
+							payWeiXin(orderCode, 0.01f);
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+		});
+	}
+	private void isPaySuc() {
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.QUERY_PAY);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("bill_no",orderCode);
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.e("mytest", "pay ee"+arg0.getMessage());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "pay--"+result);
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String code = jsons.getString("state");
+					if(!code.equals("200")){
+						toastShort("充值失败");
+						return;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//1--成功，  2--失败
+					String payResult= data.getString("result");
+					if(payResult.equals(Constants.PAY_SUC)){
+						toastShort("充值成功");
+						setResult(RESULT_OK);
+						finish();
+					}else{
+						toastShort("充值失败");
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	//支付宝支付
 	protected void payZfb(String orderId,float price) {

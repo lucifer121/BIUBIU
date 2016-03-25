@@ -551,6 +551,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		try {
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
 			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("user_code", SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 		} catch (JSONException e) {
 
 			e.printStackTrace();
