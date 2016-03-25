@@ -23,6 +23,7 @@ import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.MyGridView;
 import com.android.biubiu.view.RangeSeekBar;
 import com.android.biubiu.view.RangeSeekBar.OnRangeSeekBarChangeListener;
+import com.avos.avoscloud.LogUtil.log;
 import com.baidu.android.pushservice.PushManager;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
@@ -173,10 +174,12 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		//声音 0--关闭 1--打开
 		if(setBean.getSound() == 0){
 			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false);
+			log.d("SharePreferanceUtils"+SharePreferanceUtils.getInstance().isOpenVoice(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, true));
 			isOpenVoice = false;
 			voiceToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
 			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, true);
+			log.d("SharePreferanceUtils"+SharePreferanceUtils.getInstance().isOpenVoice(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false));
 			isOpenVoice = true;
 			voiceToggle.setImageResource(R.drawable.setting_btn_no);
 		}
@@ -374,6 +377,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
+						if(code.equals("303")){
+							toastShort("登录过期，请重新登录");
+							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+							return;
+						}
 						showErrorLayout(new OnClickListener() {
 
 							@Override
@@ -413,6 +421,9 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 保存设置信息
 	 */
 	private void saveSetInfo() {
+		if(setBean==null){
+			return;
+		}
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			finish();
 			return;

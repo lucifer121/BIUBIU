@@ -320,7 +320,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					x.image().bind(userPhoto,
 							biuDEtialBean.getIcon_thumbnailUrl());
 					biubiuMoney=biuDEtialBean.getHavevc();
-					if(biubiuMoney==0){
+					spentBiuMoney=biuDEtialBean.getNeedvc();
+					if((biubiuMoney-spentBiuMoney)<0){
 						isGrabLayout.setVisibility(View.GONE);
 						noBiuMoneyLayout.setVisibility(View.VISIBLE);	
 					}else{
@@ -330,6 +331,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					userCodeString=biuDEtialBean.getUser_code();
 					userNameString=biuDEtialBean.getNickname();
 					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
+					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
+					}
+					
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -470,6 +475,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					if (!code.equals("200")) {
 						toastShort("" + jsons.getString("error"));
 						return;
+					}
+					JSONObject obj = jsons.getJSONObject("data");
+					String token=obj.getString("token");
+					if(token!=null&&!token.equals("")){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					}
 					saveUserFriend(userCodeString,userNameString,userUrlString);
 					toastShort("抢中了啊");

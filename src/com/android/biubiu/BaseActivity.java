@@ -9,6 +9,7 @@ import com.ant.liao.GifView.GifImageType;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.google.android.gms.internal.er;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -38,6 +39,19 @@ public class BaseActivity extends Activity{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
 	}
 	/**
 	 * 显示Toast长通知
@@ -56,11 +70,7 @@ public class BaseActivity extends Activity{
 	public void toastShort(CharSequence msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
-	@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-	}
+
 	//显示加载中
 	public void showLoadingLayout(String loadingStr){
 		if(loadingLayout == null){

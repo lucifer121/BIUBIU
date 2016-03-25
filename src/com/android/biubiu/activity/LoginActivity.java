@@ -21,6 +21,7 @@ import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.mob.tools.utils.SharePrefrenceHelper;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -212,8 +213,11 @@ public class LoginActivity extends BaseActivity{
 					String userCode = obj.getString("code");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
 					
-					loginHuanXin(hxName,HxPassword,token);
+//					loginHuanXin(hxName,HxPassword,token);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
+					//统计登录用户
+					MobclickAgent.onProfileSignIn(userCode);
+					
 					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);

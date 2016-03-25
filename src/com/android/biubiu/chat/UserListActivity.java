@@ -65,16 +65,7 @@ public class UserListActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_user_list);
-		//new出EaseChatFragment或其子类的实例
-//		EaseContactListFragment contastListFragment = new EaseContactListFragment();
-//		
-//		FriendsListFragment userfragment=new FriendsListFragment();
-//		 //传入参数
-////		 Bundle args = new Bundle();
-////		 args.putInt(EaseConstant.EXTRA_USER_ID, EaseConstant.CHATTYPE_GROUP);
-////		 args.putString(EaseConstant.EXTRA_USER_ID, userID);
-////		 contastListFragment.setArguments(args);		 
-//		 getSupportFragmentManager().beginTransaction().add(R.id.container_user_list, userfragment).commit();
+
 		userDao=new UserDao(this);
 		initView();
 		initData();
@@ -144,7 +135,7 @@ public class UserListActivity extends BaseActivity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int position, long arg3) {
 
-				MyHintDialog.getDialog(UserListActivity.this, "解除关系", "嗨~确定要解除和他的关系吗", "返回抢biu",new OnDialogClick() {				
+				MyHintDialog.getDialog(UserListActivity.this, "解除关系", "嗨~确定要解除和他的关系吗", "确定",new OnDialogClick() {				
 					@Override
 					public void onOK() {
 						// TODO Auto-generated method stub
@@ -219,6 +210,12 @@ public class UserListActivity extends BaseActivity {
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
+					
+					
+					String token=obj.getString("token");
+					if(token!=null&&!token.equals("")){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					}
 					Gson gson=new Gson();
 					
 					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
@@ -308,7 +305,7 @@ public class UserListActivity extends BaseActivity {
 					jsonObject2=jsonObject.getJSONObject("data");
 					String token=jsonObject2.getString("token");
 					if(!token.equals("")&&token!=null){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					}
 					initData();
 				} catch (JSONException e) {

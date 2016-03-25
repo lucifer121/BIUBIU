@@ -110,10 +110,10 @@ public class ChatFragment extends EaseChatFragment implements
 	public void onMessageBubbleLongClick(EMMessage message) {
 		// TODO Auto-generated method stub
 
-		// 消息框长按
-		startActivityForResult((new Intent(getActivity(),
-				ContextMenuActivity.class)).putExtra("message", message),
-				REQUEST_CODE_CONTEXT_MENU);
+//		// 消息框长按
+//		startActivityForResult((new Intent(getActivity(),
+//				ContextMenuActivity.class)).putExtra("message", message),
+//				REQUEST_CODE_CONTEXT_MENU);
 
 	}
 
@@ -332,7 +332,7 @@ public class ChatFragment extends EaseChatFragment implements
 						jsonObject2=jsonObject.getJSONObject("data");
 						String token=jsonObject2.getString("token");
 						if(!token.equals("")&&token!=null){
-							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, "");
+							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 						}						
 
 					getActivity().finish();	
