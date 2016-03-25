@@ -36,26 +36,7 @@ public class MySqliteDBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-//		StringBuffer sb = new StringBuffer();
-//		sb.append("create table if not exists ");
-//		sb.append(TBL_CHANNEL + "(");
-//		sb.append(TBL_CHANNEL_COLUMN_ID
-//				+ " integer primary key autoincrement ,");
-//		sb.append(TBL_CHANNEL_COLUMN_CODE + " varchar(100) ,");
-//		sb.append(TBL_CHANNEL_COLUMN_NAME + " varchar(100) ,");
-//		sb.append(TBL_CHANNEL_COLUMN_URL + " varchar(100),");
-//		sb.append(TBL_CHANNEL_COLUMN_STATE + " varchar(1000) ");
-//		sb.append(")");
-//		db.execSQL(sb.toString());
-//
-//		StringBuffer sb2 = new StringBuffer();
-//		sb2.append("create table if not exists ");
-//		sb2.append(TBL_USERS + "(");
-//		sb2.append(TBL_USERS_COLUMN_ID + " integer primary key autoincrement ,");
-//		sb2.append(TBL_USERS_COLUMN_NAME + " varchar(100) ,");
-//		sb2.append(TBL_USERS_COLUMN_PWD + " varchar(100) ");
-//		sb2.append(")");
-//		db.execSQL(sb2.toString());
+
 
 		StringBuffer user = new StringBuffer();
 		user.append("create table if not exists ");
