@@ -4,6 +4,8 @@ package com.android.biubiu.fragment;
 
 import com.android.biubiu.R;
 import com.android.biubiu.chat.ChatActivity;
+import com.android.biubiu.chat.MyHintDialog;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.common.Constant;
 import com.hyphenate.chat.EMClient;
@@ -25,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +83,35 @@ public class MenuRightFragment extends EaseConversationListFragment{
                 }
             }
         });
+        conversationListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				// TODO Auto-generated method stub
+	               EMConversation conversation = conversationListView.getItem(position);
+	                final String username = conversation.getUserName();
+				MyHintDialog.getDialog(getActivity(), "删除会话", "嗨~确定要删除会话吗", "确定", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub
+						       // 删除此会话
+				        EMClient.getInstance().chatManager().deleteConversation(username, true);
+				      
+				        refresh();
+						Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				return true;
+			}
+		});
        
     }
 
