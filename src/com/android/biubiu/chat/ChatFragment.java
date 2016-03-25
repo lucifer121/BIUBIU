@@ -226,7 +226,8 @@ public class ChatFragment extends EaseChatFragment implements
 					@Override
 					public void onOK() {
 						// TODO Auto-generated method stub
-						removeFriend(toChatUsername);
+					removeFriend(toChatUsername);
+					//	getActivity().finish();
 					}
 					
 					@Override
@@ -315,8 +316,9 @@ public class ChatFragment extends EaseChatFragment implements
 				public void onSuccess(String arg0) {
 					// TODO Auto-generated method stub
 					LogUtil.e(TAG, arg0.toString());
-					JSONObject jsonObject=new JSONObject();
+					JSONObject jsonObject;
 					try {
+						jsonObject=new JSONObject(arg0);
 						String state=jsonObject.getString("state");
 						LogUtil.e(TAG, state);
 						if(!state.equals("200")){
@@ -332,9 +334,7 @@ public class ChatFragment extends EaseChatFragment implements
 						if(!token.equals("")&&token!=null){
 							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, "");
 						}						
-					Intent intent=getActivity().getIntent();
-					//100表示解除成功
-					getActivity().setResult(getActivity().RESULT_OK, intent);
+
 					getActivity().finish();	
 									
 					} catch (JSONException e) {

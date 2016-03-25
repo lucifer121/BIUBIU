@@ -158,7 +158,7 @@ public class UserListActivity extends BaseActivity {
 					}
 				});
 				
-				return false;
+				return true;
 			}
 		});
 	}
@@ -294,8 +294,10 @@ public class UserListActivity extends BaseActivity {
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.e(TAG, arg0.toString());
-				JSONObject jsonObject=new JSONObject();
+				JSONObject jsonObject;
+				
 				try {
+					jsonObject = new JSONObject(arg0);
 					String state=jsonObject.getString("state");
 					LogUtil.e(TAG, state);
 					if(!state.equals("200")){
@@ -308,7 +310,7 @@ public class UserListActivity extends BaseActivity {
 					if(!token.equals("")&&token!=null){
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 					}
-					mAdapter.notifyDataSetChanged();
+					initData();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
