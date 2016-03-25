@@ -1,21 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/biu_bg"
-    android:orientation="vertical" >
+     >
 
-    <ImageView
-        android:id="@+id/moon_imv"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/regist_imageview_intophoto" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/biu_bg" >
 
-    <ImageView
-        android:id="@+id/sun_imv"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/regist_imageview_intophoto" />
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="114dp"
+            android:src="@drawable/biu_dot_1" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/dot2"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="256dp"
+            android:src="@drawable/biu_dot_2" />
+
+        <ImageView
+            android:id="@+id/dot3"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginLeft="154dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/biu_dot_3" />
+
+        <ImageView
+            android:id="@+id/dot4"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="372dp"
+            android:src="@drawable/biu_dot_4" />
+
+        <ImageView
+            android:id="@+id/dot5"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginLeft="238dp"
+            android:layout_marginTop="114dp"
+            android:src="@drawable/biu_dot_5" />
+
+        <ImageView
+            android:id="@+id/dot6"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_marginLeft="352dp"
+            android:layout_marginTop="230dp"
+            android:src="@drawable/biu_dot_6" />
+
+        <ImageView
+            android:id="@+id/star1"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="246dp"
+            android:src="@drawable/biu_star_1" />
+
+        <ImageView
+            android:id="@+id/star2"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="214dp"
+            android:layout_marginTop="122dp"
+            android:src="@drawable/biu_star_2" />
+
+        <ImageView
+            android:id="@+id/star3"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/biu_star_3" />
+
+        <ImageView
+            android:id="@+id/star4"
+            android:layout_width="14dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="276dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/biu_star_4" />
+
+        <ImageView
+            android:id="@+id/star5"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginLeft="296dp"
+            android:layout_marginTop="266dp"
+            android:src="@drawable/biu_star_5" />
+
+        <ImageView
+            android:id="@+id/moon_imv"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/biu_moon" />
+
+        <ImageView
+            android:id="@+id/sun_imv"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="144dp"
+            android:layout_marginTop="500dp"
+            android:src="@drawable/biu_sun" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         >
+
+        <ImageView
+            android:id="@+id/cloud1"
+            android:layout_width="56dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="366dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/biu_cloud_1" />
+
+        <ImageView
+            android:id="@+id/cloud2"
+            android:layout_width="66dp"
+            android:layout_height="47dp"
+            android:layout_marginLeft="290dp"
+            android:layout_marginTop="282dp"
+            android:src="@drawable/biu_cloud_2" />
+
+        <ImageView
+            android:id="@+id/cloud3"
+            android:layout_width="148dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="360dp"
+            android:src="@drawable/biu_cloud_3" />
+
+        <ImageView
+            android:id="@+id/cloud4"
+            android:layout_width="54dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="406dp"
+            android:src="@drawable/biu_cloud_4" />
+
+        <ImageView
+            android:id="@+id/cloud5"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="430dp"
+            android:src="@drawable/biu_cloud_5" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/biu_mountain_bottom"
+           />
+    </RelativeLayout>
+
+</FrameLayout>

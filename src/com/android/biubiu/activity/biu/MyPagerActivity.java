@@ -158,14 +158,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private String userCode = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
 		initView();
 		if(null != getIntent().getStringExtra("userCode") && !getIntent().getStringExtra("userCode").equals("")){
 			userCode = getIntent().getStringExtra("userCode");
-			isMyself = false;
+			if(userCode.equals(SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""))){
+				isMyself = true;
+			}else{
+				isMyself = false;
+			}
 		}else{
 			isMyself = true;
 			userCode = SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, "");
@@ -296,7 +299,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		starSignTv.setText(bean.getStar());
 		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
 		if(bean.getHomeTown()!=null && !bean.getHomeTown().equals("")){
-			hometownTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
+			hometownTv.setText(cityDao.getCity(bean.getHomeTown()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
 		}
 		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){

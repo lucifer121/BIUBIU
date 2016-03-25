@@ -36,6 +36,7 @@ import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.BiuView;
+import com.android.biubiu.view.HomeBgView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
@@ -144,7 +145,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//线圈view
 	BiuView biuView;
 	//背景动画
-	GifView backgroundGif;
+	HomeBgView backgroundGif;
 	//中间biubiu layout
 	RelativeLayout biuLayout;
 	//头像IMv
@@ -209,7 +210,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		biuView = (BiuView) view.findViewById(R.id.biu_view);
 		biuLayout = (RelativeLayout) view.findViewById(R.id.biu_layout);
 		userBiuImv = (ImageView) view.findViewById(R.id.user_biu);
-		backgroundGif = (GifView) view.findViewById(R.id.background_gif);
+		backgroundGif = (HomeBgView) view.findViewById(R.id.home_view);
+		backgroundGif.setWidth(width);
+		backgroundGif.startAnim();
 		taskView = (TaskView) view.findViewById(R.id.task_view);
 		userGroupLayout = (AbsoluteLayout) view.findViewById(R.id.user_group_layout);
 		nameTv = (TextView) view.findViewById(R.id.name_tv);

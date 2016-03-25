@@ -113,11 +113,11 @@ public class MyPushReceiver extends PushMessageReceiver{
 					newUserBean.setCareer(jsons.getString("career"));
 					newUserBean.setReferenceId("reference_id");
 					updateface.updateView(newUserBean,0);
-					saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
 				}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
 					newUserBean.setId(jsons.getString("user_code"));
 					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
 					updateface.updateView(newUserBean,1);
+					saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
 				}else{
 					updateface.updateView(newUserBean,2);
 				}

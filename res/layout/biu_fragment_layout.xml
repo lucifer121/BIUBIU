@@ -5,11 +5,12 @@
     android:background="@drawable/biu_bg"
     android:orientation="vertical" >
 
-    <com.ant.liao.GifView
-        android:id="@+id/background_gif"
+    <com.android.biubiu.view.HomeBgView
+        android:id="@+id/home_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/loadingbbbb" />
+        android:layout_height="match_parent" >
+    </com.android.biubiu.view.HomeBgView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
