@@ -472,10 +472,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					}
 					saveUserFriend(userCodeString,userNameString,userUrlString);
 					toastShort("抢中了啊");
-					finish();
+					
 					Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
 					intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
 					startActivity(intent);
+					finish();
 				} catch (Exception e) {
 					// TODO: handle exception
 				}

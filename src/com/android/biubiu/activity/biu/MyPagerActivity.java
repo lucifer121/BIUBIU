@@ -69,10 +69,12 @@ import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.InterestByCateBean;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.bean.UserPhotoBean;
 import com.android.biubiu.sqlite.CityDao;
 import com.android.biubiu.sqlite.SchoolDao;
+import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
@@ -156,12 +158,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private CityDao cityDao = new CityDao();
 	private SchoolDao schoolDao = new SchoolDao();
 	private String userCode = "";
+	private UserDao userDao;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_pager_layout);
+		userDao=new UserDao(this);
 		initView();
 		if(null != getIntent().getStringExtra("userCode") && !getIntent().getStringExtra("userCode").equals("")){
 			userCode = getIntent().getStringExtra("userCode");
@@ -451,6 +455,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					setInterestTags(cates);
 					setUserInfoView(bean);
 					setUserPhotos(phos);
+					saveUserFriend(infoBean.getUserCode(),infoBean.getNickname(),infoBean.getIconCircle());
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -840,5 +845,20 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	
+	/**
+	 * 保存用户信息
+	 * @param code
+	 * @param name
+	 * @param url
+	 */
+	public void saveUserFriend(String code,String name, String url){
+		UserFriends item=new UserFriends();
+		item.setUserCode(code);
+		item.setIcon_thumbnailUrl(url);
+		item.setNickname(name);
+		userDao.insertOrReplaceUser(item);
+		
 	}
 }
