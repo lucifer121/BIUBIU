@@ -10,13 +10,16 @@ import com.android.biubiu.R;
 
 
 
+import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.sqlite.SchoolDao;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -54,7 +57,7 @@ public class UserListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder=null;
-		UserFriends item=mData.get(position);
+		final UserFriends item=mData.get(position);
 		if(convertView==null){
 			holder=new ViewHolder();
 			convertView=LayoutInflater.from(mContext).inflate(R.layout.item_chat_user_list, null);
@@ -79,6 +82,16 @@ public class UserListAdapter extends BaseAdapter {
 			holder.school.setText(item.getCarrer());
 		}
 		x.image().bind(holder.img, item.getIcon_thumbnailUrl());
+		holder.img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(mContext,MyPagerActivity.class);
+				intent.putExtra("userCode", item.getUserCode());
+				mContext.startActivity(intent);
+			}
+		});
 		
 		return convertView;
 	}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.biubiu"
+    android:installLocation = "preferExternal"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -81,7 +82,12 @@
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>
+    <!-- 友盟相关 -->
 
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Push service 运行需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -104,6 +110,16 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
+        
+        <!--友盟 appkey-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56f4c0ece0f55a520b001c1e" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" >
+        </meta-data>
 
         <!-- 设置环信应用的appkey -->
         <meta-data
