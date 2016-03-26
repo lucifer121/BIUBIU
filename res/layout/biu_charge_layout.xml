@@ -35,6 +35,9 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -389,5 +392,6 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
+    <include layout="@layout/loading_layout"/>
+</FrameLayout>
 </LinearLayout>

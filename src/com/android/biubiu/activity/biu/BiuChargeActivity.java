@@ -60,6 +60,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	BCCallback bcCallback = new BCCallback() {
 		@Override
 		public void done(final BCResult bcResult) {
+			dismissLoadingLayout();
 			final BCPayResult bcPayResult = (BCPayResult)bcResult;
 			//根据你自己的需求处理支付结果
 			//需要注意的是，此处如果涉及到UI的更新，请在UI主进程或者Handler操作
@@ -149,6 +150,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.zfb_pay_btn:
 			if(isZfbPay){
+				showLoadingLayout("正在提交订单……");
 				getOrderCode();
 			}else{
 				isZfbPay = true;
@@ -161,6 +163,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.wx_pay_btn:
 			if(!isZfbPay){
+				showLoadingLayout("正在提交订单……");
 				getOrderCode();
 			}else{
 				isZfbPay = false;
@@ -275,6 +278,8 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 				LogUtil.d("mytest", "eee"+arg0.getMessage());
+				dismissLoadingLayout();
+				toastShort("提交订单信息失败");
 			}
 
 			@Override
@@ -292,6 +297,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 						jsons = new JSONObject(result);
 						String code = jsons.getString("state");
 						if(!code.equals("200")){
+							dismissLoadingLayout();
 							toastShort("提交订单信息失败");
 							return;
 						}
@@ -407,6 +413,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 					bcCallback);            //支付完成后回调入口
 
 		} else {
+			dismissLoadingLayout();
 			Toast.makeText(BiuChargeActivity.this,
 					"您尚未安装微信或者安装的微信版本不支持", Toast.LENGTH_LONG).show();
 		}
