@@ -772,6 +772,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				return;
 			}
 			UserInfoBean bean = (UserInfoBean) data.getSerializableExtra("userInfoBean");
+			infoBean = bean;
 			setUserInfoView(bean);
 			break;
 		case UPDATE_PHOTOS:
@@ -832,6 +833,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				return;
 			}
 			ArrayList<InterestByCateBean> listIn = (ArrayList<InterestByCateBean>) data.getSerializableExtra("interestTags");
+			infoBean.getInterestCates().clear();
+			infoBean.getInterestCates().addAll(listIn);
 			setInterestTags(listIn);
 			break;
 		case UPDATE_PERSONAL_TAG:

@@ -65,6 +65,7 @@ public class ChangeConstellationActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		mViewConstellation = (WheelView) findViewById(R.id.id_constellation);
 		constellation=(TextView) findViewById(R.id.constellationName_change_city_tv);
+		constellation.setText(infoBean.getStar());
 		backLayout=(RelativeLayout) findViewById(R.id.back_changexingzuo_mine_rl);
 		completeLayout=(RelativeLayout) findViewById(R.id.mine_changexingzuo_wancheng_rl);
 		backLayout.setOnClickListener(new OnClickListener() {
