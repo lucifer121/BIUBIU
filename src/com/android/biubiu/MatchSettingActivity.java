@@ -379,7 +379,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					if(!code.equals("200")){
 						if(code.equals("303")){
 							toastShort("登录过期，请重新登录");
-							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+							exitHuanxin();
 							return;
 						}
 						showErrorLayout(new OnClickListener() {
@@ -645,6 +645,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 				LogUtil.e(TAG, "环信退出失败"+arg1);
 			}
 		});
+		
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

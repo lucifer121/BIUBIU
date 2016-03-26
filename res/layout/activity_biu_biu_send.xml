@@ -62,7 +62,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:background="@null"
+                android:background="@null"               
+                android:maxLength="16"
                 android:hint="@string/send_biu_add_topic_tags"
                 android:textColor="@color/login_text_hint"
                 android:textSize="13sp" />

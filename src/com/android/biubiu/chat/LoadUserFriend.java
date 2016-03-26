@@ -55,7 +55,7 @@ public class LoadUserFriend {
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 			//	toastShort(arg0.getMessage());
-				Log.e(TAG, arg0.getMessage());
+			//	Log.e(TAG, arg0.getMessage());
 			}
 
 			@Override
@@ -80,7 +80,7 @@ public class LoadUserFriend {
 					JSONObject obj = jsons.getJSONObject("data");
 					Gson gson=new Gson();
 					
-					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
+					List<UserFriends> userFriendsList=gson.fromJson(obj.optJSONObject("users").toString(),
 							new TypeToken<List<UserFriends>>() {}.getType());
 					
 					List<UserFriends> mData=new ArrayList<UserFriends>();

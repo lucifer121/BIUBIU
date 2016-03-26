@@ -13,6 +13,7 @@ import org.xutils.http.RequestParams;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.PersonalTagBean;
+import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -356,6 +357,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				Umutils.count(BiuBiuSendActivity.this, Umutils.SEND_BIU_TOTAL);
 				toastShort("发送成功");
 				setResult(RESULT_OK);
 				finish();	

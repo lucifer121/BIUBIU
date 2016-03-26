@@ -15,6 +15,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.chat.DemoHelper;
+import com.android.biubiu.chat.LoadUserFriend;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
@@ -88,11 +89,11 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			}
 		}else{
 			log.e(TAG, "注册接收消息监听");
-			EMClient.getInstance().chatManager().addMessageListener(msgListener);
-	
-
-	
-			
+			EMClient.getInstance().chatManager().addMessageListener(msgListener);	
+		}
+		if(!SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
+			LogUtil.e(TAG, "有token");
+			LoadUserFriend.getUserFriends(this);
 		}
 		
 	//	newMessage.setVisibility(View.VISIBLE);

@@ -10,6 +10,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.PerfectInformation;
+import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.BitmapUtils;
 import com.android.biubiu.utils.CloseJianpan;
 import com.android.biubiu.utils.Constants;
@@ -75,6 +76,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_registerone_layout);
 		initView();
+		Umutils.count(this, Umutils.IN_REGISTER_ACTIVITY);
 	}
 
 	private void initView() {

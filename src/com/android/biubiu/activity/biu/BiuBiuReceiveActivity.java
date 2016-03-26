@@ -331,6 +331,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					userCodeString=biuDEtialBean.getUser_code();
 					userNameString=biuDEtialBean.getNickname();
 					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
+					
+					saveUserFriend(userCodeString,userNameString,userUrlString);
 					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
 					}
@@ -481,7 +483,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					if(token!=null&&!token.equals("")){
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					}
-					saveUserFriend(userCodeString,userNameString,userUrlString);
+//					saveUserFriend(userCodeString,userNameString,userUrlString);
 					toastShort("抢中了啊");
 					
 					Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);

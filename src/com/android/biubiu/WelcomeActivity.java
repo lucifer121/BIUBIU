@@ -68,7 +68,7 @@ public class WelcomeActivity extends BaseActivity {
 		//读取设备ID
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
 		next();
-		LoadUserFriend.getUserFriends(this);
+	
 		
 	}
 

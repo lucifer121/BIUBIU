@@ -2,16 +2,19 @@ package com.android.biubiu.fragment;
 
 
 
+import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
+import com.android.biubiu.activity.LoginActivity;
+import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.MyHintDialog;
 import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.common.Constant;
+import com.android.biubiu.utils.SharePreferanceUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
-
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.util.NetUtils;
@@ -28,7 +31,9 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -39,14 +44,44 @@ public class MenuRightFragment extends EaseConversationListFragment{
 	private View mView;
 	
 	 private TextView errorText;
-
+	 private Button register,login;
 
 	@Override
     protected void initView() {
         super.initView();
         View errorView = (LinearLayout) View.inflate(getActivity(),R.layout.right_menu, null);
-        errorItemContainer.addView(errorView);
-        errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        View noLoginView= (LinearLayout) View.inflate(getActivity(),R.layout.item_right_no_rigister, null);
+        
+        if(SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "")==null||
+        		SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "").equals("")){
+        	 errorItemContainer.addView(noLoginView);
+        	 register=(Button) noLoginView.findViewById(R.id.register_item_btn);
+        	 login=(Button) noLoginView.findViewById(R.id.login_item_btn);
+        	 register.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent intent=new Intent(getActivity(),RegisterOneActivity.class);
+					startActivity(intent);
+				}
+			});
+        	 login.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent intent=new Intent(getActivity(),LoginActivity.class);
+					startActivity(intent);
+				}
+			});
+        }else{
+        	errorItemContainer.addView(errorView);
+        	 errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        }
+       
+     //  
+
         
     }
     
@@ -118,39 +153,14 @@ public class MenuRightFragment extends EaseConversationListFragment{
     @Override
     protected void onConnectionDisconnected() {
         super.onConnectionDisconnected();
-        if (NetUtils.hasNetwork(getActivity())){
-         errorText.setText(R.string.can_not_connect_chat_server_connection);
-        } else {
-          errorText.setText(R.string.the_current_network);
-        }
+    	
+    
+//        if (NetUtils.hasNetwork(getActivity())){
+//         errorText.setText(R.string.can_not_connect_chat_server_connection);
+//        } else {
+//          errorText.setText(R.string.the_current_network);
+//        }
     }
     
-    
-//    @Override
-//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-//        getActivity().getMenuInflater().inflate(R.menu.em_delete_message, menu); 
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        boolean deleteMessage = false;
-//        if (item.getItemId() == R.id.delete_message) {
-//            deleteMessage = true;
-//        } else if (item.getItemId() == R.id.delete_conversation) {
-//            deleteMessage = false;
-//        }
-//    	EMConversation tobeDeleteCons = conversationListView.getItem(((AdapterContextMenuInfo) item.getMenuInfo()).position);
-//    	if (tobeDeleteCons == null) {
-//    	    return true;
-//    	}
-//        // 删除此会话
-//        EMClient.getInstance().chatManager().deleteConversation(tobeDeleteCons.getUserName(), deleteMessage);
-//        InviteMessgeDao inviteMessgeDao = new InviteMessgeDao(getActivity());
-//        inviteMessgeDao.deleteMessage(tobeDeleteCons.getUserName());
-//        refresh();
-//
-//        // 更新消息未读数
-//        ((MainActivity) getActivity()).updateUnreadLabel();
-//        return true;
-//    }
+
 }
