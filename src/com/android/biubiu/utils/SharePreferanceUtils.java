@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 public class SharePreferanceUtils {
 	public static String IS_FIRST_INSTALL = "is_first_install";
+	public static String IS_SCAN_BEGINGUID = "is_scan_beginguid";
 	public static String AGE_MAX = "age_max";
 	public static String AGE_MIN = "age_min";
 	public static String TOKEN="token";
@@ -67,6 +68,10 @@ public class SharePreferanceUtils {
 	}
 	//获取是否为第一次安装
 	public boolean isFirstInstall(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取是否为浏览过新手引导
+	public boolean isScanBeginGuid(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取是否打开应用程序

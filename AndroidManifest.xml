@@ -318,11 +318,6 @@
             android:value="v3FkYC4w53w46uuvw9L6qBF1" />
 
         <activity
-            android:name=".TestActivity"
-            android:label="@string/app_name" >
-           
-        </activity>
-        <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name" >
         	 <intent-filter>
@@ -414,6 +409,10 @@
         <activity
             android:name=".MatchSettingActivity"
             android:label="@string/title_activity_match_setting" >
+        </activity>
+         <activity
+            android:name=".BeginGuiderActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".MatchSetTagActivity"

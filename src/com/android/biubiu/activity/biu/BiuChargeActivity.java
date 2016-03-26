@@ -48,6 +48,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout payLayout;
 	private Button zfbPayBtn;
 	private Button wxPayBtn;
+	private View payBtnBgView;
 	//是否是支付宝支付
 	boolean isZfbPay = true;
 	//当前选中的U米数
@@ -124,6 +125,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		myUmTv = (TextView) findViewById(R.id.my_um_tv);
 		myUmTv.setText(myUmCount+"粒");
 		payLayout = (LinearLayout) findViewById(R.id.pay_layout);
+		payBtnBgView = findViewById(R.id.btn_bg_view);
 		fitityUmLayout = (LinearLayout) findViewById(R.id.fitity_um_layout);
 		fitityUmLayout.setOnClickListener(this);
 		fitityUmTv = (TextView) findViewById(R.id.fitity_um_tv);
@@ -150,7 +152,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				getOrderCode();
 			}else{
 				isZfbPay = true;
-				payLayout.setBackgroundResource(R.drawable.pay_btn_normal_blue);
+				payBtnBgView.setBackgroundResource(R.drawable.pay_btn_normal_blue);
 				zfbPayBtn.setBackgroundResource(R.drawable.pay_afb_selector);
 				zfbPayBtn.setTextColor(getResources().getColor(R.color.white));
 				wxPayBtn.setBackgroundColor(getResources().getColor(R.color.white));
@@ -162,7 +164,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				getOrderCode();
 			}else{
 				isZfbPay = false;
-				payLayout.setBackgroundResource(R.drawable.pay_btn_normal_green);
+				payBtnBgView.setBackgroundResource(R.drawable.pay_btn_normal_green);
 				zfbPayBtn.setBackgroundColor(getResources().getColor(R.color.white));
 				zfbPayBtn.setTextColor(getResources().getColor(R.color.pay_green_txt));
 				wxPayBtn.setBackgroundResource(R.drawable.pay_wx_selector);
@@ -172,7 +174,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		case R.id.fitity_um_layout:
 			if(umCount != 50){
 				umCount = 50;
-				umCountPrice = 10;
+				umCountPrice = 5;
 				fitityUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_light);
 				oneHdUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_normal);
 				fiveHdUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_normal);
@@ -182,13 +184,13 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				fiveHdUmTv.setTextColor(getResources().getColor(R.color.text_huise2));
 				oneThUntv.setTextColor(getResources().getColor(R.color.text_huise2));
 				selectUmTv.setText("50U米");
-				umPriceTv.setText("¥ 10");
+				umPriceTv.setText("¥ 5");
 			}
 			break;
 		case R.id.one_hdum_layout:
 			if(umCount != 100){
 				umCount = 100;
-				umCountPrice = 20;
+				umCountPrice = 10;
 				fitityUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_normal);
 				oneHdUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_light);
 				fiveHdUmLayout.setBackgroundResource(R.drawable.pay_btn_buybiubi_normal);
@@ -198,7 +200,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				fiveHdUmTv.setTextColor(getResources().getColor(R.color.text_huise2));
 				oneThUntv.setTextColor(getResources().getColor(R.color.text_huise2));
 				selectUmTv.setText("100U米");
-				umPriceTv.setText("¥ 20");
+				umPriceTv.setText("¥ 10");
 			}
 			break;
 		case R.id.five_hdum_layout:

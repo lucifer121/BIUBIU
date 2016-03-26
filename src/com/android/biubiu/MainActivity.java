@@ -47,6 +47,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +63,11 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	private AMapLocationClientOption locationOption = null;
 	private String TAG="MainActivity";
 	private ImageView newMessage;
+	RelativeLayout beginGuidLayout;
+	ImageView guidImv;
+	Button guidBtn;
+	//点击后需要显示的引导页
+	int guidIndex = 2;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,13 +78,17 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		}
 		biuCoinTv = (TextView) findViewById(R.id.biu_coin_tv);
 		biuCoinLayout = (RelativeLayout) findViewById(R.id.title_coin_rl);
+		beginGuidLayout = (RelativeLayout) findViewById(R.id.guid_layout);
+		guidImv = (ImageView) findViewById(R.id.guid_imv);
+		guidBtn = (Button) findViewById(R.id.guid_btn);
+		initBeginGuid();
 		initPageFragment();
 		// 初始化SlideMenu
 		initRightMenu();
 		// 初始化ViewPager
 		initViewPager();
 		//注册一个监听连接状态的listener
-	//	EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+		//	EMClient.getInstance().addConnectionListener(new MyConnectionListener());
 		if(DemoHelper.getInstance().isLoggedIn()==false){
 			LogUtil.e(TAG, "未登录环信");			
 			if(!SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
@@ -89,15 +99,42 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		}else{
 			log.e(TAG, "注册接收消息监听");
 			EMClient.getInstance().chatManager().addMessageListener(msgListener);
-	
-
-	
-			
 		}
-		
-	//	newMessage.setVisibility(View.VISIBLE);
+
+		//	newMessage.setVisibility(View.VISIBLE);
 		location();
 		log.e("Token", SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+	}
+	private void initBeginGuid() {
+		// TODO Auto-generated method stub
+		boolean isScanGuid = SharePreferanceUtils.getInstance().isScanBeginGuid(getApplicationContext(), SharePreferanceUtils.IS_SCAN_BEGINGUID, false);
+		if(!isScanGuid){
+			beginGuidLayout.setVisibility(View.VISIBLE);
+			guidImv.setImageResource(R.drawable.help_imageview_01);
+			guidBtn.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					switch (guidIndex) {
+					case 2:
+						guidImv.setImageResource(R.drawable.help_imageview_02biubi);
+						guidIndex = guidIndex+1;
+						break;
+					case 3:
+						guidImv.setImageResource(R.drawable.help_imageview_03biubi);
+						guidIndex = guidIndex+1;
+						break;
+					case 4:
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SCAN_BEGINGUID, true);
+						beginGuidLayout.setVisibility(View.GONE);
+						break;
+					default:
+						break;
+					}
+				}
+			});
+		}
 	}
 	@Override
 	protected void onResume() {
@@ -106,7 +143,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		MobclickAgent.onResume(this);
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, true);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
@@ -240,7 +277,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				showRightMenu();
-	//			newMessage.setVisibility(View.GONE);
+				//			newMessage.setVisibility(View.GONE);
 			}
 		});
 
@@ -346,7 +383,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			locationOption = null;
 		}
 	}
-	
+
 	/**
 	 * 登录环信客户端 建立长连接
 	 * @param username
@@ -357,43 +394,43 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			return;			
 		}
 		EMClient.getInstance().login(username, password, new EMCallBack() {
-			
+
 			@Override
 			public void onSuccess() {
 				LogUtil.e(TAG, "登录成功环信");				
 				Intent intent=new Intent(MainActivity.this,MainActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-				
+
 			}
-			
+
 			@Override
 			public void onProgress(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onError(int arg0, String arg1) {
 				// TODO Auto-generated method stub
 				Log.e(TAG, "登陆环信失败！");
 			}
 		});
-		
+
 	}
 	/**
 	 * 会话消息监听
 	 */
 	EMMessageListener msgListener = new EMMessageListener() {
-		
-		 
+
+
 		@Override
 		public void onMessageReceived(List<EMMessage> messages) {
 			//收到消息
 			newMessage.setVisibility(View.VISIBLE);
 			log.e(TAG, "收到消息");
 		}
-	 
+
 		@Override
 		public void onCmdMessageReceived(List<EMMessage> messages) {
 			//收到透传消息
@@ -401,26 +438,26 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			newMessage.setVisibility(View.VISIBLE);
 			log.e(TAG, "收到透传消息");
 		}
-	 
+
 		@Override
 		public void onMessageReadAckReceived(List<EMMessage> messages) {
 			//收到已读回执
 		}
-	 
+
 		@Override
 		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
 			//收到已送达回执
 		}
-	 
+
 		@Override
 		public void onMessageChanged(EMMessage message, Object change) {
 			//消息状态变动
 		}
 	};
-	 
-//	记得在不需要的时候移除listener，如在activity的onDestroy()时
-//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);
-//	监听
-	
+
+	//	记得在不需要的时候移除listener，如在activity的onDestroy()时
+	//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+	//	监听
+
 }
 

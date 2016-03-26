@@ -6,6 +6,7 @@ import java.util.List;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
+import com.android.biubiu.BeginGuiderActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
@@ -126,7 +127,15 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			}	
 			break;
 		case R.id.left_menu_item4_rl:
-			Toast.makeText(getActivity(), "lead", Toast.LENGTH_SHORT).show();
+			((MainActivity) getActivity()).closeMenu();
+			if(isLogin){
+				Intent intent=new Intent(getActivity(),BeginGuiderActivity.class);
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent(getActivity(),
+						LoginOrRegisterActivity.class);
+				startActivity(intent);
+			}	
 			break;
 		case R.id.left_menu_item5_rl:
 			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();

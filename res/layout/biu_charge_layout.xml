@@ -181,13 +181,13 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:paddingLeft="8dp"
-                            android:text="¥10"
+                            android:text="¥5"
                             android:textColor="@color/white"
                             android:textSize="13dp" />
                     </LinearLayout>
 
                     <LinearLayout
-                         android:id="@+id/five_hdum_layout"
+                        android:id="@+id/five_hdum_layout"
                         android:layout_width="117dp"
                         android:layout_height="34dp"
                         android:layout_marginTop="20dp"
@@ -243,7 +243,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:paddingLeft="8dp"
-                            android:text="¥20"
+                            android:text="¥10"
                             android:textColor="@color/white"
                             android:textSize="13dp" />
                     </LinearLayout>
@@ -315,9 +315,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -337,45 +337,56 @@
                         android:textColor="@color/text_huise2"
                         android:textSize="13dp" />
                 </LinearLayout>
-                <TextView 
+
+                <TextView
                     android:id="@+id/um_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥ 10"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:text="¥ 10"
                     android:textColor="#5cafa8"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/pay_layout"
-                android:layout_marginTop="63dp"
+            <RelativeLayout
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/pay_btn_normal_blue"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="63dp"
                 android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/wx_pay_btn"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:textColor="@color/pay_blue_txt"
-                    android:text="微信" />
-                 <Button
-                     
-                    android:id="@+id/zfb_pay_btn"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/pay_afb_selector"
-                    android:textColor="@color/white"
-                    android:text="支付宝" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pay_layout"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/wx_pay_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:text="微信"
+                        android:textColor="@color/pay_blue_txt" />
+
+                    <Button
+                        android:id="@+id/zfb_pay_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/pay_afb_selector"
+                        android:text="支付宝"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+                <View 
+                    android:id="@+id/btn_bg_view"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/pay_btn_normal_blue"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

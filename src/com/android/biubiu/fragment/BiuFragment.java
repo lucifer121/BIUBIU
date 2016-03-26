@@ -192,9 +192,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(LoginUtils.isLogin(getActivity())){
 			//执行加载页面所有信息的请求
 			getAllUser();
+			MainActivity.biuCoinLayout.setVisibility(View.VISIBLE);
 		}else{
 			//获取未登录时的biubiu列表
 			getBiuListUnlogin();
+			MainActivity.biuCoinLayout.setVisibility(View.GONE);
 		}
 	}
 	private void init() {

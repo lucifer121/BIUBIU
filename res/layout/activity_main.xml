@@ -1,105 +1,138 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/biu_status_bar" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity" >
 
         <RelativeLayout
-            android:id="@+id/title_left_rl"
-            android:layout_width="63dp"
-            android:layout_height="44dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" >
-
-            <ImageView
-                android:id="@+id/id_iv_left"
-                android:layout_width="23dp"
-                android:layout_height="20dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/biu_btn_left" />
-        </RelativeLayout>
-
-        <TextView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="BIUBIU"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <RelativeLayout
-            android:id="@+id/title_right_rl"
-            android:layout_width="44dp"
             android:layout_height="44dp"
-            android:layout_alignParentRight="true"
-            android:gravity="center" >
+            android:background="@drawable/biu_status_bar" >
 
-            <RelativeLayout 
-                android:layout_width="22dp"
-                android:layout_height="19dp"
-                 android:layout_centerInParent="true" >
-            <ImageView
-                android:id="@+id/id_iv_right"
-                android:layout_width="22dp"
-                android:layout_height="19dp"                             
-               android:src="@drawable/biu_btn_news_normal" />
-            <ImageView 
-                android:id="@+id/new_message_main_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+            <RelativeLayout
+                android:id="@+id/title_left_rl"
+                android:layout_width="63dp"
+                android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" >
+
+                <ImageView
+                    android:id="@+id/id_iv_left"
+                    android:layout_width="23dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/biu_btn_left" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="BIUBIU"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/title_right_rl"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/biu_imageview_info_dian"
-                android:visibility="gone"/>
+                android:gravity="center" >
+
+                <RelativeLayout
+                    android:layout_width="22dp"
+                    android:layout_height="19dp"
+                    android:layout_centerInParent="true" >
+
+                    <ImageView
+                        android:id="@+id/id_iv_right"
+                        android:layout_width="22dp"
+                        android:layout_height="19dp"
+                        android:src="@drawable/biu_btn_news_normal" />
+
+                    <ImageView
+                        android:id="@+id/new_message_main_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/biu_imageview_info_dian"
+                        android:visibility="gone" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/title_coin_rl"
+                android:layout_width="55dp"
+                android:layout_height="44dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:layout_toLeftOf="@+id/title_right_rl" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="19dp"
+                        android:background="@drawable/biu_btn_biub" />
+
+                    <TextView
+                        android:id="@+id/biu_coin_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/home_txt_yello"
+                        android:textSize="11sp" />
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/title_coin_rl"
-            android:layout_width="55dp"
-            android:layout_height="44dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="18dp"
-            android:layout_toLeftOf="@+id/title_right_rl" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="19dp"
-                    android:background="@drawable/biu_btn_biub" />
-
-                <TextView
-                    android:id="@+id/biu_coin_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/home_txt_yello" />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/page_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/page_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/guid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/guid_imv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/help_imageview_01" />
+
+        <Button
+            android:id="@+id/guid_btn"
+            android:layout_width="156dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="81dp"
+            android:background="@drawable/guid_btn_bg" />
+    </RelativeLayout>
+
+</RelativeLayout>

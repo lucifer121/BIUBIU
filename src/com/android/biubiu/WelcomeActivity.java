@@ -73,8 +73,8 @@ public class WelcomeActivity extends BaseActivity {
 	}
 
 	private void next() {
-		isFirstInstall = SharePreferanceUtils.getInstance().isFirstInstall(getApplicationContext(), SharePreferanceUtils.IS_FIRST_INSTALL, false);
-		if(!isFirstInstall){
+		isFirstInstall = SharePreferanceUtils.getInstance().isFirstInstall(getApplicationContext(), SharePreferanceUtils.IS_FIRST_INSTALL, true);
+		if(isFirstInstall){
 			goIndex();
 		}else{
 			goHome();
@@ -85,11 +85,7 @@ public class WelcomeActivity extends BaseActivity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
-		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_FIRST_INSTALL, true);
-
-
-		
-		Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this,GuildActivity.class);
 		startActivity(intent);
 		finish();
 	}
