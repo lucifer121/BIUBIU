@@ -218,7 +218,7 @@ public class UserListActivity extends BaseActivity {
 					}
 					Gson gson=new Gson();
 					
-					List<UserFriends> userFriendsList=gson.fromJson(obj.optJSONObject("users").toString(),
+					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
 							new TypeToken<List<UserFriends>>() {}.getType());
 					mData.clear();
 					mData.addAll(userFriendsList);

@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="59dp"
      android:id="@+id/list_itease_layout"
-     android:background="#fff"
+     android:background="@drawable/item_selector_listview_bg"
     android:gravity="center_vertical" >
 
     <RelativeLayout
         android:id="@+id/avatar_container"
-        android:layout_width="59dp"
+        android:layout_width="66dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true" >
 
@@ -33,7 +33,7 @@
             android:text="7"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
-    </RelativeLayout>
+    </RelativeLayout> 
 
     <TextView
         android:id="@+id/name"
@@ -78,5 +78,12 @@
         android:padding="7dp"
         android:textColor="@color/list_itease_secondary_color"
         android:textSize="14sp" />
+    
+ <!--    <View 
+        android:layout_below="@id/avatar_container"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="66dp"
+        android:layout_height="1px"
+        android:background="#cccccc"/> -->
 
 </RelativeLayout>

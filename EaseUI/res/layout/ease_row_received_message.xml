@@ -24,7 +24,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:background="@drawable/ease_default_avatar"
+            android:src="@drawable/ease_default_avatar"
             android:scaleType="fitXY" />
 
         <RelativeLayout
@@ -34,6 +34,7 @@
             android:layout_below="@+id/tv_userid"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:layout_toRightOf="@id/iv_userhead"
+            
             android:background="@drawable/ease_chatfrom_bg"
              >
 
@@ -47,9 +48,9 @@
                 android:paddingLeft="6dp"
                 android:paddingRight="1dp"
                 android:lineSpacingExtra="2dp"
-                android:minHeight="38dp"
+                
                 android:maxWidth="225.0dip"
-                android:textColor="#ff000000"
+                android:textColor="#515151"
                 android:textSize="15sp" />
         </RelativeLayout>
 

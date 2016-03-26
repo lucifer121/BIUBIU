@@ -42,7 +42,7 @@ public class EaseBaseActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         // onresume时，取消notification显示
-   //     EaseUI.getInstance().getNotifier().reset();
+        EaseUI.getInstance().getNotifier().reset();
         
     }
 
