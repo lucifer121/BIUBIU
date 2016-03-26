@@ -173,7 +173,7 @@ public class ChangeConstellationActivity extends BaseActivity implements
 	
 	private void setUpData() {
 		// initProvinceDatas();
-		constellation.setText(mProvinceDatas[0]);
+	
 		mViewConstellation.setViewAdapter(new ArrayWheelAdapter<String>(
 				ChangeConstellationActivity.this, mProvinceDatas));
 
