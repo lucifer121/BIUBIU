@@ -310,6 +310,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				}
 			}
 		});
+		//getOssToken();
 	}
 	//鉴权
 	public void getOssToken(){
