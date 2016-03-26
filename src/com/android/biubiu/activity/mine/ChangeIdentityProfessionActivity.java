@@ -56,6 +56,16 @@ public class ChangeIdentityProfessionActivity extends BaseActivity implements
 	private void initView() {
 		// TODO Auto-generated method stub
 		identity = (TextView) findViewById(R.id.identity_profession_change_city_tv);
+		if(infoBean != null){
+			if(infoBean.getIsStudent()!=null && infoBean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+				identity.setText("学生");
+			}else{
+				if(infoBean.getCareer() != null){
+					identity.setText(infoBean.getCareer());
+				}
+			}
+		}
+		
 		mViewConstellation = (WheelView) findViewById(R.id.id_identify_profession);
 		backLayout = (RelativeLayout) findViewById(R.id.back_changeIdentity_mine_rl);
 		completeLayout = (RelativeLayout) findViewById(R.id.mine_identity_profession_wancheng_rl);

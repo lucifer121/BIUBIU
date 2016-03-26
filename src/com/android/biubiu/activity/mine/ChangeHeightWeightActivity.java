@@ -85,7 +85,7 @@ public class ChangeHeightWeightActivity extends BaseActivity implements OnWheelC
 		heightWheelView=(WheelView) findViewById(R.id.id_hight_myview);
 		weightWheelView=(WheelView) findViewById(R.id.id_weight_myview);
 		nheightWeight=(TextView) findViewById(R.id.height_weight_change_city_tv);
-
+		nheightWeight.setText(infoBean.getHeight()+"cm "+infoBean.getWeight()+"kg");
 		backLayout=(RelativeLayout) findViewById(R.id.back_changeheight_mine_rl);
 		completeLayout=(RelativeLayout) findViewById(R.id.mine_changeHeight_wanchengrl);
 		backLayout.setOnClickListener(new OnClickListener() {

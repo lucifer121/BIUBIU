@@ -87,8 +87,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		}
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.ic_launcher)
-		.setFailureDrawableId(R.drawable.ic_launcher)
+		.setLoadingDrawableId(R.drawable.loadingbbbb)
+		.setFailureDrawableId(R.drawable.chat_img_profiles_default)
 		.build();
 		x.image().bind(headImv, userHeadStr, imageOptions);
 	}
@@ -323,6 +323,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					Intent intent = new Intent();
 					intent.putExtra("headUrl", photoUrl);
 					intent.putExtra("thumUrl", photoUrl_thum);
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, photoUrl_thum);
 					setResult(RESULT_OK, intent);
 					finish();
 				} catch (JSONException e) {
