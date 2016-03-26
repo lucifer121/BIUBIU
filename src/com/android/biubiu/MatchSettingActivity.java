@@ -297,6 +297,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		case R.id.personal_rl:
 			Intent intent = new Intent(MatchSettingActivity.this,MatchSetTagActivity.class);
 			intent.putExtra("personalTags", (Serializable)setBean.getPersonalTags());
+			intent.putExtra("sex", isSelBoy);
 			startActivityForResult(intent, PERSONAL_TAG);
 			break;
 		case R.id.logout_rl:
@@ -422,6 +423,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 */
 	private void saveSetInfo() {
 		if(setBean==null){
+			finish();
 			return;
 		}
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){

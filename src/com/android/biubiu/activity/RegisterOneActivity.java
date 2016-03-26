@@ -389,19 +389,27 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		switch (requestCode) {
 		case SELECT_PHOTO:
 			if (resultCode == RESULT_OK) {
-				cropPhoto(data.getData());// 裁剪图片
+				if(data != null){
+					cropPhoto(data.getData());// 裁剪图片
+				}
 			}
 			break;
 		case CROUP_PHOTO:
 			if (data != null) {
 				Bundle extras = data.getExtras();
 				userheadBitmap = extras.getParcelable("data");
-				headPath = saveHeadImg(userheadBitmap);
-				userHeadImv.setImageBitmap(userheadBitmap);
-				addHeadTv.setVisibility(View.GONE);
-				verifyTv.setBackgroundResource(R.drawable.register_imageview_photo_bg);
-				verifyTv.setText("待审核");
-				verifyTv.setVisibility(View.VISIBLE);
+				if(userheadBitmap != null){
+					headPath = saveHeadImg(userheadBitmap);
+					userHeadImv.setImageBitmap(userheadBitmap);
+					addHeadTv.setVisibility(View.GONE);
+					verifyTv.setBackgroundResource(R.drawable.register_imageview_photo_bg);
+					verifyTv.setText("待审核");
+					verifyTv.setVisibility(View.VISIBLE);
+				}else{
+					userHeadImv.setImageResource(R.drawable.regist_imageview_intophoto);
+					addHeadTv.setVisibility(View.VISIBLE);
+					verifyTv.setVisibility(View.GONE);
+				}
 			}
 			break;
 		default:

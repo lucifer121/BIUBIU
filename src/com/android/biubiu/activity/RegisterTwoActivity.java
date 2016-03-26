@@ -149,6 +149,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					changeNextBg();
 					popWindowProfession.dismiss();
 				}
 			});
@@ -216,6 +217,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		updateCities();
 		updateAreas();
 		cityTextView.setText("" + mCurrentProviceName +" "+ mCurrentCityName);
+		changeNextBg();
 	}
 
 	/**

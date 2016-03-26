@@ -675,6 +675,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//加入所有list中的view
 	protected void addAllView(ArrayList<UserBean> list,boolean isLogin) {
+		user1List.clear();
+		user2List.clear();
+		user3List.clear();
+		userGroupLayout.removeAllViews();
 		int length = 0;
 		if(list.size()>25){
 			length = 25;
@@ -756,10 +760,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		super.onPause();
 		removeHandler.removeCallbacks(removeR);
-		user1List.clear();
-		user2List.clear();
-		user3List.clear();
-		userGroupLayout.removeAllViews();
 	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -781,6 +781,31 @@ public class BiuFragment extends Fragment implements PushInterface{
 			break;
 		}
 	}
+	private void addToView(UserBean bean) {
+		// TODO Auto-generated method stub
+		if(user3List.size()>0){
+			for(int i=0;i<user3List.size();i++){
+				if(bean.getChatId().equals(user3List.get(i).getChatId())){
+					return;
+				}
+			}
+		}
+		if(user2List.size()>0){
+			for(int i=0;i<user2List.size();i++){
+				if(bean.getChatId().equals(user2List.get(i).getChatId())){
+					return;
+				}
+			}
+		}
+		if(user1List.size()>0){
+			for(int i=0;i<user1List.size();i++){
+				if(bean.getChatId().equals(user1List.get(i).getChatId())){
+					return;
+				}
+			}
+		}
+		addCircle1View(bean);
+	}
 	@Override
 	public void updateView(UserBean userBean,int type) {
 		// TODO Auto-generated method stub
@@ -788,7 +813,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 0:
 			//有新的匹配消息
 			newUserBean = userBean;
-			addCircle1View(userBean);
+			addToView(userBean);
 			break;
 		case 1:
 			//biubiu被抢啦
@@ -806,6 +831,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			break;
 		}
 	}
+	
 	//获取biubiu列表
 	private void getAllUser(){
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_BIU_LIST);

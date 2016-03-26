@@ -26,7 +26,7 @@ public class LoadUserFriend {
 
 	private static String TAG="LoadUserFriend";
 	private static UserDao userDao;
-	public static void getUserFriends(Context context){
+	public static void getUserFriends(final Context context){
 		
 		userDao=new UserDao(context);
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_FRIDENS_LIST);
@@ -78,6 +78,10 @@ public class LoadUserFriend {
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
+					String token=obj.getString("token");
+					if(!token.equals("")&&token!=null){
+						SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.TOKEN, token);
+					}	
 					Gson gson=new Gson();
 					
 					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),

@@ -608,6 +608,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					JSONObject jsonObjs = new JSONObject(arg0);
 					String state = jsonObjs.getString("state");
 					if(!state.equals("200")){
+						dismissLoadingLayout();
 						toastShort("上传照片失败");
 						return;
 					}

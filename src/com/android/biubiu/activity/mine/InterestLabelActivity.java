@@ -183,6 +183,8 @@ public class InterestLabelActivity extends BaseActivity {
 					}
 					
 					JSONObject obj = jsons.getJSONObject("data");
+					String token = obj.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String dataTags=obj.getJSONArray("tags").toString();
 					System.out.println(obj.get("tags"));
 					Gson gson=new Gson();

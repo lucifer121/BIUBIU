@@ -333,7 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="500U米"
+                        android:text="50U米"
                         android:textColor="@color/text_huise2"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -344,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="¥ 10"
+                    android:text="¥ 5"
                     android:textColor="#5cafa8"
                     android:textSize="15sp" />
             </RelativeLayout>

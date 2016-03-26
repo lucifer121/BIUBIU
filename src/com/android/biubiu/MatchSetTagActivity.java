@@ -56,11 +56,13 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 	private String TAG="PersonalityTagActivity";
 	private ArrayList<PersonalTagBean> mDataReceive=new ArrayList<PersonalTagBean>(); 
 	private ArrayList<PersonalTagBean> mDataFanhui=new ArrayList<PersonalTagBean>(); 
+	boolean isSelBoy = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personality_tag);
 		mDataReceive=(ArrayList<PersonalTagBean>) getIntent().getSerializableExtra("personalTags");
+		isSelBoy = getIntent().getBooleanExtra("sex", false);
 		initView();
 		loadData();
 		initAdapter();
@@ -91,6 +93,11 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 			requestObject.put("device_code", Utils.getDeviceID(this));
 			requestObject.put("type", Constants.PERSONALIED);
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
+			if(isSelBoy){
+				requestObject.put("sex", Constants.SEX_MALE);
+			}else{
+				requestObject.put("sex", Constants.SEX_FAMALE);
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,7 +164,8 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 					}.getType()); 
 					for (PersonalTagBean tag : personalTagBeansList) {  
 						mList.add(tag);
-					}  
+					} 
+					setRecycleviewHight();
 					setView();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

@@ -218,9 +218,7 @@ public class LoginActivity extends BaseActivity{
 					//统计登录用户
 					MobclickAgent.onProfileSignIn(userCode);
 					
-					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
+					setResult(RESULT_OK);
 					finish();
 	
 				} catch (JSONException e) {

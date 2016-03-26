@@ -54,7 +54,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	//当前选中的U米数
 	int umCount = 50;
 	//当前选中的U米数对应价格
-	int umCountPrice = 10;
+	int umCountPrice = 5;
 	String orderCode = "";
 	//支付结果返回入口
 	BCCallback bcCallback = new BCCallback() {
@@ -256,7 +256,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				requestObject.put("channel","WX");
 			}
 			requestObject.put("title","U米充值");
-			requestObject.put("totalfee",umCountPrice);
+			requestObject.put("totalfee",1);
 			requestObject.put("totalnum",umCount);
 		} catch (JSONException e) {
 
@@ -379,10 +379,10 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	protected void payZfb(String orderId,float price) {
 		// TODO Auto-generated method stub
 		Map<String, String> mapOptional = new HashMap<String, String>();
-		mapOptional.put("type", "acty");
+		mapOptional.put("type", "Um");
 		int payPrice = (int) (price*100);
 		BCPay.getInstance(BiuChargeActivity.this).reqAliPaymentAsync(
-				"报名",
+				"充值",
 				payPrice,
 				orderId,
 				mapOptional,
@@ -394,14 +394,13 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		//对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
 		//这个是微信自身存在的问题
 		Map<String, String> mapOptional = new HashMap<String, String>();
-
-		mapOptional.put("type", "acty");
+		mapOptional.put("type", "Um");
 		int payPrice = (int) (price*100);
 		if (BCPay.isWXAppInstalledAndSupported() &&
 				BCPay.isWXPaySupported()) {
 
 			BCPay.getInstance(BiuChargeActivity.this).reqWXPaymentAsync(
-					"报名",               //订单标题
+					"充值",               //订单标题
 					payPrice,                           //订单金额(分)
 					orderId,  //订单流水号
 					mapOptional,            //扩展参数(可以null)

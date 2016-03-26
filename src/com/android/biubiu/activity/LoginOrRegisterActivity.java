@@ -3,6 +3,7 @@ package com.android.biubiu.activity;
 
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 
 import android.content.Intent;
@@ -17,6 +18,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 	private Button loginBtn;
 	private Button registerBtn;
 	private LinearLayout backLayout;
+	private static final int LOGIN_REQUEST = 1001;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -44,7 +46,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent loginIntent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
-				startActivity(loginIntent);
+				startActivityForResult(loginIntent, LOGIN_REQUEST);
 			//	overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim); 
 			}
 		});
@@ -66,5 +68,22 @@ public class LoginOrRegisterActivity extends BaseActivity{
 				finish();
 			}
 		});
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case LOGIN_REQUEST:
+			if(resultCode == RESULT_OK){
+				Intent intent=new Intent(LoginOrRegisterActivity.this,MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			}
+			break;
+
+		default:
+			break;
+		}
 	}
 }
