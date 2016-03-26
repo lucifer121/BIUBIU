@@ -31,6 +31,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -45,6 +46,7 @@ import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -480,6 +482,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 						toastShort("注册失败");
 						return;
 					}
+					
 					JSONObject obj = jsons.getJSONObject("data");
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");
@@ -495,10 +498,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 
 					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
 
-					loginHuanXin(username,passwprd,token);
-
+					loginHuanXin(username,passwprd,token);   
+					MobclickAgent.onProfileSignIn(userCode);
 					//把token 存在本地
 					SharePreferanceUtils.getInstance().putShared(RegisterThreeActivity.this, SharePreferanceUtils.TOKEN, token);
+					
+					Umutils.count(RegisterThreeActivity.this, Umutils.RIGISTER_SUCCESS);
 					Intent intent=new Intent(RegisterThreeActivity.this,MainActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
