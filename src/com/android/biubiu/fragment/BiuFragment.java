@@ -230,8 +230,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.chat_img_profiles_default)
-		.setFailureDrawableId(R.drawable.chat_img_profiles_default)
+		.setLoadingDrawableId(R.drawable.loadingbbbb)
+		.setFailureDrawableId(R.drawable.photo_fail)
 		.build();
 		/**
 		 * 此处用于设置背景动画 暂时注释

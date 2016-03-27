@@ -83,7 +83,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
-		.setFailureDrawableId(R.drawable.chat_img_profiles_default)
+		.setFailureDrawableId(R.drawable.photo_fail)
 		.build();
 	}
 	@Override
