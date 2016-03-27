@@ -94,10 +94,6 @@ public class BaseActivity extends Activity{
 		if(loadingLayout == null){
 			loadingLayout = (LinearLayout) findViewById(R.id.loading_layout);
 		}
-		if(loadGif == null){
-			loadGif = (GifView) findViewById(R.id.load_gif);
-		}
-		loadGif.setVisibility(View.GONE);
 		loadingLayout.setVisibility(View.GONE);
 	}
 	//显示错误界面

@@ -1,11 +1,13 @@
 package com.android.biubiu.activity;
 
 
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.adapter.GuildAdapter;
 import com.android.biubiu.fragment.GuildFragment;
 import com.android.biubiu.otherview.PageIndicator;
 import com.android.biubiu.utils.SharePreferanceUtils;
+
 
 
 
@@ -26,7 +28,7 @@ public class GuildActivity extends FragmentActivity{
 	ViewPager guildPager;
 	PageIndicator indicator;
 	Button goMainBtn;
-	int guildCount = 4;
+	int guildCount = 3;
 	GuildAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class GuildActivity extends FragmentActivity{
 		indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                if(position == 3){
+                if(position == 2){
                 	goMainBtn.setVisibility(View.VISIBLE);
                 	goMainBtn.setOnClickListener(new OnClickListener() {
 						
@@ -57,7 +59,7 @@ public class GuildActivity extends FragmentActivity{
 						public void onClick(View arg0) {
 							// TODO Auto-generated method stub
 							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_FIRST_INSTALL, false);
-							Intent intent = new Intent(GuildActivity.this,LoginOrRegisterActivity.class);
+							Intent intent = new Intent(GuildActivity.this,MainActivity.class);
 							startActivity(intent);
 							finish();
 						}

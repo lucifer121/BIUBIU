@@ -106,29 +106,31 @@ public class MyPushReceiver extends PushMessageReceiver{
 				newUserBean.setSchool(jsons.getString("isgraduated"));
 				newUserBean.setCareer(jsons.getString("career"));
 				newUserBean.setReferenceId("reference_id");
-				updateface.updateView(newUserBean,0);
 			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
 				newUserBean.setId(jsons.getString("user_code"));
 				newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
-				updateface.updateView(newUserBean,1);
 				saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
-			}else{
-				updateface.updateView(newUserBean,2);
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(isOpen){
-			if(isOpenVoice){
-				playSound(context);
-			}
-			if(isShock){
-				shock(context);
-			}
 			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
+				if(isOpenVoice){
+					playSound(context);
+				}
+				if(isShock){
+					shock(context);
+				}
 				updateface.updateView(newUserBean,0);
 			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
+				if(isOpenVoice){
+					playSound(context);
+				}
+				if(isShock){
+					shock(context);
+				}
 				updateface.updateView(newUserBean,1);
 				saveUserFriend(newUserBean.getId(),newUserBean.getNickname(),newUserBean.getUserHead());
 			}else{
@@ -181,13 +183,13 @@ public class MyPushReceiver extends PushMessageReceiver{
 		.setSmallIcon(com.android.biubiu.R.drawable.icon);
 		if(type.equals(Constants.MSG_TYPE_MATCH)){
 			String info = ""+bean.getNickname()+",";
-			info = info+"年龄"+bean.getAge()+",";
-			info = info+"星座"+bean.getStar()+",";
-			if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
-				info = info+"学校"+bean.getSchool();
+			info = info+"年龄:"+bean.getAge()+",";
+			info = info+"星座:"+bean.getStar()+",";
+			/*if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+				info = info+"学校:"+bean.getSchool();
 			}else{
-				info = info+"职业"+bean.getCareer();
-			}
+				info = info+"职业:"+bean.getCareer();
+			}*/
 			mBuilder.setContentText(info);
 		}else{
 			mBuilder.setContentText("你的biubiu被人抢啦");

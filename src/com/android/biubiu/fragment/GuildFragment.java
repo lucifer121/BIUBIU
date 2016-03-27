@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 public class GuildFragment extends Fragment{
 	ImageView guildImv;
-	int imgs[] = {R.drawable.guidepage_1,R.drawable.guidepage_2,R.drawable.guidepage_3,R.drawable.guidepage_4};
+	int imgs[] = {R.drawable.guidepage_1,R.drawable.guidepage_2,R.drawable.guidepage_3};
 	public static GuildFragment newInstance(int posiiton){
 		GuildFragment fragment = new GuildFragment();
 		Bundle arg = new Bundle();  

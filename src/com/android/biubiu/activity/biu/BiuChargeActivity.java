@@ -10,6 +10,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -60,7 +61,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	BCCallback bcCallback = new BCCallback() {
 		@Override
 		public void done(final BCResult bcResult) {
-			dismissLoadingLayout();
+			handler.sendEmptyMessage(1);
 			final BCPayResult bcPayResult = (BCPayResult)bcResult;
 			//根据你自己的需求处理支付结果
 			//需要注意的是，此处如果涉及到UI的更新，请在UI主进程或者Handler操作
@@ -72,6 +73,9 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		                      注意！
 		                      所有支付渠道建议以服务端的状态金额为准，此处返回的RESULT_SUCCESS仅仅代表手机端支付成功
 					 */
+					if(result == null){
+						return;
+					}
 					if (result.equals(BCPayResult.RESULT_SUCCESS)) {
 						//成功,校验是否支付成功
 						isPaySuc();
@@ -106,6 +110,13 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				}
 			});
 		}
+	};
+	Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			if(msg.what == 1){
+				dismissLoadingLayout();
+			}
+		};
 	};
 	int myUmCount = 0;
 	@Override
