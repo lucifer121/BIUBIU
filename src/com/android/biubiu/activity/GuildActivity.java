@@ -1,11 +1,13 @@
 package com.android.biubiu.activity;
 
 
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.adapter.GuildAdapter;
 import com.android.biubiu.fragment.GuildFragment;
 import com.android.biubiu.otherview.PageIndicator;
 import com.android.biubiu.utils.SharePreferanceUtils;
+
 
 
 
@@ -57,7 +59,7 @@ public class GuildActivity extends FragmentActivity{
 						public void onClick(View arg0) {
 							// TODO Auto-generated method stub
 							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_FIRST_INSTALL, false);
-							Intent intent = new Intent(GuildActivity.this,LoginOrRegisterActivity.class);
+							Intent intent = new Intent(GuildActivity.this,MainActivity.class);
 							startActivity(intent);
 							finish();
 						}
