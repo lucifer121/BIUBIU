@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BIUBIU</string>
+    <string name="app_name">IU</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_biu_biu_send">BiuBiuSendActivity</string>
     <string name="net_error">网络未连接</string>
