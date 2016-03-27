@@ -200,6 +200,8 @@ public class DemoHelper {
 	            @Override
 	            public int getSmallIcon(EMMessage message) {
 	              //设置小图标，这里为默认
+	            //	appContext.getResources().getDrawable(R.drawable.icon);
+	            	
 	                return 0;
 	            }
 	            
