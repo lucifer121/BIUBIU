@@ -32,7 +32,7 @@
         android:layout_height="91dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:src="@drawable/login_register_imageview_icon" />
+        android:src="@drawable/icon_login" />
 
     <TextView
         android:layout_width="wrap_content"
