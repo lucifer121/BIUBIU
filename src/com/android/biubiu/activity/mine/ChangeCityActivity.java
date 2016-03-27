@@ -17,6 +17,7 @@ import java.util.List;
 
 
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -86,13 +87,19 @@ OnClickListener, OnWheelChangedListener{
 		setUpViews();
 		setUpListener();
 		setUpData();
-		cityName.setText("" + mCurrentProviceName + mCurrentCityName
-				);
+//		cityName.setText("" + mCurrentProviceName + mCurrentCityName
+//				);
 	}
 	
 	private void initView() {
 		// TODO Auto-generated method stub
 		cityName = (TextView) super.findViewById(R.id.cityName_change_city_tv);
+		try {
+			Citybean bean=cityDao.getCity(infoBean.getCity()).get(0);
+			cityName.setText(bean.getPrivance()+"  "+bean.getCity());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
 	}
 
 	private void setUpViews() {

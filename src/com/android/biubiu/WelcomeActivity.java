@@ -22,6 +22,7 @@ import com.android.biubiu.sqlite.DBManagerCity;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
+import com.avos.avoscloud.LogUtil.log;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 
@@ -29,6 +30,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +41,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 public class WelcomeActivity extends BaseActivity {
+	private String TAG="WelcomeActivity";
 	private boolean isFirstInstall = false;
 	//导入城市数据库到本地
 
@@ -67,6 +70,7 @@ public class WelcomeActivity extends BaseActivity {
 
 		//读取设备ID
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
+		log.e(TAG, SharePreferanceUtils.getInstance().getChannelId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 		next();
 	
 		

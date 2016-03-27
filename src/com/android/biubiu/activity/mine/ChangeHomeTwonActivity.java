@@ -60,13 +60,19 @@ OnClickListener, OnWheelChangedListener{
 		setUpViews();
 		setUpListener();
 		setUpData();
-		homeName.setText("" + mCurrentProviceName + mCurrentCityName
-				);
+//		homeName.setText("" + mCurrentProviceName + mCurrentCityName
+//				);
 	}
 
 	private void initView() {
 		// TODO Auto-generated method stub
 		homeName = (TextView) super.findViewById(R.id.hometwonName_change_city_tv);
+		try {
+			Citybean bean=cityDao.getCity(infoBean.getCity()).get(0);
+			homeName.setText(bean.getPrivance()+"  "+bean.getCity());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
 	}
 
 	private void setUpViews() {
