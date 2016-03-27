@@ -259,7 +259,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				requestObject.put("channel","WX");
 			}
 			requestObject.put("title","U米充值");
-			requestObject.put("totalfee",1);
+			requestObject.put("totalfee",umCountPrice*100);
 			requestObject.put("totalnum",umCount);
 		} catch (JSONException e) {
 
@@ -306,9 +306,9 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 						orderCode = data.getString("bill_no");
 						if(isZfbPay){
-							payZfb(orderCode, 0.01f);
+							payZfb(orderCode, umCountPrice);
 						}else{
-							payWeiXin(orderCode, 0.01f);
+							payWeiXin(orderCode, umCountPrice);
 						}
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -382,7 +382,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		});
 	}
 	//支付宝支付
-	protected void payZfb(String orderId,float price) {
+	protected void payZfb(String orderId,int price) {
 		// TODO Auto-generated method stub
 		Map<String, String> mapOptional = new HashMap<String, String>();
 		mapOptional.put("type", "Um");
@@ -395,7 +395,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 				bcCallback);
 	}
 	//微信支付
-	protected void payWeiXin(String orderId,float price) {
+	protected void payWeiXin(String orderId,int price) {
 		// TODO Auto-generated method stub
 		//对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
 		//这个是微信自身存在的问题
