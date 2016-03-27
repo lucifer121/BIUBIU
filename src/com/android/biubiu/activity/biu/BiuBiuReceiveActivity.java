@@ -57,6 +57,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class BiuBiuReceiveActivity extends BaseActivity {
+	private static final int GO_CHARGE = 1001;
 	private RelativeLayout backLayout;
 	private GridView mGridViewTag, mGridViewInterestTag;
 	private UserPagerTagAdapter personalAdapter;
@@ -165,7 +166,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				toastShort("去充值界面");
+				Intent intent = new Intent(BiuBiuReceiveActivity.this,BiuChargeActivity.class);
+				intent.putExtra("coin", biubiuMoney);
+				startActivityForResult(intent, GO_CHARGE);
 			}
 		});
 		goSendBiuLayout.setOnClickListener(new OnClickListener() {
@@ -643,6 +646,22 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		item.setNickname(name);
 		userDao.insertOrReplaceUser(item);
 		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case GO_CHARGE:
+			if(resultCode == RESULT_OK){
+				noBiuMoneyLayout.setVisibility(View.GONE);
+				isGrabLayout.setVisibility(View.VISIBLE);
+			}
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }

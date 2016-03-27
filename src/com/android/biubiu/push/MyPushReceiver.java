@@ -42,7 +42,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 
 	static PushInterface updateface;
 	private UserDao userDao;
-	
+
 	public static void setUpdateBean(PushInterface updateBean) {
 		updateface = updateBean;
 	}
@@ -74,7 +74,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 
 	}
 
-	
+
 	@Override
 	public void onMessage(Context context, String message,
 			String customContentString) {
@@ -86,47 +86,59 @@ public class MyPushReceiver extends PushMessageReceiver{
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, true);
 		boolean isOpenVoice = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_OPEN_VOICE, true);
 		boolean isShock = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_SHOCK, true);
-		if(isOpen){ 
+		UserBean newUserBean = new UserBean();
+		String msgType = "";
+		try {
+			JSONObject jsons = JSONObject.parseObject(message);
+			msgType = jsons.getString("messageType");
+			newUserBean.setTime(Long.parseLong(jsons.getString("time")));
+			newUserBean.setChatId(jsons.getString("chat_id"));
+			newUserBean.setAlreadSeen(Constants.UN_SEEN);
+
+			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
+				newUserBean.setId(jsons.getString("user_code"));
+				newUserBean.setNickname(jsons.getString("nickname"));
+				newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
+				newUserBean.setAge(jsons.getString("age"));
+				newUserBean.setSex(jsons.getString("sex"));
+				newUserBean.setStar(jsons.getString("starsign"));
+				newUserBean.setIsStudent(jsons.getString("isgraduated"));
+				newUserBean.setSchool(jsons.getString("isgraduated"));
+				newUserBean.setCareer(jsons.getString("career"));
+				newUserBean.setReferenceId("reference_id");
+				updateface.updateView(newUserBean,0);
+			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
+				newUserBean.setId(jsons.getString("user_code"));
+				newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
+				updateface.updateView(newUserBean,1);
+				saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
+			}else{
+				updateface.updateView(newUserBean,2);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(isOpen){
 			if(isOpenVoice){
 				playSound(context);
 			}
 			if(isShock){
 				shock(context);
 			}
-			try {
-				JSONObject jsons = JSONObject.parseObject(message);
-				String msgType = jsons.getString("messageType");
-				UserBean newUserBean = new UserBean();
-				newUserBean.setTime(Long.parseLong(jsons.getString("time")));
-				newUserBean.setChatId(jsons.getString("chat_id"));
-				newUserBean.setAlreadSeen(Constants.UN_SEEN);
-				
-				if(msgType.equals(Constants.MSG_TYPE_MATCH)){
-					newUserBean.setId(jsons.getString("user_code"));
-					newUserBean.setNickname(jsons.getString("nickname"));
-					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
-					newUserBean.setAge(jsons.getString("age"));
-					newUserBean.setSex(jsons.getString("sex"));
-					newUserBean.setStar(jsons.getString("starsign"));
-					newUserBean.setIsStudent(jsons.getString("isgraduated"));
-					newUserBean.setSchool(jsons.getString("isgraduated"));
-					newUserBean.setCareer(jsons.getString("career"));
-					newUserBean.setReferenceId("reference_id");
-					updateface.updateView(newUserBean,0);
-				}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
-					newUserBean.setId(jsons.getString("user_code"));
-					newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
-					updateface.updateView(newUserBean,1);
-					saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
-				}else{
-					updateface.updateView(newUserBean,2);
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
+				updateface.updateView(newUserBean,0);
+			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
+				updateface.updateView(newUserBean,1);
+				saveUserFriend(newUserBean.getId(),newUserBean.getNickname(),newUserBean.getUserHead());
+			}else{
+				updateface.updateView(newUserBean,2);
 			}
 		}else{
-			showNotification(context,isShock,isOpenVoice);
+			if(msgType.equals(Constants.MSG_TYPE_DEL)){
+				return;
+			}
+			showNotification(context,isShock,isOpenVoice,newUserBean,msgType);
 		}
 	}
 
@@ -156,18 +168,30 @@ public class MyPushReceiver extends PushMessageReceiver{
 		// TODO Auto-generated method stub
 
 	}
-	private void showNotification(Context context,boolean isShock,boolean isOpenVoice){
+	private void showNotification(Context context,boolean isShock,boolean isOpenVoice,UserBean bean,String type){
 		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Builder mBuilder = new NotificationCompat.Builder(context);
-		mBuilder.setContentTitle("测试标题")
-		.setContentText("测试内容")
-		.setTicker("测试通知来啦")//通知首次出现在通知栏，带上升动画效果的
+		mBuilder.setContentTitle("你收到一条biubiu")
+		.setTicker("你收到一条biubiu")//通知首次出现在通知栏，带上升动画效果的
 		.setAutoCancel(true)
 		.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
 		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
 		//.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
 		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
 		.setSmallIcon(com.android.biubiu.R.drawable.icon);
+		if(type.equals(Constants.MSG_TYPE_MATCH)){
+			String info = ""+bean.getNickname()+",";
+			info = info+"年龄"+bean.getAge()+",";
+			info = info+"星座"+bean.getStar()+",";
+			if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
+				info = info+"学校"+bean.getSchool();
+			}else{
+				info = info+"职业"+bean.getCareer();
+			}
+			mBuilder.setContentText(info);
+		}else{
+			mBuilder.setContentText("你的biubiu被人抢啦");
+		}
 		if(isShock){
 			mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
 		}
@@ -206,6 +230,6 @@ public class MyPushReceiver extends PushMessageReceiver{
 		item.setIcon_thumbnailUrl(url);
 		item.setNickname(name);
 		userDao.insertOrReplaceUser(item);
-		
+
 	}
 }
