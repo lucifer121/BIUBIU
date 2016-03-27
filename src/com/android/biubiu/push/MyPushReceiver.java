@@ -188,7 +188,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 			}else{
 				info = info+"职业"+bean.getCareer();
 			}
-			mBuilder.setContentText("你的biubiu被人抢啦");
+			mBuilder.setContentText(info);
 		}else{
 			mBuilder.setContentText("你的biubiu被人抢啦");
 		}
