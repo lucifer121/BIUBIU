@@ -123,7 +123,9 @@ public class MyPushReceiver extends PushMessageReceiver{
 				if(isShock){
 					shock(context);
 				}
-				updateface.updateView(newUserBean,0);
+				if(updateface != null){
+					updateface.updateView(newUserBean,0);
+				}
 			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
 				if(isOpenVoice){
 					playSound(context);
@@ -131,10 +133,14 @@ public class MyPushReceiver extends PushMessageReceiver{
 				if(isShock){
 					shock(context);
 				}
-				updateface.updateView(newUserBean,1);
+				if(updateface != null){
+					updateface.updateView(newUserBean,1);
+				}
 				saveUserFriend(newUserBean.getId(),newUserBean.getNickname(),newUserBean.getUserHead());
 			}else{
-				updateface.updateView(newUserBean,2);
+				if(updateface != null){
+					updateface.updateView(newUserBean,2);
+				}
 			}
 		}else{
 			if(msgType.equals(Constants.MSG_TYPE_DEL)){

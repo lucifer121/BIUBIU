@@ -235,59 +235,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </receiver>
-
-        <!-- gcm start -->
-        <receiver
-            android:name="com.hyphenate.chat.EMGCMBroadcastReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.android.biubiu" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.hyphenate.chat.EMGCMListenerService"
-            android:exported="false" >
-        </service>
-
-        <receiver
-            android:name="com.android.biubiu.chat.GCMPushBroadCast"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.hyphenate.sdk.push" />
-
-                <category android:name="com.android.biubiu" />
-            </intent-filter>
-        </receiver>
-        <!-- gcm end -->
-
-
-        <!-- mi push -->
-        <service
-            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
-            android:enabled="true" />
-
-        <receiver
-            android:name="com.hyphenate.chat.EMMipushReceiver"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.xiaomi.mipush.ERROR" />
-            </intent-filter>
-        </receiver>
-        <!-- mi push end -->
         <!-- WXPay sdk begin -->
         <activity
             android:name="cn.beecloud.BCWechatPaymentActivity"

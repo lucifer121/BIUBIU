@@ -188,6 +188,9 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	//检测手机号是否已注册
 	private void queryIsHad() {
 		// TODO Auto-generated method stub
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			toastShort(getResources().getString(R.string.net_error));
+		}
 		if(null == registerPhoneEt.getText()||registerPhoneEt.getText().toString().equals("")){
 			toastShort(getResources().getString(R.string.reg_three_no_phone));
 			return;
@@ -212,6 +215,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
+				toastShort("请求发送验证码失败");
 				Log.d("mytest", "error--"+ex.getMessage());
 				Log.d("mytest", "error--"+ex.getCause());
 			}

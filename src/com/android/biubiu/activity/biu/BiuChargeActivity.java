@@ -100,7 +100,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 						 * 以下是正常流程，请按需处理失败信息
 						 */
 
-						Toast.makeText(BiuChargeActivity.this, toastMsg, Toast.LENGTH_LONG).show();
+						//Toast.makeText(BiuChargeActivity.this, toastMsg, Toast.LENGTH_LONG).show();
 						Log.d("mytest", toastMsg);
 					} else if (result.equals(BCPayResult.RESULT_UNKNOWN)) {
 						//可能出现在支付宝8000返回状态
@@ -271,6 +271,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			}
 			requestObject.put("title","U米充值");
 			requestObject.put("totalfee",umCountPrice*100);
+			LogUtil.e("mytest", "price--"+umCountPrice*100);
 			requestObject.put("totalnum",umCount);
 		} catch (JSONException e) {
 
@@ -302,7 +303,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "get order--"+result);
+				LogUtil.e("mytest", "get order--"+result);
 				JSONObject jsons;
 					try {
 						jsons = new JSONObject(result);
@@ -396,10 +397,11 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 	protected void payZfb(String orderId,int price) {
 		// TODO Auto-generated method stub
 		Map<String, String> mapOptional = new HashMap<String, String>();
-		mapOptional.put("type", "Um");
+		mapOptional.put("type", "umi");
 		int payPrice = (int) (price*100);
+		LogUtil.d("mytest", "zfbprice--"+payPrice);
 		BCPay.getInstance(BiuChargeActivity.this).reqAliPaymentAsync(
-				"充值",
+				"U米充值",
 				payPrice,
 				orderId,
 				mapOptional,
@@ -411,13 +413,13 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		//对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
 		//这个是微信自身存在的问题
 		Map<String, String> mapOptional = new HashMap<String, String>();
-		mapOptional.put("type", "Um");
+		mapOptional.put("type", "umi");
 		int payPrice = (int) (price*100);
 		if (BCPay.isWXAppInstalledAndSupported() &&
 				BCPay.isWXPaySupported()) {
 
 			BCPay.getInstance(BiuChargeActivity.this).reqWXPaymentAsync(
-					"充值",               //订单标题
+					"U米充值",               //订单标题
 					payPrice,                           //订单金额(分)
 					orderId,  //订单流水号
 					mapOptional,            //扩展参数(可以null)

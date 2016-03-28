@@ -166,7 +166,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					//						System.out.println(obj.get("tags"));
 					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
-	
+
 					String token=obj.getString("token");
 					if(token!=null&&!token.equals("")){
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
@@ -272,12 +272,12 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		lp.topMargin = 45;
 		//		lp.bottomMargin = 5;
 		for(int i = 0; i < mList.size(); i ++){
-			
+
 			final TextView view = new TextView(this);
 			view.setText(mList.get(i).getName());
 			view.setTextColor(getResources().getColor(R.color.textview_item_send_bg));
 			view.setTextSize(11);			
-		//	view.setPadding(24, 24, 24, 24);
+			//	view.setPadding(24, 24, 24, 24);
 			view.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_send_biu_img_bg));
 			view.setOnClickListener(new OnClickListener() {
 
@@ -323,7 +323,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-
+				dismissLoadingLayout();
 			}
 
 			@Override
@@ -335,6 +335,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				Log.d(TAG, "result--"+arg0);
 				JSONObject jsons;
 

@@ -675,10 +675,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//加入所有list中的view
 	protected void addAllView(ArrayList<UserBean> list,boolean isLogin) {
-		user1List.clear();
-		user2List.clear();
-		user3List.clear();
-		userGroupLayout.removeAllViews();
 		int length = 0;
 		if(list.size()>25){
 			length = 25;
@@ -834,6 +830,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 	
 	//获取biubiu列表
 	private void getAllUser(){
+		user1List.clear();
+		user2List.clear();
+		user3List.clear();
+		userGroupLayout.removeAllViews();
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_BIU_LIST);
 		JSONObject requestObject = new JSONObject();
 		try {
@@ -977,6 +977,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//获取未登录时的biubiu列表
 	private void getBiuListUnlogin() {
 		// TODO Auto-generated method stub
+		user1List.clear();
+		user2List.clear();
+		user3List.clear();
+		userGroupLayout.removeAllViews();
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_UNLOGIN_BIU_LIST);
 		JSONObject requestObject = new JSONObject();
 		try {
