@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.biubiu"
-    android:installLocation = "preferExternal"
+    android:installLocation="preferExternal"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -84,7 +84,7 @@
     </uses-permission>
     <!-- 友盟相关 -->
 
-   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -102,6 +102,19 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <!-- shareSdk -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".myapplication.BiubiuApplication"
@@ -110,8 +123,8 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
-        
-        <!--友盟 appkey-->
+
+        <!-- 友盟 appkey -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="56f4c0ece0f55a520b001c1e" >
@@ -236,7 +249,8 @@
             </intent-filter>
         </receiver>
 
-        <!-- gcm start -->
+        <!--
+             gcm start
         <receiver
             android:name="com.hyphenate.chat.EMGCMBroadcastReceiver"
             android:exported="true"
@@ -262,10 +276,10 @@
                 <category android:name="com.android.biubiu" />
             </intent-filter>
         </receiver>
-        <!-- gcm end -->
+        gcm end
 
 
-        <!-- mi push -->
+        mi push
         <service
             android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
             android:enabled="true"
@@ -287,6 +301,7 @@
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
+        -->
         <!-- mi push end -->
         <!-- WXPay sdk begin -->
         <activity
@@ -317,10 +332,58 @@
             android:name="api_key"
             android:value="v3FkYC4w53w46uuvw9L6qBF1" />
 
+        <!-- shareSdk  分享相关 -->
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 易信分享回调 -->
+        <activity
+            android:name=".yxapi.YXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 支付宝分享回调 -->
+        <activity
+            android:name=".apshare.ShareEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".WelcomeActivity"
-            android:label="@string/app_name" >
-        	 <intent-filter>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -328,162 +391,163 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.GuildActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.LoginOrRegisterActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.RegisterOneActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.RegisterTwoActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.RegisterThreeActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.biu.BiuBiuSendActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.biu.BiuChargeActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.biu.MyPagerActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_send" >
+            android:label="@string/title_activity_biu_biu_send"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeSchoolActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_school" >
+            android:label="@string/title_activity_change_school"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeBrithdayActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_brithday" >
+            android:label="@string/title_activity_change_brithday"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ScanUserHeadActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeCityActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_city_main" >
+            android:label="@string/title_activity_change_city_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeCompanyActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_city_main" >
+            android:label="@string/title_activity_change_city_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeConstellationActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_constellation" >
+            android:label="@string/title_activity_change_constellation"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeHeightWeightActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_height_weight" >
+            android:label="@string/title_activity_height_weight"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeIdentityProfessionActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_identity_profession" >
+            android:label="@string/title_activity_change_identity_profession"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.UserPhotoScanActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.AboutMeActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MatchSettingActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_match_setting" >
+            android:label="@string/title_activity_match_setting"
+            android:screenOrientation="portrait" >
         </activity>
-         <activity
+        <activity
             android:name=".BeginGuiderActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MatchSetTagActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_match_setting" >
+            android:label="@string/title_activity_match_setting"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.PersonalityTagActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_personality_tag" >
+            android:label="@string/title_activity_personality_tag"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.InterestLabelActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_interest_label" >
+            android:label="@string/title_activity_interest_label"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeHomeTwonActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_home_twon" >
+            android:label="@string/title_activity_change_home_twon"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.mine.ChangeNameActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_change_name" >
+            android:label="@string/title_activity_change_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.ForgetPasswordActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_forget_password" >
+            android:label="@string/title_activity_forget_password"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.biu.BiuBiuReceiveActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_biu_biu_receive" >
+            android:label="@string/title_activity_biu_biu_receive"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".chat.ChatActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_chat" >
+            android:label="@string/title_activity_chat"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".chat.UserListActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_user_list" >
+            android:label="@string/title_activity_user_list"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ContextMenuActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_context_menu" >
+            android:label="@string/title_activity_context_menu"
+            android:screenOrientation="portrait" >
         </activity>
 
         <!-- 显示下载大图页面 -->

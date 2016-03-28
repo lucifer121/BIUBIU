@@ -66,6 +66,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	String headPath;
 	private String schoolCode="";
 	private String cityiId="";//默认的北京市东城区id
+	private String cityCode="";
 	/**
 	 * 所有身份职业
 	 */
@@ -316,6 +317,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		
 	try {
 		String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+		cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
 		LogUtil.d("mytest", cityiId);
 		userBean.setCity(cityiId);
 		LogUtil.d("mytest", "city1--"+userBean.getCity());
@@ -323,6 +325,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		nextIntent.putExtra("infoBean", (Serializable)userBean);
 		nextIntent.putExtra("userhead", userheadBitmp);
 		nextIntent.putExtra("headPath", headPath);
+		nextIntent.putExtra("cityf", cityCode);
 		startActivity(nextIntent);
 	} catch (Exception e) {
 		// TODO: handle exception

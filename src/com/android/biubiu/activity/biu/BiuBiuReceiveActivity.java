@@ -487,12 +487,20 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					}
 //					saveUserFriend(userCodeString,userNameString,userUrlString);
-					toastShort("抢中了啊");
-					
-					Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
-					intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
-					startActivity(intent);
-					finish();
+					String message=obj.getString("message");
+					if(message.equals("0")){
+						toastShort("biu币不足");
+					}
+					else if(message.equals("1")){
+						toastShort("抢中了啊");						
+						Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
+						intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
+						startActivity(intent);
+						finish();
+					}else{
+						toastShort("该biu已被抢");
+					}
+
 				} catch (Exception e) {
 					// TODO: handle exception
 				}

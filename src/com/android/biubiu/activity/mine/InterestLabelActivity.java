@@ -383,6 +383,8 @@ public class InterestLabelActivity extends BaseActivity {
 						boolean a=mDates.get(position).getmInterestList().get(positionId).getIsChoice();
 					
 						initAdapter();
+//						mAdapter.notifyDataSetChanged();
+						mAdapterGridView.notifyDataSetChanged();
 	
 					}
 				});

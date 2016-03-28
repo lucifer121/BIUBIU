@@ -46,6 +46,7 @@ OnClickListener, OnWheelChangedListener{
 	private RelativeLayout wanchLayout, backLayout;
 	
 	private CityDao cityDao = new CityDao();
+	private String cityCode="";
 
 	// 控件相关
 	private TextView homeName;
@@ -218,6 +219,8 @@ OnClickListener, OnWheelChangedListener{
 				return;
 			}
 			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+			//用来匹配同城的 code
+			cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
 			infoBean.setHomeTown(cityiId);
 			updateInfo();
 			break;
@@ -239,7 +242,8 @@ OnClickListener, OnWheelChangedListener{
 			requestObject.put("token", token);
 			requestObject.put("device_code", deviceId);
 			requestObject.put("hometown", infoBean.getHomeTown());
-			requestObject.put("parameters", "hometown");
+			requestObject.put("cityf", cityCode);
+			requestObject.put("parameters", "hometown,cityf");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

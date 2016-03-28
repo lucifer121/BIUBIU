@@ -24,7 +24,7 @@ import android.util.Log;
  */
 public class DBManagerCity {
 	private final int BUFFER_SIZE = 400000;
-	public static final String DB_NAME = "city.db"; // 保存的数据库文件名
+	public static final String DB_NAME = "city_new.db"; // 保存的数据库文件名
 	public static final String PACKAGE_NAME = "com.android.biubiu";
 	public static final String DB_PATH = "/data"
 			+ Environment.getDataDirectory().getAbsolutePath() + "/"
@@ -45,7 +45,7 @@ public class DBManagerCity {
 		try {
 			if (!(new File(dbfile).exists())) {// 判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
 				InputStream is = this.context.getResources().openRawResource(
-						R.raw.city); // 欲导入的数据库
+						R.raw.city_new); // 欲导入的数据库
 				FileOutputStream fos = new FileOutputStream(dbfile);
 				byte[] buffer = new byte[BUFFER_SIZE];
 				int count = 0;

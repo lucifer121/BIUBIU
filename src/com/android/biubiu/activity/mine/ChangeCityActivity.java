@@ -76,6 +76,7 @@ OnClickListener, OnWheelChangedListener{
 	// 控件相关
 	private TextView cityName;
 	UserInfoBean infoBean;
+	private String cityCode="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -191,25 +192,7 @@ OnClickListener, OnWheelChangedListener{
 			citys[i] = cityList.get(i).getCity();
 		}
 		mCurrentCityName = cityList.get(pCurrent).getCity();
-//		// mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
-//
-//		townList = cityDao.getAllTown(mCurrentProviceName, mCurrentCityName);
-//		Log.e("lucifer", "townList==" + townList.size());
-//		String[] areas = new String[townList.size()];
-//
-//		for (int i = 0; i < townList.size(); i++) {
-//			areas[i] = townList.get(i).getTown();
-//		}
-//
-//		// String[] areas = mDistrictDatasMap.get(mCurrentCityName);
-//
-//		if (areas == null) {
-//			areas = new String[] { "" };
-//		}
-//		mViewDistrict
-//				.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
-//		mViewDistrict.setCurrentItem(0);
-//		mCurrentDistrictName = areas[0];
+
 	}
 
 	/**
@@ -238,6 +221,9 @@ OnClickListener, OnWheelChangedListener{
 		mViewCity.setCurrentItem(0);
 		updateAreas();
 	}
+	/**
+	 * 修改个人信息
+	 */
 	private void updateInfo() {
 		// TODO Auto-generated method stub
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
@@ -248,7 +234,8 @@ OnClickListener, OnWheelChangedListener{
 			requestObject.put("token", token);
 			requestObject.put("device_code", deviceId);
 			requestObject.put("city", infoBean.getCity());
-			requestObject.put("parameters", "city");
+			requestObject.put("cityf", cityCode);
+			requestObject.put("parameters", "city,cityf");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -308,6 +295,7 @@ OnClickListener, OnWheelChangedListener{
 				return;
 			}
 			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+			cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
 			infoBean.setCity(cityiId);
 			updateInfo();
 			break;
@@ -328,48 +316,7 @@ OnClickListener, OnWheelChangedListener{
 	}
 }
 
-//	/**
-//	 * 上传 修改信息
-//	 * 
-//	 * @param user
-//	 * @author lucifer
-//	 * @date 2015-11-6
-//	 */
-//	public void completeInfo(final ObjUser user) {
-//
-//		String cityID = cityDao
-//				.getID(mCurrentProviceName, mCurrentCityName,
-//						mCurrentDistrictName).get(0).getId();
-//		if (cityID != null) {
-//			user.setHometown(cityID);
-//
-//			// 只上传信息
-//			ObjUserWrap.completeUserInfo(user, new ObjFunBooleanCallback() {
-//
-//				@Override
-//				public void callback(boolean result, AVException e) {
-//					if (result) {
-//						Toast.makeText(getApplicationContext(), "已保存", 1000)
-//								.show();
-//						Intent intent = new Intent();
-//						intent.putExtra("city", mCurrentProviceName
-//								+ mCurrentCityName + mCurrentDistrictName);
-//						setResult(RESULT_OK, intent);
-//						finish();
-//						log.e("lucifer", "" + mCurrentProviceName
-//								+ mCurrentCityName + mCurrentDistrictName);
-//
-//					} else {
-//						Toast.makeText(getApplicationContext(), "保存失败", 1000)
-//								.show();
-//					}
-//				}
-//			});
-//		} else {
-//			Toast.makeText(getApplicationContext(), "保存失败", 1000).show();
-//		}
-//
-//	}
+
 
 	
 

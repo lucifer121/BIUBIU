@@ -89,6 +89,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 	String accessKeySecret = "";
 	String securityToken = "";
 	String expiration = "";
+	String cityCode="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -105,6 +106,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		//System.out.println(userBean.getNickname());
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
 		headPath = getIntent().getStringExtra("headPath");
+		cityCode=getIntent().getStringExtra("cityf");
 		userheadBitmp = bitmp;
 	}
 	private void initView() {
@@ -441,6 +443,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			requestObject.put("password", passwordEt.getText().toString());
 			requestObject.put("icon_url", userBean.getIconOrign());
 			requestObject.put("original_icon_url", userBean.getIconOrign());
+			requestObject.put("cityf", cityCode);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
