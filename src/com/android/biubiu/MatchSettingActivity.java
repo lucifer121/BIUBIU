@@ -214,10 +214,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		switch (v.getId()) {
 		case R.id.boy_layout:
 			if(isSelBoy){
+				setBean.getPersonalTags().clear();
+				setTags(setBean.getPersonalTags());
 				isSelBoy = false;
 				boyToggle.setImageResource(R.drawable.setting_btn_yes);
 				girlToggle.setImageResource(R.drawable.setting_btn_no);
 			}else{
+				setBean.getPersonalTags().clear();
+				setTags(setBean.getPersonalTags());
 				isSelBoy = true;
 				boyToggle.setImageResource(R.drawable.setting_btn_no);
 				girlToggle.setImageResource(R.drawable.setting_btn_yes);
@@ -225,10 +229,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			break;
 		case R.id.girl_layout:
 			if(isSelBoy){
+				setBean.getPersonalTags().clear();
+				setTags(setBean.getPersonalTags());
 				isSelBoy = false;
 				boyToggle.setImageResource(R.drawable.setting_btn_yes);
 				girlToggle.setImageResource(R.drawable.setting_btn_no);
 			}else{
+				setBean.getPersonalTags().clear();
+				setTags(setBean.getPersonalTags());
 				isSelBoy = true;
 				boyToggle.setImageResource(R.drawable.setting_btn_no);
 				girlToggle.setImageResource(R.drawable.setting_btn_yes);

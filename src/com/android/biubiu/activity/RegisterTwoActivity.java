@@ -6,6 +6,28 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xutils.x;
+import org.xutils.common.Callback.CancelledException;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSFederationToken;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 
 
@@ -14,6 +36,7 @@ import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.bean.Schools;
 import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.common.Umutils;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
 import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
@@ -25,7 +48,12 @@ import com.android.biubiu.sqlite.CityDao;
 
 
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.SharePreferanceUtils;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -47,6 +75,7 @@ import android.widget.TextView;
 
 public class RegisterTwoActivity extends BaseCityActivity implements OnClickListener,OnWheelChangedListener2{
 	private static final int SELECT_SCHOOL = 1001;
+	private String TAG="RegisterTwoActivity";
 	private RelativeLayout nextLayout;
 	private RelativeLayout cityLayout,schoolLayout;
 	private WheelView2	mViewProvince,mViewCity,mViewDistrict,mViewProfesstion;
@@ -64,9 +93,17 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	UserInfoBean userBean = new UserInfoBean();
 	Bitmap userheadBitmp;
 	String headPath;
+	String phoneNum = "";
+	String password = "";
+	String deviceId = "";
 	private String schoolCode="";
 	private String cityiId="";//默认的北京市东城区id
 	private String cityCode="";
+	//上传文件相关
+	String accessKeyId = "";
+	String accessKeySecret = "";
+	String securityToken = "";
+	String expiration = "";
 	/**
 	 * 所有身份职业
 	 */
@@ -89,6 +126,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registertwo_layout);
+		deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
 		getinentInfo();
 		initView();
 	}
@@ -97,6 +135,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		UserInfoBean bean = (UserInfoBean) getIntent().getSerializableExtra("infoBean");
 		Bitmap bitmp = getIntent().getParcelableExtra("userhead");
 		headPath = getIntent().getStringExtra("headPath");
+		phoneNum = getIntent().getStringExtra("phone");
+		password = getIntent().getStringExtra("password");
 		userBean.setNickname(bean.getNickname());
 		userBean.setBirthday(bean.getBirthday());
 		userBean.setSex(bean.getSex());
@@ -123,8 +163,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		userheadImv.setImageBitmap(userheadBitmp);
 		backRl = (RelativeLayout) findViewById(R.id.back_rl);
 		backRl.setOnClickListener(this);
-		
-		
+
+
 	}
 	private PopupWindow popWindowProfession;
 	private void initPopupWindowProfession() {
@@ -314,23 +354,24 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			userBean.setCareer(schoolTv.getText().toString());
 			userBean.setSchool("");
 		}
-		
-	try {
-		String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
-		cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
-		LogUtil.d("mytest", cityiId);
-		userBean.setCity(cityiId);
-		LogUtil.d("mytest", "city1--"+userBean.getCity());
-		Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
-		nextIntent.putExtra("infoBean", (Serializable)userBean);
-		nextIntent.putExtra("userhead", userheadBitmp);
-		nextIntent.putExtra("headPath", headPath);
-		nextIntent.putExtra("cityf", cityCode);
-		startActivity(nextIntent);
-	} catch (Exception e) {
-		// TODO: handle exception
-	}
-		
+
+		try {
+			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
+			cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
+			LogUtil.d("mytest", cityiId);
+			userBean.setCity(cityiId);
+			LogUtil.d("mytest", "city1--"+userBean.getCity());
+			/*Intent nextIntent=new Intent(this,RegisterThreeActivity.class);
+			nextIntent.putExtra("infoBean", (Serializable)userBean);
+			nextIntent.putExtra("userhead", userheadBitmp);
+			nextIntent.putExtra("headPath", headPath);
+			nextIntent.putExtra("cityf", cityCode);
+			startActivity(nextIntent);*/
+			getOssToken();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 	@Override
 	public void onClick(View v) {
@@ -340,7 +381,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			break;
 		case R.id.registertwo_center4_rl:
 			//选择城市
-			
+
 			changeNextBg();
 			initPopupWindowCity();
 			popupWindowCity.showAsDropDown(cityTextView, 0, 200);
@@ -412,9 +453,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			changeNextBg();
 		}else if(wheel == mViewProfesstion){
 
-			
+
 			int pCurrent = mViewProfesstion.getCurrentItem();
-			
+
 			schoolTv.setText(mIdentity[pCurrent]);
 		} 
 
@@ -436,5 +477,238 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		default:
 			break;
 		}
+	}
+	//鉴权
+	public void getOssToken(){
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS);
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				//dismissLoadingLayout();
+				toastShort("注册失败");
+				LogUtil.d("mytest", "error--"+ex.getMessage());
+				LogUtil.d("mytest", "error--"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "ret=="+arg0);
+				try {
+					JSONObject jsonObjs = new JSONObject(arg0);
+					String  state = jsonObjs.getString("state");
+					if(!state.equals("200")){
+						//dismissLoadingLayout();
+						toastShort("注册失败");
+						return;
+					}
+					JSONObject obj = jsonObjs.getJSONObject("data");
+					//JSONObject obj = new JSONObject(jsonObjs.getString("data"));
+					accessKeyId = obj.getString("accessKeyId");
+					accessKeySecret = obj.getString("accessKeySecret");
+					securityToken = obj.getString("securityToken");
+					expiration = obj.getString("expiration");
+					asyncPutObjectFromLocalFile();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	// 从本地文件上传，使用非阻塞的异步接口
+	public void asyncPutObjectFromLocalFile() {
+		String endpoint = HttpContants.A_LI_YUN;
+		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
+		OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
+			@Override
+			public OSSFederationToken getFederationToken() {
+
+				return new OSSFederationToken(accessKeyId, accessKeySecret, securityToken, expiration);
+			}
+		};
+		ClientConfiguration conf = new ClientConfiguration();
+		conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+		conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+		conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
+		conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+		OSSLog.enableLog();
+		OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
+		final String fileName = "profile/"+System.currentTimeMillis()+deviceId+".jpeg";
+		// 构造上传请求
+		PutObjectRequest put = new PutObjectRequest("protect-app",fileName, headPath);
+
+		// 异步上传时可以设置进度回调
+		put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
+			@Override
+			public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
+				Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
+			}
+		});
+		OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+			@Override
+			public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+				Log.d("PutObject", "UploadSuccess");
+				Log.d("ETag", result.getETag());
+				Log.d("RequestId", result.getRequestId());
+				userBean.setIconOrign(fileName);
+				registerRequest();
+			}
+			@Override
+			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+				//dismissLoadingLayout();
+				toastShort("注册失败");
+				// 请求异常
+				if (clientExcepion != null) {
+					// 本地异常如网络异常等
+					clientExcepion.printStackTrace();
+				}
+				if (serviceException != null) {
+					// 服务异常
+					Log.e("ErrorCode", serviceException.getErrorCode());
+					Log.e("RequestId", serviceException.getRequestId());
+					Log.e("HostId", serviceException.getHostId());
+					Log.e("RawMessage", serviceException.getRawMessage());
+				}
+			}
+		});
+	}
+	//注册
+	private void registerRequest() {
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_METHOD);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("nickname",userBean.getNickname());
+			requestObject.put("sex", userBean.getSex());
+			requestObject.put("birth_date", userBean.getBirthday());
+			requestObject.put("isgraduated", userBean.getIsStudent());
+			requestObject.put("school", userBean.getSchool());
+			requestObject.put("city", userBean.getCity());
+			requestObject.put("career", userBean.getCareer());
+			requestObject.put("phone", phoneNum);
+			requestObject.put("device_name", "");
+			requestObject.put("device_code", deviceId);
+			requestObject.put("password", password);
+			requestObject.put("icon_url", userBean.getIconOrign());
+			requestObject.put("original_icon_url", userBean.getIconOrign());
+			requestObject.put("cityf", cityCode);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LogUtil.d("mytest", userBean.getCity()+",");
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean arg1) {
+				// TODO Auto-generated method stub
+				//dismissLoadingLayout();
+				toastShort("注册失败");
+				Log.d("mytest", "error--pp"+ex.getMessage());
+				Log.d("mytest", "error--pp"+ex.getCause());
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				//dismissLoadingLayout();
+				try {
+					JSONObject jsons = new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.e(TAG, code);
+					if(!code.equals("200")){
+						toastShort("注册失败");
+						return;
+					}
+
+					JSONObject obj = jsons.getJSONObject("data");
+					String username = obj.getString("username");
+					String passwprd = obj.getString("password");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, username);
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, passwprd);
+					String token = obj.getString("token");
+					String nickname = obj.getString("nickname");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
+					String userHead = obj.getString("icon_thumbnailUrl");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
+					String userCode = obj.getString("code");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
+
+					LogUtil.e(TAG, "username=="+username+"||||passwprd=="+passwprd);
+
+					loginHuanXin(username,passwprd,token);   
+					MobclickAgent.onProfileSignIn(userCode);
+					//把token 存在本地
+					SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+
+					Umutils.count(RegisterTwoActivity.this, Umutils.RIGISTER_SUCCESS);
+					Intent intent=new Intent(RegisterTwoActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	/**
+	 * 登录环信客户端 建立长连接
+	 * @param username
+	 * @param password
+	 */
+	public void loginHuanXin(String username,String password,final String token){
+		EMClient.getInstance().login(username, password, new EMCallBack() {
+
+			@Override
+			public void onSuccess() {
+
+				//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
+				LogUtil.e(TAG, "登录成功环信");
+				//把token 存在本地
+				SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+			}
+
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, "登陆聊天服务器失败！");
+			}
+		});
+
 	}
 }

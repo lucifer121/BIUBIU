@@ -61,24 +61,7 @@
                     android:id="@+id/userhead_imv"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/regist_imageview_intophoto" />
-
-                <TextView
-                    android:id="@+id/virify_tv"
-                    android:layout_width="58.5dp"
-                    android:layout_height="22dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/register_imageview_photo_bg"
-                    android:gravity="center"
-                    android:text="待审核"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/photo_imageview" />
+                    android:src="@drawable/icon_login" />
             </RelativeLayout>
 
             <LinearLayout
@@ -98,7 +81,8 @@
                 <EditText
                     android:id="@+id/register_phone_et"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:background="@null"
@@ -137,7 +121,8 @@
                 <EditText
                     android:id="@+id/register_verify_et"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:background="@null"
@@ -180,7 +165,8 @@
                 <EditText
                     android:id="@+id/register_psd_et"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:background="@null"
@@ -212,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/register_complete"
+                    android:text="@string/register_one_hint_next"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </RelativeLayout>

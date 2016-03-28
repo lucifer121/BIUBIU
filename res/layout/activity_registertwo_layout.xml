@@ -236,7 +236,7 @@ android:layout_below="@id/registertwo_center4_rl"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/register_one_hint_next"
+            android:text="@string/register_complete"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>

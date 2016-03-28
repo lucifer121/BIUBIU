@@ -55,7 +55,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterOneActivity.class);
+				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterThreeActivity.class);
 				startActivity(RegisterIntent);
 			//	overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim); 
 			}

@@ -67,7 +67,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout sexDiolagLayout;
 	
 	private Boolean isSex=false;//是否点击了性别选择器
-	
+	String phontNum = "";
+	String password = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,15 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_registerone_layout);
+		getIntentInfo();
 		initView();
 		Umutils.count(this, Umutils.IN_REGISTER_ACTIVITY);
+	}
+
+	private void getIntentInfo() {
+		// TODO Auto-generated method stub
+		phontNum = getIntent().getStringExtra("phone");
+		password = getIntent().getStringExtra("password");
 	}
 
 	private void initView() {
@@ -280,6 +288,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		intent.putExtra("infoBean", (Serializable)bean);
 		intent.putExtra("userhead", userheadBitmap);
 		intent.putExtra("headPath", headPath);
+		intent.putExtra("phone", phontNum);
+		intent.putExtra("password", password);
 		startActivity(intent);
 	}
 
