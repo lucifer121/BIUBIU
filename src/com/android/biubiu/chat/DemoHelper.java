@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.sqlite.UserDao;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMMessageListener;
@@ -213,13 +214,13 @@ public class DemoHelper {
 	                    ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
 	                }
 	                //TODO 状态栏
-//	                EaseUser user = getUserInfo(message.getFrom());
-//	                (user != null){
-////	                    return getUserInfo(message.getFrom()).getNick() + ": " + ticker;
-//	                }else{
-//	                    return message.getFrom() + ": " + ticker;
-//	                }
-	                return message.getFrom() + ": " + ticker;
+	                EaseUser user = getUserInfo(message.getFrom());
+	                if(user != null){
+	                    return getUserInfo(message.getFrom()).getNick() + ": " + ticker;
+	                }else{
+	                    return message.getFrom() + ": " + ticker;
+	                }
+	               
 	            }
 	            
 	            @Override
@@ -231,7 +232,8 @@ public class DemoHelper {
 	            @Override
 	            public Intent getLaunchIntent(EMMessage message) {
 	                //设置点击通知栏跳转事件
-	                Intent intent = new Intent(appContext, ChatActivity.class);
+	                Intent intent = new Intent(appContext.getApplicationContext(), ChatActivity.class);
+	                LogUtil.e(TAG, "点击通知栏进入聊天activity");
 	                //有电话时优先跳转到通话页面
 	                {
 	                    ChatType chatType = message.getChatType();
@@ -249,6 +251,7 @@ public class DemoHelper {
 	                        
 	                    }
 	                }
+	           
 	                return intent;
 	            }
 	        });

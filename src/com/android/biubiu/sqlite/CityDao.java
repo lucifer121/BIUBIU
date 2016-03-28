@@ -85,7 +85,7 @@ public class CityDao {
 
 		database = SQLiteDatabase.openOrCreateDatabase(DBManagerCity.DB_PATH
 				+ "/" + DBManagerCity.DB_NAME, null);
-		String sql = "select *from city where province= ? group by city_num";
+		String sql = "select *from city where province= ? group by city";
 		List<Citybean> list = new ArrayList<Citybean>();
 		Cursor c = database.rawQuery(sql, new String[] { provinceNum });
 		while (c.moveToNext()) {

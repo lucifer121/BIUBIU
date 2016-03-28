@@ -459,10 +459,29 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			//消息状态变动
 		}
 	};
+	
+	/**
+	 * 按两次退出
+	 */
+	private long endTime = 0;
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+//		if (System.currentTimeMillis() - endTime > 3000) {
+//			Toast.makeText(this, "再按一次返回键退出程序", Toast.LENGTH_LONG).show();
+//			endTime = System.currentTimeMillis();
+//		} else {
+//			System.exit(0);
+//			
+//		}
+	}
 
 	//	记得在不需要的时候移除listener，如在activity的onDestroy()时
 	//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 	//	监听
+	
+	
 
 }
 
