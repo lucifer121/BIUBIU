@@ -2,79 +2,274 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/about_bg"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/top_abour_our_rl"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/mine_chird_top_bg" >
+        android:layout_height="match_parent" >
 
-        <RelativeLayout
-            android:id="@+id/back_abour_our_rl"
-            android:layout_width="50dp"
-            android:layout_height="44dp"
-            android:background="@drawable/kongjianruoqu_bg"
-            android:gravity="center" >
-
-            <ImageView
-                android:id="@+id/back_abour_our"
-                android:layout_width="10dp"
-                android:layout_height="17dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/main_name_btn_back" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/abour_our_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/abour_our_title"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="48dp" >
-
-        <TextView
-            android:id="@+id/abour_our_welcome_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textSize="18sp"
-            android:textColor="@color/main_green"
-            android:text="@string/abour_our_welcome" />
-
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/abour_our_welcome_tv"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="13dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/about_us_line_green_left" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="13dp"
-            android:scaleType="fitXY"
-            android:layout_toRightOf="@id/abour_our_welcome_tv"
-            android:src="@drawable/about_us_line_green_right" />
-    </RelativeLayout>
-    
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/abour_our_topic1"/>
+            <RelativeLayout
+                android:id="@+id/top_abour_our_rl"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/mine_chird_top_bg" >
+
+                <RelativeLayout
+                    android:id="@+id/back_abour_our_rl"
+                    android:layout_width="50dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/kongjianruoqu_bg"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:id="@+id/back_abour_our"
+                        android:layout_width="10dp"
+                        android:layout_height="17dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/main_name_btn_back" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/abour_our_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/abour_our_title"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="48dp" >
+
+                <TextView
+                    android:id="@+id/abour_our_welcome_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/abour_our_welcome"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="13dp"
+                    android:layout_toLeftOf="@id/abour_our_welcome_tv"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/about_us_line_green_left" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@id/abour_our_welcome_tv"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/about_us_line_green_right" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="35dp"
+                android:gravity="center_horizontal"
+                android:text="@string/abour_our_topic1"
+                android:textColor="@color/about_gray_txt"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:text="@string/abour_our_topic2"
+                android:textColor="@color/about_gray_txt"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
+            <RelativeLayout
+                android:id="@+id/version_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="版本更新"
+                    android:textColor="@color/about_darkgary_txt"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/version_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="v1.0"
+                    android:textColor="@color/about_gray2_txt"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
+            <RelativeLayout
+                android:id="@+id/comment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="评价biubiu"
+                    android:textColor="@color/about_darkgary_txt"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="好评你就biubiu"
+                    android:textColor="@color/about_gray2_txt"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
+            <RelativeLayout
+                android:id="@+id/weixin_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="微信平台"
+                    android:textColor="@color/about_darkgary_txt"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/weixin_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text=" meetubeijing"
+                    android:textColor="@color/main_green"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/weixin_tv"
+                    android:text="[点击复制]微信号:"
+                    android:textColor="@color/about_gray2_txt"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
+            <RelativeLayout
+                android:id="@+id/phone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="联系我们"
+                    android:textColor="@color/about_darkgary_txt"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:text=" 010-66253598"
+                    android:textColor="@color/main_green"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/phone_tv"
+                    android:text="电话:"
+                    android:textColor="@color/about_gray2_txt"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="33dp"
+                android:layout_marginTop="127dp"
+                android:text="@string/abour_our_bottom"
+                android:textColor="@color/about_gray_txt"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
