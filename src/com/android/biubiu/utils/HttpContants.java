@@ -113,6 +113,10 @@ public class HttpContants {
 	 */
 	public static final String REMOVE_FRIEND="app/biubiu/removeFriend";
 	/**
+	 * 举报好友
+	 */
+	public static final String REPORT="app/biubiu/report";
+	/**
 	 * 获取订单编号
 	 */
 	public static final String GET_ORDER_CODE="app/biubiu/createBill";

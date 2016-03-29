@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.R;
@@ -233,11 +236,14 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	}
 	private void selectTime() {
 		// TODO Auto-generated method stub
-		Time time = new Time("GMT+8");
-		time.setToNow();
-		int year = time.year;
-		int month = time.month;
-		int day = time.monthDay;
+		//设置成中文时间选择器
+		Calendar d = Calendar.getInstance(Locale.CHINA);
+		Date myDate=new Date();
+		d.setTime(myDate);
+		
+		int year=d.get(Calendar.YEAR); 
+		int month=d.get(Calendar.MONTH); 
+		int day=d.get(Calendar.DAY_OF_MONTH); 
 		new DatePickerDialog(this, new OnDateSetListener() {
 
 			@Override

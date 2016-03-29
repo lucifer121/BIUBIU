@@ -259,7 +259,8 @@ public class ChatFragment extends EaseChatFragment implements
 					public void onOK() {
 						// TODO Auto-generated method stub  缺少举报接口
 
-			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
+//			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
+			                jubao(toChatUsername);
 					}
 					
 					@Override
@@ -355,6 +356,77 @@ public class ChatFragment extends EaseChatFragment implements
 		//100表示解除成功
 		getActivity().setResult(getActivity().RESULT_CANCELED, intent);
 		getActivity().finish();	
+	}
+	/**
+	 * 举报好友
+	 * @param userCode
+	 */
+	public void jubao(String userCode){
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REPORT);
+		JSONObject object=new JSONObject();
+		try {
+			object.put("token", SharePreferanceUtils.getInstance().
+					getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+			object.put("device_code", SharePreferanceUtils.getInstance().
+					getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
+			object.put("user_code", userCode);
+			object.put("reason", "聊天页面举报");
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", object.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, arg0);
+				
+				JSONObject jsonObject;
+				try {
+					jsonObject=new JSONObject(arg0);
+					String state=jsonObject.getString("state");
+					LogUtil.e(TAG, state);
+					if(!state.equals("200")){
+							
+						Toast.makeText(getActivity(), jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+					}
+					Toast.makeText(getActivity().getApplicationContext(), "举报成功", Toast.LENGTH_SHORT).show();
+					
+					JSONObject jsonObject2=new JSONObject();
+					jsonObject2=jsonObject.getJSONObject("data");
+					String token=jsonObject2.getString("token");
+					if(!token.equals("")&&token!=null){
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+					}						
+				
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 	}
 		
 

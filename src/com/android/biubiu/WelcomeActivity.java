@@ -59,14 +59,7 @@ public class WelcomeActivity extends BaseActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_welcome);
 		handler = new Handler();
-		// 导入数据库
-		dbHelperCity = new DBManagerCity(this);
-		dbHelperCity.openDatabase();
-		dbHelperCity.closeDatabase();
 
-		dbHelperSchool=new DBManager(this);
-		dbHelperSchool.openDatabase();
-		dbHelperSchool.closeDatabase();
 
 		//读取设备ID
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
@@ -89,6 +82,15 @@ public class WelcomeActivity extends BaseActivity {
 	 * 首次进入app 进行的操作
 	 */
 	private void goIndex() {
+		// 导入数据库
+		dbHelperCity = new DBManagerCity(this);
+		dbHelperCity.openDatabase();
+		dbHelperCity.closeDatabase();
+
+		dbHelperSchool=new DBManager(this);
+		dbHelperSchool.openDatabase();
+		dbHelperSchool.closeDatabase();
+		
 		Intent intent = new Intent(WelcomeActivity.this,GuildActivity.class);
 		startActivity(intent);
 		finish();
