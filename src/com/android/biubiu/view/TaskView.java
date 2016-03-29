@@ -1,6 +1,6 @@
 package com.android.biubiu.view;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;

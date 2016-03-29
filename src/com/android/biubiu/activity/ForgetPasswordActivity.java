@@ -7,7 +7,7 @@ import org.xutils.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;

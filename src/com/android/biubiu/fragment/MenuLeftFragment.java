@@ -6,7 +6,7 @@ import java.util.List;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 

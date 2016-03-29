@@ -1,7 +1,8 @@
 package com.android.biubiu.activity;
 
 
-import cc.imeetu.R;
+
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.adapter.GuildAdapter;

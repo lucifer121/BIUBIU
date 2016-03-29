@@ -21,7 +21,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;

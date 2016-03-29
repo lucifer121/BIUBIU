@@ -8,7 +8,7 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;

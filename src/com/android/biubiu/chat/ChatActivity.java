@@ -1,6 +1,6 @@
 package com.android.biubiu.chat;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.common.Constant;
 import com.hyphenate.easeui.EaseConstant;

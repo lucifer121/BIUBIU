@@ -2,7 +2,7 @@ package com.android.biubiu.adapter;
 
 import java.util.ArrayList;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.utils.LogUtil;

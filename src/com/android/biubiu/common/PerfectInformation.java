@@ -2,7 +2,7 @@ package com.android.biubiu.common;
 
 import java.io.File;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

@@ -14,7 +14,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;

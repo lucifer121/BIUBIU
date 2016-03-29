@@ -22,7 +22,7 @@ package com.android.biubiu.common.city;
 import java.util.LinkedList;
 import java.util.List;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;

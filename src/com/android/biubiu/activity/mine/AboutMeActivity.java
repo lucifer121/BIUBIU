@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.InterestTagBean;

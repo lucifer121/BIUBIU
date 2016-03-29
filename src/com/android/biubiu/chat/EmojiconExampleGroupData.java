@@ -2,10 +2,7 @@ package com.android.biubiu.chat;
 
 import java.util.Arrays;
 
-
-
-
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;

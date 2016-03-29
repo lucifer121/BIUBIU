@@ -1,9 +1,6 @@
 package com.android.biubiu;
 
-
-
-
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.activity.mine.UserPhotoScanActivity;
 import com.android.biubiu.bean.UserPhotoBean;

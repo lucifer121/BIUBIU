@@ -11,7 +11,7 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.adapter.GridRecycleTagAdapter;
 import com.android.biubiu.adapter.GridRecycleTagAdapter.OnTagsItemClickCallBack;

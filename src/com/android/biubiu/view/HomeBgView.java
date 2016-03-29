@@ -1,6 +1,7 @@
 package com.android.biubiu.view;
 
-import cc.imeetu.R;
+
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.utils.LogUtil;
 

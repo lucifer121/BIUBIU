@@ -1,6 +1,6 @@
 package com.android.biubiu.fragment;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;

@@ -1,6 +1,6 @@
 package com.android.biubiu.chat;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;

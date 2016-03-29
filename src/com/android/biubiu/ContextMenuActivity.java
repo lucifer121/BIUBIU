@@ -1,6 +1,6 @@
 package com.android.biubiu;
 
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.chat.Constant;
 import com.hyphenate.chat.EMMessage;

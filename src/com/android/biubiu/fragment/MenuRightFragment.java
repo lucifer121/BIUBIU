@@ -1,8 +1,6 @@
 package com.android.biubiu.fragment;
 
-
-
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.activity.LoginActivity;

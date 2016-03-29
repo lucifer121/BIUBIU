@@ -1,8 +1,7 @@
 package com.android.biubiu.activity;
 
 
-
-import cc.imeetu.R;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
