@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import cc.imeetu.R;
 
-import com.android.biubiu.R;
 import com.android.biubiu.adapter.UserPagerTagAdapter.ViewHolder;
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;

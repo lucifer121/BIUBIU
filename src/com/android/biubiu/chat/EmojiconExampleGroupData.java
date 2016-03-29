@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 
 
-import com.android.biubiu.R;
+
+import cc.imeetu.R;
+
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
 import com.hyphenate.easeui.domain.EaseEmojicon.Type;

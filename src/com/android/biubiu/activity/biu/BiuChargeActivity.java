@@ -20,13 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cc.imeetu.R;
 import cn.beecloud.BCPay;
 import cn.beecloud.async.BCCallback;
 import cn.beecloud.async.BCResult;
 import cn.beecloud.entity.BCPayResult;
 
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.chat.Constant;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;

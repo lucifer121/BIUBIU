@@ -13,12 +13,10 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.R;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.color;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
 import com.android.biubiu.adapter.GridViewLableAdapter;
 import com.android.biubiu.adapter.InterestLableListViewAdapter;
 

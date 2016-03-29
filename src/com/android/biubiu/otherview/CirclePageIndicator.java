@@ -16,11 +16,7 @@
  */
 package com.android.biubiu.otherview;
 
-
-
-
-import com.android.biubiu.R;
-
+import cc.imeetu.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;

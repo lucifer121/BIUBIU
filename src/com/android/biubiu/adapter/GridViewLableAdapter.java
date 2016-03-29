@@ -2,7 +2,8 @@ package com.android.biubiu.adapter;
 
 import java.util.List;
 
-import com.android.biubiu.R;
+import cc.imeetu.R;
+
 import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.Schools;
 

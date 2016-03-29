@@ -6,9 +6,7 @@ import java.util.zip.Inflater;
 
 import org.xutils.x;
 
-import com.android.biubiu.R;
-
-
+import cc.imeetu.R;
 
 import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.bean.UserFriends;

@@ -8,12 +8,13 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.R;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.chat.DemoHelper;
 import com.android.biubiu.chat.LoadUserFriend;

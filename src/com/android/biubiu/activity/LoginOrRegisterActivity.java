@@ -2,9 +2,10 @@ package com.android.biubiu.activity;
 
 
 
+import cc.imeetu.R;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 
 import android.content.Intent;
 import android.os.Bundle;

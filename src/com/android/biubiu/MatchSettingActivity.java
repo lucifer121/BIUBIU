@@ -10,6 +10,8 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.R;
+
 import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.PersonalTagBean;

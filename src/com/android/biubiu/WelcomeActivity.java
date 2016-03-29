@@ -3,6 +3,8 @@ package com.android.biubiu;
 
 
 
+import cc.imeetu.R;
+
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.RegisterOneActivity;

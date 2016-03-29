@@ -9,11 +9,10 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.R;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.layout;
-import com.android.biubiu.R.menu;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
 import com.android.biubiu.adapter.UserInterestAdapter;

@@ -21,9 +21,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cc.imeetu.R;
 
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.adapter.ScanPagerAdapter;
 import com.android.biubiu.bean.UserPhotoBean;

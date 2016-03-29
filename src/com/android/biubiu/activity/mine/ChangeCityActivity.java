@@ -5,19 +5,6 @@ package com.android.biubiu.activity.mine;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -25,9 +12,8 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
-import com.android.biubiu.R;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
+import cc.imeetu.R;
+
 import com.android.biubiu.bean.Citybean;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.city.ArrayWheelAdapter;
@@ -35,17 +21,6 @@ import com.android.biubiu.common.city.BaseCityActivity;
 import com.android.biubiu.common.city.OnWheelChangedListener;
 import com.android.biubiu.common.city.WheelView;
 import com.android.biubiu.sqlite.CityDao;
-
-
-
-
-
-
-
-
-
-
-
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;

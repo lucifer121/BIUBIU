@@ -2,8 +2,9 @@ package com.android.biubiu.fragment;
 
 
 
+import cc.imeetu.R;
+
 import com.android.biubiu.MatchSettingActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.chat.ChatActivity;

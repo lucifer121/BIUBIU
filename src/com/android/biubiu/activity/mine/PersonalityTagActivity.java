@@ -15,10 +15,9 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.R;
+
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
 import com.android.biubiu.adapter.GridRecycleTagAdapter;
 import com.android.biubiu.adapter.GridRecycleTagAdapter.OnTagsItemClickCallBack;
 import com.android.biubiu.bean.InterestTagBean;
@@ -35,6 +34,7 @@ import com.android.biubiu.utils.Utils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 
 
 

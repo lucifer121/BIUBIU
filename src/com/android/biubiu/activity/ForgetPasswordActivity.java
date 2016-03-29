@@ -7,10 +7,10 @@ import org.xutils.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cc.imeetu.R;
+
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.layout;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
@@ -22,14 +22,6 @@ import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.UpdatePasswordCallback;
-
-
-
-
-
-
-
-
 import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
-import com.android.biubiu.R;
+import cc.imeetu.R;
+
 import com.android.biubiu.bean.UserPhotoBean;
 
 import android.content.Context;

@@ -1,16 +1,13 @@
 package com.android.biubiu.activity;
 
 
+import cc.imeetu.R;
+
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.adapter.GuildAdapter;
 import com.android.biubiu.fragment.GuildFragment;
 import com.android.biubiu.otherview.PageIndicator;
 import com.android.biubiu.utils.SharePreferanceUtils;
-
-
-
-
 
 import android.content.Context;
 import android.content.Intent;

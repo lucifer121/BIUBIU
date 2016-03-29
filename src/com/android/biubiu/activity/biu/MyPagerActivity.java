@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import cc.imeetu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -49,7 +50,6 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.AboutMeActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
