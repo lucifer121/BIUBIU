@@ -552,6 +552,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 //			System.exit(0);
 //			
 //		}
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		 this.moveTaskToBack(true);
 	}
 
