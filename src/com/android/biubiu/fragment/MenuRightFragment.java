@@ -2,18 +2,24 @@ package com.android.biubiu.fragment;
 
 
 
+import java.util.List;
+
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.chat.ChatActivity;
+import com.android.biubiu.chat.DemoHelper;
 import com.android.biubiu.chat.MyHintDialog;
 import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.common.Constant;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -45,6 +51,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
 	
 	 private TextView errorText;
 	 private Button register,login;
+	 private String TAG="MenuRightFragment";
 
 	@Override
     protected void initView() {
@@ -99,6 +106,10 @@ public class MenuRightFragment extends EaseConversationListFragment{
 			
 		}
 	});
+    	 if(DemoHelper.getInstance().isLoggedIn()==true){
+    		 log.e(TAG, "注册接收消息监听");
+ 			EMClient.getInstance().chatManager().addMessageListener(msgListener);
+    	 }
       
         // 注册上下文菜单
         registerForContextMenu(conversationListView);
@@ -161,6 +172,47 @@ public class MenuRightFragment extends EaseConversationListFragment{
 //          errorText.setText(R.string.the_current_network);
 //        }
     }
+    
+	/**
+	 * 会话消息监听
+	 */
+	EMMessageListener msgListener = new EMMessageListener() {
+
+
+		@Override
+		public void onMessageReceived(List<EMMessage> messages) {
+			//收到消息
+			
+		//	log.e(TAG, "收到消息");
+			refresh();
+			
+			
+		}
+
+		@Override
+		public void onCmdMessageReceived(List<EMMessage> messages) {
+			//收到透传消息
+			//收到消息
+			
+		//	log.e(TAG, "收到透传消息");
+			refresh();
+		}
+
+		@Override
+		public void onMessageReadAckReceived(List<EMMessage> messages) {
+			//收到已读回执
+		}
+
+		@Override
+		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+			//收到已送达回执
+		}
+
+		@Override
+		public void onMessageChanged(EMMessage message, Object change) {
+			//消息状态变动
+		}
+	};
     
 
 }

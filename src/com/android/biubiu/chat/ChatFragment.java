@@ -32,6 +32,7 @@ import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentListener;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenu;
 import com.hyphenate.util.EasyUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class ChatFragment extends EaseChatFragment implements
 		EaseChatFragmentListener {
@@ -427,6 +428,20 @@ public class ChatFragment extends EaseChatFragment implements
 				
 			}
 		});
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onResume(getActivity());
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MobclickAgent.onPause(getActivity());
 	}
 		
 

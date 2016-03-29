@@ -232,6 +232,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 	 * @param url
 	 */
 	public void saveUserFriend(String code,String name, String url){
+		LogUtil.e(TAG, code+"||"+name+"||"+url);
 		log.e("保存用户信息");
 		UserFriends item=new UserFriends();
 		item.setUserCode(code);

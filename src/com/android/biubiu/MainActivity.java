@@ -37,6 +37,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+
 import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
@@ -387,6 +388,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			locationClient = null;
 			locationOption = null;
 		}
+		EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 	}
 
 	/**
@@ -434,6 +436,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			//收到消息
 			newMessage.setVisibility(View.VISIBLE);
 			log.e(TAG, "收到消息");
+			
 		}
 
 		@Override
@@ -492,6 +495,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 //		}
 		 this.moveTaskToBack(true);
 	}
+
 
 	//	记得在不需要的时候移除listener，如在activity的onDestroy()时
 	//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);

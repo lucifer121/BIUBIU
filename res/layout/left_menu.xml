@@ -207,7 +207,9 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
-    <RelativeLayout android:layout_width="wrap_content"
+    <RelativeLayout 
+        android:id="@+id/aboutOur_left_rl"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
@@ -218,12 +220,15 @@
             android:id="@+id/icon_myapp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/main_guanyu_icon"/>
+            android:src="@drawable/icon"/>
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/icon_myapp"
-            android:text="name"/>
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:text="iU"/>
        </RelativeLayout>
 
 </RelativeLayout>
