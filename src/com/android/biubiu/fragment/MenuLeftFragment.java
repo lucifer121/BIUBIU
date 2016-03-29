@@ -6,13 +6,13 @@ import java.util.List;
 import org.xutils.x;
 import org.xutils.image.ImageOptions;
 
+import cc.imeetu.iu.R;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.android.biubiu.BeginGuiderActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.MatchSettingActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.GuildActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.biu.MyPagerActivity;

@@ -15,10 +15,10 @@ import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import cc.imeetu.iu.R;
 
 import com.android.biubiu.ContextMenuActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.biu.MyPagerActivity;
 import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.utils.HttpContants;

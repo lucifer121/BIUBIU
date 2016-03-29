@@ -1,5 +1,7 @@
 package com.android.biubiu;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.chat.Constant;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.ui.EaseBaseActivity;

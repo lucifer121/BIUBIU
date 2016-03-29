@@ -14,13 +14,9 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
-
-
-
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.MyDatePicker;
 import com.android.biubiu.utils.DateUtils;

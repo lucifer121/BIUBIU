@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.bean.InterestByCateBean;
 import com.android.biubiu.bean.InterestTagBean;

@@ -10,6 +10,10 @@ import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+
+
+import cc.imeetu.iu.R;
+
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
@@ -29,7 +33,6 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
@@ -218,6 +221,15 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				log.d("mytest", arg0);
 				try {
 					JSONObject  jsonObject = new JSONObject(arg0);
+					String state = jsonObject.getString("state");
+					if(!state.equals("200")){
+						if(jsonObject.optString("error")!= null && jsonObject.optString("error").contains("phone")){
+							toastShort("请求发送验证码失败,请检查手机号");
+						}else{
+							toastShort("请求发送验证码失败");
+						}
+						return;
+					}
 					JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
 					String result = obj.getString("result");
 					if(result.equals("0")){
@@ -260,8 +272,10 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 
 		@Override
 		public void run() {
+			sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_disabled);
 			sendVerifyTv.setText("重新发送("+(currentTime--)+")");
 			if(currentTime<=0){
+				sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_normal);
 				sendVerifyTv.setText(getResources().getString(R.string.register_three_send_verify));
 				currentTime = 0;
 				handler.removeCallbacks(r);

@@ -1,9 +1,6 @@
 package com.android.biubiu.fragment;
 
-
-
-import com.android.biubiu.R;
-
+import cc.imeetu.iu.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +10,7 @@ import android.widget.ImageView;
 
 public class GuildFragment extends Fragment{
 	ImageView guildImv;
-	int imgs[] = {R.drawable.guidepage_1,R.drawable.guidepage_2,R.drawable.guidepage_3};
+	int imgs[] = {R.drawable.guidepage_01_img_bg,R.drawable.guidepage_02_img_bg,R.drawable.guidepage_03_img_bg};
 	public static GuildFragment newInstance(int posiiton){
 		GuildFragment fragment = new GuildFragment();
 		Bundle arg = new Bundle();  

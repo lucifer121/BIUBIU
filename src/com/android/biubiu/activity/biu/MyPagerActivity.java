@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import cc.imeetu.iu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -49,7 +50,6 @@ import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.activity.mine.AboutMeActivity;
 import com.android.biubiu.activity.mine.ChangeBrithdayActivity;
 import com.android.biubiu.activity.mine.ChangeCityActivity;
@@ -278,8 +278,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			personalArrow.setVisibility(View.VISIBLE);
 			interestArrow.setVisibility(View.VISIBLE);
 		}else{
-			locationTv.setText(""+bean.getDistance());
-			timeTv.setText(""+bean.getTime()+"min");
+			if(bean.getDistance()>1000){
+				locationTv.setText(Math.round(bean.getDistance()/1000)/10.0+"km");
+			}else{
+				locationTv.setText(bean.getDistance()+"m");
+			}
+			LogUtil.d("mytest", "time"+(System.currentTimeMillis()-bean.getActivityTime())/1000);
+			if(((System.currentTimeMillis()-bean.getActivityTime())/1000)>(60*60*1000)){
+				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)/60%60+"h");
+			}else{
+				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)%60+"min");
+			}
 			matchTv.setText(""+bean.getMatchScore()+"%");
 			addPhotoImv.setVisibility(View.GONE);
 			otherInfoLayout.setVisibility(View.VISIBLE);

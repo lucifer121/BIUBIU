@@ -4,27 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -32,12 +11,9 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.id;
-import com.android.biubiu.R.layout;
-
-
 import com.android.biubiu.adapter.SchoolListAllAdapter;
 import com.android.biubiu.bean.Schools;
 import com.android.biubiu.bean.UserInfoBean;

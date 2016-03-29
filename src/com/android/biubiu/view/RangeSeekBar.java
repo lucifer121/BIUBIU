@@ -2,8 +2,7 @@ package com.android.biubiu.view;
 
 import java.math.BigDecimal;
 
-import com.android.biubiu.R;
-
+import cc.imeetu.iu.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

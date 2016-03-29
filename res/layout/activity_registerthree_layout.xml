@@ -132,12 +132,12 @@
 
                 <TextView
                     android:id="@+id/register_get_verify_tv"
-                    android:layout_width="75dp"
-                    android:layout_height="22dp"
-                    android:background="@drawable/register_phone_btn"
+                    android:layout_width="78dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/register_phone_btn_normal"
                     android:gravity="center"
                     android:text="@string/register_three_send_verify"
-                    android:textColor="@color/main_text_gray"
+                    android:textColor="@color/white"
                     android:textSize="10sp" />
             </LinearLayout>
 

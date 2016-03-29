@@ -3,11 +3,8 @@ package com.android.biubiu.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import cc.imeetu.iu.R;
 
-
-
-
-import com.android.biubiu.R;
 import com.android.biubiu.bean.Schools;
 
 import android.content.Context;

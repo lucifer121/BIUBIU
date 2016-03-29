@@ -10,8 +10,9 @@ import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.BaseActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
@@ -21,15 +22,6 @@ import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.Flowlayout;
-
-
-
-
-
-
-
-
-
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

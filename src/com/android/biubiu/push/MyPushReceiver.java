@@ -20,11 +20,11 @@ import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
+import cc.imeetu.iu.R;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
 import com.android.biubiu.bean.UserBean;
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.sqlite.UserDao;
@@ -186,7 +186,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
 		//.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
 		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
-		.setSmallIcon(com.android.biubiu.R.drawable.icon);
+		.setSmallIcon(cc.imeetu.iu.R.drawable.icon);
 		if(type.equals(Constants.MSG_TYPE_MATCH)){
 			String info = ""+bean.getNickname()+",";
 			info = info+"年龄:"+bean.getAge()+",";

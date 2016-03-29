@@ -1,8 +1,11 @@
 package com.android.biubiu.chat;
 
+
 import com.android.biubiu.MainActivity;
-import com.android.biubiu.R;
-import com.android.biubiu.R.layout;
+
+import cc.imeetu.iu.R;
+
+
 import com.android.biubiu.common.Constant;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseBaseActivity;

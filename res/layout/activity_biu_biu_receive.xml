@@ -463,7 +463,7 @@
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="50dp"
-                    android:src="@drawable/biu_imageview_photo" />
+                     />
             </RelativeLayout>
         </ScrollView>
 

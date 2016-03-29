@@ -1,5 +1,7 @@
 package com.android.biubiu;
 
+import cc.imeetu.iu.R;
+
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
