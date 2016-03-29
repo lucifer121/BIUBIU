@@ -114,7 +114,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="20粒"
                         android:textColor="#ffff8f"
                         android:textSize="16sp" />
                 </RelativeLayout>

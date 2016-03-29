@@ -59,7 +59,7 @@
                             android:layout_width="85dp"
                             android:layout_height="85dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/main_imageview_photo2" />
+                            android:src="@drawable/photo_fail" />
                     </RelativeLayout>
 
                     <TextView
@@ -70,7 +70,6 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="18dp"
-                        android:text="周杰伦"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -211,7 +210,6 @@
                         android:layout_marginTop="16dp"
                         android:layout_toLeftOf="@+id/open_tv"
                         android:maxLines="3"
-                        android:text="关于我的信息"
                         android:textColor="@color/page_text2"
                         android:textSize="12sp" />
 

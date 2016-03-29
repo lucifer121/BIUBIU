@@ -215,7 +215,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		currentTime = totalTime;
 		handler.post(r);
 
-		AVOSCloud.requestSMSCodeInBackground(uPhone.getText().toString(), "biubiu", "重置密码", 1,
+		AVOSCloud.requestSMSCodeInBackground(uPhone.getText().toString(), "biubiu", "重置密码", 10*60*1000,
 				new RequestMobileCodeCallback() {
 			@Override
 			public void done(AVException e) {

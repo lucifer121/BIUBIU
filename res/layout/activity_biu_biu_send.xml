@@ -135,7 +135,7 @@
             android:id="@+id/photo_head_senbiu_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/biu_imageview_photo" />
+            android:src="@drawable/photo_fail" />
     </RelativeLayout>
 
     <include layout="@layout/loading_layout" />

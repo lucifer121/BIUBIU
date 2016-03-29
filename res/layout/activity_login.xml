@@ -66,8 +66,9 @@
         <EditText
             android:id="@+id/phone_tv"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="18dp"
             android:hint="@string/login_phone_hint"
@@ -104,7 +105,8 @@
         <EditText
             android:id="@+id/password_tv"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:layout_marginLeft="18dp"

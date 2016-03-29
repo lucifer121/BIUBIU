@@ -72,7 +72,6 @@
                             android:id="@+id/name_receive_biu_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/receive_biu_name"
                             android:textColor="@color/main_text_gray"
                             android:textSize="14sp" />
                     </RelativeLayout>
@@ -99,7 +98,6 @@
                                     android:layout_height="wrap_content"
                                     android:drawableLeft="@drawable/biu_receive_imageview_distance"
                                     android:drawablePadding="5dp"
-                                    android:text="@string/receive_biu_distance"
                                     android:textColor="@color/text_huise" />
 
                                 <View
@@ -129,7 +127,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="13dp"
-                                    android:text="@string/receive_biu_number_compatibility"
                                     android:textColor="@color/text_huise" />
 
                                 <View
@@ -148,7 +145,6 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_time"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_time"
                                 android:textColor="@color/text_huise" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -186,7 +182,6 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_sex"
                                 android:textColor="@color/text_huise2"
                                 android:textSize="13sp" />
 
@@ -198,7 +193,6 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_old"
                                 android:textColor="@color/text_huise2"
                                 android:textSize="13sp" />
 
@@ -210,7 +204,6 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_constellation"
                                 android:textColor="@color/text_huise2"
                                 android:textSize="13sp" />
 
@@ -222,7 +215,6 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:text="@string/receive_biu_school"
                                 android:textColor="@color/text_huise2"
                                 android:textSize="13sp" />
                         </LinearLayout>
@@ -247,7 +239,7 @@
                                 android:id="@+id/number_in_personalTag_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/receive_biu_interest_tag_number" />
+                                 />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -306,7 +298,7 @@
                                 android:id="@+id/number_interestTag_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/receive_biu_interest_tag_number" />
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
