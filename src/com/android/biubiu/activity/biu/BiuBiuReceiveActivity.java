@@ -10,6 +10,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.MainActivity;
 import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.R.menu;
@@ -188,7 +189,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(BiuBiuReceiveActivity.this,BiuBiuSendActivity.class);
+				Intent intent=new Intent(BiuBiuReceiveActivity.this,MainActivity.class);
 				startActivity(intent);
 				finish();
 			}

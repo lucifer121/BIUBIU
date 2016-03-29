@@ -82,6 +82,7 @@ public class InterestLabelActivity extends BaseActivity {
 	private RelativeLayout backLayout,completeLayout;
 	private UserInfoBean infoBean ;
 	private ArrayList<InterestByCateBean> mDataFanhui=new ArrayList<InterestByCateBean>(); 
+	private List<InterestByCateBean> mDataSHow=new ArrayList<InterestByCateBean>(); 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -248,6 +249,7 @@ public class InterestLabelActivity extends BaseActivity {
 			switch (msg.what) {
 			case 1:
 				
+				
 				mAdapter.notifyDataSetChanged();
 				LogUtil.e(TAG, "刷新");
 				break;
@@ -358,7 +360,7 @@ public class InterestLabelActivity extends BaseActivity {
 			InterestByCateBean item=mDates.get(position);
 			mDateLables=item.getmInterestList();
 
-			if (convertView == null) {
+			
 				holder = new ViewHolder();
 				convertView = LayoutInflater.from(mContext).inflate(
 						R.layout.item_interest_, null);
@@ -382,16 +384,14 @@ public class InterestLabelActivity extends BaseActivity {
 						}
 						boolean a=mDates.get(position).getmInterestList().get(positionId).getIsChoice();
 					
-						initAdapter();
-//						mAdapter.notifyDataSetChanged();
-						mAdapterGridView.notifyDataSetChanged();
+
+					
+						handler.sendEmptyMessage(1);
 	
 					}
 				});
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
+				
+			
 			setGridviewHight(mDateLables,holder);
 			holder.interest.setText(item.getTypename());
 			if(position==(mDates.size()-1)){

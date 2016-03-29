@@ -3,6 +3,9 @@ package com.android.biubiu.activity.mine;
 
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,13 +88,15 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.name_changbirth_et:
-			Time time = new Time("GMT+8");
-			time.setToNow();
-			int year = time.year;
-			int month = time.month;
-			int day = time.monthDay;
-
-			this.showDialog(1);
+			//设置成中文时间选择器
+			Calendar d = Calendar.getInstance(Locale.CHINA);
+			Date myDate=new Date();
+			d.setTime(myDate);
+			
+			int year=d.get(Calendar.YEAR); 
+			int month=d.get(Calendar.MONTH); 
+			int day=d.get(Calendar.DAY_OF_MONTH); 
+			
 			new DatePickerDialog(this, new OnDateSetListener() {
 
 				@Override
@@ -123,7 +128,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 //					birthLong = DateUtils.getStringToDate(birthday.getText()
 //							.toString());
 //				}
-//			}, year, month, day,1).show();
+//			}, year, month, day,2).show();
 			break;
 		// 点击 完成 上传时间
 		case R.id.mine_changebirth_wancheng_rl:
@@ -217,37 +222,6 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		finish();
 	}
 
-//	/**
-//	 * 上传 修改信息
-//	 * 
-//	 * @param user
-//	 * @author lucifer
-//	 * @date 2015-11-6
-//	 */
-//	public void completeInfo(final ObjUser user) {
-//		birthLong = DateUtils.getStringToDate(birthday.getText().toString());
-//		user.setBirthday(birthLong);
-//
-//		// 只上传信息
-//		ObjUserWrap.completeUserInfo(user, new ObjFunBooleanCallback() {
-//
-//			@Override
-//			public void callback(boolean result, AVException e) {
-//				if (result) {
-//					Toast.makeText(getApplicationContext(), "已保存", 1000)
-//							.show();
-//					Intent intent = new Intent();
-//					intent.putExtra("birthday", birthday.getText().toString());
-//					ChangeBirthdayActivity.this.setResult(RESULT_OK, intent);
-//					finish();
-//
-//				} else {
-//					Toast.makeText(getApplicationContext(), "保存失败", 1000)
-//							.show();
-//				}
-//			}
-//		});
-//	}
-//	
+
 
 }
