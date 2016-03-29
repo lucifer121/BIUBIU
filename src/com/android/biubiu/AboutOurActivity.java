@@ -1,5 +1,6 @@
 package com.android.biubiu;
 
+import cc.imeetu.iu.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
