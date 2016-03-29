@@ -70,6 +70,10 @@ public class HttpContants {
 	 */
 	public static final String UPDATE_LACATION = "app/info/updateLocation";
 	/**
+	 * 更新用户活跃时间
+	 */
+	public static final String UPDATE_ACTIVITY_TIME = "app/info/updateUserInfo";
+	/**
 
 	 * 发送biu
 	 */

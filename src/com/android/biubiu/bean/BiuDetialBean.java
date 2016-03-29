@@ -27,6 +27,8 @@ public class BiuDetialBean {
 	 */
 	@SerializedName("icon_thumbnailUrl")
 	private String icon_thumbnailUrl;
+	@SerializedName("icon_url")
+	private String iconOrigin;
 	/**
 	 * 用户的code
 	 */
@@ -90,6 +92,16 @@ public class BiuDetialBean {
 	private String carrer;
 	@SerializedName("interested_tags")
 	private ArrayList<InterestByCateBean> interested_tags;
+
+	public String getIconOrigin() {
+		return iconOrigin;
+	}
+
+
+	public void setIconOrigin(String iconOrigin) {
+		this.iconOrigin = iconOrigin;
+	}
+
 
 	public String getToken() {
 		return token;

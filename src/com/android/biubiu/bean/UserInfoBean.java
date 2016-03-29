@@ -53,7 +53,15 @@ public class UserInfoBean implements Serializable{
 	private long distance;
 	@SerializedName("time")
 	private int time;
+	@SerializedName("activity_time")
+	private long activityTime;
 	
+	public long getActivityTime() {
+		return activityTime;
+	}
+	public void setActivityTime(long activityTime) {
+		this.activityTime = activityTime;
+	}
 	public int getMatchScore() {
 		return matchScore;
 	}

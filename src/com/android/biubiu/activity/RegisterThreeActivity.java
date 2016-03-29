@@ -218,6 +218,15 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 				log.d("mytest", arg0);
 				try {
 					JSONObject  jsonObject = new JSONObject(arg0);
+					String state = jsonObject.getString("state");
+					if(!state.equals("200")){
+						if(jsonObject.optString("error")!= null && jsonObject.optString("error").contains("phone")){
+							toastShort("请求发送验证码失败,请检查手机号");
+						}else{
+							toastShort("请求发送验证码失败");
+						}
+						return;
+					}
 					JSONObject obj = new JSONObject(jsonObject.getJSONObject("data").toString());
 					String result = obj.getString("result");
 					if(result.equals("0")){
@@ -260,8 +269,10 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 
 		@Override
 		public void run() {
+			sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_disabled);
 			sendVerifyTv.setText("重新发送("+(currentTime--)+")");
 			if(currentTime<=0){
+				sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_normal);
 				sendVerifyTv.setText(getResources().getString(R.string.register_three_send_verify));
 				currentTime = 0;
 				handler.removeCallbacks(r);

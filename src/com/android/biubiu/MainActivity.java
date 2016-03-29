@@ -1,4 +1,5 @@
 package com.android.biubiu;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONException;
@@ -109,6 +110,66 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		//	newMessage.setVisibility(View.VISIBLE);
 		location();
 		log.e("Token", SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+		//更新活跃时间
+		updateActivityTime();
+	}
+	private void updateActivityTime() {
+		// TODO Auto-generated method stub
+		if(!LoginUtils.isLogin(getApplicationContext())){
+			return;
+		}
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_ACTIVITY_TIME);
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
+			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
+			requestObject.put("activity_time",System.currentTimeMillis());
+			requestObject.put("parameters", "activity_time");
+		} catch (JSONException e) {
+
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data",requestObject.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				LogUtil.d("mytest", "acty_time"+result);
+				JSONObject jsons;
+				try {
+					jsons = new JSONObject(result);
+					String state = jsons.getString("state");
+					if(!state.equals("200")){
+						return;
+					}
+					JSONObject data = jsons.getJSONObject("data");
+					String token = data.getString("token");
+					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	private void initBeginGuid() {
 		// TODO Auto-generated method stub

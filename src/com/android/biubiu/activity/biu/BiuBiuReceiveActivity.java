@@ -14,6 +14,7 @@ import com.android.biubiu.R;
 import com.android.biubiu.R.layout;
 import com.android.biubiu.R.menu;
 import com.android.biubiu.activity.LoginActivity;
+import com.android.biubiu.activity.mine.ScanUserHeadActivity;
 import com.android.biubiu.adapter.UserInterestAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.BiuDetialBean;
@@ -128,6 +129,17 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		numberInInterestTag = (TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
 		userPhoto = (ImageView) findViewById(R.id.photo_head_senbiu_img);
 
+		userPhoto.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent headIntent = new Intent(BiuBiuReceiveActivity.this,ScanUserHeadActivity.class);
+				headIntent.putExtra("userhead", biuDEtialBean.getIconOrigin());
+				headIntent.putExtra("isMyself", false);
+				startActivity(headIntent);
+			}
+		});
 		neverGrab.setOnClickListener(new OnClickListener() {
 
 			@Override

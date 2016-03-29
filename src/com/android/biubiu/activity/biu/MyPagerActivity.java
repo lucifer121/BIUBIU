@@ -278,8 +278,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			personalArrow.setVisibility(View.VISIBLE);
 			interestArrow.setVisibility(View.VISIBLE);
 		}else{
-			locationTv.setText(""+bean.getDistance());
-			timeTv.setText(""+bean.getTime()+"min");
+			if(bean.getDistance()>1000){
+				locationTv.setText(Math.round(bean.getDistance()/1000)/10.0+"km");
+			}else{
+				locationTv.setText(bean.getDistance()+"m");
+			}
+			LogUtil.d("mytest", "time"+(System.currentTimeMillis()-bean.getActivityTime())/1000);
+			if(((System.currentTimeMillis()-bean.getActivityTime())/1000)>(60*60*1000)){
+				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)/60%60+"h");
+			}else{
+				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)%60+"min");
+			}
 			matchTv.setText(""+bean.getMatchScore()+"%");
 			addPhotoImv.setVisibility(View.GONE);
 			otherInfoLayout.setVisibility(View.VISIBLE);
