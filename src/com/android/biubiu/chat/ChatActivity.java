@@ -1,14 +1,20 @@
 package com.android.biubiu.chat;
 
+
+import com.android.biubiu.MainActivity;
+
 import cc.imeetu.iu.R;
+
 
 import com.android.biubiu.common.Constant;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.hyphenate.util.EasyUtils;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.Window;
@@ -25,14 +31,7 @@ public class ChatActivity extends EaseBaseActivity {
 		super.onCreate(savedInstanceState);
 		super.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_chat);
-//		userID=getIntent().getStringExtra(Constant.EXTRA_USER_ID);
-//		//new出EaseChatFragment或其子类的实例
-//		 EaseChatFragment chatFragment = new EaseChatFragment();
-//		 //传入参数
-//		 Bundle args = new Bundle();
-//		 args.putInt(EaseConstant.EXTRA_USER_ID, EaseConstant.CHATTYPE_GROUP);
-//		 args.putString(EaseConstant.EXTRA_USER_ID, userID);
-//		 chatFragment.setArguments(args);
+
 		
 	       activityInstance = this;
 	        //聊天人或群id
@@ -44,6 +43,38 @@ public class ChatActivity extends EaseBaseActivity {
 		 getSupportFragmentManager().beginTransaction().add(R.id.container_chatActivity, chatFragment).commit();
 
 	}
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        activityInstance = null;
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // 点击notification bar进入聊天页面，保证只有一个聊天页面
+        String username = intent.getStringExtra("userId");
+        if (toChatUsername.equals(username))
+            super.onNewIntent(intent);
+        else {
+            finish();
+            startActivity(intent);
+        }
+
+    }
+    
+    @Override
+    public void onBackPressed() {
+        chatFragment.onBackPressed();
+        if (EasyUtils.isSingleActivity(this)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+    
+    public String getToChatUsername(){
+        return toChatUsername;
+    }
 	
 	
 
