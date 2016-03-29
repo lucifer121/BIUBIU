@@ -10,6 +10,7 @@ import cc.imeetu.iu.R;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
+import com.android.biubiu.AboutOurActivity;
 import com.android.biubiu.BeginGuiderActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.MatchSettingActivity;
@@ -45,6 +46,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 	ImageOptions imageOptions;
 	private TextView userName;
 	private TextView  hintPHoto;
+	private RelativeLayout aboutLayout;
 	/**
 	 * 是否已经登录
 	 */
@@ -71,6 +73,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 				.findViewById(R.id.left_menu_item4_rl);
 		shareLayout = (RelativeLayout) mView
 				.findViewById(R.id.left_menu_item5_rl);
+		aboutLayout=(RelativeLayout) mView.findViewById(R.id.aboutOur_left_rl);
 		hintPHoto=(TextView) mView.findViewById(R.id.hint_your_photo_tv);
 		userHead = (ImageView) mView.findViewById(R.id.main_touxiang_img);
 		userHeadLayout = (RelativeLayout) mView
@@ -82,6 +85,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		leadLayout.setOnClickListener(this);
 		shareLayout.setOnClickListener(this);
 		userHeadLayout.setOnClickListener(this);
+		aboutLayout.setOnClickListener(this);
 		
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -141,7 +145,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			}	
 			break;
 		case R.id.left_menu_item5_rl:
-			Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), "share", Toast.LENGTH_SHORT).show();
 			showShare();
 			break;
 		case R.id.main_touxiang_rl:
@@ -154,6 +158,11 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 						LoginOrRegisterActivity.class);
 				startActivity(intent);
 			}	
+			break;
+		case R.id.aboutOur_left_rl:
+			Intent intent=new Intent(getActivity(),AboutOurActivity.class);
+			startActivity(intent);
+			
 			break;
 
 		default:

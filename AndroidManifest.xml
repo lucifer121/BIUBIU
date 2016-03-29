@@ -568,6 +568,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
+        
+        <activity
+            android:name="com.android.biubiu.AboutOurActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            </activity>
     </application>
 
 
