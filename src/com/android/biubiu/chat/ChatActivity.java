@@ -6,7 +6,9 @@ import com.android.biubiu.MainActivity;
 import cc.imeetu.iu.R;
 
 
+
 import com.android.biubiu.common.Constant;
+import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.ui.EaseChatFragment;
@@ -54,6 +56,7 @@ public class ChatActivity extends EaseBaseActivity {
     protected void onNewIntent(Intent intent) {
         // 点击notification bar进入聊天页面，保证只有一个聊天页面
         String username = intent.getStringExtra("userId");
+        log.e("chat", ""+username);
         if (toChatUsername.equals(username))
             super.onNewIntent(intent);
         else {
