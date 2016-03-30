@@ -74,8 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/top_selector_personality_tag_rl"
-                android:layout_marginLeft="26dp"
-                android:layout_marginRight="26dp"
+                
                 android:layout_marginTop="11dp" >
             </android.support.v7.widget.RecyclerView>
 

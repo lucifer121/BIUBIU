@@ -335,7 +335,7 @@
                         android:id="@+id/interest_tag_gv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="13dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="0.5dp"

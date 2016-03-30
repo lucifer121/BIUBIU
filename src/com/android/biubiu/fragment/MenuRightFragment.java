@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.activity.LoginActivity;
+import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.DemoHelper;
@@ -98,7 +99,14 @@ public class MenuRightFragment extends EaseConversationListFragment{
 		
 		@Override
 		public void onClick(View v) {
-			 startActivity(new Intent(getActivity(), UserListActivity.class));
+			
+			 if(SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "")==null||
+		        		SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "").equals("")){
+		        	 Intent intent=new Intent(getActivity(),LoginOrRegisterActivity.class);
+		        	 startActivity(intent);
+		        	 }else{
+		        		 startActivity(new Intent(getActivity(), UserListActivity.class));
+		        	 }
 			
 		}
 	});

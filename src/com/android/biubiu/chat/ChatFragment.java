@@ -24,6 +24,7 @@ import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
@@ -115,6 +116,7 @@ public class ChatFragment extends EaseChatFragment implements
 //		startActivityForResult((new Intent(getActivity(),
 //				ContextMenuActivity.class)).putExtra("message", message),
 //				REQUEST_CODE_CONTEXT_MENU);
+		showDialog(message);
 
 	}
 
@@ -158,6 +160,64 @@ public class ChatFragment extends EaseChatFragment implements
 				break;
 			}
 		}
+	}
+	/**
+	 * 长按消息框 复制  删除
+	 */
+	private void showDialog(final EMMessage message) {
+		final AlertDialog portraidlg = new AlertDialog.Builder(getActivity()).create();
+		portraidlg.show();
+		Window win = portraidlg.getWindow();
+		win.setContentView(R.layout.item_chatmessage_selector);
+		TextView copy = (TextView) win
+				.findViewById(R.id.copy_item_chatmessage_tv);
+		copy.setOnClickListener(new OnClickListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				log.e("复制");
+				portraidlg.dismiss();
+				clipboard.setText(((EMTextMessageBody) message
+						.getBody()).getMessage());
+			}
+		});
+
+		TextView delete = (TextView) win
+				.findViewById(R.id.delete_item_chatmessage_tv);
+		delete.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				log.e("删除");
+				portraidlg.dismiss();
+				conversation.removeMessage(message.getMsgId());
+				messageList.refresh();
+			}
+
+		});
+		// 点击item的上下区域 dralog消失
+		View topView = win.findViewById(R.id.top_item_chatmessage_dialog_view);
+		topView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				portraidlg.dismiss();
+
+			}
+		});
+		View bottomView = win
+				.findViewById(R.id.bottom_item_chatmessage_dialog_view);
+		bottomView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				portraidlg.dismiss();
+			}
+		});
+
 	}
 
 	/**
