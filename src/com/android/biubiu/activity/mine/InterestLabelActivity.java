@@ -427,9 +427,9 @@ public class InterestLabelActivity extends BaseActivity {
 					.getLayoutParams();
 			int mHight;
 			if (mList.size() != 0 && (mList.size()) % 4 == 0) {
-				mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(mContext, 37);
+				mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(mContext, 43);
 			} else {
-				mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(mContext, 37);
+				mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(mContext, 43);
 			}
 			params.height = mHight;
 			holder.mGridView.setLayoutParams(params);
