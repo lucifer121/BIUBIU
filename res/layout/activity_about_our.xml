@@ -5,47 +5,48 @@
     android:background="@color/about_bg"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/top_abour_our_rl"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/mine_chird_top_bg" >
+
+        <RelativeLayout
+            android:id="@+id/back_abour_our_rl"
+            android:layout_width="50dp"
+            android:layout_height="44dp"
+            android:background="@drawable/kongjianruoqu_bg"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/back_abour_our"
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/main_name_btn_back" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/abour_our_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/abour_our_title"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:scrollbars="@null" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <RelativeLayout
-                android:id="@+id/top_abour_our_rl"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:background="@color/mine_chird_top_bg" >
-
-                <RelativeLayout
-                    android:id="@+id/back_abour_our_rl"
-                    android:layout_width="50dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/kongjianruoqu_bg"
-                    android:gravity="center" >
-
-                    <ImageView
-                        android:id="@+id/back_abour_our"
-                        android:layout_width="10dp"
-                        android:layout_height="17dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/main_name_btn_back" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/abour_our_title_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/abour_our_title"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -163,8 +164,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/comment_right"
                     android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/comment_right"
                     android:text="好评你就biubiu"
                     android:textColor="@color/about_gray2_txt"
                     android:textSize="12sp" />
