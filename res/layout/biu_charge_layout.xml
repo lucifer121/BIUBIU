@@ -312,7 +312,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="34dp"
                 android:layout_marginRight="18dp"
-                android:layout_marginTop="20dp" >
+                android:layout_marginTop="25dp" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -355,8 +355,8 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="63dp"
+                android:layout_marginBottom="41dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal" >
 
                 <LinearLayout

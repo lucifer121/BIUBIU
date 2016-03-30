@@ -729,8 +729,8 @@
                         android:id="@+id/center2_miliao_info_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginRight="44dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:background="@color/white"
                         android:paddingBottom="14dp" >
 
@@ -808,8 +808,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginRight="44dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:background="@color/white"
                         android:paddingBottom="14dp" >
 
@@ -831,8 +831,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/page_tag_bg"
                     android:orientation="vertical"
-                    android:paddingBottom="25dp"
-                    android:paddingTop="80dp" >
+                    android:paddingBottom="33dp"
+                    android:paddingTop="70dp" >
 
                     <TextView
                         android:layout_width="wrap_content"
