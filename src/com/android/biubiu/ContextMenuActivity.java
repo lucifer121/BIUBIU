@@ -9,6 +9,8 @@ import com.hyphenate.easeui.ui.EaseBaseActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class ContextMenuActivity extends EaseBaseActivity {
 	   public static final int RESULT_CODE_COPY = 1;
@@ -35,7 +37,24 @@ public class ContextMenuActivity extends EaseBaseActivity {
 		
 		
 	}
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		finish();
+		return true;
+	}
 
+	public void copy(View view){
+		setResult(RESULT_CODE_COPY);
+		finish();
+	}
+	public void delete(View view){
+		setResult(RESULT_CODE_DELETE);
+		finish();
+	}
+	public void forward(View view){
+		setResult(RESULT_CODE_FORWARD);
+		finish();
+	}
 	
 
 }
