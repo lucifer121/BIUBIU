@@ -214,6 +214,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="70dp"
+        android:background="@drawable/kongjianruoqu_bg"
         android:gravity="center"
         >
         <ImageView 
@@ -228,7 +229,7 @@
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
             android:textColor="#888888"
-            android:text="iU"/>
+            android:text="关于iU"/>
        </RelativeLayout>
 
 </RelativeLayout>

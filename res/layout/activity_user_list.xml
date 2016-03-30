@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_user_list"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
     android:background="#fcfcfc">
 
     <RelativeLayout
+        android:id="@+id/top_userlist_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/main_green" >
@@ -47,6 +48,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipeRefreshlayout_userlist"
+        android:layout_below="@id/top_userlist_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -57,8 +59,13 @@
             android:divider="@null"
            	android:cacheColorHint="#00000000" 
            	android:fastScrollEnabled="true"
+           	android:scrollbars="none"
            	android:fadingEdge="none"
             android:listSelector="#e7eeed" />
     </android.support.v4.widget.SwipeRefreshLayout>
+    
+    <include layout="@layout/loading_layout" />
 
-</LinearLayout>
+    <include layout="@layout/load_error_layout" />
+
+</RelativeLayout>
