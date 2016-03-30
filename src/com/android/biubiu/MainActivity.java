@@ -255,6 +255,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 						guidIndex = guidIndex+1;
 						break;
 					case 3:
+						guidBtn.setBackgroundResource(R.drawable.guide_begin2_btn);
 						guidImv.setImageResource(R.drawable.help_imageview_03biubi);
 						guidIndex = guidIndex+1;
 						break;

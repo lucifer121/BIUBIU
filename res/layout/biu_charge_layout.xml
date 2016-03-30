@@ -35,362 +35,373 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-    <FrameLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:scrollbars="@null" >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="214dp"
-                android:background="@drawable/pay_imageview_bg"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="17dp"
-                    android:text="在iU的世界里，每一个biubiu都应该被珍惜"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="79dp"
-                    android:layout_marginTop="46dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="214dp"
+                    android:background="@drawable/pay_imageview_bg"
                     android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:drawableLeft="@drawable/pay_imageview_dian_yellow"
-                        android:drawablePadding="4dp"
-                        android:text="每发一次biubiu，获得5粒U米"
+                        android:layout_marginTop="17dp"
+                        android:text="在iU的世界里，每一个biubiu都应该被珍惜"
                         android:textColor="@color/white"
-                        android:textSize="13sp" />
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="79dp"
+                        android:layout_marginTop="46dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawableLeft="@drawable/pay_imageview_dian_yellow"
+                            android:drawablePadding="4dp"
+                            android:text="每发一次biubiu，获得5粒U米"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="15dp"
+                            android:drawableLeft="@drawable/pay_imageview_dian_yellow"
+                            android:drawablePadding="4dp"
+                            android:text="每收一次biubiu，消耗5粒U米"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:text="我的U米"
+                            android:textColor="#ffff8f"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/my_um_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="#ffff8f"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:background="#f4f4f4" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="17dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:src="@drawable/pay_imageview_dian_green" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="11dp"
+                            android:text="选择U米"
+                            android:textColor="#6ac9c1"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginRight="34dp"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/fitity_um_layout"
+                            android:layout_width="117dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/pay_btn_buybiubi_light"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/fitity_um_tv"
+                                android:layout_width="72dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="50U米"
+                                android:textColor="@color/white"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="¥5"
+                                android:textColor="@color/white"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/five_hdum_layout"
+                            android:layout_width="117dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/pay_btn_buybiubi_normal"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/five_hdum_tv"
+                                android:layout_width="72dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="500U米"
+                                android:textColor="@color/text_huise2"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="¥50"
+                                android:textColor="@color/white"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/one_hdum_layout"
+                            android:layout_width="117dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/pay_btn_buybiubi_normal"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/one_hdum_tv"
+                                android:layout_width="72dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="100U米"
+                                android:textColor="@color/text_huise2"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="¥10"
+                                android:textColor="@color/white"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/one_thum_layout"
+                            android:layout_width="117dp"
+                            android:layout_height="34dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/pay_btn_buybiubi_normal"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/one_thum_tv"
+                                android:layout_width="72dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="1000U米"
+                                android:textColor="@color/text_huise2"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="¥100"
+                                android:textColor="@color/white"
+                                android:textSize="13dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:background="#f4f4f4" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="17dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:src="@drawable/pay_imageview_dian_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:drawableLeft="@drawable/pay_imageview_dian_yellow"
-                        android:drawablePadding="4dp"
-                        android:text="每收一次biubiu，消耗5粒U米"
-                        android:textColor="@color/white"
-                        android:textSize="13sp" />
+                        android:layout_marginLeft="11dp"
+                        android:text="兑换U米"
+                        android:textColor="#6ac9c1"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="18dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="34dp"
                     android:layout_marginRight="18dp"
-                    android:layout_weight="1" >
+                    android:layout_marginTop="25dp" >
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="我的U米"
-                        android:textColor="#ffff8f"
-                        android:textSize="16sp" />
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="你选择了: "
+                            android:textColor="#808080"
+                            android:textSize="13dp" />
+
+                        <TextView
+                            android:id="@+id/select_um_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="50U米"
+                            android:textColor="@color/text_huise2"
+                            android:textSize="13dp" />
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/my_um_tv"
+                        android:id="@+id/um_price_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textColor="#ffff8f"
-                        android:textSize="16sp" />
+                        android:text="¥ 5"
+                        android:textColor="#5cafa8"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="41dp"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/pay_layout"
+                        android:layout_width="250dp"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/wx_pay_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:text="微信"
+                            android:textColor="@color/pay_blue_txt" />
+
+                        <Button
+                            android:id="@+id/zfb_pay_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/pay_afb_selector"
+                            android:text="支付宝"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/btn_bg_view"
+                        android:layout_width="250dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/pay_btn_normal_blue" />
                 </RelativeLayout>
             </LinearLayout>
+        </ScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="#f4f4f4" />
+        <include layout="@layout/loading_layout" />
+    </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="17dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/pay_imageview_dian_green" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="11dp"
-                    android:text="选择U米"
-                    android:textColor="#6ac9c1"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="34dp"
-                android:layout_marginRight="34dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
-                        android:id="@+id/fitity_um_layout"
-                        android:layout_width="117dp"
-                        android:layout_height="34dp"
-                        android:background="@drawable/pay_btn_buybiubi_light"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/fitity_um_tv"
-                            android:layout_width="72dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="50U米"
-                            android:textColor="@color/white"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="45dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="¥5"
-                            android:textColor="@color/white"
-                            android:textSize="13dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/five_hdum_layout"
-                        android:layout_width="117dp"
-                        android:layout_height="34dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/pay_btn_buybiubi_normal"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/five_hdum_tv"
-                            android:layout_width="72dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="500U米"
-                            android:textColor="@color/text_huise2"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="45dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="¥50"
-                            android:textColor="@color/white"
-                            android:textSize="13dp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
-                        android:id="@+id/one_hdum_layout"
-                        android:layout_width="117dp"
-                        android:layout_height="34dp"
-                        android:background="@drawable/pay_btn_buybiubi_normal"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/one_hdum_tv"
-                            android:layout_width="72dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="100U米"
-                            android:textColor="@color/text_huise2"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="45dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="¥10"
-                            android:textColor="@color/white"
-                            android:textSize="13dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/one_thum_layout"
-                        android:layout_width="117dp"
-                        android:layout_height="34dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/pay_btn_buybiubi_normal"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/one_thum_tv"
-                            android:layout_width="72dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="1000U米"
-                            android:textColor="@color/text_huise2"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="45dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="8dp"
-                            android:text="¥100"
-                            android:textColor="@color/white"
-                            android:textSize="13dp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="#f4f4f4" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="17dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/pay_imageview_dian_green" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="11dp"
-                    android:text="兑换U米"
-                    android:textColor="#6ac9c1"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="34dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginTop="25dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="你选择了: "
-                        android:textColor="#808080"
-                        android:textSize="13dp" />
-
-                    <TextView
-                        android:id="@+id/select_um_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="50U米"
-                        android:textColor="@color/text_huise2"
-                        android:textSize="13dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/um_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="¥ 5"
-                    android:textColor="#5cafa8"
-                    android:textSize="15sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="41dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:id="@+id/pay_layout"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal" >
-
-                    <Button
-                        android:id="@+id/wx_pay_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="微信"
-                        android:textColor="@color/pay_blue_txt" />
-
-                    <Button
-                        android:id="@+id/zfb_pay_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/pay_afb_selector"
-                        android:text="支付宝"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-                <View 
-                    android:id="@+id/btn_bg_view"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/pay_btn_normal_blue"/>
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
-    <include layout="@layout/loading_layout"/>
-</FrameLayout>
 </LinearLayout>

@@ -140,6 +140,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView schoolArrow;
 	private ImageView personalArrow;
 	private ImageView interestArrow;
+	private TextView noPhotoTv;
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private UserPagerPhotoAdapter photoAdapter;
@@ -238,6 +239,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		schoolArrow = (ImageView) findViewById(R.id.school_arrow);
 		personalArrow = (ImageView) findViewById(R.id.personal_arrow);
 		interestArrow = (ImageView) findViewById(R.id.interest_arrow);
+		noPhotoTv = (TextView) findViewById(R.id.no_photo);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -329,7 +331,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		if(isMyself && bean.getAboutMe().equals("")){
 			userInfoTv.setText(getResources().getString(R.string.description_me));
 			userInfoBigTv.setText(getResources().getString(R.string.description_me));
-		}else if(!isMyself && !bean.getAboutMe().equals("")){
+		}else if(!isMyself && bean.getAboutMe().equals("")){
 			userInfoTv.setText(getResources().getString(R.string.description_other));
 			userInfoBigTv.setText(getResources().getString(R.string.description_other));
 		}else{
@@ -462,6 +464,12 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					ArrayList<PersonalTagBean> per = infoBean.getPersonalTags();
 					ArrayList<UserPhotoBean> phos = infoBean.getUserPhotos();
 					ArrayList<InterestByCateBean> cates = infoBean.getInterestCates();
+					
+					if(phos.size() == 0 && !isMyself){
+						noPhotoTv.setVisibility(View.VISIBLE);
+					}else{
+						noPhotoTv.setVisibility(View.GONE);
+					}
 
 					setPersonalTags(per);
 					setInterestTags(cates);
