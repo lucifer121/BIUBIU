@@ -76,9 +76,6 @@ public class LoginOrRegisterActivity extends BaseActivity{
 		switch (requestCode) {
 		case LOGIN_REQUEST:
 			if(resultCode == RESULT_OK){
-				Intent intent=new Intent(LoginOrRegisterActivity.this,MainActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
 				finish();
 			}
 			break;

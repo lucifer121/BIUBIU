@@ -1,5 +1,7 @@
 package com.android.biubiu.push;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Random;
 
@@ -89,7 +91,8 @@ public class MyPushReceiver extends PushMessageReceiver{
 		UserBean newUserBean = new UserBean();
 		String msgType = "";
 		try {
-			JSONObject jsons = JSONObject.parseObject(message);
+			JSONObject jsons;
+			jsons = JSONObject.parseObject(URLDecoder.decode(message, "utf-8"));
 			msgType = jsons.getString("messageType");
 			newUserBean.setTime(Long.parseLong(jsons.getString("time")));
 			newUserBean.setChatId(jsons.getString("chat_id"));
@@ -114,26 +117,31 @@ public class MyPushReceiver extends PushMessageReceiver{
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (NullPointerException e) {
+			// TODO: handle exception
 		}
 		if(isOpen){
 			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
-				if(isOpenVoice){
-					playSound(context);
-				}
-				if(isShock){
-					shock(context);
-				}
 				if(updateface != null){
+					if(isOpenVoice){
+						playSound(context);
+					}
+					if(isShock){
+						shock(context);
+					}
 					updateface.updateView(newUserBean,0);
 				}
 			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){
-				if(isOpenVoice){
-					playSound(context);
-				}
-				if(isShock){
-					shock(context);
-				}
 				if(updateface != null){
+					if(isOpenVoice){
+						playSound(context);
+					}
+					if(isShock){
+						shock(context);
+					}
 					updateface.updateView(newUserBean,1);
 				}
 				saveUserFriend(newUserBean.getId(),newUserBean.getNickname(),newUserBean.getUserHead());
@@ -143,10 +151,9 @@ public class MyPushReceiver extends PushMessageReceiver{
 				}
 			}
 		}else{
-			if(msgType.equals(Constants.MSG_TYPE_DEL)){
-				return;
+			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
+				showNotification(context,isShock,isOpenVoice,newUserBean,msgType);
 			}
-			showNotification(context,isShock,isOpenVoice,newUserBean,msgType);
 		}
 	}
 
@@ -187,18 +194,17 @@ public class MyPushReceiver extends PushMessageReceiver{
 		//.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
 		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
 		.setSmallIcon(cc.imeetu.iu.R.drawable.icon);
+		try{
 		if(type.equals(Constants.MSG_TYPE_MATCH)){
 			String info = ""+bean.getNickname()+",";
 			info = info+"年龄:"+bean.getAge()+",";
 			info = info+"星座:"+bean.getStar()+",";
-			/*if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
-				info = info+"学校:"+bean.getSchool();
-			}else{
-				info = info+"职业:"+bean.getCareer();
-			}*/
 			mBuilder.setContentText(info);
 		}else{
 			mBuilder.setContentText("你的biubiu被人抢啦");
+		}
+		}catch(NullPointerException e){
+			// TODO: handle exception
 		}
 		if(isShock){
 			mBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
@@ -215,7 +221,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 	//播放自定义的声音  
 	public void playSound(Context context) {  
 		Log.d("mytest", "播放自己的提示音");
-		String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.duolaam;  //自己把铃声放在raw文件夹下就行了
+		String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.yaho;  //自己把铃声放在raw文件夹下就行了
 		Uri no=Uri.parse(uri);  
 		Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(),  
 				no);  

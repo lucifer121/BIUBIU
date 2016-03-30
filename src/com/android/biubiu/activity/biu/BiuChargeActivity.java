@@ -68,6 +68,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			BiuChargeActivity.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
+					handler.sendEmptyMessage(1);
 					String result = bcPayResult.getResult();
 					/*
 		                      注意！
@@ -430,5 +431,11 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 			Toast.makeText(BiuChargeActivity.this,
 					"您尚未安装微信或者安装的微信版本不支持", Toast.LENGTH_LONG).show();
 		}
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		handler.sendEmptyMessage(1);
 	}
 }

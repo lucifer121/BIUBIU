@@ -29,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -210,7 +211,15 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				if(mEditText.getText().length()<=0){
 					toastShort("请选择话题标签");
 				}else{
-					sendBiu(mEditText.getText().toString());
+					String sendTimeStr = SharePreferanceUtils.getInstance().getBiuTime(BiuBiuSendActivity.this, SharePreferanceUtils.SEND_BIU_TIME, "");
+					if(!sendTimeStr.equals("")){
+						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
+							if(time/1000 > 90){
+								sendBiu(mEditText.getText().toString());
+							}else{
+								Toast.makeText(BiuBiuSendActivity.this, "距离上次发biu还不到90秒哦！", 1000).show();
+							}	
+					}
 				}
 			}
 		});
