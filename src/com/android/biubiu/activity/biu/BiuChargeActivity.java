@@ -382,6 +382,7 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 					String payResult= data.getString("result");
 					if(payResult.equals(Constants.PAY_SUC)){
 						toastShort("充值成功");
+						//int umCount = data.getInt("virtual_currency");
 						setResult(RESULT_OK);
 						finish();
 					}else{
