@@ -528,7 +528,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	@Override
 	public void finish() {
 		// TODO Auto-generated method stub
-		super.finish();
+//		super.finish();
 		
 	}
 	@SuppressWarnings("unused")

@@ -160,7 +160,7 @@ public class UserListActivity extends BaseActivity {
  */
 	private void initData() {
 		// TODO Auto-generated method stub
-		
+		showLoadingLayout(getResources().getString(R.string.loading));
 
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GET_FRIDENS_LIST);
 		JSONObject object=new JSONObject();
@@ -188,6 +188,7 @@ public class UserListActivity extends BaseActivity {
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
 			//	toastShort(arg0.getMessage());
+				dismissLoadingLayout();
 			}
 
 			@Override
@@ -200,6 +201,7 @@ public class UserListActivity extends BaseActivity {
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.e(TAG, arg0);
+				dismissLoadingLayout();
 				JSONObject jsons;			
 					try {
 						jsons = new JSONObject(arg0);					
@@ -231,6 +233,8 @@ public class UserListActivity extends BaseActivity {
 							userDao.insertOrReplaceUser(mData.get(i));
 						}						
 					log.e(TAG, userDao.queryUserAll().size()+"");
+					}else{
+						return;
 					}			
 					
 					
