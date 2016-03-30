@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="37dp"
                     android:layout_marginRight="37dp"
-                    android:layout_marginTop="92dp"
+                    android:layout_marginTop="77dp"
                     android:background="@drawable/biu_imageview_bg"
                     android:orientation="vertical" >
 
@@ -454,7 +454,7 @@
                     android:layout_width="82dp"
                     android:layout_height="82dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="34dp"
                     android:src="@drawable/biu_imageview_photo_circle" />
 
                 <ImageView
@@ -462,7 +462,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="35dp"
                      />
             </RelativeLayout>
         </ScrollView>

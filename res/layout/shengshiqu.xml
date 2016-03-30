@@ -23,7 +23,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:textColor="#00b8de"
+            android:textColor="@color/main_green"
              />
        
        
