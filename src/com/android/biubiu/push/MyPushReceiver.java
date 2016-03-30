@@ -1,5 +1,7 @@
 package com.android.biubiu.push;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Random;
 
@@ -89,7 +91,8 @@ public class MyPushReceiver extends PushMessageReceiver{
 		UserBean newUserBean = new UserBean();
 		String msgType = "";
 		try {
-			JSONObject jsons = JSONObject.parseObject(message);
+			JSONObject jsons;
+			jsons = JSONObject.parseObject(URLDecoder.decode(message, "utf-8"));
 			msgType = jsons.getString("messageType");
 			newUserBean.setTime(Long.parseLong(jsons.getString("time")));
 			newUserBean.setChatId(jsons.getString("chat_id"));
@@ -112,6 +115,9 @@ public class MyPushReceiver extends PushMessageReceiver{
 				saveUserFriend(jsons.getString("user_code"),jsons.getString("nickname"),jsons.getString("icon_thumbnailUrl"));
 			}
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -215,7 +221,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 	//播放自定义的声音  
 	public void playSound(Context context) {  
 		Log.d("mytest", "播放自己的提示音");
-		String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.duolaam;  //自己把铃声放在raw文件夹下就行了
+		String uri = "android.resource://" + context.getPackageName() + "/"+R.raw.yaho;  //自己把铃声放在raw文件夹下就行了
 		Uri no=Uri.parse(uri);  
 		Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(),  
 				no);  

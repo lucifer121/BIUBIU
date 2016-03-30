@@ -160,9 +160,9 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 			}	
 			break;
 		case R.id.aboutOur_left_rl:
+			((MainActivity) getActivity()).closeMenu();
 			Intent intent=new Intent(getActivity(),AboutOurActivity.class);
 			startActivity(intent);
-			
 			break;
 
 		default:

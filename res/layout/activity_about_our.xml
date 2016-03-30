@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="48dp" >
+                android:layout_marginTop="45dp" >
 
                 <TextView
                     android:id="@+id/abour_our_welcome_tv"
@@ -62,32 +62,14 @@
                     android:text="@string/abour_our_welcome"
                     android:textColor="@color/main_green"
                     android:textSize="18sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="13dp"
-                    android:layout_toLeftOf="@id/abour_our_welcome_tv"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/about_us_line_green_left" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="13dp"
-                    android:layout_toRightOf="@id/abour_our_welcome_tv"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/about_us_line_green_right" />
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="45dp"
                 android:gravity="center_horizontal"
                 android:text="@string/abour_our_topic1"
                 android:textColor="@color/about_gray_txt"
@@ -96,9 +78,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="28dp"
                 android:gravity="center_horizontal"
                 android:text="@string/abour_our_topic2"
                 android:textColor="@color/about_gray_txt"
@@ -125,13 +107,23 @@
                     android:textColor="@color/about_darkgary_txt"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/version_tv"
+                <ImageView
+                    android:id="@+id/version_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
+                    android:src="@drawable/about_us_btn"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/version_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/version_right"
                     android:text="v1.0"
                     android:textColor="@color/about_gray2_txt"
                     android:textSize="12sp" />
@@ -157,12 +149,22 @@
                     android:textColor="@color/about_darkgary_txt"
                     android:textSize="14sp" />
 
-                <TextView
+                <ImageView
+                    android:id="@+id/comment_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
+                    android:src="@drawable/about_us_btn"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/comment_right"
+                    android:layout_marginRight="10dp"
                     android:text="好评你就biubiu"
                     android:textColor="@color/about_gray2_txt"
                     android:textSize="12sp" />
@@ -260,12 +262,17 @@
                     android:textSize="12sp" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/about_us_line_long_gray" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="33dp"
-                android:layout_marginTop="127dp"
+                android:layout_marginTop="110dp"
                 android:text="@string/abour_our_bottom"
                 android:textColor="@color/about_gray_txt"
                 android:textSize="12sp" />

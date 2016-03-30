@@ -1,4 +1,5 @@
 package com.android.biubiu;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -39,9 +40,15 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.NetUtils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -72,6 +79,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	Button guidBtn;
 	//点击后需要显示的引导页
 	int guidIndex = 2;
+	UpdateResponse updateInfoAll;
+	Dialog updatedialog;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -114,6 +123,62 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		log.e("Token", SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
 		//更新活跃时间
 		updateActivityTime();
+		checkUpdate();
+	}
+	private void checkUpdate() {
+		// TODO Auto-generated method stub
+		UmengUpdateAgent.setUpdateAutoPopup(false);
+		UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+			@Override
+			public void onUpdateReturned(int updateStatus,UpdateResponse updateInfo) {
+				updateInfoAll = updateInfo;
+				switch (updateStatus) {
+				case UpdateStatus.Yes: // has update
+					//UmengUpdateAgent.showUpdateDialog(getApplicationContext(), updateInfo);
+					showUpdateDialog();
+					break;
+				case UpdateStatus.No: // has no update
+					Toast.makeText(MainActivity.this, "已经是最新版本啦！", Toast.LENGTH_SHORT).show();
+					break;
+				case UpdateStatus.NoneWifi: // none wifi
+					Toast.makeText(getApplicationContext(), "no wifi ", Toast.LENGTH_SHORT).show();
+					break;
+				case UpdateStatus.Timeout: // time out
+					Toast.makeText(getApplicationContext(), "time out", Toast.LENGTH_SHORT).show();
+					break;
+				}
+			}
+
+		});
+		UmengUpdateAgent.setUpdateOnlyWifi(false);
+		//UmengUpdateAgent.forceUpdate(SystemSettingsActivity.this);
+		UmengUpdateAgent.update(MainActivity.this);
+	}
+	private void showUpdateDialog(){
+		Dialog dialog = new AlertDialog.Builder(this).setTitle("有新版本").setMessage("\n"+"最新版本："+updateInfoAll.version+"\n\n更新内容：\n"+updateInfoAll.updateLog+"\n")
+				.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						// TODO Auto-generated method stub
+						UmengUpdateAgent.setUpdateUIStyle(UpdateStatus.STYLE_NOTIFICATION);
+						File file = UmengUpdateAgent.downloadedFile(MainActivity.this, updateInfoAll);
+						if (file == null) {
+							UmengUpdateAgent.startDownload(MainActivity.this, updateInfoAll);
+						} else {
+							UmengUpdateAgent.startInstall(MainActivity.this, file);
+						}
+						dialog.dismiss();
+					}
+				}).setNeutralButton("以后再说", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				}).create();
+		dialog.show();
 	}
 	private void updateActivityTime() {
 		// TODO Auto-generated method stub

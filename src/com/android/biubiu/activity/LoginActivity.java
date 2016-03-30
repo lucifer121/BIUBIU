@@ -213,8 +213,9 @@ public class LoginActivity extends BaseActivity{
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_HEAD, userHead);
 					String userCode = obj.getString("code");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_CODE, userCode);
-					
-					loginHuanXin(hxName,HxPassword,token);
+					//把token 存在本地
+					SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+					loginHuanXin(hxName,HxPassword);
 					LogUtil.e(TAG, "hxName=="+hxName+"||"+"HxPassword=="+HxPassword);
 					//统计登录用户
 					MobclickAgent.onProfileSignIn(userCode);
@@ -243,14 +244,13 @@ public class LoginActivity extends BaseActivity{
 	 * @param username
 	 * @param password
 	 */
-	public void loginHuanXin(String username,String password,final String token){
+	public void loginHuanXin(String username,String password){
 		EMClient.getInstance().login(username, password, new EMCallBack() {
 			
 			@Override
 			public void onSuccess() {
 				LogUtil.e(TAG, "登录成功环信");
-				//把token 存在本地
-				SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+				
 			}
 			
 			@Override

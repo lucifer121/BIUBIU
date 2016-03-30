@@ -18,6 +18,7 @@ public class SharePreferanceUtils {
 	public static String IS_COMMIT_CHANNEL = "is_commit_channel";
 	public static String IS_SHOCK = "is_shock";
 	public static String IS_OPEN_VOICE = "is_open_voice";
+	public static String SEND_BIU_TIME = "send_biu_time";
 
 	public static String HX_USER_NAME="hx_user_name";
 	public static String HX_USER_PASSWORD="hx_user_password";
@@ -68,6 +69,10 @@ public class SharePreferanceUtils {
 	}
 	//获取是否为第一次安装
 	public boolean isFirstInstall(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取上次发biubiu时间
+	public String getBiuTime(Context context,String prefKey,String defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取是否为浏览过新手引导

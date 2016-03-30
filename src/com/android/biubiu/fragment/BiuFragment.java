@@ -288,9 +288,17 @@ public class BiuFragment extends Fragment implements PushInterface{
 					return;
 				}
 				if(isBiuState){
-					//启动发送biubiu界面
-					Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
-					startActivityForResult(intent, SEND_BIU_REQUEST);
+					String sendTimeStr = SharePreferanceUtils.getInstance().getBiuTime(getActivity(), SharePreferanceUtils.SEND_BIU_TIME, "");
+					if(!sendTimeStr.equals("")){
+						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
+							if(time/1000 > 90){
+								//启动发送biubiu界面
+								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+								startActivityForResult(intent, SEND_BIU_REQUEST);
+							}else{
+								Toast.makeText(getActivity(), "距离上次发biu还不到90秒哦！", 1000).show();
+							}	
+					}
 				}else{
 					isBiuState = true;
 					userBiuImv.setImageResource(R.drawable.biu_btn_biu);
@@ -767,6 +775,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			if(resultCode == BiuBiuSendActivity.RESULT_OK){
 				//开始倒计时
 				currentTime = totalTime;
+				SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.SEND_BIU_TIME, System.currentTimeMillis()+"");
 				taskView.setVisibility(View.VISIBLE);
 				userBiuImv.setVisibility(View.GONE);
 				taskView.updeteTask(currentTime);
