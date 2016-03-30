@@ -298,6 +298,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 							}else{
 								Toast.makeText(getActivity(), "距离上次发biu还不到90秒哦！", 1000).show();
 							}	
+					}else{
+						//启动发送biubiu界面
+						Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+						startActivityForResult(intent, SEND_BIU_REQUEST);
 					}
 				}else{
 					isBiuState = true;

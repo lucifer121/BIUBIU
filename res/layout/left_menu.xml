@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <View
         android:id="@+id/left_menu_top_view"
@@ -16,22 +16,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
-        >
+        android:layout_marginTop="84dp" >
 
-        <ImageView
-            android:id="@+id/main_touxiang_img"
+        <RelativeLayout
+            android:id="@+id/head_layout"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/main_touxiang" />
+             >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/main_touxiang" />
+
+            <ImageView
+                android:id="@+id/main_touxiang_img"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/name_main_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/main_touxiang_img"
+            android:layout_below="@id/head_layout"
             android:layout_centerInParent="true"
             android:layout_marginTop="8dp"
             android:text="@string/name_regist_hint"
@@ -46,7 +58,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="你的照片" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -65,8 +76,7 @@
                 android:id="@+id/left_menu_item1_rl"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:background="@drawable/left_menu_item_color"
-               >
+                android:background="@drawable/left_menu_item_color" >
 
                 <ImageView
                     android:id="@+id/left_menu_main_biubiu_img"
@@ -86,13 +96,12 @@
                     android:text="@string/left_menu_biubiu"
                     android:textColor="@color/left_menu_item_text_color" />
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/left_menu_item2_rl"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:background="@drawable/left_menu_item_color"
-                >
+                android:background="@drawable/left_menu_item_color" >
 
                 <ImageView
                     android:id="@+id/left_menu_main_message_img"
@@ -112,7 +121,7 @@
                     android:text="@string/left_menu_message"
                     android:textColor="@color/left_menu_item_text_color" />
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/left_menu_item3_rl"
                 android:layout_width="match_parent"
@@ -145,9 +154,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:src="@drawable/left_menu_item_img3_right_bg" />
-
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/left_menu_item4_rl"
                 android:layout_width="match_parent"
@@ -171,6 +179,7 @@
                     android:layout_toRightOf="@id/left_menu_main_lead_img"
                     android:text="@string/left_menu_lead"
                     android:textColor="@color/left_menu_item_text_color" />
+
                 <ImageView
                     android:id="@+id/left_menu_toright4_img"
                     android:layout_width="wrap_content"
@@ -180,7 +189,7 @@
                     android:layout_marginRight="20dp"
                     android:src="@drawable/left_menu_item_img3_right_bg" />
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/left_menu_item5_rl"
                 android:layout_width="match_parent"
@@ -207,29 +216,31 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
-    <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/aboutOur_left_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
         android:background="@drawable/kongjianruoqu_bg"
-        android:gravity="center"
-        >
-        <ImageView 
+        android:gravity="center" >
+
+        <ImageView
             android:id="@+id/icon_myapp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon"/>
-        <TextView 
+            android:src="@drawable/icon" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/icon_myapp"
             android:layout_centerHorizontal="true"
-            android:textSize="12sp"
+            android:text="关于iU"
             android:textColor="#888888"
-            android:text="关于iU"/>
-       </RelativeLayout>
+            android:textSize="12sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
