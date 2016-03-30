@@ -219,6 +219,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 							}else{
 								Toast.makeText(BiuBiuSendActivity.this, "距离上次发biu还不到90秒哦！", 1000).show();
 							}	
+					}else{
+						sendBiu(mEditText.getText().toString());
 					}
 				}
 			}
