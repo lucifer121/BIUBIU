@@ -326,7 +326,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
 			identityTv.setText("学生");
-			schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
+			if(bean.getSchool()!=null&&!bean.getSchool().equals("")){
+				schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
+			}
+			
 		}else{
 			identityTagTv.setText("职业");
 			schoolTagTv.setText("公司");
