@@ -380,7 +380,10 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 					String token = obj.getString("token");
 					String hxName=obj.getString("username");
 					String HxPassword=obj.getString("password");
-					SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
+					if(token!=null&&!token.equals("")){
+						SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
+					}
+					
 					String nickname = obj.getString("nickname");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
 					String userHead = obj.getString("icon_url");
@@ -412,8 +415,8 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onSuccess() {
 				LogUtil.e(TAG, "登录成功环信");
-				//把token 存在本地
-				SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
+//				//把token 存在本地
+//				SharePreferanceUtils.getInstance().putShared(ForgetPasswordActivity.this, SharePreferanceUtils.TOKEN, token);
 				Intent intent=new Intent(ForgetPasswordActivity.this,MainActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);

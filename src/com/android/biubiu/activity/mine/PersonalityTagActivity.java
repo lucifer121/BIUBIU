@@ -407,8 +407,8 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent=getIntent();
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("personalTags", (Serializable) mDataFanhui);

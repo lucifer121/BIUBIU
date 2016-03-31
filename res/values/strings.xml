@@ -41,7 +41,7 @@
     <string name="register_one_hint_next">下一步</string>
     <string name="register_complete">完成</string>
     <string name="upuserhead_texttop">请上传真实头像</string>
-    <string name="upuserhead_text1">biubiu提倡年轻人真诚互动交流，真实头像便与信任</string>
+    <string name="upuserhead_text1">iU提倡年轻人真诚互动交流，真实头像便与信任</string>
     <string name="upuserhead_text2">多人合影、名人、背景、网图将可能审核不通过</string>
     <string name="upuserhead_text3">新头像未审核通过，将显示原来的头像</string>
     <string name="upuserhead_knew">我知道了</string>
@@ -68,7 +68,7 @@
     <string name="mine_height_weight_hint">选择身高体重</string>
     <string name="title_activity_change_identity_profession">ChangeIdentityProfessionActivity</string>
     <string name="personality_tag_hint">(最多选择10个标签)</string>
-    <string name="bottom_hint">青春校园，从biubiu开始</string>
+    <string name="bottom_hint">青春校园，从iU开始</string>
     <string name="mine_complete">完成</string>
     <string name="mine_brithday_title">修改生日</string>
     <string name="mine_city_title">修改城市</string>
@@ -100,7 +100,7 @@
     <string name="page_interest">兴趣爱好</string>
     <string name="page_personal_tag">我的个性标签</string>
     <string name="page_interest_tag">我的兴趣标签</string>
-    <string name="page_text_bottom">青春校园从biubiu开始</string>
+    <string name="page_text_bottom">青春校园从iU开始</string>
     <string name="description_me">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
     <string name="description_other">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
     <string name="title_activity_match_setting">MatchSettingActivity</string>

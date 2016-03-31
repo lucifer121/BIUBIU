@@ -406,8 +406,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson=new Gson();
 					SettingBean settingBean=gson.fromJson(data.toString(), SettingBean.class);
 					if(settingBean == null){
@@ -505,8 +505,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						toastShort("保存失败");
 						return;
 					}
-					String token = (jsons.getJSONObject("data").getString("token"));
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = (jsons.getJSONObject("data").getString("token"));
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -613,7 +613,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						toastShort(error);
 						return;
 					}
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 					exitHuanxin();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

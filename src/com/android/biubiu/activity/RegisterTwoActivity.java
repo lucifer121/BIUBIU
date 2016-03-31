@@ -669,7 +669,10 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 					loginHuanXin(username,passwprd,token);   
 					MobclickAgent.onProfileSignIn(userCode);
 					//把token 存在本地
-					SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+					if(token!=null&&token.length()>0){
+						SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+					}
+					
 
 					Umutils.count(RegisterTwoActivity.this, Umutils.RIGISTER_SUCCESS);
 					Intent intent=new Intent(RegisterTwoActivity.this,MainActivity.class);
@@ -695,9 +698,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			public void onSuccess() {
 
 				//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
-				LogUtil.e(TAG, "登录成功环信");
-				//把token 存在本地
-				SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+//				LogUtil.e(TAG, "登录成功环信");
+//				//把token 存在本地
+//				SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
 			}
 
 			@Override

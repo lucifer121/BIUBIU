@@ -70,8 +70,8 @@ public class HttpUtils {
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.TOKEN, token);
 					SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.IS_COMMIT_CHANNEL, true);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

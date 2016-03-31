@@ -15,6 +15,8 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
+import com.android.biubiu.adapter.SeetingUserInterestAdapter;
+import com.android.biubiu.adapter.SeetingUserPagerTagAdapter;
 import com.android.biubiu.adapter.UserInterestAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.BiuDetialBean;
@@ -61,8 +63,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private static final int GO_CHARGE = 1001;
 	private RelativeLayout backLayout;
 	private GridView mGridViewTag, mGridViewInterestTag;
-	private UserPagerTagAdapter personalAdapter;
-	private UserInterestAdapter interestAdapter;
+	private SeetingUserPagerTagAdapter personalAdapter;
+	private SeetingUserInterestAdapter interestAdapter;
 	ArrayList<PersonalTagBean> personalTagList = new ArrayList<PersonalTagBean>();
 	ArrayList<InterestTagBean> interestTagList = new ArrayList<InterestTagBean>();
 	private Button grabBT;
@@ -97,8 +99,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		referenceId = getIntent().getStringExtra("referenceId");
 		userCode = getIntent().getStringExtra("userCode");
 		chatId = getIntent().getStringExtra("chatId");
-		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
-				+ userCode + "||chatId==" + chatId);
+//		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
+//				+ userCode + "||chatId==" + chatId);
 		userDao=new UserDao(this);
 		initView();
 		initData();
@@ -348,9 +350,9 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
 					
 					saveUserFriend(userCodeString,userNameString,userUrlString);
-					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
-					}
+//					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
+//					}
 					
 
 				} catch (Exception e) {
@@ -365,10 +367,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 
 	private void initAdapter() {
 		// TODO Auto-generated method stub
-		personalAdapter = new UserPagerTagAdapter(getApplicationContext(),
+		personalAdapter = new SeetingUserPagerTagAdapter(getApplicationContext(),
 				personalTagList);
 		mGridViewTag.setAdapter(personalAdapter);
-		interestAdapter = new UserInterestAdapter(getApplicationContext(),
+		interestAdapter = new SeetingUserInterestAdapter(getApplicationContext(),
 				interestTagList);
 		mGridViewInterestTag.setAdapter(interestAdapter);
 
@@ -494,10 +496,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
-					String token=obj.getString("token");
-					if(token!=null&&!token.equals("")){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					}
+//					String token=obj.getString("token");
+//					if(token!=null&&!token.equals("")){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					}
 //					saveUserFriend(userCodeString,userNameString,userUrlString);
 					String message=obj.getString("message");
 					if(message.equals("0")){
@@ -541,7 +543,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		}
 		interestTagList.clear();
 		interestTagList.addAll(inters);
-		interestAdapter = new UserInterestAdapter(getApplicationContext(),
+		interestAdapter = new SeetingUserInterestAdapter(getApplicationContext(),
 				inters);
 		mGridViewInterestTag.setAdapter(interestAdapter);
 		setGridviewHight(mGridViewTag);
@@ -643,10 +645,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						}
 						String json=jsons.getString("data");
 						Gson gson=new Gson();
-						TokenBean tokenBean=gson.fromJson(json, TokenBean.class);
-						if(!tokenBean.equals("")&&tokenBean!=null){
-							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, tokenBean.getToken());
-						}	
+//						TokenBean tokenBean=gson.fromJson(json, TokenBean.class);
+//						if(!tokenBean.equals("")||tokenBean!=null){
+//							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, tokenBean.getToken());
+//						}	
 						finish();
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block

@@ -128,7 +128,7 @@ public class SharePreferanceUtils {
 	public  boolean getShared(Context ctx, String prefKey, boolean defValue) {
 		return PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(prefKey, defValue);
 	}
-	public  void putShared(Context ctx, String prefKey, boolean defValue) {
+	public  void putShared(Context ctx, String prefKey, boolean defValue) {   
 		PreferenceManager.getDefaultSharedPreferences(ctx).edit().putBoolean(prefKey, defValue).commit();
 	}
 

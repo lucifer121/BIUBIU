@@ -201,8 +201,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
-					String token = obj.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = obj.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -316,8 +316,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String photoUrl = data.getString("icon_url");
 					String photoUrl_thum = data.getString("icon_thumbnailUrl");
 					Intent intent = new Intent();

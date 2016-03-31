@@ -34,6 +34,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 
@@ -68,6 +70,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 
@@ -104,6 +108,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 
@@ -142,6 +148,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 	}
@@ -179,6 +187,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 
@@ -215,6 +225,8 @@ public class CityDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		database.close();
 		return list;
 

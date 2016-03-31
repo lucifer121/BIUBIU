@@ -123,8 +123,8 @@ public class ChangeNameActivity extends BaseActivity {
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, infoBean.getNickname());
 					Intent intent = new Intent();
 					intent.putExtra("userInfoBean", infoBean);

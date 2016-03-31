@@ -48,6 +48,8 @@ public class SchoolDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		return list;
 
 	}
@@ -85,6 +87,8 @@ public class SchoolDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		return list;
 
 	}
@@ -116,6 +120,8 @@ public class SchoolDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();
 		return list;
 
 	}
@@ -150,6 +156,8 @@ public class SchoolDao {
 
 			list.add(item);
 		}
+		 if(c != null)  
+	            c.close();  
 		return list;
 	}
 
@@ -184,7 +192,8 @@ public class SchoolDao {
 					+ item.getSchoolId() + " 专业=" + item.getDepartmentName());
 
 			list.add(item);
-		}
+		} if(c != null)  
+            c.close();
 		return list;
 
 	}

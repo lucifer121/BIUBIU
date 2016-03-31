@@ -830,6 +830,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			isBiuState = false;
 			userBiuBean = userBean;
 			updateBiuView(userBean);
+			
 			break;
 		case 2:
 			//匹配的人被抢啦
@@ -891,7 +892,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+					if(token!=null&&token.length()>0){
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+					}
+					
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);

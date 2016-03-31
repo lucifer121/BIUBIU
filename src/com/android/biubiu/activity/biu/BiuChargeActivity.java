@@ -315,8 +315,8 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 							return;
 						}
 						JSONObject data = jsons.getJSONObject("data");
-						String token = data.getString("token");
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//						String token = data.getString("token");
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 						orderCode = data.getString("bill_no");
 						if(isZfbPay){
 							payZfb(orderCode, umCountPrice);
@@ -376,8 +376,8 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//1--成功，  2--失败
 					String payResult= data.getString("result");
 					if(payResult.equals(Constants.PAY_SUC)){

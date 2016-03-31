@@ -78,10 +78,10 @@ public class LoadUserFriend {
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
-					String token=obj.getString("token");
-					if(!token.equals("")&&token!=null){
-						SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.TOKEN, token);
-					}	
+//					String token=obj.getString("token");
+//					if(!token.equals("")&&token!=null){
+//						SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.TOKEN, token);
+//					}	
 					Gson gson=new Gson();
 					
 					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),

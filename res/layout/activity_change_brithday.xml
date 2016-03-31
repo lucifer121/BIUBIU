@@ -116,7 +116,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:text="青春校园    从[我想认识你]开始"
+        android:text="@string/bottom_hint"
         android:textColor="#bfbfbf"
         android:textSize="12sp" 
        />

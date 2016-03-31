@@ -157,8 +157,8 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
-					String token = (jsons.getJSONObject("data").getString("token"));
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = (jsons.getJSONObject("data").getString("token"));
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  

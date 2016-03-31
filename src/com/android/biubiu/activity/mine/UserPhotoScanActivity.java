@@ -161,8 +161,8 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					photoList.remove(currentIndex);
 					scanAdapter = new ScanPagerAdapter(getApplicationContext(), photoList, imageOptions);
 					photoPager.setAdapter(scanAdapter);

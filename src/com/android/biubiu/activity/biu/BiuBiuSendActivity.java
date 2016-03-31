@@ -160,10 +160,10 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
 
-					String token=obj.getString("token");
-					if(token!=null&&!token.equals("")){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					}
+//					String token=obj.getString("token");
+//					if(token!=null||token.equals("")){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					}
 
 					LogUtil.e(TAG, dataTag);
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
@@ -351,12 +351,12 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 						return;
 					}						
 					JSONObject obj = jsons.getJSONObject("data");
-					String token=obj.getString("token");
-					if(token!=null&&!token.equals("")){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					}
+//					String token=obj.getString("token");
+//					if(token!=null||!token.equals("")){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					}
 
-					LogUtil.d(TAG, token);
+//					LogUtil.d(TAG, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

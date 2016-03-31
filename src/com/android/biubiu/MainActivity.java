@@ -229,8 +229,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -384,8 +384,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -626,10 +626,6 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	}
 
 
-	//	记得在不需要的时候移除listener，如在activity的onDestroy()时
-	//	EMClient.getInstance().chatManager().removeMessageListener(msgListener);
-	//	监听
-	
 
 }
 

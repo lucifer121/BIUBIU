@@ -45,7 +45,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 	private RelativeLayout userHeadLayout;
 	ImageOptions imageOptions;
 	private TextView userName;
-	private TextView  hintPHoto;
+
 	private RelativeLayout aboutLayout;
 	/**
 	 * 是否已经登录
@@ -74,7 +74,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		shareLayout = (RelativeLayout) mView
 				.findViewById(R.id.left_menu_item5_rl);
 		aboutLayout=(RelativeLayout) mView.findViewById(R.id.aboutOur_left_rl);
-		hintPHoto=(TextView) mView.findViewById(R.id.hint_your_photo_tv);
+
 		userHead = (ImageView) mView.findViewById(R.id.main_touxiang_img);
 		userHeadLayout = (RelativeLayout) mView
 				.findViewById(R.id.main_touxiang_rl);
@@ -99,14 +99,14 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		super.onResume();
 			if(LoginUtils.isLogin(getActivity())){		
 				isLogin=true;
-				hintPHoto.setVisibility(View.GONE);
+				
 				userName.setText(SharePreferanceUtils.getInstance().getUserName(getActivity(), SharePreferanceUtils.USER_NAME, ""));
 				x.image().bind(userHead,SharePreferanceUtils.getInstance().getUserHead(getActivity(), SharePreferanceUtils.USER_HEAD, ""),imageOptions);
 			}else{
 				isLogin = false;
 				userName.setText("登录注册");
-				hintPHoto.setVisibility(View.VISIBLE);
-				userHead.setImageResource(R.drawable.main_touxiang);
+				
+				userHead.setImageResource(R.drawable.ease_default_avatar);
 			}
 	}
 	
@@ -195,9 +195,9 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 //		 oks.setSite(getString(R.string.app_name));
 //		 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
 //		 oks.setSiteUrl("http://www.imeetu.cc/");
-	  	   	oks.setTitle("标题分享");
+	  	   	oks.setTitle("iU");
 				oks.setTitleUrl("http://www.imeetu.cc");
-				oks.setText("测试文本内容  今天你约了吗");
+				oks.setText("iU,今天你biu了吗");
 				oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
 				oks.setUrl("http://www.imeetu.cc/");
 		 

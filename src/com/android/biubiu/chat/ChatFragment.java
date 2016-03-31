@@ -51,7 +51,9 @@ public class ChatFragment extends EaseChatFragment implements
 		super.setUpView();
 		setChatFragmentListener(this);
 		// 设置标题栏点击事件
+		titleBar.setLeftImageResource(R.drawable.main_name_btn_back);
 		titleBar.setRightImageResource(R.drawable.mes_btn_right);
+		
 		titleBar.setRightLayoutClickListener(new OnClickListener() {
 
 			@Override
@@ -392,10 +394,10 @@ public class ChatFragment extends EaseChatFragment implements
 						LogUtil.e(TAG, "解除匹配成功");
 						JSONObject jsonObject2=new JSONObject();
 						jsonObject2=jsonObject.getJSONObject("data");
-						String token=jsonObject2.getString("token");
-						if(!token.equals("")&&token!=null){
-							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
-						}						
+//						String token=jsonObject2.getString("token");
+//						if(!token.equals("")&&token!=null){
+//							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+//						}						
 
 					getActivity().finish();	
 									
@@ -476,10 +478,10 @@ public class ChatFragment extends EaseChatFragment implements
 					
 					JSONObject jsonObject2=new JSONObject();
 					jsonObject2=jsonObject.getJSONObject("data");
-					String token=jsonObject2.getString("token");
-					if(!token.equals("")&&token!=null){
-						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
-					}						
+//					String token=jsonObject2.getString("token");
+//					if(!token.equals("")&&token!=null){
+//						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+//					}						
 				
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

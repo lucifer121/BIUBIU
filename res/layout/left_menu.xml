@@ -34,9 +34,10 @@
 
             <ImageView
                 android:id="@+id/main_touxiang_img"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
-                android:layout_centerInParent="true" />
+                android:layout_width="78dp"
+                android:layout_height="78dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ease_default_avatar" />
         </RelativeLayout>
 
         <TextView
@@ -50,14 +51,7 @@
             android:textColor="@color/name_main"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/hint_your_photo_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:text="你的照片" />
+        
     </RelativeLayout>
 
     <RelativeLayout
@@ -231,8 +225,9 @@
             android:id="@+id/icon_myapp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/icon_about_iu" />
+            android:src="@drawable/icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -241,7 +236,7 @@
             android:layout_centerHorizontal="true"
             android:text="关于iU"
             android:textColor="#888888"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
 </RelativeLayout>

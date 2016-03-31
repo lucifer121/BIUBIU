@@ -125,7 +125,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="366dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/biu_cloud_1" />
+            android:src="@drawable/biu_cloud_up" />
 
         <ImageView
             android:id="@+id/cloud2"
@@ -140,7 +140,7 @@
             android:layout_width="148dp"
             android:layout_height="20dp"
             android:layout_marginTop="360dp"
-            android:src="@drawable/biu_cloud_3" />
+            android:src="@drawable/biu_cloud_down" />
 
         <ImageView
             android:id="@+id/cloud4"

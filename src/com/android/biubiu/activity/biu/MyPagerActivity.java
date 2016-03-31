@@ -171,13 +171,18 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			userCode = getIntent().getStringExtra("userCode");
 			if(userCode.equals(SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""))){
 				isMyself = true;
+			
+				initOnclick();
 			}else{
 				isMyself = false;
+			
 			}
+			
 		}else{
 			isMyself = true;
 			userCode = SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, "");
 			initOnclick();
+		
 		}
 		getUserInfo();
 	}
@@ -452,8 +457,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String info = data.getJSONObject("userinfo").toString();
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson = new Gson();
 					UserInfoBean bean = gson.fromJson(info, UserInfoBean.class);
 					if(bean == null){
@@ -634,8 +639,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
-					String token = obj.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = obj.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -752,8 +757,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					UserPhotoBean bean = new UserPhotoBean();
 					String photoCode = data.getString("photo_code");
 					String photoOrigin = data.getString("photo_url");

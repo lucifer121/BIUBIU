@@ -214,10 +214,10 @@ public class UserListActivity extends BaseActivity {
 					JSONObject obj = jsons.getJSONObject("data");
 					
 					
-					String token=obj.getString("token");
-					if(token!=null&&!token.equals("")){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					}
+//					String token=obj.getString("token");
+//					if(token!=null&&!token.equals("")){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					}
 					Gson gson=new Gson();
 					
 					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
@@ -226,13 +226,13 @@ public class UserListActivity extends BaseActivity {
 					mData.addAll(userFriendsList);
 					LogUtil.e(TAG, ""+userFriendsList.size()+" ||"+mData.size());
 					int number=mData.size();
-					Log.e(TAG, ""+number);
+			//		Log.e(TAG, ""+number);
 					if(number!=0){
 						userDao.deleteAllUser();
 						for(int i=0;i<mData.size();i++){
 							userDao.insertOrReplaceUser(mData.get(i));
 						}						
-					log.e(TAG, userDao.queryUserAll().size()+"");
+				//	log.e(TAG, userDao.queryUserAll().size()+"");
 					}else{
 						return;
 					}			
@@ -307,10 +307,10 @@ public class UserListActivity extends BaseActivity {
 					toastShort("解除匹配成功");
 					JSONObject jsonObject2=new JSONObject();
 					jsonObject2=jsonObject.getJSONObject("data");
-					String token=jsonObject2.getString("token");
-					if(!token.equals("")&&token!=null){
-						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-					}
+//					String token=jsonObject2.getString("token");
+//					if(!token.equals("")&&token!=null){
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+//					}
 					initData();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

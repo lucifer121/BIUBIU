@@ -206,7 +206,10 @@ public class LoginActivity extends BaseActivity{
 					String HxPassword=obj.getString("password");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_NAME, hxName);
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, HxPassword);
-					SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+					if(token!=null&&!token.equals("")){
+						SharePreferanceUtils.getInstance().putShared(LoginActivity.this, SharePreferanceUtils.TOKEN, token);
+					}
+					
 					String nickname = obj.getString("nickname");
 					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.USER_NAME, nickname);
 					String userHead = obj.getString("icon_url");
