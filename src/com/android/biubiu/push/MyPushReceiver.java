@@ -106,7 +106,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 				newUserBean.setSex(jsons.getString("sex"));
 				newUserBean.setStar(jsons.getString("starsign"));
 				newUserBean.setIsStudent(jsons.getString("isgraduated"));
-				newUserBean.setSchool(jsons.getString("isgraduated"));
+				newUserBean.setSchool(jsons.getString("school"));
 				newUserBean.setCareer(jsons.getString("career"));
 				newUserBean.setReferenceId("reference_id");
 			}else if(msgType.equals(Constants.MSG_TYPE_GRAB)){

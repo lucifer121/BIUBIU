@@ -206,7 +206,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:gravity="center_vertical"
-                    android:text=" meetubeijing"
+                    android:text="meetubeijing"
                     android:textColor="@color/main_green"
                     android:textSize="12sp" />
 
@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/weixin_tv"
-                    android:text="[点击复制]微信号:"
+                    android:text="[点击复制]微信号: "
                     android:textColor="@color/about_gray2_txt"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -249,7 +249,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:gravity="center_vertical"
-                    android:text=" 010-66253598"
+                    android:text="010-52725343"
                     android:textColor="@color/main_green"
                     android:textSize="12sp" />
 
@@ -258,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/phone_tv"
-                    android:text="电话:"
+                    android:text="电话: "
                     android:textColor="@color/about_gray2_txt"
                     android:textSize="12sp" />
             </RelativeLayout>

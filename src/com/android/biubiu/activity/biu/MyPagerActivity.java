@@ -349,8 +349,17 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		cityTv.setText(cityDao.getCity(bean.getCity()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getCity()).get(0).getCity());
 		if(bean.getHomeTown()!=null && !bean.getHomeTown().equals("")){
 			hometownTv.setText(cityDao.getCity(bean.getHomeTown()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
+		}else{
+			hometownTv.setText("世界很大，你的家在哪儿");
+			hometownTv.setTextColor(getResources().getColor(R.color.about_gray2_txt));
 		}
-		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
+		if(bean.getHeight()!=0&&bean.getWeight()!=0){
+			heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
+		}else{
+			heightWeightTv.setText("茁壮成长中");
+			heightWeightTv.setTextColor(getResources().getColor(R.color.about_gray2_txt));
+		}
+		
 		
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");

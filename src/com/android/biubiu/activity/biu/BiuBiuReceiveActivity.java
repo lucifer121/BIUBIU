@@ -331,7 +331,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					numberInInterestTag.setText("["
 							+ biuDEtialBean.getInterested_tags_num() + "]");
 					age.setText(biuDEtialBean.getAge() + "岁");
-					description.setText(biuDEtialBean.getDescription());
+					description.setText(biuDEtialBean.getChat_tags());
 					if (biuDEtialBean.getSex().equals("1")) {
 						sex.setText("男生");
 					} else {

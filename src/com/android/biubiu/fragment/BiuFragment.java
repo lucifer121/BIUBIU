@@ -28,6 +28,7 @@ import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.Constant;
 import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
+import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.utils.BiuUtil;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
@@ -166,6 +167,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	Animation animationAlpha;
 	Animation animationHide;
 	Animation animationUserBg;
+	
+	SchoolDao schoolDao;
 
 	//中间是否为biubiu可发送状态
 	boolean isBiuState = true;
@@ -178,6 +181,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(!SharePreferanceUtils.getInstance().getShared(getActivity(), SharePreferanceUtils.IS_COMMIT_CHANNEL, false)){
 			HttpUtils.commitChannelId(getActivity());
 		}
+		schoolDao=new SchoolDao();
 		//接口通信赋值
 		MyPushReceiver.setUpdateBean(this);
 		init();
@@ -488,10 +492,23 @@ public class BiuFragment extends Fragment implements PushInterface{
 		infoHandler.removeCallbacks(infoR);
 		infoLayout.setVisibility(View.VISIBLE);
 		nameTv.setText(bean.getNickname());
-		ageTv.setText(bean.getAge());
+		sexTv.setText(bean.getSex());
+		if (bean.getSex().equals(Constants.SEX_MALE)) {
+			sexTv.setText("男生");
+		} else {
+			sexTv.setText("女生");
+		}
+		ageTv.setText(bean.getAge()+"岁");
 		starTv.setText(bean.getStar());
+		LogUtil.e("503 行", ""+bean.getIsStudent()+"||"+bean.getSchool()+"||"+bean.getCareer());
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
-			schoolTv.setText(bean.getSchool());
+			
+			if(bean.getSchool()!=null&&!bean.getSchool().equals("")){
+				if(schoolDao.getschoolName(bean.getSchool())!=null){
+					schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
+				}
+				
+			}
 		}else{
 			schoolTv.setText(bean.getCareer());
 		}
@@ -607,7 +624,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		//基于头像底部 右侧 偏移d/4
 		//imagePL.leftMargin = dotD/4;
-		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 8);
+		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 0);
 		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
 		imageViewL.setTag(imvDotTag+bean.getChatId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());

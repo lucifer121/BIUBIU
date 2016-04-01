@@ -16,7 +16,7 @@
     <string name="login_title_text">注册</string>
     <string name="login_phone_hint">手机号码</string>
     <string name="login_password_hint">输入密码</string>
-    <string name="login_text">登 录</string>
+    <string name="login_text">登录</string>
     <string name="login_froget_psd">忘记密码?</string>
     <string name="login_froget_psd_title">忘记密码</string>
     <string name="login_bottom_text">注册和登录表示同意</string>
@@ -102,7 +102,7 @@
     <string name="page_interest_tag">我的兴趣标签</string>
     <string name="page_text_bottom">青春校园从iU开始</string>
     <string name="description_me">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
-    <string name="description_other">在这里介绍一下你自己咯，关于爱情，关于成长，关于生活的种种……你想着什么样的人，最终就会遇到什么样的人。So,给每一个来到这里的TA送上祝福。</string>
+    <string name="description_other">TA还没留下关于自己的只言片语呢</string>
     <string name="title_activity_match_setting">MatchSettingActivity</string>
 
     <!-- 设置相关 -->
@@ -183,7 +183,7 @@
     <string name="abour_our_title">关于我们</string>
     <string name="abour_our_welcome">欢迎来到iU的世界</string>
     <string name="abour_our_topic1">小王子说：星星发亮是为了让每一个人有一天都能找到属于自己的星星，那么，每一个人 怎样才能找到属于自己的的TA呢？</string>
-    <string name="abour_our_topic2">IU 是 [我想认识你] 团队推出的一款年轻人恋爱社交产品，团队起源于清华大学，怀以恋爱与成长相结合的理念，围绕爱情线主题，陪伴你的整个青春感情生活。</string>
+    <string name="abour_our_topic2">iU 是 [我想认识你] 团队推出的一款年轻人恋爱社交产品，团队起源于清华大学，怀以恋爱与成长相结合的理念，围绕爱情线主题，陪伴你的整个青春感情生活。</string>
     <string name="abour_our_bottom">[我想认识你]团队 版权所有</string>
 
     <string name="about_our_update">版本更新</string>

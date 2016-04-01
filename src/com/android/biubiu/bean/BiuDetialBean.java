@@ -82,6 +82,8 @@ public class BiuDetialBean {
 	
 	@SerializedName("hit_tags")
 	private List<PersonalTagBean> hit_tags;
+	@SerializedName("chatTag")
+	private String chat_tags;
 	
 	/**
 	 * 共同兴趣个数
@@ -281,6 +283,16 @@ public class BiuDetialBean {
 
 	public void setCarrer(String carrer) {
 		this.carrer = carrer;
+	}
+
+
+	public String getChat_tags() {
+		return chat_tags;
+	}
+
+
+	public void setChat_tags(String chat_tags) {
+		this.chat_tags = chat_tags;
 	}
 	
 	

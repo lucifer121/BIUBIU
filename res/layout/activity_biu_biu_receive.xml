@@ -170,8 +170,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:gravity="center" >
 
                         <LinearLayout
@@ -187,44 +187,51 @@
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
                                 android:textColor="@color/text_huise2"
-                                android:textSize="13sp" />
+                                android:text=""
+                                android:singleLine="true"
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/age_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="13dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
                                 android:textColor="@color/text_huise2"
-                                android:textSize="13sp" />
+                                android:textSize="12sp"
+                                android:text=""
+                                
+                                android:singleLine="true" />
 
                             <TextView
                                 android:id="@+id/starsign_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="13dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
                                 android:textColor="@color/text_huise2"
-                                android:textSize="13sp" />
+                                android:textSize="12sp"
+                                 android:text=""
+                                android:singleLine="true" />
 
                             <TextView
                                 android:id="@+id/school_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="13dp"
+                                android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
                                 android:ellipsize="end"
-                                android:maxEms="8"
+                                android:maxEms="7"
                                 android:singleLine="true"
                                 android:text=""
                                 android:textColor="@color/text_huise2"
-                                android:textSize="13sp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -345,6 +352,7 @@
                         android:numColumns="4"
                         android:stretchMode="columnWidth"
                         android:verticalSpacing="14dp"
+                        
                          />
 
                     <View
