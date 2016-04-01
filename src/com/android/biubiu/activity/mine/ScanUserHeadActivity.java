@@ -12,6 +12,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -21,6 +22,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -89,6 +91,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.photo_imageview_fail)
+		.setIgnoreGif(true)
 		.build();
 		x.image().bind(headImv, userHeadStr, imageOptions);
 	}
@@ -101,10 +104,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		case R.id.edit_rl:
 			if(isMyself){
-				Intent intent = new Intent(Intent.ACTION_PICK, null);
-				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-						"image/*");
-				startActivityForResult(intent, EDIT_HEAD);
+				
+				dialogHint();
 			}
 			break;
 		default:
@@ -357,4 +358,26 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
+	
+	public void dialogHint(){
+		final AlertDialog alertDialog=new AlertDialog.Builder(this).create();
+		alertDialog.show();
+		Window win=alertDialog.getWindow();
+		win.setContentView(R.layout.up_userhead_hint_view);
+		RelativeLayout knowLayout=(RelativeLayout) win.findViewById(R.id.knew_bottom_up_userhead_rl);
+		knowLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				alertDialog.dismiss();
+				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						"image/*");
+				startActivityForResult(intent, EDIT_HEAD);
+				
+			}
+		});
+	}
+	
 }

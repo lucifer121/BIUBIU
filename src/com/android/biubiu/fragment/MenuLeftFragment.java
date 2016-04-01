@@ -91,6 +91,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.photo_fail)
+		.setIgnoreGif(true)
 		.build();
 	}
 	@Override

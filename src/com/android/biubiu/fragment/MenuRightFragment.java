@@ -8,6 +8,7 @@ import com.android.biubiu.MatchSettingActivity;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
 import com.android.biubiu.activity.RegisterOneActivity;
+import com.android.biubiu.activity.RegisterThreeActivity;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.DemoHelper;
 import com.android.biubiu.chat.MyHintDialog;
@@ -69,7 +70,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					Intent intent=new Intent(getActivity(),RegisterOneActivity.class);
+					Intent intent=new Intent(getActivity(),RegisterThreeActivity.class);
 					startActivity(intent);
 				}
 			});

@@ -233,6 +233,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.photo_fail)
+		.setIgnoreGif(true)
 		.build();
 		/**
 		 * 此处用于设置背景动画 暂时注释
@@ -331,7 +332,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			taskView.updeteTask(currentTime--);
 			if(currentTime <= 0){
 				if(getActivity() != null){
-					Toast.makeText(getActivity(), "你的biubiu暂时无人应答，请重新发送", 1000).show();
+					Toast.makeText(getActivity().getApplicationContext(), "你的biubiu暂时无人应答，请重新发送", Toast.LENGTH_SHORT).show();
 				}
 				taskView.setVisibility(View.GONE);
 				userBiuImv.setVisibility(View.VISIBLE);
@@ -606,7 +607,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		RelativeLayout.LayoutParams imagePL = new RelativeLayout.LayoutParams(dotD,dotD);
 		//基于头像底部 右侧 偏移d/4
 		//imagePL.leftMargin = dotD/4;
-		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 4);
+		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 8);
 		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
 		imageViewL.setTag(imvDotTag+bean.getChatId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());

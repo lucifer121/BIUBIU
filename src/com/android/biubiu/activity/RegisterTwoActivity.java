@@ -650,7 +650,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 						toastShort("注册失败");
 						return;
 					}
-
+					toastShort("注册成功");
 					JSONObject obj = jsons.getJSONObject("data");
 					String username = obj.getString("username");
 					String passwprd = obj.getString("password");

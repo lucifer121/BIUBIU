@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:background="@drawable/mes_imageview_normal"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/jubao_dialog_mupage_rl"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/item_chat_dialog"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#565656"
+                android:text="@string/chat_item_jubao" />
+        </RelativeLayout>
+
+ 
+
+        
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/gray" />
+
+        <RelativeLayout
+             android:id="@+id/dismiss_dialog_mypage_rl"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/item_selector_listview_bg"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#565656"
+                android:text="@string/chat_item_dismiss" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+    </LinearLayout>
+
+</RelativeLayout>

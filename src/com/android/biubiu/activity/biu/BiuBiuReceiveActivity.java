@@ -304,13 +304,27 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					setInterestTags(biuDEtialBean.getInterested_tags());
 
 					userName.setText("" + biuDEtialBean.getNickname());
-					distance.setText(biuDEtialBean.getDistance() + "m");
+			//		distance.setText(biuDEtialBean.getDistance() + "m");
 					matchingScore.setText(""
 							+ biuDEtialBean.getMatching_score() + "%");
 
-					timeBefore.setText(biuDEtialBean.getTimebefore() + "分钟");
+			//		timeBefore.setText(biuDEtialBean.getTimebefore() + "分钟");
 
 
+					if(biuDEtialBean.getDistance()>1000){
+						distance.setText(Math.round(biuDEtialBean.getDistance()/1000)/10.0+"km");
+					}else{
+						distance.setText(biuDEtialBean.getDistance()+"m");
+					}
+					
+					if(biuDEtialBean.getTimebefore()>(24*60*60)){
+						timeBefore.setText(biuDEtialBean.getTimebefore()+"day");
+					}else if(biuDEtialBean.getTimebefore()>(60*60)){
+						timeBefore.setText(biuDEtialBean.getTimebefore()+"h");
+					}else{
+						timeBefore.setText(biuDEtialBean.getTimebefore()+"min");
+					}
+					
 
 					numberInTag.setText("[" + biuDEtialBean.getHit_tags_num()
 							+ "]");
@@ -376,15 +390,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 
 		setGridviewHight(mGridViewTag);
 		setGridview2Hight(mGridViewInterestTag);
-		mGridViewTag.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View view,
-					int position, long id) {
-
-				toastShort(personalTagList.get(position).getName());
-			}
-		});
+//		mGridViewTag.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View view,
+//					int position, long id) {
+//
+//				toastShort(personalTagList.get(position).getName());
+//			}
+//		});
 	}
 
 

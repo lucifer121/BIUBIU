@@ -56,20 +56,23 @@
             android:layout_marginTop="67dp"
             android:background="@drawable/biu_imageview_right_1_normal" >
 
-            <EditText
+           <EditText
                 android:id="@+id/topic_send_biu_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
+               android:layout_marginRight="40dp"
+               android:singleLine="true"
                 android:background="@null"               
-                android:maxLength="16"
+                android:maxLength="50"
                 android:hint="@string/send_biu_add_topic_tags"
                 android:textColor="@color/login_text_hint"
                 android:textSize="13sp" />
 
             <LinearLayout
+                android:id="@+id/size_text_sendbiu_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -88,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/send_biu_allNumber" />
             </LinearLayout>
+             
         </RelativeLayout>
 
         <com.android.biubiu.view.Flowlayout

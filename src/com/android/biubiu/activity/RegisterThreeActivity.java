@@ -236,10 +236,13 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 						sendSms();
 					}else{
 						toastShort("该手机号已注册,请直接登录");
-						//启动登录页，因堆栈问题，启动登录注册页
-						Intent intent = new Intent(RegisterThreeActivity.this,LoginOrRegisterActivity.class);
-						intent.putExtra("startActivity", "login");
+//						//启动登录页，因堆栈问题，启动登录注册页
+//						Intent intent = new Intent(RegisterThreeActivity.this,LoginOrRegisterActivity.class);
+//						intent.putExtra("startActivity", "login");
+//						startActivity(intent);
+						Intent intent=new Intent(RegisterThreeActivity.this,LoginActivity.class);
 						startActivity(intent);
+						finish();
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -255,7 +258,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		}
 		currentTime = totalTime;
 		handler.post(r);
-		AVOSCloud.requestSMSCodeInBackground(registerPhoneEt.getText().toString(), "biubiu", "注册", 10*60*1000,
+		AVOSCloud.requestSMSCodeInBackground(registerPhoneEt.getText().toString(), "biubiu", "注册", 10,
 				new RequestMobileCodeCallback() {
 			@Override
 			public void done(AVException e) {

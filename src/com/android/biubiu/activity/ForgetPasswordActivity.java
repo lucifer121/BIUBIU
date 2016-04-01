@@ -207,7 +207,7 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 		currentTime = totalTime;
 		handler.post(r);
 
-		AVOSCloud.requestSMSCodeInBackground(uPhone.getText().toString(), "biubiu", "重置密码", 10*60*1000,
+		AVOSCloud.requestSMSCodeInBackground(uPhone.getText().toString(), "biubiu", "重置密码", 10,
 				new RequestMobileCodeCallback() {
 			@Override
 			public void done(AVException e) {
@@ -222,10 +222,13 @@ public class ForgetPasswordActivity extends BaseActivity implements OnClickListe
 	//倒计时线程
 	Runnable r=new Runnable() {
 
+
 		@Override
 		public void run() {
+			sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_disabled);
 			sendVerifyTv.setText("重新发送("+(currentTime--)+")");
 			if(currentTime<=0){
+				sendVerifyTv.setBackgroundResource(R.drawable.register_phone_btn_normal);
 				sendVerifyTv.setText(getResources().getString(R.string.register_three_send_verify));
 				currentTime = 0;
 				handler.removeCallbacks(r);

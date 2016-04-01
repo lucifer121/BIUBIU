@@ -51,7 +51,7 @@ public class ChatFragment extends EaseChatFragment implements
 		super.setUpView();
 		setChatFragmentListener(this);
 		// 设置标题栏点击事件
-		titleBar.setLeftImageResource(R.drawable.main_name_btn_back);
+		titleBar.setLeftImageResource(R.drawable.back_main);
 		titleBar.setRightImageResource(R.drawable.mes_btn_right);
 		
 		titleBar.setRightLayoutClickListener(new OnClickListener() {

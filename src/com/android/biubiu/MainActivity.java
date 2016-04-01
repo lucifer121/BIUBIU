@@ -117,7 +117,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			LogUtil.e(TAG, "有token");
 			LoadUserFriend.getUserFriends(this);
 		}
-
+		
 		//	newMessage.setVisibility(View.VISIBLE);
 		location();
 		log.e("Token", SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, ""));
@@ -241,7 +241,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	private void initBeginGuid() {
 		// TODO Auto-generated method stub
 		boolean isScanGuid = SharePreferanceUtils.getInstance().isScanBeginGuid(getApplicationContext(), SharePreferanceUtils.IS_SCAN_BEGINGUID, false);
-		if(!isScanGuid){
+		if(!isScanGuid){ 
 			beginGuidLayout.setVisibility(View.VISIBLE);
 			guidImv.setImageResource(R.drawable.help_imageview_01);
 			guidBtn.setOnClickListener(new OnClickListener() {

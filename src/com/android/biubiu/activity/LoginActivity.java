@@ -178,6 +178,7 @@ public class LoginActivity extends BaseActivity{
 				Log.d("mytest", "error--"+ex.getMessage());
 				Log.d("mytest", "error--"+ex.getCause());
 				Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+				dismissLoadingLayout();
 			}
 
 			@Override
@@ -223,7 +224,11 @@ public class LoginActivity extends BaseActivity{
 					//统计登录用户
 					MobclickAgent.onProfileSignIn(userCode);
 					
-					setResult(RESULT_OK);
+//					setResult(RESULT_OK);
+//					finish();
+					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
 					finish();
 	
 				} catch (JSONException e) {

@@ -152,6 +152,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_marginTop="13dp"
                         android:gravity="center" >
 
@@ -168,6 +170,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:gravity="center" >
 
                         <LinearLayout
@@ -215,8 +219,13 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
+                                android:ellipsize="end"
+                                android:maxEms="8"
+                                android:singleLine="true"
+                                android:text=""
                                 android:textColor="@color/text_huise2"
                                 android:textSize="13sp" />
+
                         </LinearLayout>
                     </RelativeLayout>
 

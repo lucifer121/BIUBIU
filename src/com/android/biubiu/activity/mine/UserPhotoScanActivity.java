@@ -72,6 +72,7 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
+		.setIgnoreGif(true)
 		.setFailureDrawableId(R.drawable.photo_imageview_fail)
 		.build();
 		if(isMyself){

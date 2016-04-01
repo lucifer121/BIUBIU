@@ -13,6 +13,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,6 +31,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import cc.imeetu.iu.R;
@@ -72,6 +74,8 @@ import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.bean.UserPhotoBean;
+import com.android.biubiu.chat.MyHintDialog;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.sqlite.CityDao;
 import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.sqlite.UserDao;
@@ -84,6 +88,7 @@ import com.android.biubiu.utils.SharePreferanceUtils;
 import com.android.biubiu.view.MyGridView;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
+import com.hyphenate.chat.EMClient;
 
 public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private static final int UPDATE_INFO = 1001;
@@ -129,6 +134,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private TextView locationTv;
 	private TextView matchTv;
 	private TextView timeTv;
+	private TextView iconVerify;
 	private ImageView aboutMeArrow;
 	private ImageView nickArrwo;
 	private ImageView starArrow;
@@ -141,6 +147,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView personalArrow;
 	private ImageView interestArrow;
 	private TextView noPhotoTv;
+	private RelativeLayout moreLayout;
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private UserPagerPhotoAdapter photoAdapter;
@@ -160,6 +167,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private SchoolDao schoolDao = new SchoolDao();
 	private String userCode = "";
 	private UserDao userDao;
+	private String TAG="MyPagerActivity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -175,7 +183,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				initOnclick();
 			}else{
 				isMyself = false;
-			
+				moreLayout.setVisibility(View.VISIBLE);
 			}
 			
 		}else{
@@ -188,13 +196,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	}
 
 	private void initView() {
-
+		moreLayout=(RelativeLayout) findViewById(R.id.more_right_rl);
+		moreLayout.setOnClickListener(this);
 		userheadImv = (ImageView) findViewById(R.id.userhead_imv);
 		userheadImv.setOnClickListener(this);
 		//解决scrollview初始在顶部
 		userheadImv.setFocusable(true);
 		userheadImv.setFocusableInTouchMode(true);
 		userheadImv.requestFocus();
+		iconVerify=(TextView) findViewById(R.id.virify_tv);
 		usernameTv = (TextView) findViewById(R.id.username_tv);
 		addPhotoImv = (ImageView) findViewById(R.id.add_userphoto_imv);
 		photoPager = (ViewPager) findViewById(R.id.userphoto_pager);
@@ -250,6 +260,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.ic_launcher)
+		.setIgnoreGif(true)
 		.build();
 
 		photoPager.setOffscreenPageLimit(3);
@@ -291,7 +302,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				locationTv.setText(bean.getDistance()+"m");
 			}
 			LogUtil.d("mytest", "time"+(System.currentTimeMillis()-bean.getActivityTime())/1000);
-			if(((System.currentTimeMillis()-bean.getActivityTime())/1000)>(60*60*1000)){
+			if(((System.currentTimeMillis()-bean.getActivityTime())/1000)>(24*60*60*1000)){
+				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)/60%60%24+"day");
+			}else if(((System.currentTimeMillis()-bean.getActivityTime())/1000)>(60*60*1000)){
 				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)/60%60+"h");
 			}else{
 				timeTv.setText(((System.currentTimeMillis()-bean.getActivityTime())/1000)%60+"min");
@@ -312,6 +325,22 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			interestArrow.setVisibility(View.GONE);
 		}
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
+		
+		if(isMyself){
+			iconVerify.setVisibility(View.VISIBLE);
+			if(bean.getIconVerify().equals("0")){
+				iconVerify.setText("待审核");
+			}else if(bean.getIconVerify().equals("1")){
+				iconVerify.setText("审核中");
+			}else if(bean.getIconVerify().equals("2")){
+				iconVerify.setText("审核通过");
+			}else {
+				iconVerify.setText("审核失败");
+			}
+		}else{
+			iconVerify.setVisibility(View.GONE);
+		}
+
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());
 		sexTv.setText(bean.getSexStr(bean.getSex()));
@@ -322,6 +351,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			hometownTv.setText(cityDao.getCity(bean.getHomeTown()).get(0).getPrivance()+"  "+cityDao.getCity(bean.getHomeTown()).get(0).getCity());	
 		}
 		heightWeightTv.setText(bean.getHeight()+"cm  "+bean.getWeight()+"kg");
+		
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
@@ -586,6 +616,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.back_rl:
 			finish();
+			break;
+		case R.id.more_right_rl:
+			getMosterDialog();
 			break;
 		default:
 			break;
@@ -892,5 +925,128 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		item.setNickname(name);
 		userDao.insertOrReplaceUser(item);
 		
+	}
+	
+	/**
+	 * 更多
+	 */
+	public void getMosterDialog() {
+		final AlertDialog portraidlg = new AlertDialog.Builder(this)
+				.create();
+		portraidlg.show();
+		Window win = portraidlg.getWindow();
+		win.setContentView(R.layout.item_hint_moster_dralog_mypage);
+		
+		RelativeLayout dismissLayout,jubaoLayout;
+
+		jubaoLayout=(RelativeLayout) win.findViewById(R.id.jubao_dialog_mupage_rl);
+		dismissLayout=(RelativeLayout) win.findViewById(R.id.dismiss_dialog_mypage_rl);
+		
+
+
+
+		dismissLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				portraidlg.dismiss();
+			}
+		});
+		jubaoLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				portraidlg.dismiss();
+				MyHintDialog.getDialog(MyPagerActivity.this, "举报Ta", "嗨~确定要举报Ta吗？", "确定", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub  缺少举报接口
+
+//			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
+			                jubao(userCode);
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			}
+		});
+	}
+	/**
+	 * 举报好友
+	 * @param userCode
+	 */
+	public void jubao(String userCode){
+		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REPORT);
+		JSONObject object=new JSONObject();
+		try {
+			object.put("token", SharePreferanceUtils.getInstance().
+					getToken(this, SharePreferanceUtils.TOKEN, ""));
+			object.put("device_code", SharePreferanceUtils.getInstance().
+					getDeviceId(this, SharePreferanceUtils.DEVICE_ID, ""));
+			object.put("user_code", userCode);
+			object.put("reason", "个人主页举报");
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		params.addBodyParameter("data", object.toString());
+		x.http().post(params, new CommonCallback<String>() {
+
+			@Override
+			public void onCancelled(CancelledException arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onError(Throwable arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFinished() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(String arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.e(TAG, arg0);
+				
+				JSONObject jsonObject;
+				try {
+					jsonObject=new JSONObject(arg0);
+					String state=jsonObject.getString("state");
+					LogUtil.e(TAG, state);
+					if(!state.equals("200")){
+							
+						Toast.makeText(getApplicationContext(), jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+					}
+					Toast.makeText(getApplicationContext().getApplicationContext(), "举报成功", Toast.LENGTH_SHORT).show();
+					
+					JSONObject jsonObject2=new JSONObject();
+					jsonObject2=jsonObject.getJSONObject("data");
+//					String token=jsonObject2.getString("token");
+//					if(!token.equals("")&&token!=null){
+//						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+//					}						
+				
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 	}
 }

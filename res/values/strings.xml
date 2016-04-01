@@ -145,7 +145,7 @@
     <string name="send_biu_add_topic_tags">添加话题标签</string>
     <string name="send_biu_send">发送</string>
     <string name="send_biu_number">0</string>
-    <string name="send_biu_allNumber">/16</string>
+    <string name="send_biu_allNumber">/50</string>
     <string name="title_activity_biu_biu_receive">BiuBiuReceiveActivity</string>
 
     <!-- 接收biubiu -->
