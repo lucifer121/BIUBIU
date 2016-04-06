@@ -148,7 +148,7 @@ public class UserListActivity extends BaseActivity {
 					@Override
 					public void onOK() {
 						// TODO Auto-generated method stub
-						toastShort("ok");
+					//	toastShort("ok");
 						removeFriend(mData.get(position).getUserCode());
 					}				
 					@Override

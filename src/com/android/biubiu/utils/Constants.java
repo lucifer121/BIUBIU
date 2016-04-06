@@ -50,4 +50,9 @@ public class Constants {
 	public static final String MOVIE="电影";
 	public static final String BOOK="书籍";
 	public static final String MUSIC="音乐";
+	
+	/**
+	 * 聊天页面刷新广播 标记 频道
+	 */
+	public static final String FLAG_RECEIVE="receive_refresh";
 }

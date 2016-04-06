@@ -15,6 +15,8 @@ import com.android.biubiu.chat.MyHintDialog;
 import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.common.Constant;
+import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMMessageListener;
@@ -27,7 +29,10 @@ import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.util.NetUtils;
 
 import android.support.v4.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -53,6 +58,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
 	 private TextView errorText;
 	 private Button register,login;
 	 private String TAG="MenuRightFragment";
+	 private ReceiveBroadCast receiveBroadCast;  //广播实例
 
 	@Override
     protected void initView() {
@@ -87,8 +93,27 @@ public class MenuRightFragment extends EaseConversationListFragment{
         	errorItemContainer.addView(errorView);
         	 errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
         }
+        
+        // 注册广播接收
+        receiveBroadCast = new ReceiveBroadCast();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.FLAG_RECEIVE);    //只有持有相同的action的接受者才能接收此广播
+        getActivity().registerReceiver(receiveBroadCast, filter);
 
     }
+	public class ReceiveBroadCast extends BroadcastReceiver
+	{
+	 
+	        @Override
+	        public void onReceive(Context context, Intent intent)
+	        {
+
+	        	LogUtil.e(TAG, "收到刷新广播");
+	        	handler.sendEmptyMessage(2);
+	        	refresh();
+	        }
+	 
+	}
     
     @Override
     protected void setUpView() {
@@ -111,11 +136,11 @@ public class MenuRightFragment extends EaseConversationListFragment{
 			
 		}
 	});
-    	 if(DemoHelper.getInstance().isLoggedIn()==true){
-    		 log.e(TAG, "注册接收消息监听");
- 			EMClient.getInstance().chatManager().addMessageListener(msgListener);
-    	 }
-      
+//    	 if(DemoHelper.getInstance().isLoggedIn()==true){
+//    		 log.e(TAG, "注册接收消息监听");
+// 			EMClient.getInstance().chatManager().addMessageListener(msgListener);
+//    	 }
+
         // 注册上下文菜单
         registerForContextMenu(conversationListView);
         conversationListView.setOnItemClickListener(new OnItemClickListener() {
@@ -178,46 +203,46 @@ public class MenuRightFragment extends EaseConversationListFragment{
 //        }
     }
     
-	/**
-	 * 会话消息监听
-	 */
-	EMMessageListener msgListener = new EMMessageListener() {
-
-
-		@Override
-		public void onMessageReceived(List<EMMessage> messages) {
-			//收到消息
-			
-		//	log.e(TAG, "收到消息");
-			refresh();
-			
-			
-		}
-
-		@Override
-		public void onCmdMessageReceived(List<EMMessage> messages) {
-			//收到透传消息
-			//收到消息
-			
-		//	log.e(TAG, "收到透传消息");
-			refresh();
-		}
-
-		@Override
-		public void onMessageReadAckReceived(List<EMMessage> messages) {
-			//收到已读回执
-		}
-
-		@Override
-		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
-			//收到已送达回执
-		}
-
-		@Override
-		public void onMessageChanged(EMMessage message, Object change) {
-			//消息状态变动
-		}
-	};
+//	/**
+//	 * 会话消息监听
+//	 */
+//	EMMessageListener msgListener = new EMMessageListener() {
+//
+//
+//		@Override
+//		public void onMessageReceived(List<EMMessage> messages) {
+//			//收到消息
+//			
+//			log.e(TAG, "收到消息");
+//			refresh();
+//			handler.sendEmptyMessage(2);
+//			
+//		}
+//
+//		@Override
+//		public void onCmdMessageReceived(List<EMMessage> messages) {
+//			//收到透传消息
+//			//收到消息
+//			
+//			log.e(TAG, "收到透传消息");
+//			refresh();
+//		}
+//
+//		@Override
+//		public void onMessageReadAckReceived(List<EMMessage> messages) {
+//			//收到已读回执
+//		}
+//
+//		@Override
+//		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+//			//收到已送达回执
+//		}
+//
+//		@Override
+//		public void onMessageChanged(EMMessage message, Object change) {
+//			//消息状态变动
+//		}
+//	};
     
 
 }

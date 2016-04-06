@@ -72,6 +72,7 @@ public class ChatFragment extends EaseChatFragment implements
 							MainActivity.class);
 					startActivity(intent);
 				}
+				getActivity().setResult(getActivity().RESULT_CANCELED, getActivity().getIntent());
 				getActivity().finish();
 			}
 		});
@@ -114,10 +115,7 @@ public class ChatFragment extends EaseChatFragment implements
 	public void onMessageBubbleLongClick(EMMessage message) {
 		// TODO Auto-generated method stub
 
-//		// 消息框长按
-//		startActivityForResult((new Intent(getActivity(),
-//				ContextMenuActivity.class)).putExtra("message", message),
-//				REQUEST_CODE_CONTEXT_MENU);
+
 		showDialog(message);
 
 	}
@@ -150,12 +148,7 @@ public class ChatFragment extends EaseChatFragment implements
 				break;
 
 			case ContextMenuActivity.RESULT_CODE_FORWARD: // 转发消息
-				// Intent intent = new Intent(getActivity(),
-				// ForwardMessageActivity.class);
-				// intent.putExtra("forward_msg_id",
-				// contextMenuMessage.getMsgId());
-				// startActivity(intent);
-
+	
 				break;
 
 			default:
@@ -398,7 +391,8 @@ public class ChatFragment extends EaseChatFragment implements
 //						if(!token.equals("")&&token!=null){
 //							SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 //						}						
-
+					Intent intent=getActivity().getIntent();
+					getActivity().setResult(getActivity().RESULT_OK, intent);
 					getActivity().finish();	
 									
 					} catch (JSONException e) {
