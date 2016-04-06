@@ -243,7 +243,7 @@ public class UserListActivity extends BaseActivity {
 						}						
 				//	log.e(TAG, userDao.queryUserAll().size()+"");
 					}else{
-						return;
+						
 					}			
 					
 					
@@ -316,10 +316,7 @@ public class UserListActivity extends BaseActivity {
 					toastShort("解除匹配成功");
 					JSONObject jsonObject2=new JSONObject();
 					jsonObject2=jsonObject.getJSONObject("data");
-//					String token=jsonObject2.getString("token");
-//					if(!token.equals("")&&token!=null){
-//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-//					}
+
 					initData();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
