@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.sqlite.UserDao;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
@@ -234,6 +235,12 @@ public class DemoHelper {
 	                //设置点击通知栏跳转事件
 	                Intent intent = new Intent(appContext.getApplicationContext(), ChatActivity.class);
 	                LogUtil.e(TAG, "点击通知栏进入聊天activity");
+	                
+	                Intent intentRefresh = new Intent();  //Itent就是我们要发送的内容
+	                
+	                intentRefresh.setAction(Constants.FLAG_RECEIVE);   //设置你这个广播的action，只有和这个action一样的接受者才能接受者才能接收广播
+	                appContext.sendBroadcast(intentRefresh);   //发送广播
+	                
 	                //有电话时优先跳转到通话页面
 	                {
 	                    ChatType chatType = message.getChatType();

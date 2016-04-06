@@ -13,6 +13,7 @@ import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
+import com.android.biubiu.UserAgreementActivity;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
@@ -76,6 +77,15 @@ public class LoginActivity extends BaseActivity{
 		backLayout=(RelativeLayout) findViewById(R.id.title_left_rl);
 		phoneEt.addTextChangedListener(watcher);
 		passwordEt.addTextChangedListener(watcher);
+		protocolTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(LoginActivity.this,UserAgreementActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 	/**
 	 * 点击事件

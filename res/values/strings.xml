@@ -196,5 +196,6 @@
     <string name="about_our_lianxi_our">联系我们</string>
     <string name="about_our_phone_name">电话：</string>
     <string name="about_our_phone_number">010-66253598</string>
+    <string name="title_activity_user_agreement">UserAgreementActivity</string>
 
 </resources>

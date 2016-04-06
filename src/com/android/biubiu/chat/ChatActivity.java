@@ -26,7 +26,7 @@ public class ChatActivity extends EaseBaseActivity {
 	   public static ChatActivity activityInstance;
 	    private EaseChatFragment chatFragment;
 	    String toChatUsername;
-	
+	   
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
