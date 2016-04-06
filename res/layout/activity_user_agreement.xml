@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+
+   <RelativeLayout
+        android:id="@+id/top_changname_rl"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        
+        android:background="@color/mine_chird_top_bg">
+
+        <RelativeLayout
+            android:id="@+id/back_agreement_rl"
+            android:layout_width="50dp"
+            android:layout_height="44dp"          
+            android:background="@drawable/kongjianruoqu_bg"
+            android:gravity="center" >
+
+            <ImageView
+                
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/main_name_btn_back" />
+        </RelativeLayout>
+
+        <TextView
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="用户协议"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        
+    </RelativeLayout>
+    <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray">
+        
+    </View>
+    <WebView
+        android:id="@+id/webview_user_agreement" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+
+</LinearLayout>
