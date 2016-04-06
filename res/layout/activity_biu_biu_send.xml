@@ -38,7 +38,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/relativeLayout1_send_biu_rl"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_marginLeft="37dp"
@@ -63,7 +63,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-               android:layout_marginRight="40dp"
+               android:layout_marginRight="50dp"
                android:singleLine="true"
                 android:background="@null"               
                 android:maxLength="50"

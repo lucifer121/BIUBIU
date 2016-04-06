@@ -393,16 +393,16 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 							exitHuanxin();
 							return;
 						}
-						showErrorLayout(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub
-								dismissErrorLayout();
-								initlodo();
-							}
-						});
-						toastShort("获取设置信息失败");
+//						showErrorLayout(new OnClickListener() {
+//
+//							@Override
+//							public void onClick(View v) {
+//								// TODO Auto-generated method stub
+//								dismissErrorLayout();
+//								initlodo();
+//							}
+//						});
+//						toastShort("获取设置信息失败");
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
@@ -420,7 +420,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					setToggle();
 					setRangeAge();
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 

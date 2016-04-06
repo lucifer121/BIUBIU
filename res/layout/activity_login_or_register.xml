@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="21dp"
-        android:text="本宝宝的名字"
+        android:text="iU"
         android:textColor="@color/login_register_text1"
         android:textSize="18sp" />
 

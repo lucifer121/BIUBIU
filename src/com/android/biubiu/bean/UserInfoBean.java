@@ -221,9 +221,9 @@ public class UserInfoBean implements Serializable{
 	}
 	public String getSexStr(String sexFlag){
 		if(sexFlag.equals(Constants.SEX_MALE)){
-			return "男";
+			return "男生";
 		}else{
-			return "女";
+			return "女生";
 		}
 	}
 }

@@ -54,6 +54,7 @@ public class BaseActivity extends Activity{
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		
 	}
 	/**
 	 * 显示Toast长通知

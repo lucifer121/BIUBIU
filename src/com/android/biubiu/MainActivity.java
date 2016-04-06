@@ -283,6 +283,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPause(this);
+		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
+		
 	}
 	private void location() {
 		// TODO Auto-generated method stub
@@ -624,6 +626,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		 this.moveTaskToBack(true);
 	}
+	
 
 
 

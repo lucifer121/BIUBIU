@@ -146,6 +146,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView schoolArrow;
 	private ImageView personalArrow;
 	private ImageView interestArrow;
+	private ImageView sexArrow;
 	private TextView noPhotoTv;
 	private RelativeLayout moreLayout;
 	private UserInfoBean infoBean ;
@@ -255,6 +256,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		personalArrow = (ImageView) findViewById(R.id.personal_arrow);
 		interestArrow = (ImageView) findViewById(R.id.interest_arrow);
 		noPhotoTv = (TextView) findViewById(R.id.no_photo);
+		sexArrow=(ImageView) findViewById(R.id.sex_arrow);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -295,6 +297,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolArrow.setVisibility(View.VISIBLE);
 			personalArrow.setVisibility(View.VISIBLE);
 			interestArrow.setVisibility(View.VISIBLE);
+			
 		}else{
 			if(bean.getDistance()>1000){
 				locationTv.setText(Math.round(bean.getDistance()/1000)/10.0+"km");
@@ -323,6 +326,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolArrow.setVisibility(View.GONE);
 			personalArrow.setVisibility(View.GONE);
 			interestArrow.setVisibility(View.GONE);
+			sexArrow.setVisibility(View.GONE);
 		}
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 		
@@ -485,15 +489,15 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						showErrorLayout(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub
-								dismissErrorLayout();
-								getUserInfo();
-							}
-						});
+//						showErrorLayout(new OnClickListener() {
+//
+//							@Override
+//							public void onClick(View v) {
+//								// TODO Auto-generated method stub
+//								dismissErrorLayout();
+//								getUserInfo();
+//							}
+//						});
 						toastShort("获取数据失败");
 						return;
 					}

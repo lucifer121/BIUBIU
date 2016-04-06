@@ -88,6 +88,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, true);
 		boolean isOpenVoice = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_OPEN_VOICE, true);
 		boolean isShock = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_SHOCK, true);
+		LogUtil.e(TAG, isOpen+"");
 		UserBean newUserBean = new UserBean();
 		String msgType = "";
 		try {

@@ -161,30 +161,34 @@ public class BiuChargeActivity extends BaseActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.zfb_pay_btn:
-			if(isZfbPay){
+//			if(isZfbPay){
+//				showLoadingLayout("正在提交订单……");
+//				getOrderCode();
+//			}else{
 				showLoadingLayout("正在提交订单……");
 				getOrderCode();
-			}else{
 				isZfbPay = true;
 				payBtnBgView.setBackgroundResource(R.drawable.pay_btn_normal_blue);
 				zfbPayBtn.setBackgroundResource(R.drawable.pay_afb_selector);
 				zfbPayBtn.setTextColor(getResources().getColor(R.color.white));
 				wxPayBtn.setBackgroundColor(getResources().getColor(R.color.white));
 				wxPayBtn.setTextColor(getResources().getColor(R.color.pay_blue_txt));
-			}
+//			}
 			break;
 		case R.id.wx_pay_btn:
-			if(!isZfbPay){
+//			if(!isZfbPay){
+//				showLoadingLayout("正在提交订单……");
+//				getOrderCode();
+//			}else{
 				showLoadingLayout("正在提交订单……");
 				getOrderCode();
-			}else{
 				isZfbPay = false;
 				payBtnBgView.setBackgroundResource(R.drawable.pay_btn_normal_green);
 				zfbPayBtn.setBackgroundColor(getResources().getColor(R.color.white));
 				zfbPayBtn.setTextColor(getResources().getColor(R.color.pay_green_txt));
 				wxPayBtn.setBackgroundResource(R.drawable.pay_wx_selector);
 				wxPayBtn.setTextColor(getResources().getColor(R.color.white));
-			}
+//			}
 			break;
 		case R.id.fitity_um_layout:
 			if(umCount != 50){

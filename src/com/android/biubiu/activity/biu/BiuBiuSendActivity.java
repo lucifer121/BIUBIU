@@ -9,6 +9,7 @@ import org.xutils.x;
 import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 
 import cc.imeetu.iu.R;
 
@@ -16,6 +17,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.DisplayUtils;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
@@ -24,7 +26,9 @@ import com.android.biubiu.utils.Utils;
 import com.android.biubiu.view.Flowlayout;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.ion.Ion;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -61,16 +65,32 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	private String TAG="BiuBiuSendActivity";
 	private TextView number;
 	private ImageView userPhoto;
+	private ImageOptions imageOptions;
+	private RelativeLayout flowRlLayout;
+	int viewHight;
+	int bottomSend;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_biu_biu_send);
+		
+		//		initChildViews();
+		viewHight=(int) (350.0*DisplayUtils.getWindowHeight(this)/640.0);
+		bottomSend=(int) (52.0*DisplayUtils.getWindowHeight(this)/640.0);
+		imageOptions = new ImageOptions.Builder()
+		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+		.setLoadingDrawableId(R.drawable.loadingbbbb)
+		.setFailureDrawableId(R.drawable.photo_fail)
+		.setIgnoreGif(true)
+		.build();
 		initView();
 		initData();
-		//		initChildViews();
+		
+		
 	}
+
 	/**
 	 * 网络加载话题标签
 	 */
@@ -186,8 +206,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				}
 			}
 		});
-
-		x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD, ""));
+		
+		x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD,""),imageOptions);
 
 	}
 	@SuppressLint("CutPasteId") 
@@ -201,7 +221,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		mEditText.addTextChangedListener(watcher);
 		number=(TextView) findViewById(R.id.number_send_biu_tv);
 		button=(Button) findViewById(R.id.send_biu);
-
+		flowRlLayout=(RelativeLayout) findViewById(R.id.relativeLayout1_send_biu_rl);
+		
 		button.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -233,6 +254,15 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				finish();
 			}
 		});
+		
+		RelativeLayout.LayoutParams params=(android.widget.RelativeLayout.LayoutParams) flowRlLayout.getLayoutParams();
+		params.height=(int) viewHight;
+		flowRlLayout.setLayoutParams(params);
+		
+		RelativeLayout.LayoutParams params2=(android.widget.RelativeLayout.LayoutParams) sendBiuBtn.getLayoutParams();
+		params2.bottomMargin=bottomSend;
+		sendBiuBtn.setLayoutParams(params2);
+		
 	}
 	private TextWatcher watcher=new TextWatcher() {
 

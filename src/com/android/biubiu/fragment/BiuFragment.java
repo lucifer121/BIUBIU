@@ -235,7 +235,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-		.setLoadingDrawableId(R.drawable.loadingbbbb)
+//		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.photo_fail)
 		.setIgnoreGif(true)
 		.build();

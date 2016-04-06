@@ -55,6 +55,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/center_left_menu_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -215,19 +216,20 @@
         android:id="@+id/aboutOur_left_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
+      	android:layout_below="@id/center_left_menu_rl"
+      	android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"       
         android:background="@drawable/kongjianruoqu_bg"
         android:gravity="center" >
 
         <ImageView
             android:id="@+id/icon_myapp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/icon" />
+            android:src="@drawable/icon_about" />
 
         <TextView
             android:layout_width="wrap_content"

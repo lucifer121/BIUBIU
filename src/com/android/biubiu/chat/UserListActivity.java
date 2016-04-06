@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.xutils.x;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
 
 import cc.imeetu.iu.R;
 
@@ -46,6 +47,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -58,6 +60,7 @@ public class UserListActivity extends BaseActivity {
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private String TAG="UserListActivity";
 	private UserDao userDao;
+	private ImageOptions imageOptions;
 	
 
 	@Override
@@ -65,6 +68,12 @@ public class UserListActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_user_list);
+		imageOptions = new ImageOptions.Builder()
+		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+		
+		.setFailureDrawableId(R.drawable.photo_fail)
+		
+		.build();
 
 		userDao=new UserDao(this);
 		initView();

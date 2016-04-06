@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 import org.xutils.x;
+import org.xutils.image.ImageOptions;
 
 import cc.imeetu.iu.R;
 
@@ -27,11 +28,18 @@ public class UserListAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<UserFriends> mData=new ArrayList<UserFriends>();
 	private SchoolDao schoolDao;
+	private ImageOptions imageOptions;
 
 	public UserListAdapter(Context context,List<UserFriends> mData){
 		this.mContext=context;
 		this.mData=mData;
 		schoolDao=new SchoolDao();
+		imageOptions = new ImageOptions.Builder()
+		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+		
+		.setFailureDrawableId(R.drawable.photo_fail)
+		.setIgnoreGif(true)
+		.build();
 	}
 	@Override
 	public int getCount() {
@@ -79,7 +87,7 @@ public class UserListAdapter extends BaseAdapter {
 		}else{
 			holder.school.setText(item.getCarrer());
 		}
-		x.image().bind(holder.img, item.getIcon_thumbnailUrl());
+		x.image().bind(holder.img, item.getIcon_thumbnailUrl(),imageOptions);
 		holder.img.setOnClickListener(new OnClickListener() {
 			
 			@Override
