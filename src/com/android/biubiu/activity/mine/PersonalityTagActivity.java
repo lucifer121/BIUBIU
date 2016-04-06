@@ -70,10 +70,10 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	private RecyclerView mRecyclerView;
 	private GridRecycleTagAdapter mAdapter;
 	private List<PersonalTagBean> mList=new ArrayList<PersonalTagBean>();
-	
+
 	private UserInfoBean infoBean ;
 	private List<PersonalTagBean> mCheckList=new ArrayList<PersonalTagBean>();
-	
+
 	private int isSelectorTagNumber=0;
 	// 计算recycle 高度
 	private int mHight;
@@ -95,15 +95,15 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		initAdapter();
 		setRecycleviewHight();
 	}
-/**
- * 加载tag 数据
- */
+	/**
+	 * 加载tag 数据
+	 */
 	private void loadData() {
 		showLoadingLayout(getResources().getString(R.string.loading));
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			dismissLoadingLayout();
 			showErrorLayout(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -131,7 +131,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -139,7 +139,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				showErrorLayout(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -153,7 +153,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -166,7 +166,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
 						showErrorLayout(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub
@@ -181,14 +181,14 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
-			                new TypeToken<List<PersonalTagBean>>() {  
-			                }.getType()); 
-					
-				       for (PersonalTagBean tag : personalTagBeansList) {  
-				    	 
-				            mList.add(tag);
-				            log.e(TAG, tag.getName());
-				        }  
+							new TypeToken<List<PersonalTagBean>>() {  
+					}.getType()); 
+
+					for (PersonalTagBean tag : personalTagBeansList) {  
+
+						mList.add(tag);
+						log.e(TAG, tag.getName());
+					}  
 					setView();
 					setRecycleviewHight();
 				} catch (JSONException e) {
@@ -197,8 +197,8 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 				}
 			}
 		});
-		
-		
+
+
 	}
 
 	private void initView() {
@@ -207,24 +207,24 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		backLayout=(RelativeLayout) findViewById(R.id.back_personality_tag_mine_rl);
 		completeLayout=(RelativeLayout) findViewById(R.id.complete_personality_tag_rl);
 		backLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				finish();
-				
+
 			}
 		});
 		completeLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//toastShort("完成");
 				updata();
-				
+
 				updateInfo();
-	
+
 			}
 		});
 	}
@@ -236,9 +236,9 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			if(bean.getIsChoice()==true){
 				mDataFanhui.add(bean);
 			}
-			
+
 		}
-		
+
 	}
 	private void initAdapter() {
 		// TODO Auto-generated method stub
@@ -253,14 +253,14 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	@Override
 	public void onItemClick(int id) {
 		// TODO Auto-generated method stub
-	//	toastShort(mList.get(id).getTag());
+		//	toastShort(mList.get(id).getTag());
 		isSelectorTagNumber=0;
 		for(int i=0;i<mList.size();i++){
 			if(mList.get(i).getIsChoice()==true){
 				isSelectorTagNumber++;
 			}
 		}
-		
+
 		if(mList.get(id).getIsChoice()==false){
 			if(isSelectorTagNumber<10){
 				mList.get(id).setIsChoice(true);
@@ -268,17 +268,17 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			}else{
 				toastShort("阿哦，已经不能再添加了哦！");
 			}
-			
+
 		}else{
 			mList.get(id).setIsChoice(false);
 			mAdapter.notifyDataSetChanged();
 		}
-		
-		
+
+
 
 	}
 
-	
+
 
 	/**
 	 * 设置 recycleview高度
@@ -298,9 +298,9 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	@Override
 	public void onItemLongClick(View view, int position) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	Handler handler=new Handler(){
 
 		@Override
@@ -309,37 +309,37 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			switch(msg.what){
 			case 1:
 				mAdapter.notifyDataSetChanged();
-				
+
 				break;
 			}
 		}
 
-	
-		
+
+
 	};
-	
+
 	/**
 	 * 选中tag
 	 */
 	public void setView(){
 		if(mDataReceive.size()==0){
 			handler.sendEmptyMessage(1);
-			
+
 		}else {
 			for(int i=0;i<mDataReceive.size();i++){
-				
+
 				for(int j=0;j<mList.size();j++){
 					if(mDataReceive.get(i).getCode().equals(mList.get(j).getCode())){
 						mList.get(j).setIsChoice(true);
 						LogUtil.e(TAG, "1");
 					}
-					
+
 				}
 			}
 
-		handler.sendEmptyMessage(1);
-			
-			
+			handler.sendEmptyMessage(1);
+
+
 		}
 	}
 	/**
@@ -348,6 +348,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	protected void updateInfo() {
 		// TODO Auto-generated method stub
 		infoBean.setPersonalTags(mDataFanhui);
+		showLoadingLayout("正在保存");
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
 		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
@@ -379,7 +380,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -392,27 +393,28 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				LogUtil.d("mytest", "personal=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-						toastShort("获取标签信息失败");
+						toastShort("修改标签信息失败");
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent=getIntent();
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("personalTags", (Serializable) mDataFanhui);
-//					LogUtil.e(TAG, ""+mDataFanhui.get(0).getIsChoice());
+					//					LogUtil.e(TAG, ""+mDataFanhui.get(0).getIsChoice());
 					intent.putExtras(bundle);			
 					setResult(RESULT_OK, intent);
 					finish();
@@ -424,5 +426,5 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		});
 	}
 
-	
+
 }

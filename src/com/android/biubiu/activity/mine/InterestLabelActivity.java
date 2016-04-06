@@ -456,6 +456,7 @@ public class InterestLabelActivity extends BaseActivity {
 			list.addAll(mDataFanhui.get(i).getmInterestList());
 		}
 		infoBean.setInterestTags(list);
+		showLoadingLayout("正在保存");
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
 		String token = SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "");
 		String deviceId = SharePreferanceUtils.getInstance().getDeviceId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, "");
@@ -506,6 +507,7 @@ public class InterestLabelActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
+				dismissLoadingLayout();
 				LogUtil.d("mytest", "interes=="+result);
 				try {
 					JSONObject jsons = new JSONObject(result);

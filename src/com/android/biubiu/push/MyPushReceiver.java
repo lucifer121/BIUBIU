@@ -197,9 +197,13 @@ public class MyPushReceiver extends PushMessageReceiver{
 		.setSmallIcon(cc.imeetu.iu.R.drawable.icon);
 		try{
 		if(type.equals(Constants.MSG_TYPE_MATCH)){
-			String info = ""+bean.getNickname()+",";
-			info = info+"年龄:"+bean.getAge()+",";
-			info = info+"星座:"+bean.getStar()+",";
+			String info = ""+bean.getNickname()+" ";
+			if(bean.getSex().equals(Constants.SEX_MALE)){
+				info = info+"男  ";
+			}else{
+				info = info+"女  ";
+			}
+			info = info+bean.getAge()+"岁";
 			mBuilder.setContentText(info);
 		}else{
 			mBuilder.setContentText("你的biubiu被人抢啦");
