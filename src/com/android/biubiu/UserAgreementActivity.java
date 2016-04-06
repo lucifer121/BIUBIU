@@ -29,7 +29,7 @@ public class UserAgreementActivity extends BaseActivity {
 				finish();
 			}
 		});
-		mWebView.loadUrl("http://ac-tcd4rj3s.clouddn.com/5007f6332ea4396d.html");
+		mWebView.loadUrl("http://protect-app.oss-cn-beijing.aliyuncs.com/html/protocol/UserProtocol.html");
 	}
 
 	
