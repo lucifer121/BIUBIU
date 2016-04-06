@@ -1,6 +1,8 @@
 package com.android.biubiu.activity.biu;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,13 +15,17 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -830,6 +836,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		});
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -855,10 +862,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			ContentResolver resolver = getContentResolver();
 			//获得图片的uri 
 			Uri originalUri = data.getData();      
-			//显得到bitmap图片这里开始的第二部分，获取图片的路径：
 			try {
 				bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
-				String[] proj = {MediaStore.Images.Media.DATA};
+				String filePath = saveHeadImg(bm);
+				/*String[] proj = {MediaStore.Images.Media.DATA};
 				//好像是android多媒体数据库的封装接口，具体的看Android文档
 				Cursor cursor = managedQuery(originalUri, proj, null, null, null); 
 				//按我个人理解 这个是获得用户选择的图片的索引值
@@ -866,7 +873,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				//将光标移至开头 ，这个很重要，不小心很容易引起越界
 				cursor.moveToFirst();
 				//最后根据索引值获取图片路径
-				String path = cursor.getString(column_index);
+				String path = cursor.getString(column_index);*/
 				showLoadingLayout(getResources().getString(R.string.uploading));
 				if(!NetUtils.isNetworkConnected(getApplicationContext())){
 					dismissLoadingLayout();
@@ -874,14 +881,14 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					return;
 				}
 				//上传图片鉴权
-				getOssToken(path);
+				getOssToken(filePath); 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
 			break;
 		case UPDATE_HEAD:
 			if(resultCode != RESULT_OK){
@@ -923,6 +930,26 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	public String saveHeadImg(Bitmap head) {
+		FileOutputStream fos = null;
+		String path = "";
+		path = Environment.getExternalStorageDirectory()
+				+ "/biubiu/"+System.currentTimeMillis()+".png";
+		File file = new File(path);
+		file.getParentFile().mkdirs();
+		try {
+			file.createNewFile();
+			fos = new FileOutputStream(file);
+			head.compress(CompressFormat.JPEG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+
 	}
 	
 	/**

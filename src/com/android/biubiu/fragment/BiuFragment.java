@@ -235,7 +235,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-//		.setLoadingDrawableId(R.drawable.loadingbbbb)
+		.setLoadingDrawableId(R.drawable.photo_fail)
 		.setFailureDrawableId(R.drawable.photo_fail)
 		.setIgnoreGif(true)
 		.build();
@@ -339,6 +339,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					Toast.makeText(getActivity().getApplicationContext(), "你的biubiu暂时无人应答，请重新发送", Toast.LENGTH_SHORT).show();
 				}
 				taskView.setVisibility(View.GONE);
+				userBiuImv.setImageResource(R.drawable.biu_btn_biu);
 				userBiuImv.setVisibility(View.VISIBLE);
 				currentTime = 0;
 				taskHandler.removeCallbacks(taskR);
@@ -479,11 +480,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//biubiu被抢后显示view
 	private void updateBiuView(UserBean bean){
 		if(currentTime > 0){
-			taskView.setVisibility(View.GONE);
-			userBiuImv.setVisibility(View.VISIBLE);
 			currentTime = 0;
 			taskHandler.removeCallbacks(taskR);
 		}
+		taskView.setVisibility(View.GONE);
+		userBiuImv.setImageResource(R.drawable.photo_fail);
+		userBiuImv.setVisibility(View.VISIBLE);
 		x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
 	}
 	//显示底部的信息view
@@ -577,9 +579,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		RelativeLayout.LayoutParams gifP = new RelativeLayout.LayoutParams(
 				lWidth,
 				lHeight);
-		/*gifView.setGifImage(R.drawable.anim);
-		gifView.setShowDimension(lWidth, lHeight);
-		gifView.setGifImageType(GifImageType.COVER);*/
 		gifIv.setImageResource(R.drawable.biu_imageview_photo_circle);
 		gifIv.startAnimation(animationUserBg);
 		rl.addView(gifIv, gifP);
@@ -612,8 +611,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageView.setId(Integer.parseInt(bean.getId()));
 		imageView.setTag(imvHeadTag+bean.getChatId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
-		x.image().bind(imageView, bean.getUserHead(), imageOptions);
+		imageView.setImageResource(R.drawable.photo_fail);
 		rl.addView(imageView, imageP);
+		x.image().bind(imageView, bean.getUserHead(), imageOptions);
 
 		final ImageView imageViewL = new ImageView(getActivity());
 		//红点layout直径
