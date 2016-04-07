@@ -70,7 +70,6 @@ public class MySqliteDBHelper extends SQLiteOpenHelper {
 		default:
 			break;
 		}
-		onCreate(db);
 	}
 
 }

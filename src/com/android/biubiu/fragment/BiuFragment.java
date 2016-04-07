@@ -178,8 +178,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
 		schoolDao=new SchoolDao();
-		//接口通信赋值
-		MyPushReceiver.setUpdateBean(this);
 		init();
 		drawBiuView();
 		setBiuLayout();
@@ -189,6 +187,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		//接口通信赋值
+		MyPushReceiver.setUpdateBean(this);
 		//检查是否提交了channelID
 		if(!SharePreferanceUtils.getInstance().getShared(getActivity(), SharePreferanceUtils.IS_COMMIT_CHANNEL, false)){
 			HttpUtils.commitChannelId(getActivity());
@@ -1002,8 +1002,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
