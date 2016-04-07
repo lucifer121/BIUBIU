@@ -233,6 +233,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 			resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			resultIntent.putExtra("referenceId", bean.getReferenceId());
 			resultIntent.putExtra("userCode", bean.getId());
+			LogUtil.d("mytest", "code--"+bean.getId());
 			resultIntent.putExtra("chatId", bean.getChatId());
 		}else{
 			resultIntent= new Intent(context, MainActivity.class);
