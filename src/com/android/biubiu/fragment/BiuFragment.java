@@ -167,7 +167,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	Animation animationAlpha;
 	Animation animationHide;
 	Animation animationUserBg;
-	
+
 	SchoolDao schoolDao;
 
 	//中间是否为biubiu可发送状态
@@ -177,10 +177,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
-		//检查是否提交了channelID
-		if(!SharePreferanceUtils.getInstance().getShared(getActivity(), SharePreferanceUtils.IS_COMMIT_CHANNEL, false)){
-			HttpUtils.commitChannelId(getActivity());
-		}
 		schoolDao=new SchoolDao();
 		//接口通信赋值
 		MyPushReceiver.setUpdateBean(this);
@@ -193,6 +189,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		//检查是否提交了channelID
+		if(!SharePreferanceUtils.getInstance().getShared(getActivity(), SharePreferanceUtils.IS_COMMIT_CHANNEL, false)){
+			HttpUtils.commitChannelId(getActivity());
+		}
 		initUserGroup();
 		if(LoginUtils.isLogin(getActivity())){
 			//执行加载页面所有信息的请求
@@ -296,13 +296,13 @@ public class BiuFragment extends Fragment implements PushInterface{
 					String sendTimeStr = SharePreferanceUtils.getInstance().getBiuTime(getActivity(), SharePreferanceUtils.SEND_BIU_TIME, "");
 					if(!sendTimeStr.equals("")){
 						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
-							if(time/1000 > 90){
-								//启动发送biubiu界面
-								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
-								startActivityForResult(intent, SEND_BIU_REQUEST);
-							}else{
-								Toast.makeText(getActivity(), "距离上次发biu还不到90秒哦！", 1000).show();
-							}	
+						if(time/1000 > 90){
+							//启动发送biubiu界面
+							Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+							startActivityForResult(intent, SEND_BIU_REQUEST);
+						}else{
+							Toast.makeText(getActivity(), "距离上次发biu还不到90秒哦！", 1000).show();
+						}	
 					}else{
 						//启动发送biubiu界面
 						Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
@@ -376,13 +376,41 @@ public class BiuFragment extends Fragment implements PushInterface{
 			return 0;
 		}
 	}
+	//判断是否存在
+	private boolean isOnCircle(UserBean userBean){
+		if(user3List.size()>0){
+			for(int i3=0;i3<user3List.size();i3++){
+				if(userBean.getId().equals(user3List.get(i3).getId())){
+					return true;
+				}
+			}
+		}
+		if(user2List.size()>0){
+			for(int i2=0;i2<user2List.size();i2++){
+				if(userBean.getId().equals(user2List.get(i2).getId())){
+					return true;
+				}
+			}
+		}
+		if(user1List.size()>0){
+			for(int i1=0;i1<user1List.size();i1++){
+				if(userBean.getId().equals(user1List.get(i1).getId())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	//往第一个圈上放view
 	private void addCircle1View(UserBean userBean) {
 		boolean haveSpace = false;
 		for(int i=0;i<n1;i++){
 			DotBean bean = c1DotList.get(i);
 			if(!bean.isAdd()){
-				showInfoLayout(userBean);
+				if(isOnCircle(userBean)){
+					return;
+				}
+				c1DotList.get(i).setAdd(true);
 				//添加区域标记
 				userBean.setIndex(i);
 				haveSpace = true;
@@ -392,9 +420,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 				int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
 				userBean.setX(xLocation);
 				userBean.setY(yLocation);
-				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,false);
-				c1DotList.get(i).setAdd(true);
 				user1List.add(userBean);
+				showInfoLayout(userBean);
+				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,false);
 				break ;
 			}
 		}
@@ -469,7 +497,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			//移除外圈最早的
 			Collections.sort(user3List,new SorByTime());
 			UserBean delBean = user3List.get(0);
-			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+delBean.getChatId());
+			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+delBean.getId());
 			userGroupLayout.removeView(rl);
 			//改变空闲标记，第二圈移到外圈
 			c3DotList.get(delBean.getIndex()).setAdd(false);
@@ -479,10 +507,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//biubiu被抢后显示view
 	private void updateBiuView(UserBean bean){
-		if(currentTime > 0){
-			currentTime = 0;
-			taskHandler.removeCallbacks(taskR);
-		}
+		currentTime = 0;
+		taskHandler.removeCallbacks(taskR);
 		taskView.setVisibility(View.GONE);
 		userBiuImv.setImageResource(R.drawable.photo_fail);
 		userBiuImv.setVisibility(View.VISIBLE);
@@ -504,12 +530,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 		starTv.setText(bean.getStar());
 		LogUtil.e("503 行", ""+bean.getIsStudent()+"||"+bean.getSchool()+"||"+bean.getCareer());
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
-			
+
 			if(bean.getSchool()!=null&&!bean.getSchool().equals("")){
 				if(schoolDao.getschoolName(bean.getSchool())!=null){
 					schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
 				}
-				
+
 			}
 		}else{
 			schoolTv.setText(bean.getCareer());
@@ -525,11 +551,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		}
 	};
 	//删除被抢的view
-	private void removeView(String chatId){
+	private void removeView(String userCode){
 		if(user3List.size()>0){
 			for(int i=0;i<user3List.size();i++){
-				if(chatId.equals(user3List.get(i).getChatId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+chatId);
+				if(userCode.equals(user3List.get(i).getId())){
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
 					userGroupLayout.removeView(rl);
 					c1DotList.get(user3List.get(i).getIndex()).setAdd(false);
 					return;
@@ -538,8 +564,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		}
 		if(user2List.size()>0){
 			for(int i=0;i<user2List.size();i++){
-				if(chatId.equals(user2List.get(i).getChatId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+chatId);
+				if(userCode.equals(user2List.get(i).getId())){
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
 					userGroupLayout.removeView(rl);
 					c2DotList.get(user2List.get(i).getIndex()).setAdd(false);
 					return;
@@ -548,8 +574,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		}
 		if(user1List.size()>0){
 			for(int i=0;i<user1List.size();i++){
-				if(chatId.equals(user1List.get(i).getChatId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+chatId);
+				if(userCode.equals(user1List.get(i).getId())){
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
 					userGroupLayout.removeView(rl);
 					c1DotList.get(user1List.get(i).getIndex()).setAdd(false);
 					return;
@@ -570,7 +596,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//创建第一圈上新的view,宽高为要创建view的宽高
 	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,final UserBean bean,boolean isFirst){
 		final RelativeLayout rl = new RelativeLayout(getActivity());
-		rl.setTag(retivTag+bean.getChatId());
+		rl.setTag(retivTag+bean.getId());
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
 				lWidth,
 				lHeight, xLocation, yLocation);
@@ -595,7 +621,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 				lWidth-margin,
 				lHeight-margin);
 		imageViewbg.setId(Integer.parseInt(bean.getId()));
-		imageViewbg.setTag(imvHeadTag+bean.getChatId());
+		imageViewbg.setTag(imvHeadTag+bean.getId());
 		imagebg.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
 		rl.addView(imageViewbg, imagebg);
@@ -609,7 +635,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 				lWidth-margin,
 				lHeight-margin);
 		imageView.setId(Integer.parseInt(bean.getId()));
-		imageView.setTag(imvHeadTag+bean.getChatId());
+		imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		imageView.setImageResource(R.drawable.photo_fail);
 		rl.addView(imageView, imageP);
@@ -626,7 +652,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		//imagePL.leftMargin = dotD/4;
 		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 0);
 		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
-		imageViewL.setTag(imvDotTag+bean.getChatId());
+		imageViewL.setTag(imvDotTag+bean.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());
 		imageViewL.setImageResource(R.drawable.biu_imageview_photo_news_s);
@@ -682,7 +708,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//移动view
 	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float viewD1,float viewD2){
-		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getChatId());
+		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getId());
 		float scale = 0;
 		float d = 0;
 		if(rl.getWidth() == viewD2){
@@ -809,31 +835,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 			break;
 		}
 	}
-	private void addToView(UserBean bean) {
-		// TODO Auto-generated method stub
-		if(user3List.size()>0){
-			for(int i=0;i<user3List.size();i++){
-				if(bean.getChatId().equals(user3List.get(i).getChatId())){
-					return;
-				}
-			}
-		}
-		if(user2List.size()>0){
-			for(int i=0;i<user2List.size();i++){
-				if(bean.getChatId().equals(user2List.get(i).getChatId())){
-					return;
-				}
-			}
-		}
-		if(user1List.size()>0){
-			for(int i=0;i<user1List.size();i++){
-				if(bean.getChatId().equals(user1List.get(i).getChatId())){
-					return;
-				}
-			}
-		}
-		addCircle1View(bean);
-	}
 	@Override
 	public void updateView(UserBean userBean,int type) {
 		// TODO Auto-generated method stub
@@ -841,26 +842,26 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 0:
 			//有新的匹配消息
 			newUserBean = userBean;
-			addToView(userBean);
+			LogUtil.d("mytest", "收到新消息type0");
+			addCircle1View(userBean);
 			break;
 		case 1:
 			//biubiu被抢啦
 			isBiuState = false;
 			userBiuBean = userBean;
 			updateBiuView(userBean);
-			
 			break;
 		case 2:
 			//匹配的人被抢啦
-			String chatId = userBean.getChatId();
-			LogUtil.d("mytest", chatId);
-			removeView(chatId);
+			String userCode = userBean.getId();
+			LogUtil.d("mytest", userCode);
+			removeView(userCode);
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 	//获取biubiu列表
 	private void getAllUser(){
 		user1List.clear();
@@ -913,7 +914,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					if(token!=null&&token.length()>0){
 						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 					}
-					
+
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);
@@ -945,7 +946,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		MainActivity.biuCoinTv.setText(""+biuCoin);
 		MainActivity.biuCoinLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -1081,21 +1082,21 @@ public class BiuFragment extends Fragment implements PushInterface{
 				Collections.sort(user1List,new SorByTime());
 				UserBean bean = user1List.get(0);
 				if((current - bean.getTime())>1000*60*60){
-					removeView(bean.getChatId());
+					removeView(bean.getId());
 				}
 			}
 			if(null != user2List && user2List.size()>0){
 				Collections.sort(user2List,new SorByTime());
 				UserBean bean = user2List.get(0);
 				if((current - bean.getTime())>1000*60*60){
-					removeView(bean.getChatId());
+					removeView(bean.getId());
 				}
 			}
 			if(null != user3List && user3List.size()>0){
 				Collections.sort(user3List,new SorByTime());
 				UserBean bean = user3List.get(0);
 				if((current - bean.getTime())>1000*60*60){
-					removeView(bean.getChatId());
+					removeView(bean.getId());
 				}
 				removeHandler.removeCallbacks(removeR);
 			}

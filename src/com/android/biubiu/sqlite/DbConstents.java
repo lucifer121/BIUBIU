@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class DbConstents {
 	public static final String DBNAME="iu.db";
-	
+	//好友表
 	public static final String USER_FRIEND="userfriends";
 	
 	public static final String USER_FRIEND_COLUMN_ID="_id";
@@ -30,5 +30,8 @@ public class DbConstents {
 	public static final String USER_FRIEND_COMPANY="company";
 
 	public static final String USER_FRIEND_AGE="age";
-
+	//推送匹配表
+	public static final String PUSH_MATCH="push_match_tb";
+	public static final String PUSH_USER_CODE="user_code";
+	public static final String PUSH_TIME="push_time";
 }

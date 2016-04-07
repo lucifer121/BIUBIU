@@ -22,13 +22,16 @@ import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
+import android.widget.Toast;
 import cc.imeetu.iu.R;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.android.biubiu.MainActivity;
+import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.bean.UserBean;
 import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.sqlite.PushMatchDao;
 import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
@@ -44,6 +47,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 
 	static PushInterface updateface;
 	private UserDao userDao;
+	private PushMatchDao pushDao;
 
 	public static void setUpdateBean(PushInterface updateBean) {
 		updateface = updateBean;
@@ -81,6 +85,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 	public void onMessage(Context context, String message,
 			String customContentString) {
 		userDao=new UserDao(context);
+		pushDao=new PushMatchDao(context);
 		Log.d("mytest", "透传消息");
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
@@ -97,10 +102,10 @@ public class MyPushReceiver extends PushMessageReceiver{
 			msgType = jsons.getString("messageType");
 			newUserBean.setTime(Long.parseLong(jsons.getString("time")));
 			newUserBean.setChatId(jsons.getString("chat_id"));
+			newUserBean.setId(jsons.getString("user_code"));
 			newUserBean.setAlreadSeen(Constants.UN_SEEN);
 
 			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
-				newUserBean.setId(jsons.getString("user_code"));
 				newUserBean.setNickname(jsons.getString("nickname"));
 				newUserBean.setUserHead(jsons.getString("icon_thumbnailUrl"));
 				newUserBean.setAge(jsons.getString("age"));
@@ -127,6 +132,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		if(isOpen){
 			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
 				if(updateface != null){
+					pushDao.insertOrReplacePush(newUserBean);
 					if(isOpenVoice){
 						playSound(context);
 					}
@@ -148,6 +154,10 @@ public class MyPushReceiver extends PushMessageReceiver{
 				saveUserFriend(newUserBean.getId(),newUserBean.getNickname(),newUserBean.getUserHead());
 			}else{
 				if(updateface != null){
+					if(pushDao.queryIsSameTime(newUserBean.getId(), System.currentTimeMillis())){
+						Toast.makeText(context, "biubiu已经被抢啦", 1000).show();
+					}
+					pushDao.deleteByType(newUserBean.getId());
 					updateface.updateView(newUserBean,2);
 				}
 			}
@@ -217,8 +227,16 @@ public class MyPushReceiver extends PushMessageReceiver{
 		if(isOpenVoice){
 			playSound(context);
 		}
-		Intent resultIntent = new Intent(context, MainActivity.class);
-		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		Intent resultIntent;
+		if((System.currentTimeMillis()-bean.getTime())<59*60*1000){
+			resultIntent= new Intent(context, BiuBiuReceiveActivity.class);
+			resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			resultIntent.putExtra("referenceId", bean.getReferenceId());
+			resultIntent.putExtra("userCode", bean.getId());
+			resultIntent.putExtra("chatId", bean.getChatId());
+		}else{
+			resultIntent= new Intent(context, MainActivity.class);
+		}
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0);
 		mBuilder.setContentIntent(pendingIntent);
 		mNotificationManager.notify(0, mBuilder.build());

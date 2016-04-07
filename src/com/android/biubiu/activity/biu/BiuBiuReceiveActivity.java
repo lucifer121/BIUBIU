@@ -75,17 +75,17 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private BiuDetialBean biuDEtialBean = new BiuDetialBean();
 
 	private TextView userName, distance, matchingScore, timeBefore, sex, age,
-			starsign, school, numberInTag, numberInInterestTag, description;
+	starsign, school, numberInTag, numberInInterestTag, description;
 	private ImageView userPhoto;
-	
+
 	/**
 	 * 表示 biu是否已经被抢了
 	 */
 	private Boolean isGrab=false;
-	
+
 	private int biubiuMoney=0;
 	private int spentBiuMoney=0;
-	
+
 	private RelativeLayout noBiuMoneyLayout,isGrabLayout;
 	private RelativeLayout chongzhiLayout,goSendBiuLayout;
 	private UserDao userDao;
@@ -99,8 +99,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		referenceId = getIntent().getStringExtra("referenceId");
 		userCode = getIntent().getStringExtra("userCode");
 		chatId = getIntent().getStringExtra("chatId");
-//		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
-//				+ userCode + "||chatId==" + chatId);
+		//		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
+		//				+ userCode + "||chatId==" + chatId);
 		userDao=new UserDao(this);
 		initView();
 		initData();
@@ -132,7 +132,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		userPhoto = (ImageView) findViewById(R.id.photo_head_senbiu_img);
 
 		userPhoto.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -147,7 +147,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 				neverSee();
 			}
 		});
@@ -162,7 +162,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				}else{
 					grabBiu();
 				}
-				
+
 			}
 		});
 
@@ -176,7 +176,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 		});
 		chongzhiLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -186,7 +186,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 		});
 		goSendBiuLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -197,14 +197,14 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		});
 
 	}
-/**
- * 初始化数据
- */
+	/**
+	 * 初始化数据
+	 */
 	private void initData() {
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			dismissLoadingLayout();
 			showErrorLayout(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -251,7 +251,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				showErrorLayout(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -281,7 +281,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					LogUtil.d(TAG, ""+code);
 					if(!code.equals("200")){
 						showErrorLayout(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View v) {
 								// TODO Auto-generated method stub
@@ -304,11 +304,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					setInterestTags(biuDEtialBean.getInterested_tags());
 
 					userName.setText("" + biuDEtialBean.getNickname());
-			//		distance.setText(biuDEtialBean.getDistance() + "m");
+					//		distance.setText(biuDEtialBean.getDistance() + "m");
 					matchingScore.setText(""
 							+ biuDEtialBean.getMatching_score() + "%");
 
-			//		timeBefore.setText(biuDEtialBean.getTimebefore() + "分钟");
+					//		timeBefore.setText(biuDEtialBean.getTimebefore() + "分钟");
 
 
 					if(biuDEtialBean.getDistance()>1000){
@@ -316,7 +316,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					}else{
 						distance.setText(biuDEtialBean.getDistance()+"m");
 					}
-					
+
 					if(biuDEtialBean.getTimebefore()>(24*60*60)){
 						timeBefore.setText(biuDEtialBean.getTimebefore()+"day");
 					}else if(biuDEtialBean.getTimebefore()>(60*60)){
@@ -324,7 +324,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					}else{
 						timeBefore.setText(biuDEtialBean.getTimebefore()+"min");
 					}
-					
+
 
 					numberInTag.setText("[" + biuDEtialBean.getHit_tags_num()
 							+ "]");
@@ -362,12 +362,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					userCodeString=biuDEtialBean.getUser_code();
 					userNameString=biuDEtialBean.getNickname();
 					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
-					
+
 					saveUserFriend(userCodeString,userNameString,userUrlString);
-//					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
-//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
-//					}
-					
+					//					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
+					//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());
+					//					}
+
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -390,15 +390,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 
 		setGridviewHight(mGridViewTag);
 		setGridview2Hight(mGridViewInterestTag);
-//		mGridViewTag.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View view,
-//					int position, long id) {
-//
-//				toastShort(personalTagList.get(position).getName());
-//			}
-//		});
+		//		mGridViewTag.setOnItemClickListener(new OnItemClickListener() {
+		//
+		//			@Override
+		//			public void onItemClick(AdapterView<?> arg0, View view,
+		//					int position, long id) {
+		//
+		//				toastShort(personalTagList.get(position).getName());
+		//			}
+		//		});
 	}
 
 
@@ -510,11 +510,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						return;
 					}
 					JSONObject obj = jsons.getJSONObject("data");
-//					String token=obj.getString("token");
-//					if(token!=null&&!token.equals("")){
-//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-//					}
-//					saveUserFriend(userCodeString,userNameString,userUrlString);
+					//					String token=obj.getString("token");
+					//					if(token!=null&&!token.equals("")){
+					//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					}
+					//					saveUserFriend(userCodeString,userNameString,userUrlString);
 					String message=obj.getString("message");
 					if(message.equals("0")){
 						toastShort("biu币不足");
@@ -563,7 +563,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		setGridviewHight(mGridViewTag);
 		setGridview2Hight(mGridViewInterestTag);
 	}
-	
+
 	/**
 	 * 提醒去登陆
 	 */
@@ -575,7 +575,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		RelativeLayout dismissLayout=(RelativeLayout) window.findViewById(R.id.dismiss_dialog_receive_biu_rl);
 		RelativeLayout ogLoginLayout=(RelativeLayout) window.findViewById(R.id.goLogin_dialog_receive_biu_rl);
 		dismissLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -583,7 +583,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 		});
 		ogLoginLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -592,7 +592,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				finish();
 			}
 		});
-		
+
 	}
 	/**
 	 * 不想见到他
@@ -621,7 +621,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 
 			@Override
 			public void onCancelled(CancelledException arg0) {
-				
+
 			}
 
 			@Override
@@ -640,48 +640,48 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				dismissLoadingLayout();
 				LogUtil.d(TAG, arg0);
 				JSONObject jsons;
-				
-					try {
-						jsons = new JSONObject(arg0);
-						String code = jsons.getString("state");
-						LogUtil.d(TAG, ""+code);
-						if(!code.equals("200")){
-							showErrorLayout(new OnClickListener() {								
-								@Override
-								public void onClick(View v) {
-									// TODO Auto-generated method stub
-									dismissErrorLayout();
-									neverSee();
-								}
-							});
-							toastShort(""+jsons.getString("error"));	
-							return;
-						}
-						String json=jsons.getString("data");
-						Gson gson=new Gson();
-//						TokenBean tokenBean=gson.fromJson(json, TokenBean.class);
-//						if(!tokenBean.equals("")||tokenBean!=null){
-//							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, tokenBean.getToken());
-//						}	
-						finish();
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
+				try {
+					jsons = new JSONObject(arg0);
+					String code = jsons.getString("state");
+					LogUtil.d(TAG, ""+code);
+					if(!code.equals("200")){
+						showErrorLayout(new OnClickListener() {								
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								dismissErrorLayout();
+								neverSee();
+							}
+						});
+						toastShort(""+jsons.getString("error"));	
+						return;
 					}
-					
-				
-				
+					String json=jsons.getString("data");
+					Gson gson=new Gson();
+					//						TokenBean tokenBean=gson.fromJson(json, TokenBean.class);
+					//						if(!tokenBean.equals("")||tokenBean!=null){
+					//							SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, tokenBean.getToken());
+					//						}	
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+
+
 			}
 		});
 	}
-	
+
 	public void saveUserFriend(String code,String name, String url){
 		UserFriends item=new UserFriends();
 		item.setUserCode(code);
 		item.setIcon_thumbnailUrl(url);
 		item.setNickname(name);
 		userDao.insertOrReplaceUser(item);
-		
+
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

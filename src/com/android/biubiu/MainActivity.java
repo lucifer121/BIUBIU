@@ -22,6 +22,7 @@ import com.android.biubiu.chat.LoadUserFriend;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
+import com.android.biubiu.sqlite.PushMatchDao;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LocationUtils;
 import com.android.biubiu.utils.LogUtil;
@@ -81,11 +82,13 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	int guidIndex = 2;
 	UpdateResponse updateInfoAll;
 	Dialog updatedialog;
+	PushMatchDao pushDao;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		pushDao = new PushMatchDao(getApplicationContext());
 		if(!com.android.biubiu.utils.NetUtils.isNetworkConnected(getApplicationContext())){
 			Toast.makeText(getApplicationContext(), "网络未连接", Toast.LENGTH_SHORT).show();
 		}
@@ -518,6 +521,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			locationClient = null;
 			locationOption = null;
 		}
+		pushDao.deleteAllPush();
 		EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 	}
 
@@ -626,10 +630,6 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		 this.moveTaskToBack(true);
 	}
-	
-
-
-
 }
 
 
