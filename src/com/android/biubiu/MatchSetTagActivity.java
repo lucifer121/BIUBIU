@@ -256,9 +256,9 @@ public class MatchSetTagActivity extends BaseActivity implements OnTagsItemClick
 		LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) mRecyclerView
 				.getLayoutParams();
 		if (mList.size() != 0 && (mList.size()) % 4 == 0) {
-			mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(this, 37);
+			mHight = (((mList.size()) / 4)) * DensityUtil.dip2px(this, 44);
 		} else {
-			mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(this, 37);
+			mHight = (((mList.size()) / 4) + 1) * DensityUtil.dip2px(this, 44);
 		}
 		params.height = mHight;
 		mRecyclerView.setLayoutParams(params);
