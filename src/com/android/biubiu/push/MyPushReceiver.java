@@ -235,10 +235,12 @@ public class MyPushReceiver extends PushMessageReceiver{
 			resultIntent.putExtra("userCode", bean.getId());
 			LogUtil.d("mytest", "code--"+bean.getId());
 			resultIntent.putExtra("chatId", bean.getChatId());
+			LogUtil.e(TAG, "userCode=="+bean.getId());
 		}else{
 			resultIntent= new Intent(context, MainActivity.class);
 		}
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
 		mBuilder.setContentIntent(pendingIntent);
 		mNotificationManager.notify(0, mBuilder.build());
 	}

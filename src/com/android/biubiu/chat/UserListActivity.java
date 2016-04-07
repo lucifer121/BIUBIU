@@ -120,7 +120,9 @@ public class UserListActivity extends BaseActivity {
 
 
 	private void initAdapter() {
-		// TODO Auto-generated method stub
+		
+		log.e(TAG, "initAdapter");
+		
 		mAdapter=new UserListAdapter(this, mData);
 		mListView.setAdapter(mAdapter);
 		
@@ -196,13 +198,13 @@ public class UserListActivity extends BaseActivity {
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-			//	toastShort(arg0.getMessage());
+
 				dismissLoadingLayout();
 			}
 
 			@Override
 			public void onFinished() {
-				// TODO Auto-generated method stub
+				
 				
 			}
 
@@ -228,11 +230,20 @@ public class UserListActivity extends BaseActivity {
 //						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 //					}
 					Gson gson=new Gson();
-					
-					List<UserFriends> userFriendsList=gson.fromJson(obj.getString("users").toString(),
+
+					if(obj.optJSONArray("users")==null||obj.optJSONArray("users").toString().length()==0){
+						LogUtil.e(TAG, "meihaoyou");
+						mData.clear();
+						initAdapter();
+						return;
+					}
+					List<UserFriends> userFriendsList=gson.fromJson(obj.optJSONArray("users").toString(),
 							new TypeToken<List<UserFriends>>() {}.getType());
 					mData.clear();
-					mData.addAll(userFriendsList);
+					if(userFriendsList!=null&&userFriendsList.size()>0){
+						mData.addAll(userFriendsList);
+					}
+					
 					LogUtil.e(TAG, ""+userFriendsList.size()+" ||"+mData.size());
 					int number=mData.size();
 			//		Log.e(TAG, ""+number);
