@@ -241,7 +241,7 @@ public class UserListActivity extends BaseActivity {
 						for(int i=0;i<mData.size();i++){
 							userDao.insertOrReplaceUser(mData.get(i));
 						}						
-				//	log.e(TAG, userDao.queryUserAll().size()+"");
+
 					}else{
 						
 					}			

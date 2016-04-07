@@ -1002,8 +1002,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-					String token = data.getString("token");
-					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+//					String token = data.getString("token");
+//					SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
