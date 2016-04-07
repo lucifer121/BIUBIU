@@ -241,8 +241,8 @@ OnClickListener, OnWheelChangedListener{
 			requestObject.put("token", token);
 			requestObject.put("device_code", deviceId);
 			requestObject.put("hometown", infoBean.getHomeTown());
-			requestObject.put("cityf", cityCode);
-			requestObject.put("parameters", "hometown,cityf");
+			//requestObject.put("cityf", cityCode);
+			requestObject.put("parameters", "hometown");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -59,7 +59,7 @@ OnClickListener, OnWheelChangedListener{
 		setContentView(R.layout.activity_change_city_main);
 		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
 		initView();
-		city = super.getIntent().getStringExtra("hometown");
+		city = infoBean.getCity();
 		setUpViews();
 		setUpListener();
 		setUpData();
