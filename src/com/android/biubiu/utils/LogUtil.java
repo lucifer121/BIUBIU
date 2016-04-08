@@ -5,7 +5,7 @@ package com.android.biubiu.utils;
  * @return  
  */
 public class LogUtil {
-	private static boolean mbLoggable = true;
+	private static boolean mbLoggable = false;
 	 
 	 public static void setLoggable(boolean bLoggable)
 	 {

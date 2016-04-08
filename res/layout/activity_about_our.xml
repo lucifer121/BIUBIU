@@ -206,7 +206,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:gravity="center_vertical"
-                    android:text="meetubeijing"
+                    android:text="liu534469675"
                     android:textColor="@color/main_green"
                     android:textSize="12sp" />
 
