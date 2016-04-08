@@ -13,22 +13,6 @@ public class MySqliteDBHelper extends SQLiteOpenHelper {
 
 	private static final int VERSION = 2;
 
-//	private static final String TBL_CHANNEL = "channel";
-//	private static final String TBL_CHANNEL_COLUMN_ID = "_id";
-//	private static final String TBL_CHANNEL_COLUMN_CODE = "_code";
-//	private static final String TBL_CHANNEL_COLUMN_NAME = "_name";
-//	private static final String TBL_CHANNEL_COLUMN_URL = "_url";
-//	private static final String TBL_CHANNEL_COLUMN_STATE = "_state";
-//
-//	private static final String TBL_USERS = "users";
-//	private static final String TBL_USERS_COLUMN_ID = "_id";
-//	private static final String TBL_USERS_COLUMN_NAME = "_name";
-//	private static final String TBL_USERS_COLUMN_PWD = "_pwd";
-
-
-
-
-
 	public MySqliteDBHelper(Context context) {
 		super(context, DbConstents.DBNAME, null, VERSION);
 	}
@@ -51,25 +35,35 @@ public class MySqliteDBHelper extends SQLiteOpenHelper {
 		user.append(DbConstents.USER_FRIEND_AGE + " Integer ");
 		user.append(")");
 		db.execSQL(user.toString());
+		
+		StringBuffer push = new StringBuffer();
+		push.append("create table if not exists ");
+		push.append(DbConstents.PUSH_MATCH + "(");
+		push.append(DbConstents.PUSH_USER_CODE + " varchar(100) primary key,");
+		push.append(DbConstents.PUSH_TIME + " Integer ");
+		push.append(")");
+		db.execSQL(push.toString());
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
 		// TODO Auto-generated method stub
-		switch (db.getVersion()) {
-		case 1:
-			
-		case 2:
-			StringBuffer push = new StringBuffer();
-			push.append("create table if not exists ");
-			push.append(DbConstents.PUSH_MATCH + "(");
-			push.append(DbConstents.PUSH_USER_CODE + " varchar(100) primary key,");
-			push.append(DbConstents.PUSH_TIME + " Integer ");
-			push.append(")");
-			db.execSQL(push.toString());
-		default:
-			break;
-		}
+		
+//		switch (db.getVersion()) {
+//		case 1:
+//			
+//		case 2:
+//			StringBuffer push = new StringBuffer();
+//			push.append("create table if not exists ");
+//			push.append(DbConstents.PUSH_MATCH + "(");
+//			push.append(DbConstents.PUSH_USER_CODE + " varchar(100) primary key,");
+//			push.append(DbConstents.PUSH_TIME + " Integer ");
+//			push.append(")");
+//			db.execSQL(push.toString());
+//		default:
+//			break;
+//		}
+		onCreate(db);
 	}
 
 }
