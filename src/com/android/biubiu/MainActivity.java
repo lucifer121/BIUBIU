@@ -22,7 +22,9 @@ import com.android.biubiu.chat.LoadUserFriend;
 import com.android.biubiu.fragment.BiuFragment;
 import com.android.biubiu.fragment.MenuLeftFragment;
 import com.android.biubiu.fragment.MenuRightFragment;
+import com.android.biubiu.fragment.MenuRightFragment.ReceiveBroadCast;
 import com.android.biubiu.sqlite.PushMatchDao;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LocationUtils;
 import com.android.biubiu.utils.LogUtil;
@@ -49,8 +51,11 @@ import com.umeng.update.UpdateStatus;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -83,6 +88,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 	UpdateResponse updateInfoAll;
 	Dialog updatedialog;
 	PushMatchDao pushDao;
+	private ReceiveBroadCast receiveBroadCast;  //广播实例
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,8 +119,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 						SharePreferanceUtils.getInstance().getHxUserName(getApplicationContext(), SharePreferanceUtils.HX_USER_PASSWORD, ""));
 			}
 		}else{
-			log.e(TAG, "注册接收消息监听");
-			EMClient.getInstance().chatManager().addMessageListener(msgListener);	
+//			log.e(TAG, "注册接收消息监听");
+//			EMClient.getInstance().chatManager().addMessageListener(msgListener);	
 		}
 		if(!SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
 			LogUtil.e(TAG, "有token");
@@ -127,6 +133,11 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		//更新活跃时间
 		updateActivityTime();
 		checkUpdate();
+		  // 注册广播接收
+        receiveBroadCast = new ReceiveBroadCast();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.FLAG_RECEIVE);    //只有持有相同的action的接受者才能接收此广播
+        registerReceiver(receiveBroadCast, filter);
 	}
 	private void checkUpdate() {
 		// TODO Auto-generated method stub
@@ -416,7 +427,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				showRightMenu();
-				//			newMessage.setVisibility(View.GONE);
+				newMessage.setVisibility(View.GONE);
 			}
 		});
 
@@ -522,7 +533,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			locationOption = null;
 		}
 		pushDao.deleteAllPush();
-		EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+//		EMClient.getInstance().chatManager().removeMessageListener(msgListener);
 	}
 
 	/**
@@ -559,43 +570,55 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		});
 
 	}
-	/**
-	 * 会话消息监听
-	 */
-	EMMessageListener msgListener = new EMMessageListener() {
+	public class ReceiveBroadCast extends BroadcastReceiver
+	{
+	 
+	        @Override
+	        public void onReceive(Context context, Intent intent)
+	        {
 
-
-		@Override
-		public void onMessageReceived(List<EMMessage> messages) {
-			//收到消息
-			newMessage.setVisibility(View.VISIBLE);
-			log.e(TAG, "收到消息");
-			
-		}
-
-		@Override
-		public void onCmdMessageReceived(List<EMMessage> messages) {
-			//收到透传消息
-			//收到消息
-			newMessage.setVisibility(View.VISIBLE);
-			log.e(TAG, "收到透传消息");
-		}
-
-		@Override
-		public void onMessageReadAckReceived(List<EMMessage> messages) {
-			//收到已读回执
-		}
-
-		@Override
-		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
-			//收到已送达回执
-		}
-
-		@Override
-		public void onMessageChanged(EMMessage message, Object change) {
-			//消息状态变动
-		}
-	};
+	        	LogUtil.e(TAG, "收到消息广播");
+	        	newMessage.setVisibility(View.VISIBLE);
+	        }
+	 
+	}
+//	/**
+//	 * 会话消息监听
+//	 */
+//	EMMessageListener msgListener = new EMMessageListener() {
+//
+//
+//		@Override
+//		public void onMessageReceived(List<EMMessage> messages) {
+//			//收到消息
+//			newMessage.setVisibility(View.VISIBLE);
+//			log.e(TAG, "收到消息");
+//			
+//		}
+//
+//		@Override
+//		public void onCmdMessageReceived(List<EMMessage> messages) {
+//			//收到透传消息
+//			//收到消息
+//			newMessage.setVisibility(View.VISIBLE);
+//			log.e(TAG, "收到透传消息");
+//		}
+//
+//		@Override
+//		public void onMessageReadAckReceived(List<EMMessage> messages) {
+//			//收到已读回执
+//		}
+//
+//		@Override
+//		public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+//			//收到已送达回执
+//		}
+//
+//		@Override
+//		public void onMessageChanged(EMMessage message, Object change) {
+//			//消息状态变动
+//		}
+//	};
 	
 	@Override
 	public void finish() {
@@ -630,6 +653,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		 this.moveTaskToBack(true);
 	}
+	
+
 }
 
 

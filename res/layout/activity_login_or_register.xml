@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="3dp"
-        android:text="我大概是上面宝宝的使命宣言"
+        android:text="@string/right_menu_slogou"
         android:textColor="@color/login_register_text2"
         android:textSize="14sp"/>
 

@@ -64,6 +64,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hyphenate.easeui.EaseConstant;
 
+import android.R.integer;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -632,8 +633,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 				lWidth-margin,
 				lHeight-margin);
 		imageViewbg.setId(Integer.parseInt(bean.getId()));
+
 		//imageViewbg.setTag(imvHeadTag+bean.getId());
 		imageViewbg.setId(imvHeadIdTag+Integer.parseInt(bean.getId()));
+
 		imagebg.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		rl.addView(imageViewbg, imagebg);
 		if(lWidth != userD1){
