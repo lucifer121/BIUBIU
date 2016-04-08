@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:text="微信平台"
+                    android:text="联系我们"
                     android:textColor="@color/about_darkgary_txt"
                     android:textSize="14sp" />
 
@@ -229,6 +229,7 @@
                 android:id="@+id/phone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -266,6 +267,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:background="@drawable/about_us_line_long_gray" />
 
             <TextView

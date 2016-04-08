@@ -256,10 +256,10 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginRight="3dp"
                         android:layout_toLeftOf="@+id/open_tv"
                         android:maxLines="3"
                         android:textColor="@color/page_text2"
+                        android:visibility="gone"
                         android:textSize="12sp"
                         />
 
@@ -270,19 +270,18 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginRight="3dp"
                         android:layout_toLeftOf="@+id/open_tv"
                         android:maxLines="10"
                         android:text="关于我的信息"
                         android:textColor="@color/page_text2"
-                        android:visibility="gone" 
                         android:textSize="12sp"
                         />
 
                     <ImageView
                         android:id="@+id/about_arrow"
-                        android:layout_width="5dp"
+                        android:layout_width="8dp"
                         android:layout_height="11dp"
+                        android:paddingLeft="3dp"
                         android:layout_alignParentRight="true"
                         android:layout_alignRight="@+id/open_tv"
                         android:layout_centerVertical="true"

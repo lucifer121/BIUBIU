@@ -84,19 +84,20 @@
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/pay_imageview_dian_yellow"
                                 android:drawablePadding="4dp"
+                                android:layout_marginTop="8dp"
                                 android:text="每发一次biubiu，获得5粒U米"
                                 android:textColor="@color/white"
-                                android:textSize="13sp" />
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:drawableLeft="@drawable/pay_imageview_dian_yellow"
                                 android:drawablePadding="4dp"
                                 android:text="每收一次biubiu，消耗5粒U米"
                                 android:textColor="@color/white"
-                                android:textSize="13sp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <TextView
@@ -104,12 +105,12 @@
                             android:layout_height="wrap_content"
                             android:layout_alignLeft="@+id/biu_info_linear"
                             android:layout_below="@+id/biu_info_linear"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="8dp"
                             android:drawableLeft="@drawable/pay_imageview_dian_yellow"
                             android:drawablePadding="4dp"
                             android:text="U米总量超出100时，暂停发biu奖励"
                             android:textColor="@color/white"
-                            android:textSize="13sp" />
+                            android:textSize="12sp" />
                     </RelativeLayout>
 
                     <RelativeLayout

@@ -32,6 +32,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -395,13 +397,24 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			userInfoTv.setText(bean.getAboutMe());
 			userInfoBigTv.setText(bean.getAboutMe());
 		}
-		/*if(userInfoBigTv.getMeasuredHeight()>50){
-			userOpenTv.setVisibility(View.VISIBLE);
-		}else{
-			userOpenTv.setVisibility(View.GONE);
-		}
-		userInfoBigTv.setVisibility(View.GONE);
-		userInfoTv.setVisibility(View.VISIBLE);*/
+		userInfoBigTv.setVisibility(View.VISIBLE);
+		userInfoTv.setVisibility(View.GONE);
+		ViewTreeObserver vto = userInfoBigTv.getViewTreeObserver();   
+        vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+            @Override  
+            public void onGlobalLayout() { 
+            	userInfoBigTv.getViewTreeObserver().removeGlobalOnLayoutListener(this); 
+            	Log.d("mytest", "hh"+userInfoBigTv.getMeasuredHeight());
+        		if(userInfoBigTv.getMeasuredHeight()>DensityUtil.dip2px(getApplicationContext(), 50)){
+        			userOpenTv.setVisibility(View.VISIBLE);
+        		}else{
+        			userOpenTv.setVisibility(View.GONE);
+        		}
+        		userInfoBigTv.setVisibility(View.GONE);
+        		userInfoTv.setVisibility(View.VISIBLE);
+            }   
+        });
+		
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
