@@ -97,7 +97,7 @@
                 android:id="@+id/version_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/white" >
+                 >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 android:id="@+id/comment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/white" >
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,7 +186,7 @@
                 android:id="@+id/weixin_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/white" >
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,7 +229,7 @@
                 android:id="@+id/phone_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/white" >
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
