@@ -76,6 +76,7 @@ import android.os.Handler;
 import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.support.v4.app.Fragment;
 import android.text.LoginFilter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -342,6 +343,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 				if(getActivity() != null){
 					Toast.makeText(getActivity().getApplicationContext(), "你的biubiu暂时无人应答，请重新发送", Toast.LENGTH_SHORT).show();
 				}
+				isBiuState = true;
 				taskView.setVisibility(View.GONE);
 				userBiuImv.setImageResource(R.drawable.biu_btn_biu);
 				userBiuImv.setVisibility(View.VISIBLE);
@@ -873,7 +875,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 2:
 			//匹配的人被抢啦
 			String userCode = userBean.getId();
-			LogUtil.d("mytest", userCode);
 			removeView(userCode);
 			break;
 		default:
@@ -946,6 +947,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 							if(userBiuBean.getAlreadSeen().equals(Constants.UN_SEEN)){
 								isBiuState = false;
 								x.image().bind(userBiuImv, bean.getUserHead(), imageOptions);
+							}else{
+								isBiuState = true;
 							}
 						}
 					}
