@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cc.imeetu.iu"
     android:installLocation="preferExternal"
-    android:versionCode="20160330"
+    android:versionCode="20160408"
     android:versionName="v1.0" >
 
     <uses-sdk

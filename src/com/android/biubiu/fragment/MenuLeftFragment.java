@@ -196,10 +196,10 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 //		 oks.setSite(getString(R.string.app_name));
 //		 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
 //		 oks.setSiteUrl("http://www.imeetu.cc/");
-	  	   	oks.setTitle("iU");
+	  	   	oks.setTitle("iU—青春恋爱成长平台");
 				oks.setTitleUrl("http://www.imeetu.cc");
-				oks.setText("iU,今天你biu了吗");
-				oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+				oks.setText("星星发亮，是为了让每一个人都能找到属于自己的星星。而从我到你，只有一个iU的距离。");
+				oks.setImageUrl("http://protect-app.oss-cn-beijing.aliyuncs.com/app-resources/img/icon/ShareIconAndroid.png");
 				oks.setUrl("http://www.imeetu.cc/");
 		 
 		// 启动分享GUI
