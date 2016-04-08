@@ -175,8 +175,10 @@ public class UserPhotoScanActivity extends BaseActivity implements OnClickListen
 					}else if(currentIndex > (photoList.size()-1)){
 						photoPager.setCurrentItem(currentIndex-1);
 						currentIndex = currentIndex-1;
+						indexTv.setText((currentIndex+1)+"/"+photoList.size());
 					}else{
 						photoPager.setCurrentItem(currentIndex);
+						indexTv.setText((currentIndex+1)+"/"+photoList.size());
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

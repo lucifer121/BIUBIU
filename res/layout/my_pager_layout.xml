@@ -256,10 +256,12 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginRight="3dp"
                         android:layout_toLeftOf="@+id/open_tv"
                         android:maxLines="3"
                         android:textColor="@color/page_text2"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        />
 
                     <TextView
                         android:id="@+id/userinfo_big_tv"
@@ -268,12 +270,14 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginRight="3dp"
                         android:layout_toLeftOf="@+id/open_tv"
                         android:maxLines="10"
                         android:text="关于我的信息"
                         android:textColor="@color/page_text2"
+                        android:visibility="gone" 
                         android:textSize="12sp"
-                        android:visibility="gone" />
+                        />
 
                     <ImageView
                         android:id="@+id/about_arrow"

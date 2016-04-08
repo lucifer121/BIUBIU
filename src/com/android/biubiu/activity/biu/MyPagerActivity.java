@@ -395,11 +395,13 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			userInfoTv.setText(bean.getAboutMe());
 			userInfoBigTv.setText(bean.getAboutMe());
 		}
-		if(userInfoBigTv.getLayoutParams().height>DensityUtil.dip2px(getApplicationContext(), 50)){
+		/*if(userInfoBigTv.getMeasuredHeight()>50){
 			userOpenTv.setVisibility(View.VISIBLE);
 		}else{
 			userOpenTv.setVisibility(View.GONE);
 		}
+		userInfoBigTv.setVisibility(View.GONE);
+		userInfoTv.setVisibility(View.VISIBLE);*/
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub

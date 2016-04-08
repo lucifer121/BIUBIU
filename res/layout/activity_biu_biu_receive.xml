@@ -255,6 +255,8 @@
                                 android:id="@+id/number_in_personalTag_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="#565656"
+                                android:textSize="13sp"
                                  />
 
                             <TextView
@@ -314,12 +316,16 @@
                                 android:id="@+id/number_interestTag_receive_biu_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="#565656"
+                                android:textSize="13sp"
                                 />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/receive_biu_interest_tag" />
+                                android:text="@string/receive_biu_interest_tag"
+                                android:textColor="#565656"
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                         <View

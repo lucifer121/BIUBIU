@@ -319,6 +319,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					// TODO Auto-generated method stub
 					//	Toast.makeText(getApplicationContext(), view.getText(), Toast.LENGTH_SHORT).show();
 					mEditText.setText(view.getText());
+					mEditText.setSelection(mEditText.getText().toString().length());
 				}
 			});
 			mFlowLayout.addView(view,lp);

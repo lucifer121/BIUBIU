@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/main_green" >
+        android:background="@color/main_green"
+         >
 
         <RelativeLayout
             android:id="@+id/title_left_rl"
@@ -182,6 +183,8 @@
                         android:id="@+id/protocol_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingRight="6dp"
                         android:text="@string/login_bottom_text2"
                         android:textColor="@color/login_text2"
                         android:textSize="11sp" />
