@@ -139,12 +139,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 	//存放外圈临界角度
 	ArrayList< Double> edgeAngleList = new ArrayList<Double>();
 	//标识viewTag
-	private String retivTag = "relative";
+	/*private String retivTag = "relative";
 	private String tvTag = "textview";
 	private String gifvTag = "gifview";
 	private String imvHeadTag = "imvhead";
-	private String imvDotTag = "imvdot";
-
+	private String imvDotTag = "imvdot";*/
+	private int retivIdTag = 1;
+	private int tvIdTag = 2;
+	private int gifvIdTag = 3;
+	private int imvHeadIdTag = 4;
+	private int imvDotIdTag = 5;
 	//线圈view
 	BiuView biuView;
 	//背景动画
@@ -498,7 +502,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 			//移除外圈最早的
 			Collections.sort(user3List,new SorByTime());
 			UserBean delBean = user3List.get(0);
-			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+delBean.getId());
+			//RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+delBean.getId());
+			RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(retivIdTag+Integer.parseInt(delBean.getId()));
 			userGroupLayout.removeView(rl);
 			//改变空闲标记，第二圈移到外圈
 			c3DotList.get(delBean.getIndex()).setAdd(false);
@@ -556,9 +561,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(user3List.size()>0){
 			for(int i=0;i<user3List.size();i++){
 				if(userCode.equals(user3List.get(i).getId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					//RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(retivIdTag+Integer.parseInt(userCode));
 					userGroupLayout.removeView(rl);
 					c1DotList.get(user3List.get(i).getIndex()).setAdd(false);
+					user3List.remove(i);
 					return;
 				}
 			}
@@ -566,9 +573,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(user2List.size()>0){
 			for(int i=0;i<user2List.size();i++){
 				if(userCode.equals(user2List.get(i).getId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					//RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(retivIdTag+Integer.parseInt(userCode));
 					userGroupLayout.removeView(rl);
 					c2DotList.get(user2List.get(i).getIndex()).setAdd(false);
+					user2List.remove(i);
 					return;
 				}
 			}
@@ -576,9 +585,11 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(user1List.size()>0){
 			for(int i=0;i<user1List.size();i++){
 				if(userCode.equals(user1List.get(i).getId())){
-					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					//RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userCode);
+					RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(retivIdTag+Integer.parseInt(userCode));
 					userGroupLayout.removeView(rl);
 					c1DotList.get(user1List.get(i).getIndex()).setAdd(false);
+					user1List.remove(i);
 					return;
 				}
 			}
@@ -598,10 +609,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,final UserBean bean,boolean isFirst){
 		LogUtil.d("mytest", "收到新消息type0");
 		final RelativeLayout rl = new RelativeLayout(getActivity());
-		rl.setTag(retivTag+bean.getId());
+		//rl.setTag(retivTag+bean.getId());
+		rl.setId(retivIdTag+Integer.parseInt(bean.getId()));
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
 				lWidth,
 				lHeight, xLocation, yLocation);
+		rl.setBackgroundResource(R.drawable.photo_fail);
 		userGroupLayout.addView(rl, llParams);
 		final ImageView gifIv = new ImageView(getActivity());
 		RelativeLayout.LayoutParams gifP = new RelativeLayout.LayoutParams(
@@ -618,8 +631,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 				lWidth-margin,
 				lHeight-margin);
 		imageViewbg.setId(Integer.parseInt(bean.getId()));
-		imageViewbg.setTag(imvHeadTag+bean.getId());
-		imageViewbg.setId(Integer.parseInt(bean.getId()));
+
+		//imageViewbg.setTag(imvHeadTag+bean.getId());
+		imageViewbg.setId(imvHeadIdTag+Integer.parseInt(bean.getId()));
+
 		imagebg.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		rl.addView(imageViewbg, imagebg);
 		if(lWidth != userD1){
@@ -631,8 +646,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		RelativeLayout.LayoutParams imageP = new RelativeLayout.LayoutParams(
 				lWidth-margin,
 				lHeight-margin);
-		imageView.setId(Integer.parseInt(bean.getId()));
-		imageView.setTag(imvHeadTag+bean.getId());
+		imageView.setId(imvHeadIdTag+Integer.parseInt(bean.getId()));
+		//imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
 		rl.addView(imageView, imageP);
 		final ImageView imageViewL = new ImageView(getActivity());
@@ -646,7 +661,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 		//imagePL.leftMargin = dotD/4;
 		imagePL.rightMargin = DensityUtil.dip2px(getActivity(), 0);
 		imagePL.bottomMargin = DensityUtil.dip2px(getActivity(), 2);
-		imageViewL.setTag(imvDotTag+bean.getId());
+		//imageViewL.setTag(imvDotTag+bean.getId());
+		imageViewL.setId(imvDotIdTag+Integer.parseInt(bean.getId()));
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());
 		rl.addView(imageViewL, imagePL);
@@ -678,6 +694,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		}else{
 			imageViewL.setVisibility(View.VISIBLE);
 		}
+		rl.setBackgroundResource(0);
 		LogUtil.d("mytest", "收到新消息type00");
 		new Handler().postDelayed(new Runnable() {
 
@@ -709,7 +726,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//移动view
 	public void moveUserView(double startX,double startY,double endX,double endY,UserBean userBean,float viewD,float viewD1,float viewD2){
-		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getId());
+		//final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewWithTag(retivTag+userBean.getId());
+		final RelativeLayout rl = (RelativeLayout) userGroupLayout.findViewById(retivIdTag+Integer.parseInt(userBean.getId()));
 		float scale = 0;
 		float d = 0;
 		if(rl.getWidth() == viewD2){
@@ -814,6 +832,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		super.onPause();
 		removeHandler.removeCallbacks(removeR);
+		userGroupLayout.removeAllViews();
+		user1List.clear();
+		user2List.clear();
+		user3List.clear();
 	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
