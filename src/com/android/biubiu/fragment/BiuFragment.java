@@ -420,9 +420,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 				int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
 				userBean.setX(xLocation);
 				userBean.setY(yLocation);
-				user1List.add(userBean);
-				showInfoLayout(userBean);
 				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,false);
+				showInfoLayout(userBean);
+				user1List.add(userBean);
 				break ;
 			}
 		}
@@ -595,22 +595,18 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//创建第一圈上新的view,宽高为要创建view的宽高
 	private void createCir1NewView(int xLocation,int yLocation,int lWidth,int lHeight,final UserBean bean,boolean isFirst){
+		LogUtil.d("mytest", "收到新消息type0");
 		final RelativeLayout rl = new RelativeLayout(getActivity());
 		rl.setTag(retivTag+bean.getId());
 		AbsoluteLayout.LayoutParams llParams = new AbsoluteLayout.LayoutParams(
 				lWidth,
 				lHeight, xLocation, yLocation);
-		//final GifView gifView = new GifView(getActivity());
+		userGroupLayout.addView(rl, llParams);
 		final ImageView gifIv = new ImageView(getActivity());
 		RelativeLayout.LayoutParams gifP = new RelativeLayout.LayoutParams(
 				lWidth,
 				lHeight);
-		gifIv.setImageResource(R.drawable.biu_imageview_photo_circle);
-		gifIv.startAnimation(animationUserBg);
 		rl.addView(gifIv, gifP);
-		if(isFirst){
-			gifIv.setVisibility(View.GONE);
-		}
 		//layout与头像宽高差 像素
 		int margin = DensityUtil.dip2px(getActivity(), (58-46));
 		if(lWidth != userD1){
@@ -623,7 +619,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageViewbg.setId(Integer.parseInt(bean.getId()));
 		imageViewbg.setTag(imvHeadTag+bean.getId());
 		imagebg.addRule(RelativeLayout.CENTER_IN_PARENT); 
-		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
 		rl.addView(imageViewbg, imagebg);
 		if(lWidth != userD1){
 			margin = margin+DensityUtil.dip2px(getActivity(), 2);
@@ -637,10 +632,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageView.setId(Integer.parseInt(bean.getId()));
 		imageView.setTag(imvHeadTag+bean.getId());
 		imageP.addRule(RelativeLayout.CENTER_IN_PARENT); 
-		imageView.setImageResource(R.drawable.photo_fail);
 		rl.addView(imageView, imageP);
-		x.image().bind(imageView, bean.getUserHead(), imageOptions);
-
 		final ImageView imageViewL = new ImageView(getActivity());
 		//红点layout直径
 		int dotD = DensityUtil.dip2px(getActivity(), 8);
@@ -655,14 +647,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		imageViewL.setTag(imvDotTag+bean.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_BOTTOM,imageView.getId());
 		imagePL.addRule(RelativeLayout.ALIGN_RIGHT,imageViewbg.getId());
-		imageViewL.setImageResource(R.drawable.biu_imageview_photo_news_s);
 		rl.addView(imageViewL, imagePL);
-		if(isFirst && bean.getAlreadSeen().equals(Constants.ALREADY_SEEN)){
-			imageViewL.setVisibility(View.GONE);
-		}else{
-			imageViewL.setVisibility(View.VISIBLE);
-		}
-
 		/*TextView tv = new TextView(getActivity());
 		RelativeLayout.LayoutParams tvP = new RelativeLayout.LayoutParams(LayoutParams .WRAP_CONTENT,LayoutParams .WRAP_CONTENT);
 		tvP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM); 
@@ -677,7 +662,21 @@ public class BiuFragment extends Fragment implements PushInterface{
 		if(lWidth!=userD1){
 			tv.setVisibility(View.GONE);
 		}*/
-		userGroupLayout.addView(rl, llParams);
+		imageViewbg.setImageResource(R.drawable.biu_imageview_photo_s);
+		imageView.setImageResource(R.drawable.photo_fail);
+		x.image().bind(imageView, bean.getUserHead(), imageOptions);
+		gifIv.setImageResource(R.drawable.biu_imageview_photo_circle);
+		gifIv.startAnimation(animationUserBg);
+		if(isFirst){
+			gifIv.setVisibility(View.GONE);
+		}
+		imageViewL.setImageResource(R.drawable.biu_imageview_photo_news_s);
+		if(isFirst && bean.getAlreadSeen().equals(Constants.ALREADY_SEEN)){
+			imageViewL.setVisibility(View.GONE);
+		}else{
+			imageViewL.setVisibility(View.VISIBLE);
+		}
+		LogUtil.d("mytest", "收到新消息type00");
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -842,7 +841,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		case 0:
 			//有新的匹配消息
 			newUserBean = userBean;
-			LogUtil.d("mytest", "收到新消息type0");
 			addCircle1View(userBean);
 			break;
 		case 1:

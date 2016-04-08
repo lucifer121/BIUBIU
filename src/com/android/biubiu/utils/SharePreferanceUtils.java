@@ -19,6 +19,7 @@ public class SharePreferanceUtils {
 	public static String IS_SHOCK = "is_shock";
 	public static String IS_OPEN_VOICE = "is_open_voice";
 	public static String SEND_BIU_TIME = "send_biu_time";
+	public static String BIU_SOUND_TIME = "biu_sound_time";
 
 	public static String HX_USER_NAME="hx_user_name";
 	public static String HX_USER_PASSWORD="hx_user_password";
@@ -73,6 +74,10 @@ public class SharePreferanceUtils {
 	}
 	//获取上次发biubiu时间
 	public String getBiuTime(Context context,String prefKey,String defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取上次biubiu播放声音时间
+	public String getBiuSoundTime(Context context,String prefKey,String defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取是否为浏览过新手引导

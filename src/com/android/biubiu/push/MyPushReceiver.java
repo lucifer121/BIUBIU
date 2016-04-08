@@ -93,6 +93,13 @@ public class MyPushReceiver extends PushMessageReceiver{
 		boolean isOpen = SharePreferanceUtils.getInstance().isAppOpen(context, SharePreferanceUtils.IS_APP_OPEN, true);
 		boolean isOpenVoice = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_OPEN_VOICE, true);
 		boolean isShock = SharePreferanceUtils.getInstance().isOpenVoice(context, SharePreferanceUtils.IS_SHOCK, true);
+		String lastSound = SharePreferanceUtils.getInstance().getBiuSoundTime(context, SharePreferanceUtils.BIU_SOUND_TIME, "0");
+		boolean isPlaySound = true;
+		if((System.currentTimeMillis() - Long.parseLong(lastSound))<5*1000){
+			isPlaySound = false;
+		}else{
+			isPlaySound = true;
+		}
 		LogUtil.e(TAG, isOpen+"");
 		UserBean newUserBean = new UserBean();
 		String msgType = "";
@@ -133,11 +140,14 @@ public class MyPushReceiver extends PushMessageReceiver{
 			if(msgType.equals(Constants.MSG_TYPE_MATCH)){
 				if(updateface != null){
 					pushDao.insertOrReplacePush(newUserBean);
-					if(isOpenVoice){
-						playSound(context);
-					}
-					if(isShock){
-						shock(context);
+					if(isPlaySound){
+						SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.BIU_SOUND_TIME, String.valueOf(System.currentTimeMillis()));
+						if(isOpenVoice){
+							playSound(context);
+						}
+						if(isShock){
+							shock(context);
+						}
 					}
 					updateface.updateView(newUserBean,0);
 				}
