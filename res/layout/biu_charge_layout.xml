@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white" >
+    android:background="@color/white"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -66,34 +66,51 @@
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="79dp"
-                        android:layout_marginTop="46dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical" >
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/biu_info_linear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="46dp"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/pay_imageview_dian_yellow"
+                                android:drawablePadding="4dp"
+                                android:text="每发一次biubiu，获得5粒U米"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:drawableLeft="@drawable/pay_imageview_dian_yellow"
+                                android:drawablePadding="4dp"
+                                android:text="每收一次biubiu，消耗5粒U米"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
+                            android:layout_alignLeft="@+id/biu_info_linear"
+                            android:layout_below="@+id/biu_info_linear"
+                            android:layout_marginTop="12dp"
                             android:drawableLeft="@drawable/pay_imageview_dian_yellow"
                             android:drawablePadding="4dp"
-                            android:text="每发一次biubiu，获得5粒U米"
+                            android:text="U米总量超出100时，暂停发biu奖励"
                             android:textColor="@color/white"
                             android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="15dp"
-                            android:drawableLeft="@drawable/pay_imageview_dian_yellow"
-                            android:drawablePadding="4dp"
-                            android:text="每收一次biubiu，消耗5粒U米"
-                            android:textColor="@color/white"
-                            android:textSize="13sp" />
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -328,7 +345,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        
                         android:orientation="horizontal" >
 
                         <TextView
@@ -354,8 +370,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="20dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
                         android:text="¥ 5"
                         android:textColor="#5cafa8"
                         android:textSize="15sp" />
@@ -365,7 +381,6 @@
                     android:layout_width="250dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                   
                     android:layout_marginTop="25dp"
                     android:orientation="horizontal" >
 
