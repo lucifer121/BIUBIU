@@ -9,7 +9,7 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <!-- oss文件上传相关权限 -->
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
@@ -525,6 +525,11 @@
         </activity>
         <activity
             android:name="com.android.biubiu.activity.mine.InterestLabelActivity"
+            android:label="@string/title_activity_interest_label"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.android.biubiu.activity.mine.SuperMainInfoActivity"
             android:label="@string/title_activity_interest_label"
             android:screenOrientation="portrait" >
         </activity>
