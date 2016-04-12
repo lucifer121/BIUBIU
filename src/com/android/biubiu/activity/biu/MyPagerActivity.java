@@ -73,6 +73,7 @@ import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.activity.mine.InterestLabelActivity;
 import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
+import com.android.biubiu.activity.mine.SuperMainInfoActivity;
 import com.android.biubiu.adapter.UserInterestAdapter;
 import com.android.biubiu.adapter.UserPagerPhotoAdapter;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
@@ -157,6 +158,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 	private ImageView sexArrow;
 	private TextView noPhotoTv;
 	private RelativeLayout moreLayout;
+	private ImageView superManIv;
 	private UserInfoBean infoBean ;
 	ImageOptions imageOptions;
 	private UserPagerPhotoAdapter photoAdapter;
@@ -188,18 +190,18 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			userCode = getIntent().getStringExtra("userCode");
 			if(userCode.equals(SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""))){
 				isMyself = true;
-			
+
 				initOnclick();
 			}else{
 				isMyself = false;
 				moreLayout.setVisibility(View.VISIBLE);
 			}
-			
+
 		}else{
 			isMyself = true;
 			userCode = SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, "");
 			initOnclick();
-		
+
 		}
 		getUserInfo();
 	}
@@ -265,6 +267,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		interestArrow = (ImageView) findViewById(R.id.interest_arrow);
 		noPhotoTv = (TextView) findViewById(R.id.no_photo);
 		sexArrow=(ImageView) findViewById(R.id.sex_arrow);
+		superManIv = (ImageView) findViewById(R.id.super_man_iv);
+		superManIv.setOnClickListener(this);
 
 		imageOptions = new ImageOptions.Builder()
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
@@ -305,7 +309,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			schoolArrow.setVisibility(View.VISIBLE);
 			personalArrow.setVisibility(View.VISIBLE);
 			interestArrow.setVisibility(View.VISIBLE);
-			
+
 		}else{
 			if(bean.getDistance()>1000){
 				locationTv.setText(Math.round(bean.getDistance()/1000)/10.0+"km");
@@ -337,7 +341,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			sexArrow.setVisibility(View.GONE);
 		}
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
-		
+
 		if(isMyself){
 			iconVerify.setVisibility(View.VISIBLE);
 			if(bean.getIconVerify().equals("0")){
@@ -371,8 +375,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			heightWeightTv.setText("茁壮成长中");
 			heightWeightTv.setTextColor(getResources().getColor(R.color.about_gray2_txt));
 		}
-		
-		
+
+
 		if(bean.getIsStudent().equals(Constants.IS_STUDENT_FLAG)){
 			identityTagTv.setText("身份");
 			schoolTagTv.setText("学校");
@@ -380,7 +384,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			if(bean.getSchool()!=null&&!bean.getSchool().equals("")){
 				schoolTv.setText(schoolDao.getschoolName(bean.getSchool()).get(0).getUnivsNameString());
 			}
-			
+
 		}else{
 			identityTagTv.setText("职业");
 			schoolTagTv.setText("公司");
@@ -400,21 +404,40 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		userInfoBigTv.setVisibility(View.VISIBLE);
 		userInfoTv.setVisibility(View.GONE);
 		ViewTreeObserver vto = userInfoBigTv.getViewTreeObserver();   
-        vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
-            @Override  
-            public void onGlobalLayout() { 
-            	userInfoBigTv.getViewTreeObserver().removeGlobalOnLayoutListener(this); 
-            	Log.d("mytest", "hh"+userInfoBigTv.getMeasuredHeight());
-        		if(userInfoBigTv.getMeasuredHeight()>DensityUtil.dip2px(getApplicationContext(), 50)){
-        			userOpenTv.setVisibility(View.VISIBLE);
-        		}else{
-        			userOpenTv.setVisibility(View.GONE);
-        		}
-        		userInfoBigTv.setVisibility(View.GONE);
-        		userInfoTv.setVisibility(View.VISIBLE);
-            }   
-        });
-		
+		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() { 
+			@Override  
+			public void onGlobalLayout() { 
+				userInfoBigTv.getViewTreeObserver().removeGlobalOnLayoutListener(this); 
+				Log.d("mytest", "hh"+userInfoBigTv.getMeasuredHeight());
+				if(userInfoBigTv.getMeasuredHeight()>DensityUtil.dip2px(getApplicationContext(), 50)){
+					userOpenTv.setVisibility(View.VISIBLE);
+				}else{
+					userOpenTv.setVisibility(View.GONE);
+				}
+				userInfoBigTv.setVisibility(View.GONE);
+				userInfoTv.setVisibility(View.VISIBLE);
+			}   
+		});
+		switch (bean.getSuperMan()) {
+		case 0:
+			superManIv.setVisibility(View.GONE);
+			break;
+		case 1:
+			superManIv.setImageResource(R.drawable.biu_imageview_dian);
+			superManIv.setVisibility(View.VISIBLE);
+			break;
+		case 2:
+			superManIv.setImageResource(R.drawable.biu_imageview_dian);
+			superManIv.setVisibility(View.VISIBLE);
+			break;
+		case 3:
+			superManIv.setImageResource(R.drawable.biu_imageview_dian);
+			superManIv.setVisibility(View.VISIBLE);
+			break;
+		default:
+			break;
+		}
+
 	}
 	private void setUserPhotos(ArrayList<UserPhotoBean> photos) {
 		// TODO Auto-generated method stub
@@ -510,22 +533,22 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					JSONObject jsons = new JSONObject(result);
 					String state = jsons.getString("state");
 					if(!state.equals("200")){
-//						showErrorLayout(new OnClickListener() {
-//
-//							@Override
-//							public void onClick(View v) {
-//								// TODO Auto-generated method stub
-//								dismissErrorLayout();
-//								getUserInfo();
-//							}
-//						});
+						//						showErrorLayout(new OnClickListener() {
+						//
+						//							@Override
+						//							public void onClick(View v) {
+						//								// TODO Auto-generated method stub
+						//								dismissErrorLayout();
+						//								getUserInfo();
+						//							}
+						//						});
 						toastShort("获取数据失败");
 						return;
 					}
 					JSONObject data = jsons.getJSONObject("data");
 					String info = data.getJSONObject("userinfo").toString();
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Gson gson = new Gson();
 					UserInfoBean bean = gson.fromJson(info, UserInfoBean.class);
 					if(bean == null){
@@ -536,7 +559,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					ArrayList<PersonalTagBean> per = infoBean.getPersonalTags();
 					ArrayList<UserPhotoBean> phos = infoBean.getUserPhotos();
 					ArrayList<InterestByCateBean> cates = infoBean.getInterestCates();
-					
+
 					if(phos.size() == 0 && !isMyself){
 						noPhotoTv.setVisibility(View.VISIBLE);
 					}else{
@@ -654,6 +677,10 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		case R.id.more_right_rl:
 			getMosterDialog();
 			break;
+		case R.id.super_man_iv:
+			Intent superIntent = new Intent(MyPagerActivity.this,SuperMainInfoActivity.class);
+			startActivity(superIntent);
+			break;
 		default:
 			break;
 		}
@@ -709,8 +736,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
-//					String token = obj.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = obj.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -827,8 +854,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					UserPhotoBean bean = new UserPhotoBean();
 					String photoCode = data.getString("photo_code");
 					String photoOrigin = data.getString("photo_url");
@@ -966,7 +993,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		return path;
 
 	}
-	
+
 	/**
 	 * 保存用户信息
 	 * @param code
@@ -979,29 +1006,29 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		item.setIcon_thumbnailUrl(url);
 		item.setNickname(name);
 		userDao.insertOrReplaceUser(item);
-		
+
 	}
-	
+
 	/**
 	 * 更多
 	 */
 	public void getMosterDialog() {
 		final AlertDialog portraidlg = new AlertDialog.Builder(this)
-				.create();
+		.create();
 		portraidlg.show();
 		Window win = portraidlg.getWindow();
 		win.setContentView(R.layout.item_hint_moster_dralog_mypage);
-		
+
 		RelativeLayout dismissLayout,jubaoLayout;
 
 		jubaoLayout=(RelativeLayout) win.findViewById(R.id.jubao_dialog_mupage_rl);
 		dismissLayout=(RelativeLayout) win.findViewById(R.id.dismiss_dialog_mypage_rl);
-		
+
 
 
 
 		dismissLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -1009,25 +1036,25 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}
 		});
 		jubaoLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				portraidlg.dismiss();
 				MyHintDialog.getDialog(MyPagerActivity.this, "举报Ta", "嗨~确定要举报Ta吗？", "确定", new OnDialogClick() {
-					
+
 					@Override
 					public void onOK() {
 						// TODO Auto-generated method stub  缺少举报接口
 
-//			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
-			                jubao(userCode);
+						//			                Toast.makeText(getActivity(), "举报成功", Toast.LENGTH_SHORT).show();;
+						jubao(userCode);
 					}
-					
+
 					@Override
 					public void onDismiss() {
 						// TODO Auto-generated method stub
-						
+
 					}
 				});
 			}
@@ -1047,7 +1074,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 					getDeviceId(this, SharePreferanceUtils.DEVICE_ID, ""));
 			object.put("user_code", userCode);
 			object.put("reason", "个人主页举报");
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1058,49 +1085,49 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.e(TAG, arg0);
-				
+
 				JSONObject jsonObject;
 				try {
 					jsonObject=new JSONObject(arg0);
 					String state=jsonObject.getString("state");
 					LogUtil.e(TAG, state);
 					if(!state.equals("200")){
-							
+
 						Toast.makeText(getApplicationContext(), jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
 					}
 					Toast.makeText(getApplicationContext().getApplicationContext(), "举报成功", Toast.LENGTH_SHORT).show();
-					
+
 					JSONObject jsonObject2=new JSONObject();
 					jsonObject2=jsonObject.getJSONObject("data");
-//					String token=jsonObject2.getString("token");
-//					if(!token.equals("")&&token!=null){
-//						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
-//					}						
-				
+					//					String token=jsonObject2.getString("token");
+					//					if(!token.equals("")&&token!=null){
+					//						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, token);
+					//					}						
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 	}

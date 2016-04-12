@@ -55,4 +55,11 @@ public class Constants {
 	 * 聊天页面刷新广播 标记 频道
 	 */
 	public static final String FLAG_RECEIVE="receive_refresh";
+	/**
+	 * 用户特殊标记
+	 * */
+	public static final int NORMAL_USER = 0;
+	public static final int SUPER_ONE_USER = 1;
+	public static final int SUPER_TWO_USER = 2;
+	public static final int SUPER_THREE_USER = 3;
 }

@@ -15,6 +15,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.activity.LoginActivity;
 import com.android.biubiu.activity.mine.ScanUserHeadActivity;
+import com.android.biubiu.activity.mine.SuperMainInfoActivity;
 import com.android.biubiu.adapter.SeetingUserInterestAdapter;
 import com.android.biubiu.adapter.SeetingUserPagerTagAdapter;
 import com.android.biubiu.adapter.UserInterestAdapter;
@@ -77,6 +78,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private TextView userName, distance, matchingScore, timeBefore, sex, age,
 	starsign, school, numberInTag, numberInInterestTag, description;
 	private ImageView userPhoto;
+	private ImageView superManiv;
 
 	/**
 	 * 表示 biu是否已经被抢了
@@ -130,6 +132,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		numberInTag = (TextView) findViewById(R.id.number_in_personalTag_tv);
 		numberInInterestTag = (TextView) findViewById(R.id.number_interestTag_receive_biu_tv);
 		userPhoto = (ImageView) findViewById(R.id.photo_head_senbiu_img);
+		superManiv = (ImageView) findViewById(R.id.super_man_iv);
 
 		userPhoto.setOnClickListener(new OnClickListener() {
 
@@ -195,7 +198,15 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				finish();
 			}
 		});
-
+		superManiv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent superIntent = new Intent(BiuBiuReceiveActivity.this,SuperMainInfoActivity.class);
+				startActivity(superIntent);
+			}
+		});
 	}
 	/**
 	 * 初始化数据
@@ -362,7 +373,25 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					userCodeString=biuDEtialBean.getUser_code();
 					userNameString=biuDEtialBean.getNickname();
 					userUrlString=biuDEtialBean.getIcon_thumbnailUrl();
-
+					switch (biuDEtialBean.getSuperMan()) {
+					case 0:
+						superManiv.setVisibility(View.GONE);
+						break;
+					case 1:
+						superManiv.setImageResource(R.drawable.biu_imageview_dian);
+						superManiv.setVisibility(View.VISIBLE);
+						break;
+					case 2:
+						superManiv.setImageResource(R.drawable.biu_imageview_dian);
+						superManiv.setVisibility(View.VISIBLE);
+						break;
+					case 3:
+						superManiv.setImageResource(R.drawable.biu_imageview_dian);
+						superManiv.setVisibility(View.VISIBLE);
+						break;
+					default:
+						break;
+					}
 					saveUserFriend(userCodeString,userNameString,userUrlString);
 					//					if(biuDEtialBean.getToken()!=null&&!biuDEtialBean.getToken().equals("")){
 					//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, biuDEtialBean.getToken());

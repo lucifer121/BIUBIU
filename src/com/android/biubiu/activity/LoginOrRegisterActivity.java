@@ -19,16 +19,13 @@ public class LoginOrRegisterActivity extends BaseActivity{
 	private Button registerBtn;
 	private LinearLayout backLayout;
 	private static final int LOGIN_REQUEST = 1001;
+	private static final int REGISTER_REQUEST = 1002;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login_or_register);
-		if(getIntent().getStringExtra("startActivity")!= null && getIntent().getStringExtra("startActivity").equals("login")){
-			Intent intent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
-			startActivity(intent);
-		}
 		initView();
 		initClick();
 	}
@@ -56,7 +53,7 @@ public class LoginOrRegisterActivity extends BaseActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent RegisterIntent = new Intent(LoginOrRegisterActivity.this,RegisterThreeActivity.class);
-				startActivity(RegisterIntent);
+				startActivityForResult(RegisterIntent,REGISTER_REQUEST);
 			//	overridePendingTransition(R.anim.right_in_anim,R.anim.no_anim); 
 			}
 		});
@@ -79,7 +76,12 @@ public class LoginOrRegisterActivity extends BaseActivity{
 				finish();
 			}
 			break;
-
+		case REGISTER_REQUEST:
+			if(resultCode == RESULT_OK){
+				Intent intent = new Intent(LoginOrRegisterActivity.this,LoginActivity.class);
+				startActivityForResult(intent, LOGIN_REQUEST);
+			}
+			break;
 		default:
 			break;
 		}

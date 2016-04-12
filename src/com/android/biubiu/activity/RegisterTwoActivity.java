@@ -15,6 +15,7 @@ import org.xutils.http.RequestParams;
 
 
 
+
 import cc.imeetu.iu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
@@ -53,6 +54,7 @@ import com.android.biubiu.sqlite.CityDao;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -483,6 +485,11 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 	}
 	//鉴权
 	public void getOssToken(){
+		if(!NetUtils.isNetworkConnected(getApplicationContext())){
+			toastShort(getResources().getString(R.string.net_error));
+			return;
+		}
+		showLoadingLayout(getResources().getString(R.string.register));
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.REGISTER_OSS);
 		x.http().post(params, new CommonCallback<String>() {
 
@@ -495,7 +502,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				//dismissLoadingLayout();
+				dismissLoadingLayout();
 				toastShort("注册失败");
 				LogUtil.d("mytest", "error--"+ex.getMessage());
 				LogUtil.d("mytest", "error--"+ex.getCause());
@@ -515,7 +522,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 					JSONObject jsonObjs = new JSONObject(arg0);
 					String  state = jsonObjs.getString("state");
 					if(!state.equals("200")){
-						//dismissLoadingLayout();
+						dismissLoadingLayout();
 						toastShort("注册失败");
 						return;
 					}
@@ -573,7 +580,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			}
 			@Override
 			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-				//dismissLoadingLayout();
+				dismissLoadingLayout();
 				toastShort("注册失败");
 				// 请求异常
 				if (clientExcepion != null) {
@@ -626,7 +633,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			@Override
 			public void onError(Throwable ex, boolean arg1) {
 				// TODO Auto-generated method stub
-				//dismissLoadingLayout();
+				dismissLoadingLayout();
 				toastShort("注册失败");
 				Log.d("mytest", "error--pp"+ex.getMessage());
 				Log.d("mytest", "error--pp"+ex.getCause());
@@ -641,7 +648,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			@Override
 			public void onSuccess(String arg0) {
 				// TODO Auto-generated method stub
-				//dismissLoadingLayout();
+				dismissLoadingLayout();
 				try {
 					JSONObject jsons = new JSONObject(arg0);
 					String code = jsons.getString("state");

@@ -55,7 +55,15 @@ public class UserInfoBean implements Serializable{
 	private int time;
 	@SerializedName("activity_time")
 	private long activityTime;
+	@SerializedName("superman")
+	private int superMan;
 	
+	public int getSuperMan() {
+		return superMan;
+	}
+	public void setSuperMan(int superMan) {
+		this.superMan = superMan;
+	}
 	public long getActivityTime() {
 		return activityTime;
 	}

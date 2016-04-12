@@ -94,6 +94,18 @@ public class BiuDetialBean {
 	private String carrer;
 	@SerializedName("interested_tags")
 	private ArrayList<InterestByCateBean> interested_tags;
+	@SerializedName("superman")
+	private int superMan;
+	
+	public int getSuperMan() {
+		return superMan;
+	}
+
+
+	public void setSuperMan(int superMan) {
+		this.superMan = superMan;
+	}
+
 
 	public String getIconOrigin() {
 		return iconOrigin;

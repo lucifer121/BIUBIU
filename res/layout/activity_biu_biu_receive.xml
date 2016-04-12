@@ -169,9 +169,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:layout_marginTop="24dp"
                         android:gravity="center" >
 
                         <LinearLayout
@@ -186,9 +186,9 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:textColor="@color/text_huise2"
-                                android:text=""
                                 android:singleLine="true"
+                                android:text=""
+                                android:textColor="@color/text_huise2"
                                 android:textSize="12sp" />
 
                             <TextView
@@ -199,11 +199,10 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
-                                android:textColor="@color/text_huise2"
-                                android:textSize="12sp"
+                                android:singleLine="true"
                                 android:text=""
-                                
-                                android:singleLine="true" />
+                                android:textColor="@color/text_huise2"
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/starsign_receive_biu_tv"
@@ -213,10 +212,10 @@
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
                                 android:drawablePadding="5dp"
+                                android:singleLine="true"
+                                android:text=""
                                 android:textColor="@color/text_huise2"
-                                android:textSize="12sp"
-                                 android:text=""
-                                android:singleLine="true" />
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/school_receive_biu_tv"
@@ -232,7 +231,6 @@
                                 android:text=""
                                 android:textColor="@color/text_huise2"
                                 android:textSize="12sp" />
-
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -256,8 +254,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="#565656"
-                                android:textSize="13sp"
-                                 />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -294,8 +291,7 @@
                         android:listSelector="#00000000"
                         android:numColumns="4"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="14dp"
-                         />
+                        android:verticalSpacing="14dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -317,8 +313,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="#565656"
-                                android:textSize="13sp"
-                                />
+                                android:textSize="13sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -357,9 +352,7 @@
                         android:listSelector="#00000000"
                         android:numColumns="4"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="14dp"
-                        
-                         />
+                        android:verticalSpacing="14dp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -372,8 +365,7 @@
                     android:id="@+id/grab_biu_receive_biu_rl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/center_receive_biubiu_ll"
-                     >
+                    android:layout_below="@id/center_receive_biubiu_ll" >
 
                     <Button
                         android:id="@+id/grab_biu_receive_biu_bt"
@@ -390,9 +382,9 @@
                         android:id="@+id/never_grag_biu_receive_biu_rl"
                         android:layout_width="109dp"
                         android:layout_height="42dp"
-                        android:background="@drawable/kongjianruoqu_bg"
                         android:layout_below="@id/grab_biu_receive_biu_bt"
                         android:layout_centerHorizontal="true"
+                        android:background="@drawable/kongjianruoqu_bg"
                         android:gravity="center" >
 
                         <TextView
@@ -472,21 +464,42 @@
                         android:layout_below="@id/no_biuMoney_receive_biu_ll" />
                 </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/photo_head_senbiu_img_bg"
+                <RelativeLayout
                     android:layout_width="82dp"
-                    android:layout_height="82dp"
+                    android:layout_height="94dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="34dp"
-                    android:src="@drawable/biu_imageview_photo_circle" />
+                    android:layout_marginTop="34dp" >
 
-                <ImageView
-                    android:id="@+id/photo_head_senbiu_img"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="35dp"
-                     />
+                    <RelativeLayout
+                        android:id="@+id/userhead_layout"
+                        android:layout_width="82dp"
+                        android:layout_height="82dp"
+                        android:layout_alignParentBottom="true" >
+
+                        <ImageView
+                            android:id="@+id/photo_head_senbiu_img_bg"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/biu_imageview_photo_circle" />
+
+                        <ImageView
+                            android:id="@+id/photo_head_senbiu_img"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="1dp" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/super_man_iv"
+                        android:layout_width="27dp"
+                        android:layout_height="24dp"
+                        android:layout_centerHorizontal="true"
+                        android:padding="6dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/biu_imageview_dian" />
+                </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
 

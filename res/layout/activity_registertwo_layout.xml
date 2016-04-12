@@ -44,9 +44,9 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@id/registertwo_top_rl"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="59dp"
-        android:layout_centerHorizontal="true"
         android:gravity="center" >
 
         <ImageView
@@ -70,15 +70,14 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            
             android:src="@drawable/photo_imageview" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/center2_registertwo_ll"
         android:layout_width="match_parent"
-        android:layout_below="@id/center1_registertwo_rl"
         android:layout_height="50dp"
+        android:layout_below="@id/center1_registertwo_rl"
         android:layout_marginTop="25dp"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -99,8 +98,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginLeft="12dp"
+                android:gravity="center"
                 android:text="@string/register_two_inschool" />
         </LinearLayout>
 
@@ -109,8 +108,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="right"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:gravity="right" >
 
             <ImageView
                 android:id="@+id/out_school_imv"
@@ -122,8 +121,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginRight="72dp"
+                android:gravity="center"
                 android:text="@string/register_two_outschool" />
         </LinearLayout>
     </LinearLayout>
@@ -177,7 +176,6 @@
         android:id="@+id/registertwo_center4_rl"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        
         android:layout_below="@id/registertwo_center3_rl"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -223,12 +221,11 @@
         android:id="@+id/next_registertwo_rl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_below="@id/registertwo_center4_rl"
         android:layout_marginLeft="62.5dp"
         android:layout_marginRight="62.5dp"
         android:layout_marginTop="78dp"
-android:layout_below="@id/registertwo_center4_rl"
         android:background="@drawable/register_btn_disabled" >
-
 
         <TextView
             android:id="@+id/next_registerone_tv"
@@ -240,5 +237,9 @@ android:layout_below="@id/registertwo_center4_rl"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
+
+    <include layout="@layout/loading_layout" />
+
+    <include layout="@layout/load_error_layout" />
 
 </RelativeLayout>

@@ -236,13 +236,12 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 						sendSms();
 					}else{
 						toastShort("该手机号已注册,请直接登录");
-//						//启动登录页，因堆栈问题，启动登录注册页
-//						Intent intent = new Intent(RegisterThreeActivity.this,LoginOrRegisterActivity.class);
-//						intent.putExtra("startActivity", "login");
-//						startActivity(intent);
-						Intent intent=new Intent(RegisterThreeActivity.this,LoginActivity.class);
-						startActivity(intent);
+						//启动登录页，因堆栈问题，启动登录注册页
+						setResult(RESULT_OK);
 						finish();
+						/*Intent intent=new Intent(RegisterThreeActivity.this,LoginActivity.class);
+						startActivity(intent);
+						finish();*/
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -305,9 +304,8 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			toastShort(getResources().getString(R.string.net_error));
 			return;
 		}
-		showLoadingLayout(getResources().getString(R.string.registering));
 		//验证  验证码
-		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
+		/*AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
@@ -317,11 +315,14 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					intent.putExtra("password", passwordEt.getText().toString());
 					startActivity(intent);
 				} else {
-					dismissLoadingLayout();
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});
+		});*/
+		Intent intent = new Intent(RegisterThreeActivity.this,RegisterOneActivity.class);
+		intent.putExtra("phone", registerPhoneEt.getText().toString());
+		intent.putExtra("password", passwordEt.getText().toString());
+		startActivity(intent);
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

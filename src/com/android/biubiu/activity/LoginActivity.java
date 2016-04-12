@@ -234,12 +234,12 @@ public class LoginActivity extends BaseActivity{
 					//统计登录用户
 					MobclickAgent.onProfileSignIn(userCode);
 					
-//					setResult(RESULT_OK);
-//					finish();
-					Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+					setResult(RESULT_OK);
+					finish();
+					/*Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
-					finish();
+					finish();*/
 	
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
