@@ -54,6 +54,7 @@ import com.ant.liao.GifView.GifImageType;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
 
@@ -1128,6 +1129,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 				try {
 					jsons = new JSONObject(result);
 					String state = jsons.getString("state");
+					if(state.equals("303")){
+						Toast.makeText(getActivity(),"登录过期，请重新登录",1000).show();
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_NAME, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_HEAD, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_CODE, "");
+						LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+						exitHuanxin();
+						return;
+					}
 					if(!state.equals("200")){
 						return;
 					}
@@ -1166,6 +1177,33 @@ public class BiuFragment extends Fragment implements PushInterface{
 				}
 			}
 		});
+	}
+	/**
+	 * 退出环信登录
+	 */
+	public void exitHuanxin(){
+		EMClient.getInstance().logout(true ,new EMCallBack() {
+
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				//清空本地token
+				SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.HX_USER_NAME, "");
+				SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.HX_USER_PASSWORD, "");
+			}
+
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+			}
+		});
+
 	}
 	//设置消息按钮点击
 	protected void initMsgView(final int flag) {
