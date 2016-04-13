@@ -122,7 +122,6 @@ public class CommonDialog {
 		messageTv.setText(msg);
 		RelativeLayout bottomRl = (RelativeLayout) win.findViewById(R.id.no_dialog_my_rl);
 		RelativeLayout bottomRl2 = (RelativeLayout) win.findViewById(R.id.ok_dialog_my_rl);
-		bottomRl2.setVisibility(View.GONE);
 		TextView bottomTv = (TextView) win.findViewById(R.id.no_dialog_my_tv);
 		bottomTv.setText(strBtn1);
 		TextView bottomTv2 = (TextView) win.findViewById(R.id.ok_dialog_my_tv);

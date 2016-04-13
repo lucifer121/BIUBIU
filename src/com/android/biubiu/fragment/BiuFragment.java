@@ -300,7 +300,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				int flag = 1;
+				int flag = 0;
 				if(!LoginUtils.isLogin(getActivity())){
 					Intent intent = new Intent(getActivity(),LoginOrRegisterActivity.class);
 					startActivity(intent);
@@ -357,7 +357,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 			msg = "审核通过啦";
 			strBtn1 = "我知道了";
 			break;
-
+		case 2:
+			title = "审核";
+			msg = "审核未通过哦";
+			strBtn1 = "取消";
+			strBtn2 = "重新上传";
+			break;
 		default:
 			break;
 		}
@@ -376,9 +381,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			}, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
 					switch (flag) {
 					case 2:
-
+						showHeadDialog();
 						break;
 					case 4:
 
@@ -390,12 +402,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 					default:
 						break;
 					}
-				}
-			}, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
 					dialog.dismiss();
 				}
 			});
@@ -1134,7 +1140,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);
-					int flag = 1;
+					int flag = 0;
 					initMsgView(flag);
 					Gson gson = new Gson();
 					JSONObject biuObject = data.optJSONObject("mylatestbiu");

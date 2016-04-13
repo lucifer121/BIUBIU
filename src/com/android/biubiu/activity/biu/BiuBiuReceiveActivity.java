@@ -1,5 +1,8 @@
 package com.android.biubiu.activity.biu;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +29,10 @@ import com.android.biubiu.bean.InterestTagBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.TokenBean;
 import com.android.biubiu.bean.UserFriends;
+import com.android.biubiu.callback.BiuBooleanCallback;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.Constant;
+import com.android.biubiu.common.CommonDialog;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.sqlite.UserDao;
@@ -36,17 +41,24 @@ import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.UploadImgUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.hyphenate.easeui.EaseConstant;
 import com.umeng.analytics.MobclickAgent;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.support.v4.media.session.MediaSessionCompat.Token;
 import android.util.Log;
 import android.view.Menu;
@@ -61,6 +73,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BiuBiuReceiveActivity extends BaseActivity {
 	private static final int GO_CHARGE = 1001;
@@ -94,7 +107,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private RelativeLayout chongzhiLayout,goSendBiuLayout;
 	private UserDao userDao;
 	private String userCodeString,userNameString,userUrlString;
-
+	
+	private static final int SELECT_PHOTO = 1002;
+	private static final int CROUP_PHOTO = 1003;
+	Bitmap userheadBitmap = null;
+	String headPath = "";
+	private boolean isUploadingPhoto = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -161,13 +179,17 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				int flag = 0;
 				if(SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
 					LogUtil.e(TAG, "未登录 去登陆");
 					goLoginDialog();
 				}else{
-					grabBiu();
-					
-					Umutils.count(BiuBiuReceiveActivity.this, Umutils.RECEIVE_BIU_TOTAL);
+					if(flag != 0){
+						showShenHeDaiog(flag);
+					}else{
+						grabBiu();
+						Umutils.count(BiuBiuReceiveActivity.this, Umutils.RECEIVE_BIU_TOTAL);
+					}
 				}
 
 			}
@@ -209,6 +231,89 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				// TODO Auto-generated method stub
 				Intent superIntent = new Intent(BiuBiuReceiveActivity.this,SuperMainInfoActivity.class);
 				startActivity(superIntent);
+			}
+		});
+	}
+	private void showShenHeDaiog(final int flag){
+		String title = "";
+		String msg = "";
+		String strBtn1 = "";
+		String strBtn2 = "";
+		switch (flag) {
+		case 1:
+			title = "审核";
+			msg = "审核通过啦";
+			strBtn1 = "我知道了";
+			break;
+		case 2:
+			title = "审核";
+			msg = "审核未通过哦";
+			strBtn1 = "取消";
+			strBtn2 = "重新上传";
+			break;
+		default:
+			break;
+		}
+		if(flag == 1){
+			CommonDialog.singleBtnDialog(BiuBiuReceiveActivity.this, title, msg, strBtn1, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+		}else{
+			CommonDialog.doubleBtnDialog(BiuBiuReceiveActivity.this, title, msg, strBtn1, strBtn2, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			}, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					switch (flag) {
+					case 2:
+						showHeadDialog();
+						break;
+					case 4:
+
+						break;
+					case 6:
+
+						break;
+
+					default:
+						break;
+					}
+					dialog.dismiss();
+				}
+			});
+		}
+
+	}
+	public void showHeadDialog() {
+		CommonDialog.headDialog(BiuBiuReceiveActivity.this, new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						"image/*");
+				startActivityForResult(intent, SELECT_PHOTO);
+				dialog.dismiss();
+			}
+		},new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
 			}
 		});
 	}
@@ -727,10 +832,90 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				isGrabLayout.setVisibility(View.VISIBLE);
 			}
 			break;
-
+		case CROUP_PHOTO:
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				userheadBitmap = extras.getParcelable("data");
+				if(userheadBitmap != null){
+					headPath = saveHeadImg(userheadBitmap);
+					uploadPhoto(headPath);
+				}
+			}
+			break;
+		case SELECT_PHOTO:
+			if(data != null){
+				cropPhoto(data.getData());// 裁剪图片
+			}
+			break;
 		default:
 			break;
 		}
 	}
+	private void uploadPhoto(String headPath) {
+		// TODO Auto-generated method stub
+		isUploadingPhoto = true;
+		showLoadingLayout("正在上传……");
+		UploadImgUtils.uploadPhoto(BiuBiuReceiveActivity.this, headPath, new BiuBooleanCallback() {
 
+			@Override
+			public void callback(boolean result) {
+				// TODO Auto-generated method stub
+				isUploadingPhoto = false;
+				if(result){
+					dismissLoadingLayout();
+				}else{
+					Toast.makeText(getApplicationContext(), "上传照片失败", 1000).show();
+					dismissLoadingLayout();
+				}
+			}
+		});
+	}
+	/**
+	 * 调用系统的裁剪功能
+	 * 
+	 * @param uri
+	 */
+	public void cropPhoto(Uri uri) {
+		// 调用拍照的裁剪功能
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽和搞的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// // outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 250);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, CROUP_PHOTO);
+	}
+	public String saveHeadImg(Bitmap head) {
+		FileOutputStream fos = null;
+		String path = "";
+		path = Environment.getExternalStorageDirectory()
+				+ "/biubiu/"+System.currentTimeMillis()+".png";
+		File file = new File(path);
+		file.getParentFile().mkdirs();
+		try {
+			file.createNewFile();
+			fos = new FileOutputStream(file);
+			head.compress(CompressFormat.PNG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+
+	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		if(isUploadingPhoto){
+			return;
+		}
+		finish();
+	}
 }
