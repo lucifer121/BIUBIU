@@ -341,8 +341,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			sexArrow.setVisibility(View.GONE);
 		}
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
-
-		if(isMyself){
 			iconVerify.setVisibility(View.VISIBLE);
 			if(bean.getIconVerify().equals("0")){
 				iconVerify.setText("待审核");
@@ -353,10 +351,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			}else {
 				iconVerify.setText("审核失败");
 			}
-		}else{
-			iconVerify.setVisibility(View.GONE);
-		}
-
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());
 		sexTv.setText(bean.getSexStr(bean.getSex()));
@@ -525,7 +519,6 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void onSuccess(String result) {
 				LogUtil.d("mytest", result);
-
 				// TODO Auto-generated method stub
 				dismissLoadingLayout();
 				dismissErrorLayout();

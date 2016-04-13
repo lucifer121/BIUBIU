@@ -72,14 +72,14 @@ import android.widget.Toast;
 
 public class MainActivity extends SlidingFragmentActivity implements AMapLocationListener{
 	public RelativeLayout leftRl;
-	public RelativeLayout rightRl;
+	public static RelativeLayout rightRl;
 	public static TextView biuCoinTv;
 	public static RelativeLayout biuCoinLayout;
 	//定位相关
 	private AMapLocationClient locationClient = null;
 	private AMapLocationClientOption locationOption = null;
 	private String TAG="MainActivity";
-	private ImageView newMessage;
+	public static  ImageView newMessage;
 	RelativeLayout beginGuidLayout;
 	ImageView guidImv;
 	Button guidBtn;
@@ -421,16 +421,6 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 			}
 		});
 		rightRl = (RelativeLayout) findViewById(R.id.title_right_rl);
-		rightRl.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				showRightMenu();
-				newMessage.setVisibility(View.GONE);
-			}
-		});
-
 	}
 	private void initRightMenu()
 	{
@@ -650,6 +640,9 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 //			System.exit(0);
 //			
 //		}
+		if(BiuFragment.isUploadingPhoto){
+			return;
+		}
 		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_APP_OPEN, false);
 		 this.moveTaskToBack(true);
 	}

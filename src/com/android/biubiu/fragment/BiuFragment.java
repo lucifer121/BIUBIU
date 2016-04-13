@@ -1,5 +1,8 @@
 package com.android.biubiu.fragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,14 +21,19 @@ import cc.imeetu.iu.R;
 
 import com.android.biubiu.MainActivity;
 import com.android.biubiu.activity.LoginOrRegisterActivity;
+import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.biu.BiuBiuSendActivity;
 import com.android.biubiu.activity.biu.BiuChargeActivity;
 import com.android.biubiu.bean.DotBean;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.UserBean;
+import com.android.biubiu.callback.BiuBooleanCallback;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.Constant;
+import com.android.biubiu.chat.MyHintDialog;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
+import com.android.biubiu.common.CommonDialog;
 import com.android.biubiu.push.MyPushReceiver;
 import com.android.biubiu.push.PushInterface;
 import com.android.biubiu.sqlite.SchoolDao;
@@ -37,31 +45,16 @@ import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
+import com.android.biubiu.utils.UploadImgUtils;
 import com.android.biubiu.view.BiuView;
 import com.android.biubiu.view.HomeBgView;
 import com.android.biubiu.view.TaskView;
 import com.ant.liao.GifView;
 import com.ant.liao.GifView.GifImageType;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
 
 import android.R.integer;
@@ -70,10 +63,16 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.LightingColorFilter;
+import android.graphics.Bitmap.CompressFormat;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.support.v4.app.Fragment;
 import android.text.LoginFilter;
@@ -178,6 +177,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 
 	//中间是否为biubiu可发送状态
 	boolean isBiuState = true;
+	private static final int SELECT_PHOTO = 1002;
+	private static final int CROUP_PHOTO = 1003;
+	Bitmap userheadBitmap = null;
+	String headPath = "";
+	LinearLayout loadingLayout;
+	GifView loadGif;
+	TextView loadTv;
+	public static boolean isUploadingPhoto = false;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -214,6 +221,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 		// TODO Auto-generated method stub
 		width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
 		height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+		loadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+		loadGif = (GifView) view.findViewById(R.id.load_gif);
+		loadTv = (TextView) view.findViewById(R.id.loading_tv);
 		taskHandler = new Handler();
 		infoHandler = new Handler();
 		removeHandler = new Handler();
@@ -290,6 +300,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				int flag = 1;
 				if(!LoginUtils.isLogin(getActivity())){
 					Intent intent = new Intent(getActivity(),LoginOrRegisterActivity.class);
 					startActivity(intent);
@@ -304,15 +315,23 @@ public class BiuFragment extends Fragment implements PushInterface{
 						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
 						if(time/1000 > 90){
 							//启动发送biubiu界面
-							Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
-							startActivityForResult(intent, SEND_BIU_REQUEST);
+							if(flag != 0){
+								showShenHeDaiog(flag);
+							}else{
+								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+								startActivityForResult(intent, SEND_BIU_REQUEST);
+							}
 						}else{
 							Toast.makeText(getActivity(), "距离上次发biu还不到90秒哦！", 1000).show();
 						}	
 					}else{
 						//启动发送biubiu界面
-						Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
-						startActivityForResult(intent, SEND_BIU_REQUEST);
+						if(flag != 0){
+							showShenHeDaiog(flag);
+						}else{
+							Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+							startActivityForResult(intent, SEND_BIU_REQUEST);
+						}
 					}
 				}else{
 					isBiuState = true;
@@ -324,6 +343,83 @@ public class BiuFragment extends Fragment implements PushInterface{
 					intent.putExtra(Constant.EXTRA_USER_ID, userBiuBean.getId());
 					startActivity(intent);
 				}
+			}
+		});
+	}
+	private void showShenHeDaiog(final int flag){
+		String title = "";
+		String msg = "";
+		String strBtn1 = "";
+		String strBtn2 = "";
+		switch (flag) {
+		case 1:
+			title = "审核";
+			msg = "审核通过啦";
+			strBtn1 = "我知道了";
+			break;
+
+		default:
+			break;
+		}
+		if(flag == 1){
+			CommonDialog.singleBtnDialog(getActivity(), title, msg, strBtn1, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+		}else{
+			CommonDialog.doubleBtnDialog(getActivity(), title, msg, strBtn1, strBtn2, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					switch (flag) {
+					case 2:
+
+						break;
+					case 4:
+
+						break;
+					case 6:
+
+						break;
+
+					default:
+						break;
+					}
+				}
+			}, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+		}
+
+	}
+	public void showHeadDialog() {
+		CommonDialog.headDialog(getActivity(), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						"image/*");
+				startActivityForResult(intent, SELECT_PHOTO);
+				dialog.dismiss();
+			}
+		},new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
 			}
 		});
 	}
@@ -855,10 +951,106 @@ public class BiuFragment extends Fragment implements PushInterface{
 				taskHandler.post(taskR);
 			}
 			break;
-
+		case CROUP_PHOTO:
+			if (data != null) {
+				Bundle extras = data.getExtras();
+				userheadBitmap = extras.getParcelable("data");
+				if(userheadBitmap != null){
+					headPath = saveHeadImg(userheadBitmap);
+					uploadPhoto(headPath);
+				}
+			}
+			break;
+		case SELECT_PHOTO:
+			if(data != null){
+				cropPhoto(data.getData());// 裁剪图片
+			}
+			break;
 		default:
 			break;
 		}
+	}
+	private void uploadPhoto(String headPath) {
+		// TODO Auto-generated method stub
+		isUploadingPhoto = true;
+		showLoadingLayout("正在上传……");
+		UploadImgUtils.uploadPhoto(getActivity(), headPath, new BiuBooleanCallback() {
+
+			@Override
+			public void callback(boolean result) {
+				// TODO Auto-generated method stub
+				isUploadingPhoto = false;
+				if(result){
+					dismissLoadingLayout();
+				}else{
+					Toast.makeText(getActivity(), "上传照片失败", 1000).show();
+					dismissLoadingLayout();
+				}
+			}
+		});
+	}
+	public void showLoadingLayout(String loadingStr){
+		if(loadingLayout == null){
+			loadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+		}
+		if(loadGif == null){
+			loadGif = (GifView) view.findViewById(R.id.load_gif);
+			loadGif.setGifImage(R.drawable.loadingbbbb);
+			loadGif.setShowDimension(DensityUtil.dip2px(getActivity(), 30), DensityUtil.dip2px(getActivity(), 30));
+			loadGif.setGifImageType(GifImageType.COVER);
+		}
+		if(loadTv == null){
+			loadTv = (TextView) view.findViewById(R.id.loading_tv);
+		}
+		loadTv.setText(loadingStr);
+		loadGif.setVisibility(View.VISIBLE);
+		loadingLayout.setVisibility(View.VISIBLE);
+	}
+	//加载完毕隐藏
+	public void dismissLoadingLayout(){
+		if(loadingLayout == null){
+			loadingLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+		}
+		loadingLayout.setVisibility(View.GONE);
+	}
+	/**
+	 * 调用系统的裁剪功能
+	 * 
+	 * @param uri
+	 */
+	public void cropPhoto(Uri uri) {
+		// 调用拍照的裁剪功能
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽和搞的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// // outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 250);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, CROUP_PHOTO);
+	}
+	public String saveHeadImg(Bitmap head) {
+		FileOutputStream fos = null;
+		String path = "";
+		path = Environment.getExternalStorageDirectory()
+				+ "/biubiu/"+System.currentTimeMillis()+".png";
+		File file = new File(path);
+		file.getParentFile().mkdirs();
+		try {
+			file.createNewFile();
+			fos = new FileOutputStream(file);
+			head.compress(CompressFormat.PNG, 100, fos);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+
 	}
 	@Override
 	public void updateView(UserBean userBean,int type) {
@@ -896,6 +1088,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(getActivity(), SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("token",SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+			log.d("mytest","request tok=="+SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
 		} catch (JSONException e) {
 
 			e.printStackTrace();
@@ -941,6 +1134,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);
+					int flag = 1;
+					initMsgView(flag);
 					Gson gson = new Gson();
 					JSONObject biuObject = data.optJSONObject("mylatestbiu");
 					if(biuObject!=null){
@@ -962,6 +1157,23 @@ public class BiuFragment extends Fragment implements PushInterface{
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+			}
+		});
+	}
+	//设置消息按钮点击
+	protected void initMsgView(final int flag) {
+		// TODO Auto-generated method stub
+		MainActivity.rightRl.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(flag != 0){
+					showShenHeDaiog(flag);
+				}else{
+					((MainActivity)getActivity()).showRightMenu();
+					MainActivity.newMessage.setVisibility(View.GONE);
 				}
 			}
 		});

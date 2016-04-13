@@ -239,7 +239,7 @@ public class MyPushReceiver extends PushMessageReceiver{
 		}
 		Intent resultIntent;
 		if((System.currentTimeMillis()-bean.getTime())<59*60*1000){
-			resultIntent= new Intent(context, BiuBiuReceiveActivity.class);
+			resultIntent= new Intent(context.getApplicationContext(), BiuBiuReceiveActivity.class);
 			resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 			resultIntent.putExtra("referenceId", bean.getReferenceId());
 			resultIntent.putExtra("userCode", bean.getId());
@@ -247,10 +247,9 @@ public class MyPushReceiver extends PushMessageReceiver{
 			resultIntent.putExtra("chatId", bean.getChatId());
 			LogUtil.e(TAG, "userCode=="+bean.getId());
 		}else{
-			resultIntent= new Intent(context, MainActivity.class);
+			resultIntent= new Intent(context.getApplicationContext(), MainActivity.class);
 		}
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		
+		PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pendingIntent);
 		mNotificationManager.notify(0, mBuilder.build());
 	}
