@@ -15,7 +15,7 @@ import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.UserInfoBean;
-import com.android.biubiu.common.PerfectInformation;
+import com.android.biubiu.common.CommonDialog;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.BitmapUtils;
 import com.android.biubiu.utils.CloseJianpan;
@@ -344,7 +344,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}
 	}
 	public void showHeadDialog() {
-		PerfectInformation.headDialog(RegisterOneActivity.this, new DialogInterface.OnClickListener() {
+		CommonDialog.headDialog(RegisterOneActivity.this, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

@@ -104,7 +104,6 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		case R.id.edit_rl:
 			if(isMyself){
-				
 				dialogHint();
 			}
 			break;
