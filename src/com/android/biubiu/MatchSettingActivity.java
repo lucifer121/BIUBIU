@@ -16,6 +16,9 @@ import com.android.biubiu.activity.mine.PersonalityTagActivity;
 import com.android.biubiu.adapter.UserPagerTagAdapter;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.bean.SettingBean;
+import com.android.biubiu.bean.UserInfoBean;
+import com.android.biubiu.chat.MyHintDialog;
+import com.android.biubiu.chat.MyHintDialog.OnDialogClick;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -49,6 +52,7 @@ import android.widget.ToggleButton;
 
 public class MatchSettingActivity extends BaseActivity implements OnClickListener{
 	private static final int PERSONAL_TAG = 1001;
+	private static final int PERSONAL_TAG_MY=1002;
 	private RelativeLayout backRl;
 	private ImageView boyToggle;
 	private ImageView girlToggle;
@@ -79,6 +83,11 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	private boolean isOpenVoice = true;
 	private boolean isOpenShck = true;
 	SettingBean setBean;
+	
+	/**
+	 * 用来标识我自己有没有填 个性标签
+	 */
+	private boolean isCheckMyTags=false;
 
 	private String TAG ="MatchSettingActivity";
 	@Override
@@ -305,10 +314,35 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			saveSetInfo();
 			break;
 		case R.id.personal_rl:
-			Intent intent = new Intent(MatchSettingActivity.this,MatchSetTagActivity.class);
-			intent.putExtra("personalTags", (Serializable)setBean.getPersonalTags());
-			intent.putExtra("sex", isSelBoy);
-			startActivityForResult(intent, PERSONAL_TAG);
+			//TODO 判断自己填没填
+			
+			if(isCheckMyTags==false){
+
+				MyHintDialog.getDialog(this, "完善个性标签", "想让iU的恋爱公式发生作用么  要先完善你自己的个性标签哦", "完善个性标签", new OnDialogClick() {
+					
+					@Override
+					public void onOK() {
+						// TODO Auto-generated method stub
+						UserInfoBean infoBean=new UserInfoBean();
+						infoBean.setSex("1");
+						Intent intent = new Intent(MatchSettingActivity.this,PersonalityTagActivity.class);
+						intent.putExtra("userInfoBean", (Serializable)infoBean);				
+						startActivityForResult(intent, PERSONAL_TAG_MY);
+					}
+					
+					@Override
+					public void onDismiss() {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			}else{
+				Intent intent = new Intent(MatchSettingActivity.this,MatchSetTagActivity.class);
+				intent.putExtra("personalTags", (Serializable)setBean.getPersonalTags());
+				intent.putExtra("sex", isSelBoy);
+				startActivityForResult(intent, PERSONAL_TAG);
+			}
+	
 			break;
 		case R.id.logout_rl:
 			//退出
@@ -671,6 +705,14 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			ArrayList<PersonalTagBean> list = (ArrayList<PersonalTagBean>) data.getSerializableExtra("personalTags");
 			setTags(list);
 			setBean.setPersonalTags(list);
+			break;
+		case PERSONAL_TAG_MY:
+			
+			if(resultCode==RESULT_OK){
+				isCheckMyTags=true;
+				LogUtil.d(TAG, "完成了设置个性标签");
+			}
+			
 			break;
 
 		default:

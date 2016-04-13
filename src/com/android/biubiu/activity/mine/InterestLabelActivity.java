@@ -225,6 +225,10 @@ public class InterestLabelActivity extends BaseActivity {
 				
 				
 				fanhuiDate();
+				if(mDataFanhui==null||mDataFanhui.size()<=0){
+					toastShort("还没有选择标签哦");
+					return;
+				}
 				updateInfo();
 //				Intent intent=getIntent();
 //				Bundle bundle=new Bundle();

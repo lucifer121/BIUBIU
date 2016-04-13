@@ -342,20 +342,22 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		}
 		x.image().bind(userheadImv, bean.getIconCircle(), imageOptions);
 
-		if(isMyself){
+//		if(isMyself){
 			iconVerify.setVisibility(View.VISIBLE);
 			if(bean.getIconVerify().equals("0")){
 				iconVerify.setText("待审核");
 			}else if(bean.getIconVerify().equals("1")){
 				iconVerify.setText("审核中");
 			}else if(bean.getIconVerify().equals("2")){
-				iconVerify.setText("审核通过");
+			//	iconVerify.setText("审核通过");
+				iconVerify.setVisibility(View.GONE);
+				
 			}else {
 				iconVerify.setText("审核失败");
 			}
-		}else{
-			iconVerify.setVisibility(View.GONE);
-		}
+//		}else{
+//			iconVerify.setVisibility(View.GONE);
+//		}
 
 		usernameTv.setText(bean.getNickname());
 		nicknameTv.setText(bean.getNickname());

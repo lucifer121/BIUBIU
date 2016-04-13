@@ -131,7 +131,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-
+				dismissLoadingLayout();
 			}
 
 			@Override
@@ -153,7 +153,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-
+				dismissLoadingLayout();
 			}
 
 			@Override
@@ -165,6 +165,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 					jsons=new JSONObject(arg0);
 					String code = jsons.getString("state");
 					if(!code.equals("200")){
+						LogUtil.e(TAG, "code=="+code);
 						showErrorLayout(new OnClickListener() {
 
 							@Override
@@ -211,6 +212,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				setResult(RESULT_CANCELED, getIntent());
 				finish();
 
 			}
@@ -222,6 +224,10 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 				// TODO Auto-generated method stub
 				//toastShort("完成");
 				updata();
+				if(mDataFanhui==null||mDataFanhui.size()<=0){
+					toastShort("还没有选择标签哦");
+					return;
+				}
 
 				updateInfo();
 
@@ -322,7 +328,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 	 * 选中tag
 	 */
 	public void setView(){
-		if(mDataReceive.size()==0){
+		if(mDataReceive==null||mDataReceive.size()==0){
 			handler.sendEmptyMessage(1);
 
 		}else {
@@ -425,6 +431,14 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 			}
 		});
 	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		setResult(RESULT_CANCELED, getIntent());
+		finish();
+	}
+	
 
 
 }
