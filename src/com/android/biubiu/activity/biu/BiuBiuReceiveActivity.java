@@ -28,6 +28,7 @@ import com.android.biubiu.bean.TokenBean;
 import com.android.biubiu.bean.UserFriends;
 import com.android.biubiu.chat.ChatActivity;
 import com.android.biubiu.chat.Constant;
+import com.android.biubiu.common.Umutils;
 import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.sqlite.UserDao;
 import com.android.biubiu.utils.DensityUtil;
@@ -38,6 +39,7 @@ import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.hyphenate.easeui.EaseConstant;
+import com.umeng.analytics.MobclickAgent;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -164,6 +166,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					goLoginDialog();
 				}else{
 					grabBiu();
+					
+					Umutils.count(BiuBiuReceiveActivity.this, Umutils.RECEIVE_BIU_TOTAL);
 				}
 
 			}
