@@ -185,7 +185,6 @@
     <string name="abour_our_topic1">小王子说：星星发亮是为了让每一个人有一天都能找到属于自己的星星，那么，每一个人 怎样才能找到属于自己的的TA呢？</string>
     <string name="abour_our_topic2">iU 是 [我想认识你] 团队推出的一款年轻人恋爱社交产品，团队起源于清华大学，怀以恋爱与成长相结合的理念，围绕爱情线主题，陪伴你的整个青春感情生活。</string>
     <string name="abour_our_bottom">从我到你，只有一个iU的距离</string>
-
     <string name="about_our_update">版本更新</string>
     <string name="about_our_update_number">v1.0</string>
     <string name="about_our_pingjia_biubiu">评价biubiu</string>
@@ -197,5 +196,17 @@
     <string name="about_our_phone_name">电话：</string>
     <string name="about_our_phone_number">010-66253598</string>
     <string name="title_activity_user_agreement">UserAgreementActivity</string>
+    <!-- 标记说明相关 -->
+    <string name="super_man_title">标记说明</string>
+    <string name="super_man_topstr">在iU的世界里，有着三种代表特殊身份的标识：</string>
+    <string name="super_man_tagbig1">终极标识</string>
+    <string name="super_man_tagbig2">脑洞标识</string>
+    <string name="super_man_tagbig3">资深标识</string>
+    <string name="super_man_taginfo1">属于给iU提出最终名字和slogan的小伙伴,仅此两人!</string>
+    <string name="super_man_taginfo2">属于所有给iU起过名字和slogan的小伙伴,共150人!</string>
+    <string name="super_man_taginfo3">属于积极给iU反馈意见想法的资深用户,一定要资深哦,人数待定!</string>
+     <string name="super_man_tishi">iU提示：</string>
+      <string name="super_man_tishi_info1">1、iU欢迎所有小伙伴积极反馈意见，一起见证iU成长！</string>
+       <string name="super_man_tishi_info2">2、如果你想反馈意见或者索要特殊标记，请添加微信：！</string>
 
 </resources>

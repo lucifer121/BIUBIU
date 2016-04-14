@@ -64,9 +64,17 @@
                     <RelativeLayout
                         android:id="@+id/userhead_layout"
                         android:layout_width="89dp"
-                        android:layout_height="101dp"
+                        android:layout_height="112dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="53dp" >
+                        <ImageView 
+                            android:id="@+id/super_man_iv"
+                            android:layout_width="52dp"
+                            android:layout_height="29dp"
+                            android:scaleType="fitXY"
+                            android:padding="3dp"
+                            android:src="@drawable/special_label_icon_yellow"
+                            android:layout_centerHorizontal="true"/>
 
                         <RelativeLayout
                             android:layout_width="89dp"
@@ -98,14 +106,6 @@
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
                         </RelativeLayout>
-                        <ImageView 
-                            android:id="@+id/super_man_iv"
-                            android:layout_width="27dp"
-                            android:layout_height="24dp"
-                            android:padding="6dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/biu_imageview_dian"
-                            android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
 
                     <TextView

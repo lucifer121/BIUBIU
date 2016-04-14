@@ -17,6 +17,11 @@
     <color name="home_txt_yello">#ffff8f</color>
     <color name="pay_blue_txt">#4db8e8</color>
     <color name="pay_green_txt">#93d287</color>
+    <!-- 特殊标识页面相关 -->
+    <color name="supenman_bg">#fcfcf4</color>
+    <color name="super_text_info">#a0a0a0</color>
+    <color name="super_text_orange">#ff9694</color>
+    <color name="super_text_black">#333333</color>
     <!-- 关于 页面相关 -->
      <color name="about_bg">#fcfcf4</color>
     <color name="about_gray2_txt">#a0a0a0</color>
