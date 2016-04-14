@@ -18,6 +18,14 @@ public class SettingBean implements Serializable{
 	private int message;
 	private int sound;
 	private int vibration;
+	private int personalityTags;
+	
+	public int getPersonalityTags() {
+		return personalityTags;
+	}
+	public void setPersonalityTags(int personalityTags) {
+		this.personalityTags = personalityTags;
+	}
 	public String getSex() {
 		return sex;
 	}

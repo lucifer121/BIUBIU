@@ -88,6 +88,8 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 	 * 用来标识我自己有没有填 个性标签
 	 */
 	private boolean isCheckMyTags=false;
+	
+	private String sexMy;
 
 	private String TAG ="MatchSettingActivity";
 	@Override
@@ -324,7 +326,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					public void onOK() {
 						// TODO Auto-generated method stub
 						UserInfoBean infoBean=new UserInfoBean();
-						infoBean.setSex("1");
+						infoBean.setSex(setBean.getSex());
 						Intent intent = new Intent(MatchSettingActivity.this,PersonalityTagActivity.class);
 						intent.putExtra("userInfoBean", (Serializable)infoBean);				
 						startActivityForResult(intent, PERSONAL_TAG_MY);
@@ -448,6 +450,10 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						return;
 					}
 					setBean = settingBean;
+					if(setBean.getPersonalityTags()>0){
+						isCheckMyTags=true;
+						
+					}
 					ArrayList<PersonalTagBean> list = new ArrayList<PersonalTagBean>();
 					list.addAll(settingBean.getPersonalTags());
 					setTags(list);
