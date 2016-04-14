@@ -8,6 +8,7 @@ import org.xutils.common.Callback.CommonCallback;
 import org.xutils.http.RequestParams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 import cc.imeetu.iu.R;
@@ -86,7 +87,7 @@ public class UploadImgUtils {
 		});
 	}
 	// 从本地文件上传，使用非阻塞的异步接口
-	public static void asyncPutObjectFromLocalFile(String headPath,Context context,final String accessKeyId,final String accessKeySecret,final String securityToken,final String expiration,final BiuBooleanCallback callback){
+	public static void asyncPutObjectFromLocalFile(String headPath,final Context context,final String accessKeyId,final String accessKeySecret,final String securityToken,final String expiration,final BiuBooleanCallback callback){
 		String endpoint = HttpContants.A_LI_YUN;
 		//OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("XWp6VLND94vZ8WNJ", "DSi9RRCv4bCmJQZOOlnEqCefW4l1eP");
 		OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
@@ -121,7 +122,8 @@ public class UploadImgUtils {
 				Log.d("PutObject", "UploadSuccess");
 				Log.d("ETag", result.getETag());
 				Log.d("RequestId", result.getRequestId());
-				callback.callback(true);
+				//上传照片成功，调用修改头像接口
+				updateHead(context,fileName,callback);
 			}
 			@Override
 			public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
@@ -141,4 +143,68 @@ public class UploadImgUtils {
 			}
 		});
 	}
+	//修改头像接口，成功后将路径返回上一级页面
+		protected static void updateHead(final Context context,String fileName,final BiuBooleanCallback callback) {
+			String token = SharePreferanceUtils.getInstance().getToken(context, SharePreferanceUtils.TOKEN, "");
+			String deviceId = SharePreferanceUtils.getInstance().getDeviceId(context, SharePreferanceUtils.DEVICE_ID, "");
+			RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_HEAD);
+			JSONObject requestObject = new JSONObject();
+			try {
+				requestObject.put("token",token);
+				requestObject.put("device_code", deviceId);
+				requestObject.put("icon_url", fileName);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			params.addBodyParameter("data",requestObject.toString());
+			x.http().post(params, new CommonCallback<String>() {
+
+				@Override
+				public void onCancelled(CancelledException arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onError(Throwable arg0, boolean arg1) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onFinished() {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(String result) {
+					// TODO Auto-generated method stub
+					LogUtil.d("mytest", "updatehead=="+result);
+					try {
+						JSONObject jsons = new JSONObject(result);
+						String state = jsons.getString("state");
+						if(!state.equals("200")){
+							callback.callback(false);
+							return ;
+						}
+						JSONObject data = jsons.getJSONObject("data");
+//						String token = data.getString("token");
+//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+						String photoUrl = data.getString("icon_url");
+						String photoUrl_thum = data.getString("icon_thumbnailUrl");
+						Intent intent = new Intent();
+						intent.putExtra("headUrl", photoUrl);
+						intent.putExtra("thumUrl", photoUrl_thum);
+						SharePreferanceUtils.getInstance().putShared(context, SharePreferanceUtils.USER_HEAD, photoUrl_thum);
+						callback.callback(true);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+			
+		}
 }

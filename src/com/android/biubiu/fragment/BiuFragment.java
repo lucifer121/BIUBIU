@@ -54,6 +54,7 @@ import com.ant.liao.GifView.GifImageType;
 import com.avos.avoscloud.LogUtil.log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
 
@@ -300,7 +301,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				int flag = 1;
+				int flag = 0;
 				if(!LoginUtils.isLogin(getActivity())){
 					Intent intent = new Intent(getActivity(),LoginOrRegisterActivity.class);
 					startActivity(intent);
@@ -357,7 +358,12 @@ public class BiuFragment extends Fragment implements PushInterface{
 			msg = "审核通过啦";
 			strBtn1 = "我知道了";
 			break;
-
+		case 2:
+			title = "审核";
+			msg = "审核未通过哦";
+			strBtn1 = "取消";
+			strBtn2 = "重新上传";
+			break;
 		default:
 			break;
 		}
@@ -376,9 +382,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			}, new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
 					switch (flag) {
 					case 2:
-
+						showHeadDialog();
 						break;
 					case 4:
 
@@ -390,12 +403,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 					default:
 						break;
 					}
-				}
-			}, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
 					dialog.dismiss();
 				}
 			});
@@ -1122,6 +1129,16 @@ public class BiuFragment extends Fragment implements PushInterface{
 				try {
 					jsons = new JSONObject(result);
 					String state = jsons.getString("state");
+					if(state.equals("303")){
+						Toast.makeText(getActivity(),"登录过期，请重新登录",1000).show();
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.TOKEN, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_NAME, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_HEAD, "");
+						SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.USER_CODE, "");
+						LogUtil.d("mytest", "tok---"+SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, ""));
+						exitHuanxin();
+						return;
+					}
 					if(!state.equals("200")){
 						return;
 					}
@@ -1134,7 +1151,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);
-					int flag = 1;
+					int flag = 0;
 					initMsgView(flag);
 					Gson gson = new Gson();
 					JSONObject biuObject = data.optJSONObject("mylatestbiu");
@@ -1160,6 +1177,33 @@ public class BiuFragment extends Fragment implements PushInterface{
 				}
 			}
 		});
+	}
+	/**
+	 * 退出环信登录
+	 */
+	public void exitHuanxin(){
+		EMClient.getInstance().logout(true ,new EMCallBack() {
+
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				//清空本地token
+				SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.HX_USER_NAME, "");
+				SharePreferanceUtils.getInstance().putShared(getActivity(), SharePreferanceUtils.HX_USER_PASSWORD, "");
+			}
+
+			@Override
+			public void onProgress(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onError(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+			}
+		});
+
 	}
 	//设置消息按钮点击
 	protected void initMsgView(final int flag) {
