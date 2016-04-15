@@ -75,7 +75,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="26dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/special_label_photo_yellow" />
+                    android:src="@drawable/special_label_photo_pink" />
 
                 <LinearLayout
                     android:id="@+id/super_info_linear1"
@@ -168,7 +168,7 @@
                     android:layout_below="@+id/super_imv2"
                     android:layout_marginRight="26dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/special_label_photo_yellow" />
+                    android:src="@drawable/special_label_photo_blue" />
 
                 <LinearLayout
                     android:id="@+id/super_info_linear3"

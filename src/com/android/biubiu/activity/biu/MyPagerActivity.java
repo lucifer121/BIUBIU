@@ -429,11 +429,11 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			superManIv.setVisibility(View.GONE);
 			break;
 		case 1:
-			superManIv.setImageResource(R.drawable.special_label_icon_yellow);
+			superManIv.setImageResource(R.drawable.special_label_icon_pink);
 			superManIv.setVisibility(View.VISIBLE);
 			break;
 		case 2:
-			superManIv.setImageResource(R.drawable.special_label_icon_orange);
+			superManIv.setImageResource(R.drawable.special_label_icon_yellow);
 			superManIv.setVisibility(View.VISIBLE);
 			break;
 		case 3:

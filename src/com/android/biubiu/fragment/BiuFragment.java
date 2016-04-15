@@ -256,12 +256,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		.setFailureDrawableId(R.drawable.photo_fail)
 		.setIgnoreGif(true)
 		.build();
-		/**
-		 * 此处用于设置背景动画 暂时注释
-		 */
-		/*backgroundGif.setGifImage(R.drawable.home_andriod);
-		backgroundGif.setShowDimension(width, height);
-		backgroundGif.setGifImageType(GifImageType.COVER);*/
 	}
 	private void drawBiuView() {
 		// TODO Auto-generated method stub
@@ -354,13 +348,19 @@ public class BiuFragment extends Fragment implements PushInterface{
 		String strBtn2 = "";
 		switch (flag) {
 		case 1:
-			title = "审核";
-			msg = "审核通过啦";
+			title = getResources().getString(R.string.head_egis);
+			msg = getResources().getString(R.string.head_egis_info);
 			strBtn1 = "我知道了";
 			break;
 		case 2:
-			title = "审核";
-			msg = "审核未通过哦";
+			title = getResources().getString(R.string.head_no_egis);
+			msg = getResources().getString(R.string.head_no_egis_info1);
+			strBtn1 = "取消";
+			strBtn2 = "重新上传";
+			break;
+		case 4:
+			title = getResources().getString(R.string.head_no_egis);
+			msg = getResources().getString(R.string.head_no_egis_info2);
 			strBtn1 = "取消";
 			strBtn2 = "重新上传";
 			break;
@@ -394,12 +394,8 @@ public class BiuFragment extends Fragment implements PushInterface{
 						showHeadDialog();
 						break;
 					case 4:
-
+						showHeadDialog();
 						break;
-					case 6:
-
-						break;
-
 					default:
 						break;
 					}
@@ -513,13 +509,13 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//往第一个圈上放view
 	private void addCircle1View(UserBean userBean) {
+		if(isOnCircle(userBean)){
+			return;
+		}
 		boolean haveSpace = false;
 		for(int i=0;i<n1;i++){
 			DotBean bean = c1DotList.get(i);
 			if(!bean.isAdd()){
-				if(isOnCircle(userBean)){
-					return;
-				}
 				c1DotList.get(i).setAdd(true);
 				//添加区域标记
 				userBean.setIndex(i);
@@ -530,9 +526,9 @@ public class BiuFragment extends Fragment implements PushInterface{
 				int yLocation = BiuUtil.getLocationY(randomAngle, userD1, circleR1, y0);
 				userBean.setX(xLocation);
 				userBean.setY(yLocation);
+				user1List.add(userBean);
 				createCir1NewView(xLocation, yLocation, (int)userD1, (int)userD1, userBean,false);
 				showInfoLayout(userBean);
-				user1List.add(userBean);
 				break ;
 			}
 		}
@@ -800,7 +796,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 			imageViewL.setVisibility(View.VISIBLE);
 		}
 		rl.setBackgroundResource(0);
-		LogUtil.d("mytest", "收到新消息type00");
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -1059,31 +1054,6 @@ public class BiuFragment extends Fragment implements PushInterface{
 		return path;
 
 	}
-	@Override
-	public void updateView(UserBean userBean,int type) {
-		// TODO Auto-generated method stub
-		switch (type) {
-		case 0:
-			//有新的匹配消息
-			newUserBean = userBean;
-			addCircle1View(userBean);
-			break;
-		case 1:
-			//biubiu被抢啦
-			isBiuState = false;
-			userBiuBean = userBean;
-			updateBiuView(userBean);
-			break;
-		case 2:
-			//匹配的人被抢啦
-			String userCode = userBean.getId();
-			removeView(userCode);
-			break;
-		default:
-			break;
-		}
-	}
-
 	//获取biubiu列表
 	private void getAllUser(){
 		user1List.clear();
@@ -1384,4 +1354,28 @@ public class BiuFragment extends Fragment implements PushInterface{
 			removeHandler.postDelayed(removeR, 1000);
 		}
 	};
+	@Override
+	public void updateView(UserBean userBean,int type) {
+		// TODO Auto-generated method stub
+		switch (type) {
+		case 0:
+			//有新的匹配消息
+			newUserBean = userBean;
+			addCircle1View(userBean);
+			break;
+		case 1:
+			//biubiu被抢啦
+			isBiuState = false;
+			userBiuBean = userBean;
+			updateBiuView(userBean);
+			break;
+		case 2:
+			//匹配的人被抢啦
+			String userCode = userBean.getId();
+			removeView(userCode);
+			break;
+		default:
+			break;
+		}
+	}
 }

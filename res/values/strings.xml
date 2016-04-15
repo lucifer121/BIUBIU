@@ -205,8 +205,14 @@
     <string name="super_man_taginfo1">属于给iU提出最终名字和slogan的小伙伴,仅此两人!</string>
     <string name="super_man_taginfo2">属于所有给iU起过名字和slogan的小伙伴,共150人!</string>
     <string name="super_man_taginfo3">属于积极给iU反馈意见想法的资深用户,一定要资深哦,人数待定!</string>
-     <string name="super_man_tishi">iU提示：</string>
-      <string name="super_man_tishi_info1">1、iU欢迎所有小伙伴积极反馈意见，一起见证iU成长！</string>
-       <string name="super_man_tishi_info2">2、如果你想反馈意见或者索要特殊标记，请添加微信：！</string>
+    <string name="super_man_tishi">iU提示：</string>
+    <string name="super_man_tishi_info1">1、iU欢迎所有小伙伴积极反馈意见，一起见证iU成长！</string>
+    <string name="super_man_tishi_info2">2、如果你想反馈意见或者索要特殊标记，请添加微信：！</string>
+    <!-- 头像审核相关 -->
+    <string name="head_no_egis">头像审核未通过</string>
+    <string name="head_egis">头像审核通过</string>
+    <string name="head_no_egis_info1">你的头像审核不通过，请上传能体现个人的真是头像哦！</string>
+    <string name="head_no_egis_info2">你修改的头像审核未通过，将恢复原来头像，点击重新上传更换头像</string>
+    <string name="head_egis_info">你的头像审核通过啦，可以愉快的玩耍了</string>
 
 </resources>

@@ -66,14 +66,13 @@
                         android:layout_width="89dp"
                         android:layout_height="112dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="53dp" >
+                        android:layout_marginTop="40dp" >
                         <ImageView 
                             android:id="@+id/super_man_iv"
                             android:layout_width="52dp"
                             android:layout_height="29dp"
                             android:scaleType="fitXY"
                             android:padding="3dp"
-                            android:src="@drawable/special_label_icon_yellow"
                             android:layout_centerHorizontal="true"/>
 
                         <RelativeLayout

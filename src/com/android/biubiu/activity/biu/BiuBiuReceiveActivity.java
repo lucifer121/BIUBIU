@@ -487,11 +487,11 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						superManiv.setVisibility(View.GONE);
 						break;
 					case 1:
-						superManiv.setImageResource(R.drawable.special_label_icon_yellow);
+						superManiv.setImageResource(R.drawable.special_label_icon_pink);
 						superManiv.setVisibility(View.VISIBLE);
 						break;
 					case 2:
-						superManiv.setImageResource(R.drawable.special_label_icon_orange);
+						superManiv.setImageResource(R.drawable.special_label_icon_yellow);
 						superManiv.setVisibility(View.VISIBLE);
 						break;
 					case 3:
