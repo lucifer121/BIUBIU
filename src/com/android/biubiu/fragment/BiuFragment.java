@@ -64,8 +64,11 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.LightingColorFilter;
 import android.graphics.Bitmap.CompressFormat;
@@ -186,16 +189,26 @@ public class BiuFragment extends Fragment implements PushInterface{
 	GifView loadGif;
 	TextView loadTv;
 	public static boolean isUploadingPhoto = false;
+	RemoveReceiver removeReceiver;
+	//头像审核状态标记
+	String headFlag = "";
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.biu_fragment_layout, null);
 		schoolDao=new SchoolDao();
+		initReceiver();
 		init();
 		drawBiuView();
 		setBiuLayout();
 		return view;
+	}
+	private void initReceiver() {
+		// TODO Auto-generated method stub
+		removeReceiver = new RemoveReceiver();
+		IntentFilter filter = new IntentFilter(Constants.GRAB_BIU);
+		getActivity().registerReceiver(removeReceiver, filter);
 	}
 	@Override
 	public void onResume() {
@@ -310,8 +323,18 @@ public class BiuFragment extends Fragment implements PushInterface{
 						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
 						if(time/1000 > 90){
 							//启动发送biubiu界面
-							if(flag != 0){
-								showShenHeDaiog(flag);
+							if(null != headFlag && !"".equals(headFlag)){
+								switch (Integer.parseInt(headFlag)) {
+								case 2:
+								case 4:
+								case 6:
+									showShenHeDaiog(Integer.parseInt(headFlag));
+									break;
+								default:
+									Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+									startActivityForResult(intent, SEND_BIU_REQUEST);
+									break;
+								}
 							}else{
 								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
 								startActivityForResult(intent, SEND_BIU_REQUEST);
@@ -321,8 +344,18 @@ public class BiuFragment extends Fragment implements PushInterface{
 						}	
 					}else{
 						//启动发送biubiu界面
-						if(flag != 0){
-							showShenHeDaiog(flag);
+						if(null != headFlag && !"".equals(headFlag)){
+							switch (Integer.parseInt(headFlag)) {
+							case 2:
+							case 4:
+							case 6:
+								showShenHeDaiog(Integer.parseInt(headFlag));
+								break;
+							default:
+								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+								startActivityForResult(intent, SEND_BIU_REQUEST);
+								break;
+							}
 						}else{
 							Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
 							startActivityForResult(intent, SEND_BIU_REQUEST);
@@ -347,18 +380,18 @@ public class BiuFragment extends Fragment implements PushInterface{
 		String strBtn1 = "";
 		String strBtn2 = "";
 		switch (flag) {
-		case 1:
+		case 2:
 			title = getResources().getString(R.string.head_egis);
 			msg = getResources().getString(R.string.head_egis_info);
 			strBtn1 = "我知道了";
 			break;
-		case 2:
+		case 4:
 			title = getResources().getString(R.string.head_no_egis);
 			msg = getResources().getString(R.string.head_no_egis_info1);
 			strBtn1 = "取消";
 			strBtn2 = "重新上传";
 			break;
-		case 4:
+		case 6:
 			title = getResources().getString(R.string.head_no_egis);
 			msg = getResources().getString(R.string.head_no_egis_info2);
 			strBtn1 = "取消";
@@ -367,12 +400,13 @@ public class BiuFragment extends Fragment implements PushInterface{
 		default:
 			break;
 		}
-		if(flag == 1){
+		if(flag == 2){
 			CommonDialog.singleBtnDialog(getActivity(), title, msg, strBtn1, new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					HttpUtils.commitIconState(getActivity());
 					dialog.dismiss();
 				}
 			});
@@ -382,6 +416,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					HttpUtils.commitIconState(getActivity());
 					dialog.dismiss();
 				}
 			}, new DialogInterface.OnClickListener() {
@@ -390,10 +425,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					switch (flag) {
-					case 2:
+					case 4:
 						showHeadDialog();
 						break;
-					case 4:
+					case 6:
 						showHeadDialog();
 						break;
 					default:
@@ -657,6 +692,19 @@ public class BiuFragment extends Fragment implements PushInterface{
 			infoLayout.setVisibility(View.GONE);
 		}
 	};
+	
+	class RemoveReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			if(null != intent && null != intent.getStringExtra("user_code")){
+				String userCode = intent.getStringExtra("user_code");
+				removeView(userCode);
+			}
+		}
+		
+	}
 	//删除被抢的view
 	private void removeView(String userCode){
 		if(user3List.size()>0){
@@ -954,13 +1002,17 @@ public class BiuFragment extends Fragment implements PushInterface{
 			}
 			break;
 		case CROUP_PHOTO:
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				userheadBitmap = extras.getParcelable("data");
-				if(userheadBitmap != null){
-					headPath = saveHeadImg(userheadBitmap);
-					uploadPhoto(headPath);
+			try {
+				if (data != null) {
+					Bundle extras = data.getExtras();
+					userheadBitmap = extras.getParcelable("data");
+					if(userheadBitmap != null){
+						headPath = saveHeadImg(userheadBitmap);
+						uploadPhoto(headPath);
+					}
 				}
+			} catch (NullPointerException e) {
+				// TODO: handle exception
 			}
 			break;
 		case SELECT_PHOTO:
@@ -1121,8 +1173,10 @@ public class BiuFragment extends Fragment implements PushInterface{
 					JSONArray userArray = data.getJSONArray("users");
 					int biuCoin = data.getInt("virtual_currency");
 					initBiuView(biuCoin);
-					int flag = 0;
-					initMsgView(flag);
+					headFlag = data.getString("iconStatus");
+					if(null != headFlag && !"".equals(headFlag)){
+						initMsgView(Integer.parseInt(headFlag));
+					}
 					Gson gson = new Gson();
 					JSONObject biuObject = data.optJSONObject("mylatestbiu");
 					if(biuObject!=null){

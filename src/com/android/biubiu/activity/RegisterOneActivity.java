@@ -416,21 +416,25 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			}
 			break;
 		case CROUP_PHOTO:
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				userheadBitmap = extras.getParcelable("data");
-				if(userheadBitmap != null){
-					headPath = saveHeadImg(userheadBitmap);
-					userHeadImv.setImageBitmap(userheadBitmap);
-					addHeadTv.setVisibility(View.GONE);
-					verifyTv.setBackgroundResource(R.drawable.register_imageview_photo_bg);
-					verifyTv.setText("待审核");
-					verifyTv.setVisibility(View.VISIBLE);
-				}else{
-					userHeadImv.setImageResource(R.drawable.regist_imageview_intophoto);
-					addHeadTv.setVisibility(View.VISIBLE);
-					verifyTv.setVisibility(View.GONE);
+			try {
+				if (data != null) {
+					Bundle extras = data.getExtras();
+					userheadBitmap = extras.getParcelable("data");
+					if(userheadBitmap != null){
+						headPath = saveHeadImg(userheadBitmap);
+						userHeadImv.setImageBitmap(userheadBitmap);
+						addHeadTv.setVisibility(View.GONE);
+						verifyTv.setBackgroundResource(R.drawable.register_imageview_photo_bg);
+						verifyTv.setText("待审核");
+						verifyTv.setVisibility(View.VISIBLE);
+					}else{
+						userHeadImv.setImageResource(R.drawable.regist_imageview_intophoto);
+						addHeadTv.setVisibility(View.VISIBLE);
+						verifyTv.setVisibility(View.GONE);
+					}
 				}
+			} catch (NullPointerException e) {
+				// TODO: handle exception
 			}
 			break;
 		default:

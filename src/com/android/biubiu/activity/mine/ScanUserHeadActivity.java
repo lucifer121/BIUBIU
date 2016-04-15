@@ -346,11 +346,15 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		case CROP_PHOTO:
 			if (data != null) {
-				Bundle extras = data.getExtras();
-				Bitmap userheadBitmap = extras.getParcelable("data");
-				String headPath = saveHeadImg(userheadBitmap);
-				//上传图片鉴权
-				getOssToken(headPath);
+				try {
+					Bundle extras = data.getExtras();
+					Bitmap userheadBitmap = extras.getParcelable("data");
+					String headPath = saveHeadImg(userheadBitmap);
+					//上传图片鉴权
+					getOssToken(headPath);
+				} catch (NullPointerException e) {
+					// TODO: handle exception
+				}
 			}
 			break;
 		default:

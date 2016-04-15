@@ -92,6 +92,10 @@ public class HttpContants {
 	 */
 	public static final String GET_BIU_LIST = "app/biubiu/biubiuList";
 	/**
+	 * 获取头像已读状态
+	 */
+	public static final String UPDATE_HEAD_STATE = "app/biubiu/updateIconStatus";
+	/**
 	 * 获取biubiu详情
 	 */
 	public static final String BIU_DETIAL="app/biubiu/biuDetails";

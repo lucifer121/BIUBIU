@@ -36,8 +36,10 @@ import com.android.biubiu.common.CommonDialog;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.sqlite.SchoolDao;
 import com.android.biubiu.sqlite.UserDao;
+import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.HttpContants;
+import com.android.biubiu.utils.HttpUtils;
 import com.android.biubiu.utils.LogUtil;
 import com.android.biubiu.utils.NetUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
@@ -107,12 +109,13 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	private RelativeLayout chongzhiLayout,goSendBiuLayout;
 	private UserDao userDao;
 	private String userCodeString,userNameString,userUrlString;
-	
+
 	private static final int SELECT_PHOTO = 1002;
 	private static final int CROUP_PHOTO = 1003;
 	Bitmap userheadBitmap = null;
 	String headPath = "";
 	private boolean isUploadingPhoto = false;
+	String headFlag = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -121,6 +124,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		referenceId = getIntent().getStringExtra("referenceId");
 		userCode = getIntent().getStringExtra("userCode");
 		chatId = getIntent().getStringExtra("chatId");
+		headFlag = getIntent().getStringExtra("headFlag");
 		//		LogUtil.e(TAG, "referenceId==" + referenceId + "||userCode=="
 		//				+ userCode + "||chatId==" + chatId);
 		userDao=new UserDao(this);
@@ -179,13 +183,23 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				int flag = 0;
 				if(SharePreferanceUtils.getInstance().getToken(getApplicationContext(), SharePreferanceUtils.TOKEN, "").equals("")){
 					LogUtil.e(TAG, "未登录 去登陆");
 					goLoginDialog();
 				}else{
-					if(flag != 0){
-						showShenHeDaiog(flag);
+					if(null != headFlag && !"".equals(headFlag)){
+						switch (Integer.parseInt(headFlag)) {
+						case 2:
+						case 4:
+						case 6:
+							showShenHeDaiog(Integer.parseInt(headFlag));
+							break;
+
+						default:
+							grabBiu();
+							Umutils.count(BiuBiuReceiveActivity.this, Umutils.RECEIVE_BIU_TOTAL);
+							break;
+						}
 					}else{
 						grabBiu();
 						Umutils.count(BiuBiuReceiveActivity.this, Umutils.RECEIVE_BIU_TOTAL);
@@ -225,7 +239,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 		});
 		superManiv.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -240,26 +254,33 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 		String strBtn1 = "";
 		String strBtn2 = "";
 		switch (flag) {
-		case 1:
-			title = "审核";
-			msg = "审核通过啦";
+		case 2:
+			title = getResources().getString(R.string.head_egis);
+			msg = getResources().getString(R.string.head_egis_info);
 			strBtn1 = "我知道了";
 			break;
-		case 2:
-			title = "审核";
-			msg = "审核未通过哦";
+		case 4:
+			title = getResources().getString(R.string.head_no_egis);
+			msg = getResources().getString(R.string.head_no_egis_info1);
+			strBtn1 = "取消";
+			strBtn2 = "重新上传";
+			break;
+		case 6:
+			title = getResources().getString(R.string.head_no_egis);
+			msg = getResources().getString(R.string.head_no_egis_info2);
 			strBtn1 = "取消";
 			strBtn2 = "重新上传";
 			break;
 		default:
 			break;
 		}
-		if(flag == 1){
+		if(flag == 2){
 			CommonDialog.singleBtnDialog(BiuBiuReceiveActivity.this, title, msg, strBtn1, new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					HttpUtils.commitIconState(BiuBiuReceiveActivity.this);
 					dialog.dismiss();
 				}
 			});
@@ -269,6 +290,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					HttpUtils.commitIconState(BiuBiuReceiveActivity.this);
 					dialog.dismiss();
 				}
 			}, new DialogInterface.OnClickListener() {
@@ -277,16 +299,12 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					switch (flag) {
-					case 2:
+					case 4:
 						showHeadDialog();
 						break;
-					case 4:
-
-						break;
 					case 6:
-
+						showHeadDialog();
 						break;
-
 					default:
 						break;
 					}
@@ -294,7 +312,6 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 				}
 			});
 		}
-
 	}
 	public void showHeadDialog() {
 		CommonDialog.headDialog(BiuBiuReceiveActivity.this, new DialogInterface.OnClickListener() {
@@ -658,7 +675,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						toastShort("biu币不足");
 					}
 					else if(message.equals("1")){
-						toastShort("抢中了啊");						
+						toastShort("抢中了啊");	
+						Intent broadIntent = new Intent();
+						broadIntent.putExtra("user_code",userCodeString);
+						sendBroadcast(broadIntent,Constants.GRAB_BIU);
 						Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
 						intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
 						startActivity(intent);
@@ -833,13 +853,17 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 			break;
 		case CROUP_PHOTO:
-			if (data != null) {
-				Bundle extras = data.getExtras();
-				userheadBitmap = extras.getParcelable("data");
-				if(userheadBitmap != null){
-					headPath = saveHeadImg(userheadBitmap);
-					uploadPhoto(headPath);
+			try {
+				if (data != null) {
+					Bundle extras = data.getExtras();
+					userheadBitmap = extras.getParcelable("data");
+					if(userheadBitmap != null){
+						headPath = saveHeadImg(userheadBitmap);
+						uploadPhoto(headPath);
+					}
 				}
+			} catch (NullPointerException e) {
+				// TODO: handle exception
 			}
 			break;
 		case SELECT_PHOTO:

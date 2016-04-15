@@ -907,9 +907,9 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			Bitmap bm = null;
 			//外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
 			ContentResolver resolver = getContentResolver();
-			//获得图片的uri 
-			Uri originalUri = data.getData();      
 			try {
+				//获得图片的uri 
+				Uri originalUri = data.getData();  
 				bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
 				String filePath = saveHeadImg(bm);
 				/*String[] proj = {MediaStore.Images.Media.DATA};
@@ -935,6 +935,8 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}catch (NullPointerException e) {
+				// TODO: handle exception
 			}
 			break;
 		case UPDATE_HEAD:

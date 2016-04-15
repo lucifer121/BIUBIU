@@ -56,6 +56,10 @@ public class Constants {
 	 */
 	public static final String FLAG_RECEIVE="receive_refresh";
 	/**
+	 * 抢到biubiu广播 标记 频道
+	 */
+	public static final String GRAB_BIU="grab_biu_broad";
+	/**
 	 * 用户特殊标记
 	 * */
 	public static final int NORMAL_USER = 0;
