@@ -17,6 +17,7 @@ import com.android.biubiu.chat.UserListActivity;
 import com.android.biubiu.common.Constant;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.LogUtil;
+import com.android.biubiu.utils.LoginUtils;
 import com.android.biubiu.utils.SharePreferanceUtils;
 import com.avos.avoscloud.LogUtil.log;
 import com.hyphenate.EMMessageListener;
@@ -66,8 +67,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
         View errorView = (LinearLayout) View.inflate(getActivity(),R.layout.right_menu, null);
         View noLoginView= (LinearLayout) View.inflate(getActivity(),R.layout.item_right_no_rigister, null);
         
-        if(SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "")==null||
-        		SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "").equals("")){
+        if(!LoginUtils.isLogin(getActivity())){
         	 errorItemContainer.addView(noLoginView);
         	 register=(Button) noLoginView.findViewById(R.id.register_item_btn);
         	 login=(Button) noLoginView.findViewById(R.id.login_item_btn);
@@ -91,7 +91,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
 			});
         }else{
         	errorItemContainer.addView(errorView);
-        	 errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        	 errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg); 
         }
         
         // 注册广播接收
@@ -126,8 +126,7 @@ public class MenuRightFragment extends EaseConversationListFragment{
 		@Override
 		public void onClick(View v) {
 			
-			 if(SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "")==null||
-		        		SharePreferanceUtils.getInstance().getToken(getActivity(), SharePreferanceUtils.TOKEN, "").equals("")){
+			 if(!LoginUtils.isLogin(getActivity())){
 		        	 Intent intent=new Intent(getActivity(),LoginOrRegisterActivity.class);
 		        	 startActivity(intent);
 		        	 }else{

@@ -658,7 +658,8 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						toastShort("biu币不足");
 					}
 					else if(message.equals("1")){
-						toastShort("抢中了啊");						
+						toastShort("抢中了啊");	
+						Umutils.count(BiuBiuReceiveActivity.this, Umutils.GRAB_BIU_SUCCESS);
 						Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
 						intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
 						startActivity(intent);
