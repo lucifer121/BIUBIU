@@ -44,6 +44,13 @@ public class DemoHelper {
     private static DemoHelper instance = null;
     
     private UserDao userDao;
+//    是否有新消息提示
+    private boolean isShow=true;
+  //是否有新消息提示 声音
+    private boolean isMsgSoundAllowed=true;
+  //是否有新消息提示 震动
+    private boolean isMsgVibrateAllowed=true;
+    
     /**
      * EMEventListener
      */
@@ -82,6 +89,7 @@ public class DemoHelper {
 	     //   initDbDao();
 		    //注册消息事件监听
 	        registerEventListener();
+
 		}
 	}
 	private EMOptions initChatOptions(){
@@ -122,37 +130,45 @@ public class DemoHelper {
 	            }
 	        });
 	        
-//	        //不设置，则使用easeui默认的
-//	        easeUI.setSettingsProvider(new EaseSettingsProvider() {
-//	            
-//	            @Override
-//	            public boolean isSpeakerOpened() {
+	        //不设置，则使用easeui默认的
+	        easeUI.setSettingsProvider(new EaseSettingsProvider() {
+	            
+	            @Override
+	            public boolean isSpeakerOpened() {
 //	                return demoModel.getSettingMsgSpeaker();
-//	            }
-//	            
-//	            @Override
-//	            public boolean isMsgVibrateAllowed(EMMessage message) {
+	            	return true;
+	            }
+	            
+	            @Override
+	            public boolean isMsgVibrateAllowed(EMMessage message) {
 //	                return demoModel.getSettingMsgVibrate();
-//	            }
-//	            
-//	            @Override
-//	            public boolean isMsgSoundAllowed(EMMessage message) {
+	    	        isMsgVibrateAllowed=SharePreferanceUtils.getInstance().isShock(appContext, SharePreferanceUtils.IS_SHOCK, true);
+	    	      log.e(TAG, "isMsgVibrateAllowed=="+isMsgVibrateAllowed);
+	            	return isMsgVibrateAllowed;
+	            }
+	            
+	            @Override
+	            public boolean isMsgSoundAllowed(EMMessage message) {
 //	                return demoModel.getSettingMsgSound();
-//	            }
-//	            
-//	            @Override
-//	            public boolean isMsgNotifyAllowed(EMMessage message) {
-//	                if(message == null){
+	            	  isMsgSoundAllowed=SharePreferanceUtils.getInstance().isOpenVoice(appContext, SharePreferanceUtils.IS_OPEN_VOICE, true);
+	            	  log.e(TAG, "isMsgSoundAllowed=="+isMsgSoundAllowed);
+	            	return isMsgSoundAllowed;
+	            }
+	            
+	            @Override
+	            public boolean isMsgNotifyAllowed(EMMessage message) {
+	                if(message == null){
 //	                    return demoModel.getSettingMsgNotification();
-//	                }
+	                	return false;
+	                }
 //	                if(!demoModel.getSettingMsgNotification()){
 //	                    return false;
 //	                }else{
-//	                    //如果允许新消息提示
-//	                    //屏蔽的用户和群组不提示用户
-//	                    String chatUsename = null;
-//	                    List<String> notNotifyIds = null;
-//	                    // 获取设置的不提示新消息的用户或者群组ids
+	                    //如果允许新消息提示
+	                    //屏蔽的用户和群组不提示用户
+	                    String chatUsename = null;
+	                    List<String> notNotifyIds = null;
+	                    // 获取设置的不提示新消息的用户或者群组ids
 //	                    if (message.getChatType() == ChatType.Chat) {
 //	                        chatUsename = message.getFrom();
 //	                        notNotifyIds = demoModel.getDisabledIds();
@@ -166,9 +182,10 @@ public class DemoHelper {
 //	                    } else {
 //	                        return false;
 //	                    }
-//	                }
+	                    return true;
+	                }
 //	            }
-//	        });
+	        });
 	        //设置表情provider
 	        easeUI.setEmojiconInfoProvider(new EaseEmojiconInfoProvider() {
 	            

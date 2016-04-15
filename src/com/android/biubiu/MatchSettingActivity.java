@@ -545,6 +545,21 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 						toastShort("保存失败");
 						return;
 					}
+					
+					if(setBean.getSound() == 0){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false);
+						
+					}else{
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, true);
+						
+					}
+					//振动 0--关闭 1--打开
+					if(setBean.getVibration() == 0){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, false);
+						
+					}else{
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, true);
+											}
 //					String token = (jsons.getJSONObject("data").getString("token"));
 //					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {

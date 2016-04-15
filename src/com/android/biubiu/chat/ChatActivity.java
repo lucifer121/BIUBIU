@@ -23,9 +23,9 @@ import android.view.Window;
 
 public class ChatActivity extends EaseBaseActivity {
 	private String userID;
-	   public static ChatActivity activityInstance;
-	    private EaseChatFragment chatFragment;
-	    String toChatUsername;
+	public static ChatActivity activityInstance;
+	private EaseChatFragment chatFragment;
+	String toChatUsername;
 	   
 
 	@Override

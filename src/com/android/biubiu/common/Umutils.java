@@ -28,6 +28,10 @@ public class Umutils {
 	public static String SEND_BIU_TOTAL="send_biu_total";
 	
 	/**
+	 * 抢biu成功
+	 */
+	public static String GRAB_BIU_SUCCESS="grab_biu_success";
+	/**
 	 * 统计事件
 	 * @param context
 	 * @param id  id 为事件ID

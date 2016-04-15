@@ -679,6 +679,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 						Intent broadIntent = new Intent();
 						broadIntent.putExtra("user_code",userCodeString);
 						sendBroadcast(broadIntent,Constants.GRAB_BIU);
+						Umutils.count(BiuBiuReceiveActivity.this, Umutils.GRAB_BIU_SUCCESS);
 						Intent intent=new Intent(BiuBiuReceiveActivity.this,ChatActivity.class);
 						intent.putExtra(Constant.EXTRA_USER_ID, userCodeString);
 						startActivity(intent);
