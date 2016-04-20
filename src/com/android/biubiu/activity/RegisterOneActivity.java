@@ -9,19 +9,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
-
-
 import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.CommonDialog;
 import com.android.biubiu.common.Umutils;
+import com.android.biubiu.common.city.ArrayWheelAdapter;
+import com.android.biubiu.common.city.OnWheelChangedListener2;
+import com.android.biubiu.common.city.WheelView2;
 import com.android.biubiu.utils.BitmapUtils;
+import com.android.biubiu.utils.CaculateDateUtils;
 import com.android.biubiu.utils.CloseJianpan;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.DateUtils;
+import com.android.biubiu.utils.LogUtil;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -43,6 +45,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,11 +56,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class RegisterOneActivity extends BaseActivity implements OnClickListener{
+public class RegisterOneActivity extends BaseActivity implements OnClickListener,OnWheelChangedListener2{
 	private RelativeLayout backLayout,brithdayLayout,sexLayout, userHeadLayout,nextLayout;
 	private TextView birthTv,uSexTv;
 	private EditText uNameEt;
@@ -66,14 +70,18 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private TextView addHeadTv;
 	private TextView verifyTv;
 	private ImageView userHeadImv;
+	private WheelView2	mViewYear,mViewMonth,mViewDay;
+	private String[] years,months,days;
+	String currentYear="",currentMonth="",currentDay="";
+	private TextView dateComplete;
 
 	private static final int SELECT_PHOTO = 1001;
 	private static final int CROUP_PHOTO = 1002;
 	Bitmap userheadBitmap = null;
 	String headPath = "";
-	
+
 	private RelativeLayout sexDiolagLayout;
-	
+
 	private Boolean isSex=false;//是否点击了性别选择器
 	String phontNum = "";
 	String password = "";
@@ -97,7 +105,6 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 
 	private void initView() {
 		// TODO Auto-generated method stub
-
 		nextLayout=(RelativeLayout) findViewById(R.id.next_registerone_rl);
 		backLayout=(RelativeLayout) findViewById(R.id.back_registerone_rl);
 		backLayout.setOnClickListener(this);
@@ -121,7 +128,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		addHeadTv.setVisibility(View.VISIBLE);
 		verifyTv.setVisibility(View.GONE);
 		sexDiolagLayout=(RelativeLayout) findViewById(R.id.sex_dialog_sex_selector_rl);
-		
+
 		ivman_selector = 
 				(ImageView) findViewById(R.id.iv_man_sexselector);
 		ivwoman_selector = (ImageView) 
@@ -143,7 +150,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 				// TODO Auto-generated method stub
 				uSexTv.setText("女");
 				changeNextBg();
-				
+
 				sexDiolagLayout.setVisibility(View.GONE);
 			}
 		});
@@ -208,7 +215,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.registerone_center4_rl:
 			//生日点击
-			selectTime();
+			initPhotoWindowDate();
+			datePop.showAsDropDown(brithdayLayout, 0, 100);
 			sexDiolagLayout.setVisibility(View.GONE);
 			break;
 		case R.id.registerone_center1_rl:
@@ -217,16 +225,16 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			sexDiolagLayout.setVisibility(View.GONE);
 			break;
 		case R.id.registerone_center3_rl:
-//			initPopupWindowSex();
-//			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
-			
+			//			initPopupWindowSex();
+			//			popupWindowSex.showAsDropDown(brithdayLayout, 0, 100);
+
 			if(isSex==false){
 				isSex=true;
 				CloseJianpan.closeKeyboard(this, uNameEt);
 				sexDiolagLayout.setVisibility(View.VISIBLE);
 			}else{
 				isSex=false;
-			
+
 				sexDiolagLayout.setVisibility(View.GONE);
 			}
 			break;
@@ -239,34 +247,101 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		}
 
 	}
-	private void selectTime() {
-		// TODO Auto-generated method stub
-		//设置成中文时间选择器
-		Calendar d = Calendar.getInstance(Locale.CHINA);
-		Date myDate=new Date();
-		d.setTime(myDate);
-		
-		int year=d.get(Calendar.YEAR); 
-		int month=d.get(Calendar.MONTH); 
-		int day=d.get(Calendar.DAY_OF_MONTH); 
-		new DatePickerDialog(this, new OnDateSetListener() {
+	private PopupWindow datePop;
+	private void initPhotoWindowDate(){
+		if (datePop == null) {
+			View view = LayoutInflater.from(this).inflate(R.layout.date_wheel_view,
+					null);
+			datePop = new PopupWindow(view,
+					ViewGroup.LayoutParams.MATCH_PARENT,
+					ViewGroup.LayoutParams.MATCH_PARENT);
+			// 设置外观
+			datePop.setFocusable(true);
+			datePop.setOutsideTouchable(true);
+			ColorDrawable colorDrawable = new ColorDrawable();
+			datePop.setBackgroundDrawable(colorDrawable);
+			// tvTitle=(TextView)view.findViewById(R.id.tvcolectList);
 
-			@Override
-			public void onDateSet(DatePicker arg0, int year, int month, int day) {
-				// TODO Auto-generated method stub
-				birthTv.setText(year + "-" + (month + 1) + "-" + day);				
-				// 转成时间戳
-				birthLong = DateUtils.getStringToDate(birthTv.getText()
-						.toString());
-				if(birthLong>System.currentTimeMillis()){
-					toastShort("请选择有效日期");	
-					birthTv.setText("");
-				}else{
-					birthTv.setText(year + "-" + (month + 1) + "-" + day);
+			mViewYear = (WheelView2) view.findViewById(R.id.id_year);
+			mViewMonth = (WheelView2) view.findViewById(R.id.id_month);
+			mViewDay = (WheelView2) view.findViewById(R.id.id_day);
+			dateComplete = (TextView) view
+					.findViewById(R.id.date_complete_tv);
+
+			// 添加change事件
+			mViewYear.addChangingListener(RegisterOneActivity.this);
+			// 添加change事件
+			mViewMonth.addChangingListener(RegisterOneActivity.this);
+			// 添加change事件
+			mViewDay
+			.addChangingListener(RegisterOneActivity.this);
+			// 添加onclick事件
+			dateComplete.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					setBirthData(currentYear, currentMonth, currentDay);
+					datePop.dismiss();
 				}
-				changeNextBg();
-			}
-		}, 1995, 0, 1).show();
+			});
+			setYearData();
+		}
+	}
+
+	private void setYearData() {
+		// TODO Auto-generated method stub
+		years = CaculateDateUtils.getInstance().getYearSs(1975, 2100);
+		mViewYear.setViewAdapter(new ArrayWheelAdapter<String>(
+				RegisterOneActivity.this, years));
+		// 设置可见条目数量
+		mViewYear.setVisibleItems(7);
+		mViewMonth.setVisibleItems(7);
+		mViewDay.setVisibleItems(7);
+		if(currentYear.equals("")){
+			currentYear = years[0];
+		}
+		updateMonthData();
+	}
+
+	private void updateMonthData() {
+		// TODO Auto-generated method stub
+		months = CaculateDateUtils.getInstance().getMonthSs();
+		mViewMonth.setViewAdapter(new ArrayWheelAdapter<String>(
+				RegisterOneActivity.this, months));
+		mViewMonth.setCurrentItem(0);
+		if(currentMonth.equals("")){
+			currentMonth = months[0];
+		}
+		updateDayData();
+	}
+	private void updateDayData() {
+		// TODO Auto-generated method stub
+		int currentY = Integer.parseInt(currentYear.replace("年", ""));
+		int currentM = Integer.parseInt(currentMonth.replace("月", ""));
+		days = CaculateDateUtils.getInstance().getDaySs(currentY, currentM);
+		mViewDay.setViewAdapter(new ArrayWheelAdapter<String>(
+				RegisterOneActivity.this, days));
+		mViewDay.setCurrentItem(0);
+		if(currentDay.equals("")){
+			currentDay = days[0];
+		}
+	}
+	private void setBirthData(String yearStr,String monthStr,String dayStr) {
+		int year=Integer.parseInt(yearStr.replace("年", ""));
+		int month=Integer.parseInt(monthStr.replace("月", ""));
+		int day=Integer.parseInt(dayStr.replace("日", ""));
+		String dateStr = year + "-" + month + "-" + day;				
+		// 转成时间戳
+		birthLong = DateUtils.getStringToDate(birthTv.getText()
+				.toString());
+		if(birthLong>System.currentTimeMillis()){
+			toastShort("请选择有效日期");	
+			birthTv.setText("");
+		}else{
+			birthTv.setText(year + "-" + month + "-" + day);
+		}
+		changeNextBg();
 	}
 
 	private void nextStep() {
@@ -353,11 +428,11 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 				// TODO Auto-generated method stub
 				Intent intent ;
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-		            intent = new Intent(Intent.ACTION_GET_CONTENT);
-		            intent.setType("image/*");
-		        } else {
-		            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		        }
+					intent = new Intent(Intent.ACTION_GET_CONTENT);
+					intent.setType("image/*");
+				} else {
+					intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				}
 				/*Intent intent = new Intent(Intent.ACTION_PICK, null);
 				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 						"image/*");*/
@@ -448,6 +523,26 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			break;
 		default:
 			break;
+		}
+	}
+
+	@Override
+	public void onChanged(WheelView2 wheel, int oldValue, int newValue) {
+		// TODO Auto-generated method stub
+		if(wheel == mViewYear){
+			int index = mViewYear.getCurrentItem();
+			currentYear = years[index];
+			updateMonthData();
+			setBirthData(currentYear, currentMonth, currentDay);
+		}else if(wheel == mViewMonth){
+			int index = mViewMonth.getCurrentItem();
+			currentMonth = months[index];
+			updateDayData();
+			setBirthData(currentYear, currentMonth, currentDay);
+		}else if(wheel == mViewDay){
+			int index = mViewDay.getCurrentItem();
+			currentDay = days[index];
+			setBirthData(currentYear, currentMonth, currentDay);
 		}
 	}
 }

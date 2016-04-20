@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    android:orientation="vertical"
+  	android:background="@color/register_bg"
+     >
+	<View  android:layout_width="match_parent"
+		    android:layout_height="1px"
+		    android:background="#cccccc"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:orientation="vertical"       
+         >     
+        <TextView
+            android:id="@+id/date_complete_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"          
+            android:textSize="14sp"
+            android:text="完成"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/main_green"
+             />
+       
+       
+    </RelativeLayout>
+     <View  
+            android:layout_width="match_parent"
+		    android:layout_height="1px"
+		    
+		    android:background="#cccccc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"     
+        android:orientation="horizontal" >
+
+        <com.android.biubiu.common.city.WheelView2
+            android:id="@+id/id_year"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </com.android.biubiu.common.city.WheelView2>
+        
+
+        <com.android.biubiu.common.city.WheelView2
+            android:id="@+id/id_month"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </com.android.biubiu.common.city.WheelView2>
+
+        <com.android.biubiu.common.city.WheelView2
+            android:id="@+id/id_day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" 
+            >
+        </com.android.biubiu.common.city.WheelView2> 
+    </LinearLayout>
+
+    
+
+</LinearLayout>

@@ -63,10 +63,10 @@ OnClickListener, OnWheelChangedListener{
 		setUpViews();
 		setUpListener();
 		setUpData();
-//		cityName.setText("" + mCurrentProviceName + mCurrentCityName
-//				);
+		//		cityName.setText("" + mCurrentProviceName + mCurrentCityName
+		//				);
 	}
-	
+
 	private void initView() {
 		// TODO Auto-generated method stub
 		cityName = (TextView) super.findViewById(R.id.cityName_change_city_tv);
@@ -97,7 +97,7 @@ OnClickListener, OnWheelChangedListener{
 		// ���change�¼�
 		mViewCity.addChangingListener(this);
 		// ���change�¼�
-	//	mViewDistrict.addChangingListener(this);
+		//	mViewDistrict.addChangingListener(this);
 		// ���onclick�¼�
 		mBtnConfirm.setOnClickListener(this);
 	}
@@ -112,7 +112,7 @@ OnClickListener, OnWheelChangedListener{
 		// 设置可见条目数量
 		mViewProvince.setVisibleItems(7);
 		mViewCity.setVisibleItems(7);
-	//	mViewDistrict.setVisibleItems(7);
+		//	mViewDistrict.setVisibleItems(7);
 		updateCities();
 		updateAreas();
 	}
@@ -122,7 +122,7 @@ OnClickListener, OnWheelChangedListener{
 		// TODO Auto-generated method stub
 		if (wheel == mViewProvince) {
 			updateCities();
-																																																																																																																																																																																																																																													updateCities();
+			updateCities();
 			cityName.setText("" + mCurrentProviceName + mCurrentCityName
 					);
 		} else if (wheel == mViewCity) {
@@ -221,7 +221,7 @@ OnClickListener, OnWheelChangedListener{
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -234,7 +234,7 @@ OnClickListener, OnWheelChangedListener{
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -249,8 +249,8 @@ OnClickListener, OnWheelChangedListener{
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent = new Intent();
 					intent.putExtra("userInfoBean", infoBean);
 					setResult(RESULT_OK, intent);
@@ -293,6 +293,6 @@ OnClickListener, OnWheelChangedListener{
 
 
 
-	
+
 
 

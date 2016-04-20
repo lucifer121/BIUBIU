@@ -17,8 +17,13 @@ import org.xutils.http.RequestParams;
 import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
+import com.android.biubiu.activity.RegisterOneActivity;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.MyDatePicker;
+import com.android.biubiu.common.city.ArrayWheelAdapter;
+import com.android.biubiu.common.city.OnWheelChangedListener;
+import com.android.biubiu.common.city.WheelView;
+import com.android.biubiu.utils.CaculateDateUtils;
 import com.android.biubiu.utils.DateUtils;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.HttpUtils;
@@ -43,16 +48,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ChangeBrithdayActivity extends BaseActivity implements OnClickListener{
+public class ChangeBrithdayActivity extends BaseActivity implements OnClickListener,OnWheelChangedListener{
 	// 控件相关
-		private TextView birthday;
-		private TextView queding;
-		private String birth;
-		private ImageView backImageView;
-		private RelativeLayout backlLayout, quedingLayout;
-		private long birthLong;
-		private UserInfoBean infoBean;
-
+	private TextView birthday;
+	private TextView queding;
+	private String birth;
+	private ImageView backImageView;
+	private RelativeLayout backlLayout, quedingLayout;
+	private long birthLong;
+	private UserInfoBean infoBean;
+	private WheelView mViewYear;
+	private WheelView mViewMonth;
+	private WheelView mViewDay;
+	private String[] years,months,days;
+	String currentYear="",currentMonth="",currentDay="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,9 +69,9 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		infoBean = (UserInfoBean) getIntent().getSerializableExtra("userInfoBean");
 		birth = infoBean.getBirthday();
 		intiView();
+		setYearData();
 	}
 	private void intiView() {
-
 		birthday = (TextView) super.findViewById(R.id.name_changbirth_et);
 		birthday.setText(birth);
 		birthday.setOnClickListener(this);
@@ -78,56 +87,29 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		quedingLayout = (RelativeLayout) super
 				.findViewById(R.id.mine_changebirth_wancheng_rl);
 		quedingLayout.setOnClickListener(this);
+		mViewYear = (WheelView) findViewById(R.id.id_year);
+		mViewMonth = (WheelView) findViewById(R.id.id_month);
+		mViewDay = (WheelView) findViewById(R.id.id_day);
+		// 添加change事件
+		mViewYear.addChangingListener(ChangeBrithdayActivity.this);
+		// 添加change事件
+		mViewMonth.addChangingListener(ChangeBrithdayActivity.this);
+		// 添加change事件
+		mViewDay.addChangingListener(ChangeBrithdayActivity.this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.name_changbirth_et:
-			//设置成中文时间选择器
-			Calendar d = Calendar.getInstance(Locale.CHINA);
-			Date myDate=new Date();
-			d.setTime(myDate);
-			
-			int year=d.get(Calendar.YEAR); 
-			int month=d.get(Calendar.MONTH); 
-			int day=d.get(Calendar.DAY_OF_MONTH); 
-			
-			new DatePickerDialog(this, new OnDateSetListener() {
-
-				@Override
-				public void onDateSet(DatePicker arg0, int year, int month,
-						int day) {
-					// TODO Auto-generated method stub
-					birthday.setText(year + "-" + (month + 1) + "-" + day);
-
-					birthLong = DateUtils.getStringToDate(birthday.getText()
-							.toString());
-					if(birthLong>System.currentTimeMillis()){
-						toastShort("请选择有效日期");	
-						birthday.setText("");
-					}else{
-						birthday.setText(year + "-" + (month + 1) + "-" + day);
-					}
-					
-				}
-				
-			}, 1995, 0, 1).show();
-//			new MyDatePicker(ChangeBrithdayActivity.this, new OnDateSetListener() {
-//				
-//				@Override
-//				public void onDateSet(DatePicker arg0, int year, int month, int day
-//						) {
-//					// TODO Auto-generated method stub
-//					birthday.setText(year + "-" + (month + 1) + "-" + day);
-//
-//					birthLong = DateUtils.getStringToDate(birthday.getText()
-//							.toString());
-//				}
-//			}, year, month, day,2).show();
-			break;
-		// 点击 完成 上传时间
+			// 点击 完成 上传时间
 		case R.id.mine_changebirth_wancheng_rl:
+			// 转成时间戳
+			birthLong = DateUtils.getStringToDate(birthday.getText()
+					.toString());
+			if(birthLong>System.currentTimeMillis()){
+				toastShort("请选择有效日期");	
+				return;
+			}
 			if(null == birthday.getText() || birthday.getText().toString().equals("")){
 				toastShort(getResources().getString(R.string.reg_one_no_birth));
 				return;
@@ -135,7 +117,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			infoBean.setBirthday(birthday.getText().toString());
 			updateInfo();
 			break;
-		// 返回
+			// 返回
 		case R.id.back_changebirth_mine_rl:
 			finish();
 			break;
@@ -144,7 +126,52 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		}
 
 	}
+	private void setYearData() {
+		// TODO Auto-generated method stub
+		years = CaculateDateUtils.getInstance().getYearSs(1975, 2100);
+		mViewYear.setViewAdapter(new ArrayWheelAdapter<String>(
+				ChangeBrithdayActivity.this, years));
+		// 设置可见条目数量
+		mViewYear.setVisibleItems(7);
+		mViewMonth.setVisibleItems(7);
+		mViewDay.setVisibleItems(7);
+		if(currentYear.equals("")){
+			currentYear = years[0];
+		}
+		updateMonthData();
+	}
 
+	private void updateMonthData() {
+		// TODO Auto-generated method stub
+		months = CaculateDateUtils.getInstance().getMonthSs();
+		mViewMonth.setViewAdapter(new ArrayWheelAdapter<String>(
+				ChangeBrithdayActivity.this, months));
+		mViewMonth.setCurrentItem(0);
+		if(currentMonth.equals("")){
+			currentMonth = months[0];
+		}
+		updateDayData();
+	}
+	private void updateDayData() {
+		// TODO Auto-generated method stub
+		int currentY = Integer.parseInt(currentYear.replace("年", ""));
+		int currentM = Integer.parseInt(currentMonth.replace("月", ""));
+		days = CaculateDateUtils.getInstance().getDaySs(currentY, currentM);
+		mViewDay.setViewAdapter(new ArrayWheelAdapter<String>(
+				ChangeBrithdayActivity.this, days));
+		mViewDay.setCurrentItem(0);
+		if(currentDay.equals("")){
+			currentDay = days[0];
+		}
+		setBirthData(currentYear, currentMonth, currentDay);
+	}
+	private void setBirthData(String yearStr,String monthStr,String dayStr) {
+		int year=Integer.parseInt(yearStr.replace("年", ""));
+		int month=Integer.parseInt(monthStr.replace("月", ""));
+		int day=Integer.parseInt(dayStr.replace("日", ""));
+		String dateStr = year + "-" + month + "-" + day;	
+		birthday.setText(dateStr);
+	}
 	private void updateInfo() {
 		// TODO Auto-generated method stub
 		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_USETINFO);
@@ -166,7 +193,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -179,7 +206,7 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -194,8 +221,8 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					Intent intent = new Intent();
 					intent.putExtra("userInfoBean", infoBean);
 					setResult(RESULT_OK, intent);
@@ -212,10 +239,29 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 	 */
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-//		Intent intent = new Intent();
-//		intent.putExtra("birthday", birth);
-//		ChangeBirthdayActivity.this.setResult(RESULT_CANCELED, intent);
+		//		Intent intent = new Intent();
+		//		intent.putExtra("birthday", birth);
+		//		ChangeBirthdayActivity.this.setResult(RESULT_CANCELED, intent);
 		finish();
+	}
+	@Override
+	public void onChanged(WheelView wheel, int oldValue, int newValue) {
+		// TODO Auto-generated method stub
+		if(wheel == mViewYear){
+			int index = mViewYear.getCurrentItem();
+			currentYear = years[index];
+			updateMonthData();
+			setBirthData(currentYear, currentMonth, currentDay);
+		}else if(wheel == mViewMonth){
+			int index = mViewMonth.getCurrentItem();
+			currentMonth = months[index];
+			updateDayData();
+			setBirthData(currentYear, currentMonth, currentDay);
+		}else if(wheel == mViewDay){
+			int index = mViewDay.getCurrentItem();
+			currentDay = days[index];
+			setBirthData(currentYear, currentMonth, currentDay);
+		}
 	}
 
 

@@ -305,7 +305,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			return;
 		}
 		//验证  验证码
-		/*AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
+		AVOSCloud.verifySMSCodeInBackground(verifyCodeEt.getText().toString(), registerPhoneEt.getText().toString(),
 				new AVMobilePhoneVerifyCallback() {
 			@Override
 			public void done(AVException e) {
@@ -318,11 +318,11 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 					toastShort(getResources().getString(R.string.reg_three_error_verify));
 				}
 			}
-		});*/
-		Intent intent = new Intent(RegisterThreeActivity.this,RegisterOneActivity.class);
+		});
+		/*Intent intent = new Intent(RegisterThreeActivity.this,RegisterOneActivity.class);
 		intent.putExtra("phone", registerPhoneEt.getText().toString());
 		intent.putExtra("password", passwordEt.getText().toString());
-		startActivity(intent);
+		startActivity(intent);*/
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -80,6 +80,7 @@
     <string name="mine_selectoe_username_title">修改昵称</string>
     <string name="mine_selectoe_company_title">修改公司</string>
     <string name="mine_selectoe_city_title">选择你的城市</string>
+     <string name="mine_selectoe_birth_title">选择生日</string>
 
     <!-- 个人主页 -->
     <string name="page_aboutme">关于我</string>

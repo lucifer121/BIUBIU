@@ -16,6 +16,8 @@ import org.xutils.http.RequestParams;
 
 
 
+
+
 import cc.imeetu.iu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
@@ -51,6 +53,7 @@ import com.android.biubiu.common.city.WheelView2;
 import com.android.biubiu.sqlite.CityDao;
 
 
+import com.android.biubiu.utils.CaculateDateUtils;
 import com.android.biubiu.utils.Constants;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -153,7 +156,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		cityLayout.setOnClickListener(this);
 		nextLayout=(RelativeLayout) findViewById(R.id.next_registertwo_rl);
 		nextLayout.setOnClickListener(this);
-		mBtnConfirm=(TextView) findViewById(R.id.city_selector_shengshiqu_tv);
 		cityTextView=(TextView) findViewById(R.id.city_registertwo_tv);
 		schoolTv = (TextView) findViewById(R.id.school_registertwo_tv);
 		schoolLayout=(RelativeLayout) findViewById(R.id.registertwo_center3_rl);
@@ -250,7 +252,6 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		}
 
 	}
-
 	private void setUpData() {
 		// initProvinceDatas();
 		initProvinceDatasNews();
@@ -313,6 +314,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 		updateAreas();
 	}
 
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -462,7 +464,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			int pCurrent = mViewProfesstion.getCurrentItem();
 
 			schoolTv.setText(mIdentity[pCurrent]);
-		} 
+		}
 
 	}
 	@Override
@@ -679,7 +681,7 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 					if(token!=null&&token.length()>0){
 						SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
 					}
-					
+
 
 					Umutils.count(RegisterTwoActivity.this, Umutils.RIGISTER_SUCCESS);
 					Intent intent=new Intent(RegisterTwoActivity.this,MainActivity.class);
@@ -705,9 +707,9 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			public void onSuccess() {
 
 				//	Toast.makeText(TAG, "注册成功", Toast.LENGTH_SHORT).show();
-//				LogUtil.e(TAG, "登录成功环信");
-//				//把token 存在本地
-//				SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
+				//				LogUtil.e(TAG, "登录成功环信");
+				//				//把token 存在本地
+				//				SharePreferanceUtils.getInstance().putShared(RegisterTwoActivity.this, SharePreferanceUtils.TOKEN, token);
 			}
 
 			@Override
