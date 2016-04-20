@@ -146,8 +146,8 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		months = CaculateDateUtils.getInstance().getMonthSs();
 		mViewMonth.setViewAdapter(new ArrayWheelAdapter<String>(
 				ChangeBrithdayActivity.this, months));
-		mViewMonth.setCurrentItem(0);
 		if(currentMonth.equals("")){
+			mViewMonth.setCurrentItem(0);
 			currentMonth = months[0];
 		}
 		updateDayData();
@@ -159,11 +159,10 @@ public class ChangeBrithdayActivity extends BaseActivity implements OnClickListe
 		days = CaculateDateUtils.getInstance().getDaySs(currentY, currentM);
 		mViewDay.setViewAdapter(new ArrayWheelAdapter<String>(
 				ChangeBrithdayActivity.this, days));
-		mViewDay.setCurrentItem(0);
 		if(currentDay.equals("")){
+			mViewDay.setCurrentItem(0);
 			currentDay = days[0];
 		}
-		setBirthData(currentYear, currentMonth, currentDay);
 	}
 	private void setBirthData(String yearStr,String monthStr,String dayStr) {
 		int year=Integer.parseInt(yearStr.replace("年", ""));
