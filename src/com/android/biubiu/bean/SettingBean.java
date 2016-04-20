@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class SettingBean implements Serializable{
 	private  String sex;
+	private  String sex2;
 	private String city;
 	@SerializedName("age_down")
 	private int ageDown;
@@ -75,4 +76,11 @@ public class SettingBean implements Serializable{
 	public void setVibration(int vibration) {
 		this.vibration = vibration;
 	}
+	public String getSex2() {
+		return sex2;
+	}
+	public void setSex2(String sex2) {
+		this.sex2 = sex2;
+	}
+	
 }

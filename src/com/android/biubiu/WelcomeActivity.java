@@ -58,10 +58,8 @@ public class WelcomeActivity extends BaseActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_welcome);
 		handler = new Handler();
-
-
 		//读取设备ID
-		SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
+		//SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, Utils.getDeviceID(getApplicationContext()));
 		log.e(TAG, SharePreferanceUtils.getInstance().getChannelId(getApplicationContext(), SharePreferanceUtils.DEVICE_ID, ""));
 		next();
 	

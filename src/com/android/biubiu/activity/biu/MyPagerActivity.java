@@ -355,7 +355,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 				iconVerify.setVisibility(View.GONE);
 				
 			}else {
-				iconVerify.setText("审核失败");
+				iconVerify.setText("未通过");
 			}
 
 //		}else{

@@ -210,6 +210,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		if(setBean.getMessage() == 0){
 			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, false);
 			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_OPEN_VOICE, false);
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_RECEIVE_MSG, false);
 			isRecvMsg = false;
 			newMsgToggle.setImageResource(R.drawable.setting_btn_yes);
 			isOpenVoice = false;
@@ -217,6 +218,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 			isOpenShck = false;
 			shockToggle.setImageResource(R.drawable.setting_btn_yes);
 		}else{
+			SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_RECEIVE_MSG, true);
 			isRecvMsg = true;
 			newMsgToggle.setImageResource(R.drawable.setting_btn_no);
 		}
@@ -326,7 +328,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					public void onOK() {
 						// TODO Auto-generated method stub
 						UserInfoBean infoBean=new UserInfoBean();
-						infoBean.setSex(setBean.getSex());
+						infoBean.setSex(setBean.getSex2());
 						Intent intent = new Intent(MatchSettingActivity.this,PersonalityTagActivity.class);
 						intent.putExtra("userInfoBean", (Serializable)infoBean);				
 						startActivityForResult(intent, PERSONAL_TAG_MY);
@@ -453,7 +455,10 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					if(setBean.getPersonalityTags()>0){
 						isCheckMyTags=true;
 						
+					}else{
+						isCheckMyTags = false;
 					}
+					sexMy = setBean.getSex2();
 					ArrayList<PersonalTagBean> list = new ArrayList<PersonalTagBean>();
 					list.addAll(settingBean.getPersonalTags());
 					setTags(list);
@@ -560,6 +565,13 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 					}else{
 						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_SHOCK, true);
 											}
+					//新消息通知 0--关闭 1--打开
+					if(setBean.getMessage() == 0){
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_RECEIVE_MSG, false);
+						
+					}else{
+						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.IS_RECEIVE_MSG, true);
+											}
 //					String token = (jsons.getJSONObject("data").getString("token"));
 //					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 				} catch (JSONException e) {
@@ -628,7 +640,7 @@ public class MatchSettingActivity extends BaseActivity implements OnClickListene
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
-			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(this, SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("user_code", SharePreferanceUtils.getInstance().getUserCode(getApplicationContext(), SharePreferanceUtils.USER_CODE, ""));
 		} catch (JSONException e) {
 

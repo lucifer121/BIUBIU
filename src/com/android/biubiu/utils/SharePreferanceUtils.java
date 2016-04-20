@@ -18,6 +18,7 @@ public class SharePreferanceUtils {
 	public static String IS_COMMIT_CHANNEL = "is_commit_channel";
 	public static String IS_SHOCK = "is_shock";
 	public static String IS_OPEN_VOICE = "is_open_voice";
+	public static String IS_RECEIVE_MSG = "is_receive_msg";
 	public static String SEND_BIU_TIME = "send_biu_time";
 	public static String BIU_SOUND_TIME = "biu_sound_time";
 
@@ -118,6 +119,10 @@ public class SharePreferanceUtils {
 	}
 	//获取是否打开振动
 	public boolean isShock(Context context,String prefKey,boolean defValue){
+		return getShared(context, prefKey,defValue);
+	}
+	//获取是否打开振动
+	public boolean isReceiveMsg(Context context,String prefKey,boolean defValue){
 		return getShared(context, prefKey,defValue);
 	}
 	//获取是否打开声音

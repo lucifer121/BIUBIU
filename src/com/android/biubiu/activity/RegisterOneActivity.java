@@ -11,6 +11,7 @@ import java.util.Locale;
 
 
 
+
 import cc.imeetu.iu.R;
 
 import com.android.biubiu.BaseActivity;
@@ -34,6 +35,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -349,9 +351,16 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				Intent intent ;
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+		            intent = new Intent(Intent.ACTION_GET_CONTENT);
+		            intent.setType("image/*");
+		        } else {
+		            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		        }
+				/*Intent intent = new Intent(Intent.ACTION_PICK, null);
 				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-						"image/*");
+						"image/*");*/
 				startActivityForResult(intent, SELECT_PHOTO);
 				dialog.dismiss();
 			}

@@ -161,6 +161,10 @@ public class DemoHelper {
 //	                    return demoModel.getSettingMsgNotification();
 	                	return false;
 	                }
+	                isShow = SharePreferanceUtils.getInstance().isReceiveMsg(appContext, SharePreferanceUtils.IS_RECEIVE_MSG, true);
+	                if(!isShow){
+	                	return false;
+	                }
 //	                if(!demoModel.getSettingMsgNotification()){
 //	                    return false;
 //	                }else{

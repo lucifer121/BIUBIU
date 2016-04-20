@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -111,25 +112,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
-	/**
-	 * 调用系统的裁剪功能
-	 * 
-	 * @param uri
-	 */
-	public void cropPhoto(Uri uri) {
-		// 调用拍照的裁剪功能
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		intent.putExtra("crop", "true");
-		// aspectX aspectY 是宽和搞的比例
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		// // outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 250);
-		intent.putExtra("outputY", 250);
-		intent.putExtra("return-data", true);
-		startActivityForResult(intent, CROP_PHOTO);
-	}
+	
 	public String saveHeadImg(Bitmap head) {
 		FileOutputStream fos = null;
 		String path = "";
@@ -334,6 +317,25 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		});
 		
 	}
+	/**
+	 * 调用系统的裁剪功能
+	 * 
+	 * @param uri
+	 */
+	public void cropPhoto(Uri uri) {
+		// 调用拍照的裁剪功能
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽和搞的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+		// // outputX outputY 是裁剪图片宽高
+		intent.putExtra("outputX", 250);
+		intent.putExtra("outputY", 250);
+		intent.putExtra("return-data", true);
+		startActivityForResult(intent, CROP_PHOTO);
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -374,9 +376,16 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				alertDialog.dismiss();
-				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				Intent intent ;
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+		            intent = new Intent(Intent.ACTION_GET_CONTENT);
+		            intent.setType("image/*");
+		        } else {
+		            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		        }
+				/*Intent intent = new Intent(Intent.ACTION_PICK, null);
 				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-						"image/*");
+						"image/*");*/
 				startActivityForResult(intent, EDIT_HEAD);
 				
 			}

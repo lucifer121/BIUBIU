@@ -117,7 +117,7 @@ public class PersonalityTagActivity extends BaseActivity implements OnTagsItemCl
 		RequestParams params=new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.GAT_TAGS);
 		JSONObject requestObject = new JSONObject();		
 		try {
-			requestObject.put("device_code", Utils.getDeviceID(this));
+			requestObject.put("device_code", SharePreferanceUtils.getInstance().getDeviceId(this, SharePreferanceUtils.DEVICE_ID, ""));
 			requestObject.put("type", Constants.PERSONALIED);
 			requestObject.put("sex", infoBean.getSex());
 			requestObject.put("token", SharePreferanceUtils.getInstance().getToken(this, SharePreferanceUtils.TOKEN, ""));
