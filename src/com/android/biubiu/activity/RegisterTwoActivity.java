@@ -18,6 +18,7 @@ import org.xutils.http.RequestParams;
 
 
 
+
 import cc.imeetu.iu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
@@ -37,6 +38,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.MainActivity;
 
 
+import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.activity.mine.ChangeIdentityProfessionActivity;
 import com.android.biubiu.activity.mine.ChangeSchoolActivity;
 import com.android.biubiu.bean.Citybean;
@@ -361,8 +363,8 @@ public class RegisterTwoActivity extends BaseCityActivity implements OnClickList
 			userBean.setCareer(schoolTv.getText().toString());
 			userBean.setSchool("");
 		}
-
 		try {
+			Umutils.count(RegisterTwoActivity.this, Umutils.REGISTER_BEFORE);
 			String cityiId=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getId();
 			cityCode=cityDao.getID(mCurrentProviceName, mCurrentCityName).get(0).getCity_num();
 			LogUtil.d("mytest", cityiId);

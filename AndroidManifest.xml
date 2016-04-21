@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cc.imeetu.iu"
     android:installLocation="preferExternal"
-    android:versionCode="20160408"
+    android:versionCode="20160421"
     android:versionName="v1.0" >
 
     <uses-sdk
@@ -556,6 +556,10 @@
         <activity
             android:name="com.android.biubiu.chat.ChatActivity"
             android:label="@string/title_activity_chat"
+            android:screenOrientation="portrait" >
+        </activity>
+         <activity
+            android:name="com.android.biubiu.chat.ScanChatPhoto"
             android:screenOrientation="portrait" >
         </activity>
         <activity

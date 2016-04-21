@@ -12,6 +12,7 @@ import org.xutils.http.RequestParams;
 
 
 
+
 import cc.imeetu.iu.R;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
@@ -33,6 +34,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.android.biubiu.BaseActivity;
 import com.android.biubiu.MainActivity;
+import com.android.biubiu.activity.biu.BiuBiuReceiveActivity;
 import com.android.biubiu.bean.UserInfoBean;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
@@ -257,12 +259,13 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 		}
 		currentTime = totalTime;
 		handler.post(r);
+		Umutils.count(RegisterThreeActivity.this, Umutils.REGISTER_SMS_SEND);
 		AVOSCloud.requestSMSCodeInBackground(registerPhoneEt.getText().toString(), "biubiu", "注册", 10,
 				new RequestMobileCodeCallback() {
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
-
+					Umutils.count(RegisterThreeActivity.this, Umutils.REGISTER_SMS_SEND_SUCCESS);
 				} else {
 
 				}
@@ -310,6 +313,7 @@ public class RegisterThreeActivity extends BaseActivity implements OnClickListen
 			@Override
 			public void done(AVException e) {
 				if (e == null) {
+					Umutils.count(RegisterThreeActivity.this, Umutils.REGISTER_SMS_VERIFY);
 					Intent intent = new Intent(RegisterThreeActivity.this,RegisterOneActivity.class);
 					intent.putExtra("phone", registerPhoneEt.getText().toString());
 					intent.putExtra("password", passwordEt.getText().toString());

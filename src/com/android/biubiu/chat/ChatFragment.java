@@ -1,5 +1,9 @@
 package com.android.biubiu.chat;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
@@ -38,7 +42,7 @@ import com.umeng.analytics.MobclickAgent;
 public class ChatFragment extends EaseChatFragment implements
 		EaseChatFragmentListener {
 	private static final int REQUEST_CODE_CONTEXT_MENU = 14;
-
+	private ArrayList<EMMessage> msgList = new ArrayList<EMMessage>();
 	@Override
 	protected void initView() {
 		// TODO Auto-generated method stub
@@ -108,7 +112,24 @@ public class ChatFragment extends EaseChatFragment implements
 	public boolean onMessageBubbleClick(EMMessage message) {
 		// TODO Auto-generated method stub
 		// 消息框点击事件，demo这里不做覆盖，如需覆盖，return true
-		return false;
+		if(message.getType().equals(EMMessage.Type.IMAGE)){
+			msgList.clear();
+			List<EMMessage> list = conversation.getAllMessages();
+			for(int i=0;i<list.size();i++){
+				EMMessage msg = list.get(i);
+				if(msg.getType().equals(EMMessage.Type.IMAGE)){
+					msgList.add(msg);
+				}
+			}
+			int index = msgList.indexOf(message);
+			Intent intent = new Intent(getActivity(), ScanChatPhoto.class);
+			intent.putExtra("msgList", (Serializable)msgList);
+			intent.putExtra("index", index);
+			startActivity(intent);
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override

@@ -26,11 +26,27 @@ public class Umutils {
 	 * 发biu 总数
 	 */
 	public static String SEND_BIU_TOTAL="send_biu_total";
-	
 	/**
 	 * 抢biu成功
 	 */
 	public static String GRAB_BIU_SUCCESS="grab_biu_success";
+	/**
+	 * 点击注册完成按钮
+	 */
+	public static String REGISTER_BEFORE="register_finish_before";
+	/**
+	 * 点击发送验证码
+	 */
+	public static String REGISTER_SMS_SEND="register_sms_send";
+	/**
+	 * 验证码发送成功
+	 */
+	public static String REGISTER_SMS_SEND_SUCCESS="register_sms_send_success";
+	/**
+	 * 验证码验证成功
+	 */
+	public static String REGISTER_SMS_VERIFY="register_sms_verify";
+	
 	/**
 	 * 统计事件
 	 * @param context
