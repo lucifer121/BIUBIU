@@ -1,6 +1,7 @@
 package com.android.biubiu.activity.mine;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import org.xutils.image.ImageOptions;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Build;
@@ -62,6 +64,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 	String accessKeySecret = "";
 	String securityToken = "";
 	String expiration = "";
+	Uri croupUri;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -112,7 +115,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
-	
+
 	public String saveHeadImg(Bitmap head) {
 		FileOutputStream fos = null;
 		String path = "";
@@ -184,8 +187,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 					accessKeySecret = obj.getString("accessKeySecret");
 					securityToken = obj.getString("securityToken");
 					expiration = obj.getString("expiration");
-//					String token = obj.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = obj.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					//上传到阿里云
 					asyncPutObjectFromLocalFile(path);
 				} catch (JSONException e) {
@@ -272,19 +275,19 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			@Override
 			public void onCancelled(CancelledException arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onError(Throwable arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void onFinished() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -299,8 +302,8 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 						return ;
 					}
 					JSONObject data = jsons.getJSONObject("data");
-//					String token = data.getString("token");
-//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					String token = data.getString("token");
+					//					SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
 					String photoUrl = data.getString("icon_url");
 					String photoUrl_thum = data.getString("icon_thumbnailUrl");
 					Intent intent = new Intent();
@@ -315,7 +318,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 				}
 			}
 		});
-		
+
 	}
 	/**
 	 * 调用系统的裁剪功能
@@ -323,6 +326,9 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 	 * @param uri
 	 */
 	public void cropPhoto(Uri uri) {
+		croupUri = uri;
+		LogUtil.d("mytest", "1uri--"+croupUri);
+		LogUtil.e("mytest", "1uri--"+croupUri);
 		// 调用拍照的裁剪功能
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
@@ -333,8 +339,21 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		// // outputX outputY 是裁剪图片宽高
 		intent.putExtra("outputX", 250);
 		intent.putExtra("outputY", 250);
-		intent.putExtra("return-data", true);
+		intent.putExtra("scale", true);
+		intent.putExtra("return-data", false);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, croupUri);
+		intent.putExtra("noFaceDetection", true); // no face detection
 		startActivityForResult(intent, CROP_PHOTO);
+	}
+	private Bitmap decodeUriAsBitmap(Uri uri){
+		Bitmap bitmap = null;
+		try {
+			bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bitmap;
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -347,10 +366,11 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			}
 			break;
 		case CROP_PHOTO:
-			if (data != null) {
+			LogUtil.d("mytest", "uri--"+croupUri);
+			LogUtil.e("mytest", "uri--"+croupUri);
+			if (croupUri != null) {
 				try {
-					Bundle extras = data.getExtras();
-					Bitmap userheadBitmap = extras.getParcelable("data");
+					Bitmap userheadBitmap = decodeUriAsBitmap(croupUri);
 					String headPath = saveHeadImg(userheadBitmap);
 					//上传图片鉴权
 					getOssToken(headPath);
@@ -363,7 +383,7 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
-	
+
 	public void dialogHint(){
 		final AlertDialog alertDialog=new AlertDialog.Builder(this).create();
 		alertDialog.show();
@@ -371,25 +391,25 @@ public class ScanUserHeadActivity extends BaseActivity implements OnClickListene
 		win.setContentView(R.layout.up_userhead_hint_view);
 		RelativeLayout knowLayout=(RelativeLayout) win.findViewById(R.id.knew_bottom_up_userhead_rl);
 		knowLayout.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				alertDialog.dismiss();
 				Intent intent ;
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-		            intent = new Intent(Intent.ACTION_GET_CONTENT);
-		            intent.setType("image/*");
-		        } else {
-		            intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		        }
+					intent = new Intent(Intent.ACTION_GET_CONTENT);
+					intent.setType("image/*");
+				} else {
+					intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				}
 				/*Intent intent = new Intent(Intent.ACTION_PICK, null);
 				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 						"image/*");*/
 				startActivityForResult(intent, EDIT_HEAD);
-				
+
 			}
 		});
 	}
-	
+
 }

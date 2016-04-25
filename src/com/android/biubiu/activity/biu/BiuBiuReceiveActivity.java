@@ -175,8 +175,7 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-
-				neverSee();
+				showNeverDialog();
 			}
 		});
 		grabBT.setOnClickListener(new OnClickListener() {
@@ -249,6 +248,25 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 			}
 		});
 	}
+	protected void showNeverDialog() {
+		// TODO Auto-generated method stub
+		CommonDialog.doubleBtnDialog(BiuBiuReceiveActivity.this, "提示", "确定屏蔽他/她？", "取消", "确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		}, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				neverSee();
+			}
+		});
+	}
+
 	private void showShenHeDaiog(final int flag){
 		String title = "";
 		String msg = "";
@@ -440,6 +458,13 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 					Gson gson = new Gson();
 					biuDEtialBean = gson.fromJson(jsons.getJSONObject("data")
 							.toString(), BiuDetialBean.class);
+					if(biuDEtialBean.getIsGrabed()==1){
+						grabBT.setText("该biu已经被抢了");
+						grabBT.setBackgroundResource(R.drawable.biu_btn_disabled);
+					}else{
+						grabBT.setText(getResources().getString(R.string.receive_biu_grab));
+						grabBT.setBackgroundResource(R.drawable.biu_btn_normal);
+					}
 
 					personalTagList.clear();
 					personalTagList.addAll(biuDEtialBean.getHit_tags());
@@ -611,6 +636,10 @@ public class BiuBiuReceiveActivity extends BaseActivity {
 	 * 抢biu
 	 */
 	public void grabBiu(){
+		if(biuDEtialBean.getIsGrabed()==1){
+			toastShort("该biu已经被抢了");
+			return;
+		}
 		if(!NetUtils.isNetworkConnected(getApplicationContext())){
 			toastShort(getResources().getString(R.string.net_error));
 			return;

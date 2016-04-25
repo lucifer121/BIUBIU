@@ -85,6 +85,16 @@ public class BiuDetialBean {
 	@SerializedName("chatTag")
 	private String chat_tags;
 	
+	public int getIsGrabed() {
+		return isGrabed;
+	}
+
+
+	public void setIsGrabed(int isGrabed) {
+		this.isGrabed = isGrabed;
+	}
+
+
 	/**
 	 * 共同兴趣个数
 	 */
@@ -96,6 +106,8 @@ public class BiuDetialBean {
 	private ArrayList<InterestByCateBean> interested_tags;
 	@SerializedName("superman")
 	private int superMan;
+	@SerializedName("isGrabbed")
+	private int isGrabed;
 	
 	public int getSuperMan() {
 		return superMan;

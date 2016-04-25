@@ -35,6 +35,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -85,6 +86,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	private Boolean isSex=false;//是否点击了性别选择器
 	String phontNum = "";
 	String password = "";
+	Uri croupUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -454,6 +456,7 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 	 * @param uri
 	 */
 	public void cropPhoto(Uri uri) {
+		croupUri = uri;
 		// 调用拍照的裁剪功能
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
@@ -464,7 +467,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		// // outputX outputY 是裁剪图片宽高
 		intent.putExtra("outputX", 250);
 		intent.putExtra("outputY", 250);
-		intent.putExtra("return-data", true);
+		intent.putExtra("return-data", false);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, croupUri);
 		startActivityForResult(intent, CROUP_PHOTO);
 	}
 	public String saveHeadImg(Bitmap head) {
@@ -487,6 +491,16 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 		return path;
 
 	}
+	private Bitmap decodeUriAsBitmap(Uri uri){
+	    Bitmap bitmap = null;
+	    try {
+	        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	    return bitmap;
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -501,9 +515,8 @@ public class RegisterOneActivity extends BaseActivity implements OnClickListener
 			break;
 		case CROUP_PHOTO:
 			try {
-				if (data != null) {
-					Bundle extras = data.getExtras();
-					userheadBitmap = extras.getParcelable("data");
+				if (croupUri != null) {
+					userheadBitmap =  decodeUriAsBitmap(croupUri);
 					if(userheadBitmap != null){
 						headPath = saveHeadImg(userheadBitmap);
 						userHeadImv.setImageBitmap(userheadBitmap);
