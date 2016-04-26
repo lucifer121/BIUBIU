@@ -29,8 +29,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="修改头像"
-            android:textColor="@color/main_green"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </RelativeLayout>

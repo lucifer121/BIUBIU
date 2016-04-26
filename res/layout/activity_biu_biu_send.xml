@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/set_biu_bg"
+    android:orientation="vertical"
     tools:context=".BiuBiuSendActivity" >
 
     <RelativeLayout
@@ -37,124 +38,145 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1_send_biu_rl"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginLeft="37dp"
-        android:layout_marginRight="37dp"
-        android:layout_marginTop="77dp"
-       	android:layout_below="@+id/top__send_biu_rl"
-        android:background="@drawable/biu_imageview_bg" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/id_send_biu_top_rl"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="67dp"
-            android:background="@drawable/biu_imageview_right_1_normal" >
-
-           <EditText
-                android:id="@+id/topic_send_biu_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-               android:layout_marginRight="50dp"
-               android:singleLine="true"
-                android:background="@null"               
-                android:maxLength="50"
-                android:hint="@string/send_biu_add_topic_tags"
-                android:textColor="@color/login_text_hint"
-                android:textSize="13sp" />
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <LinearLayout
-                android:id="@+id/size_text_sendbiu_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal" >
+                android:id="@+id/relativeLayout1_send_biu_rl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="37dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="74dp"
+                android:paddingBottom="15dp"
+                android:background="@drawable/biu_imageview_bg"
+                android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/number_send_biu_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/send_biu_number" />
+                <RelativeLayout
+                    android:id="@+id/id_send_biu_top_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="67dp"
+                    android:background="@drawable/biu_imageview_right_1_normal" >
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/topic_send_biu_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@null"
+                        android:hint="@string/send_biu_add_topic_tags"
+                        android:maxLength="50"
+                        android:singleLine="true"
+                        android:textColor="@color/login_text_hint"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/size_text_sendbiu_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/number_send_biu_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/send_biu_number" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/send_biu_allNumber" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <ScrollView
+                    android:id="@+id/flow_scroll"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/send_biu_allNumber" />
+                    android:scrollbars="@null" >
+
+                    <LinearLayout
+                        android:id="@+id/flow_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/id_send_biu_top_rl"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical" >
+
+                        <com.android.biubiu.view.Flowlayout
+                            android:id="@+id/flowlayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="15dp" />
+                    </LinearLayout>
+                </ScrollView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/id_send_biu_top_rl" >
+
+                    <include layout="@layout/loading_layout" />
+
+                    <include layout="@layout/load_error_layout" />
+                </RelativeLayout>
+
             </LinearLayout>
-             
+
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:gravity="center" >
+
+                <ImageView
+                    android:id="@+id/photo_head_senbiu_img_bg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/biu_imageview_photo_circle" />
+
+                <ImageView
+                    android:id="@+id/photo_head_senbiu_img"
+                    android:layout_width="78dp"
+                    android:layout_height="78dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/photo_fail" />
+            </RelativeLayout>
         </RelativeLayout>
 
-        <com.android.biubiu.view.Flowlayout
-            android:id="@+id/flowlayout"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/send_biu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_send_biu_top_rl"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/id_send_biu_top_rl">
-         <include layout="@layout/load_error_layout"         
-              />
-         </RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="42dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/biu_btn_disabled"
+            android:text="@string/send_biu_send"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="120.5dp"
-            android:layout_below="@id/flowlayout"
-            android:background="@color/white" />
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/send_biu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
-        android:background="@drawable/biu_btn_disabled"
-        android:text="@string/send_biu_send"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
-
-    <RelativeLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"       
-        android:layout_below="@+id/top__send_biu_rl"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginTop="35dp" >
-
-        <ImageView
-            android:id="@+id/photo_head_senbiu_img_bg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-          
-            android:layout_centerInParent="true"
-            android:src="@drawable/biu_imageview_photo_circle" />
-
-        <ImageView
-            android:id="@+id/photo_head_senbiu_img"
-            android:layout_width="78dp"
-            android:layout_height="78dp"
-            
-            android:layout_centerInParent="true"
-            android:src="@drawable/photo_fail" />
-    </RelativeLayout>
-
-    <include layout="@layout/loading_layout" />
-
-   
-
-</RelativeLayout>
+</LinearLayout>

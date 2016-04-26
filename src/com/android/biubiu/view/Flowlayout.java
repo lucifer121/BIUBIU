@@ -3,6 +3,8 @@ package com.android.biubiu.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.biubiu.utils.LogUtil;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -44,7 +46,6 @@ public class Flowlayout extends ViewGroup {
         //记录每一行的宽度和高度
         int lineWidth = 0;
         int lineHeight = 0;
-         
         //获取子view的个数
         int childCount = getChildCount();
         for(int i = 0;i < childCount; i ++){
@@ -81,7 +82,9 @@ public class Flowlayout extends ViewGroup {
         //wrap_content
         setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width,
                 modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        /*setMeasuredDimension(resolveSize(lineHeight, widthMeasureSpec),
+				resolveSize(lineWidth, heightMeasureSpec));*/
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
      
     @Override
@@ -122,7 +125,7 @@ public class Flowlayout extends ViewGroup {
         //处理最后一行
         mLineHeight.add(lineHeight);
         mAllChildViews.add(lineViews);
-         
+        LogUtil.d("mytest", "mmmli-"+mLineHeight.size());
         //设置子View的位置
         int left = 0;
         int top = 0;
@@ -150,7 +153,7 @@ public class Flowlayout extends ViewGroup {
             left = 0;
             top += lineHeight;
         }
-         
+        LogUtil.d("mytest", "mli-"+mLineHeight.size());
     }
     /**
      * 与当前ViewGroup对应的LayoutParams
@@ -160,5 +163,16 @@ public class Flowlayout extends ViewGroup {
         // TODO Auto-generated method stub
          
         return new MarginLayoutParams(getContext(), attrs);
+    }
+    public int getmHeight(){
+    	int mHeight = 0;
+    	if(mLineHeight.size()>0){
+    		for(int i=0;i<mLineHeight.size();i++){
+        		mHeight = mHeight +mLineHeight.get(i);
+        	}
+    	}
+    	LogUtil.d("mytest", "getmli-"+mLineHeight.size());
+    	LogUtil.d("mytest", "getmh-"+mHeight);
+    	return mHeight;
     }
 }

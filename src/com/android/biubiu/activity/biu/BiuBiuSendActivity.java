@@ -17,6 +17,7 @@ import com.android.biubiu.BaseActivity;
 import com.android.biubiu.bean.PersonalTagBean;
 import com.android.biubiu.common.Umutils;
 import com.android.biubiu.utils.Constants;
+import com.android.biubiu.utils.DensityUtil;
 import com.android.biubiu.utils.DisplayUtils;
 import com.android.biubiu.utils.HttpContants;
 import com.android.biubiu.utils.LogUtil;
@@ -39,6 +40,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -46,7 +48,9 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +70,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 	private TextView number;
 	private ImageView userPhoto;
 	private ImageOptions imageOptions;
-	private RelativeLayout flowRlLayout;
+	//private LinearLayout flowRlLayout;
+	private ScrollView flowScroll;
 	int viewHight;
 	int bottomSend;
 
@@ -75,7 +80,7 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_biu_biu_send);
-		
+
 		//		initChildViews();
 		viewHight=(int) (350.0*DisplayUtils.getWindowHeight(this)/640.0);
 		bottomSend=(int) (52.0*DisplayUtils.getWindowHeight(this)/640.0);
@@ -87,8 +92,8 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		.build();
 		initView();
 		initData();
-		
-		
+
+
 	}
 
 	/**
@@ -180,10 +185,10 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					String dataTag=obj.getJSONArray("tags").toString();
 					Gson gson=new Gson();
 
-//					String token=obj.getString("token");
-//					if(token!=null||token.equals("")){
-//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-//					}
+					//					String token=obj.getString("token");
+					//					if(token!=null||token.equals("")){
+					//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					}
 
 					LogUtil.e(TAG, dataTag);
 					List<PersonalTagBean> personalTagBeansList = gson.fromJson(dataTag,  
@@ -196,17 +201,14 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 						log.e(TAG, tag.getName());
 
 					}  
-
 					initChildViews();
-
-
 				} catch (JSONException e) {
 
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
 		x.image().bind(userPhoto, SharePreferanceUtils.getInstance().getUserHead(getApplicationContext(), SharePreferanceUtils.USER_HEAD,""),imageOptions);
 
 	}
@@ -221,8 +223,10 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 		mEditText.addTextChangedListener(watcher);
 		number=(TextView) findViewById(R.id.number_send_biu_tv);
 		button=(Button) findViewById(R.id.send_biu);
-		flowRlLayout=(RelativeLayout) findViewById(R.id.relativeLayout1_send_biu_rl);
-		
+		//flowRlLayout=(LinearLayout) findViewById(R.id.relativeLayout1_send_biu_rl);
+		flowScroll = (ScrollView) findViewById(R.id.flow_scroll);
+		flowScroll.setFillViewport(true);
+
 		button.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -235,11 +239,11 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 					String sendTimeStr = SharePreferanceUtils.getInstance().getBiuTime(BiuBiuSendActivity.this, SharePreferanceUtils.SEND_BIU_TIME, "");
 					if(!sendTimeStr.equals("")){
 						long time = System.currentTimeMillis() - Long.parseLong(sendTimeStr);
-							if(time/1000 > 90){
-								sendBiu(mEditText.getText().toString());
-							}else{
-								Toast.makeText(BiuBiuSendActivity.this, "距离上次发biu还不到90秒哦！", 1000).show();
-							}	
+						if(time/1000 > 90){
+							sendBiu(mEditText.getText().toString());
+						}else{
+							Toast.makeText(BiuBiuSendActivity.this, "距离上次发biu还不到90秒哦！", 1000).show();
+						}	
 					}else{
 						sendBiu(mEditText.getText().toString());
 					}
@@ -254,15 +258,15 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 				finish();
 			}
 		});
-		
-		RelativeLayout.LayoutParams params=(android.widget.RelativeLayout.LayoutParams) flowRlLayout.getLayoutParams();
+
+		/*RelativeLayout.LayoutParams params=(android.widget.RelativeLayout.LayoutParams) flowRlLayout.getLayoutParams();
 		params.height=(int) viewHight;
 		flowRlLayout.setLayoutParams(params);
-		
-		RelativeLayout.LayoutParams params2=(android.widget.RelativeLayout.LayoutParams) sendBiuBtn.getLayoutParams();
+
+		LinearLayout.LayoutParams params2=(android.widget.LinearLayout.LayoutParams) sendBiuBtn.getLayoutParams();
 		params2.bottomMargin=bottomSend;
-		sendBiuBtn.setLayoutParams(params2);
-		
+		sendBiuBtn.setLayoutParams(params2);*/
+
 	}
 	private TextWatcher watcher=new TextWatcher() {
 
@@ -324,6 +328,27 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 			});
 			mFlowLayout.addView(view,lp);
 		}
+		/*RelativeLayout.LayoutParams params=(android.widget.RelativeLayout.LayoutParams) flowRlLayout.getLayoutParams();
+		if(mFlowLayout.getmHeight()>viewHight){
+			params.height=mFlowLayout.getmHeight();
+		}else{
+			params.height=viewHight;
+		}
+		flowRlLayout.setLayoutParams(params);*/
+		ViewTreeObserver vto = mFlowLayout.getViewTreeObserver();
+		vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+		public boolean onPreDraw() {
+			mFlowLayout.getViewTreeObserver().removeOnPreDrawListener(this);
+		int height = mFlowLayout.getMeasuredHeight();
+		LinearLayout.LayoutParams params=(android.widget.LinearLayout.LayoutParams) mFlowLayout.getLayoutParams(); 
+		params.height=mFlowLayout.getmHeight();
+		mFlowLayout.setLayoutParams(params);
+		return true;
+		}
+		}); 
+		LinearLayout.LayoutParams params2=(android.widget.LinearLayout.LayoutParams) sendBiuBtn.getLayoutParams();
+		params2.bottomMargin=bottomSend;
+		sendBiuBtn.setLayoutParams(params2);
 	}
 	/**
 	 * 发送biu
@@ -382,12 +407,12 @@ public class BiuBiuSendActivity extends BaseActivity implements OnClickListener{
 						return;
 					}						
 					JSONObject obj = jsons.getJSONObject("data");
-//					String token=obj.getString("token");
-//					if(token!=null||!token.equals("")){
-//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
-//					}
+					//					String token=obj.getString("token");
+					//					if(token!=null||!token.equals("")){
+					//						SharePreferanceUtils.getInstance().putShared(getApplicationContext(), SharePreferanceUtils.TOKEN, token);
+					//					}
 
-//					LogUtil.d(TAG, token);
+					//					LogUtil.d(TAG, token);
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
