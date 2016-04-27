@@ -50,7 +50,8 @@
             <RelativeLayout
                 android:id="@+id/top_all_send_biu_rl"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent" 
+                >
 
                 <LinearLayout
                     android:id="@+id/center_receive_biubiu_ll"
@@ -175,13 +176,13 @@
                         android:gravity="center" >
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal" >
 
                             <TextView
                                 android:id="@+id/sex_receive_biu_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/biu_receive_imageview_dian2"
@@ -193,7 +194,7 @@
 
                             <TextView
                                 android:id="@+id/age_receive_biu_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
@@ -206,7 +207,7 @@
 
                             <TextView
                                 android:id="@+id/starsign_receive_biu_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
@@ -219,7 +220,7 @@
 
                             <TextView
                                 android:id="@+id/school_receive_biu_tv"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
@@ -291,7 +292,8 @@
                         android:listSelector="#00000000"
                         android:numColumns="4"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="14dp" />
+                        android:verticalSpacing="14dp"
+                         />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

@@ -329,7 +329,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 								case 2:
 								case 4:
 								case 6:
-									showShenHeDaiog(Integer.parseInt(headFlag));
+									showShenHeDaiog("send",Integer.parseInt(headFlag));
 									break;
 								default:
 									Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
@@ -350,7 +350,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 							case 2:
 							case 4:
 							case 6:
-								showShenHeDaiog(Integer.parseInt(headFlag));
+								showShenHeDaiog("send",Integer.parseInt(headFlag));
 								break;
 							default:
 								Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
@@ -375,7 +375,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 			}
 		});
 	}
-	private void showShenHeDaiog(final int flag){
+	private void showShenHeDaiog(final String actyStr,final int flag){
 		String title = "";
 		String msg = "";
 		String strBtn1 = "";
@@ -401,14 +401,21 @@ public class BiuFragment extends Fragment implements PushInterface{
 		default:
 			break;
 		}
+		HttpUtils.commitIconState(getActivity());
 		if(flag == 2){
 			CommonDialog.singleBtnDialog(getActivity(), title, msg, strBtn1, new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					HttpUtils.commitIconState(getActivity());
 					dialog.dismiss();
+					if(actyStr.equals("send")){
+						Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+						startActivityForResult(intent, SEND_BIU_REQUEST);
+					}else{
+						((MainActivity)getActivity()).showRightMenu();
+						MainActivity.newMessage.setVisibility(View.GONE);
+					}
 				}
 			});
 		}else{
@@ -417,8 +424,14 @@ public class BiuFragment extends Fragment implements PushInterface{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					HttpUtils.commitIconState(getActivity());
 					dialog.dismiss();
+					if(actyStr.equals("send")){
+						Intent intent = new Intent(getActivity(),BiuBiuSendActivity.class);
+						startActivityForResult(intent, SEND_BIU_REQUEST);
+					}else{
+						((MainActivity)getActivity()).showRightMenu();
+						MainActivity.newMessage.setVisibility(View.GONE);
+					}
 				}
 			}, new DialogInterface.OnClickListener() {
 
@@ -1239,7 +1252,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 	}
 	//设置消息按钮点击
 	protected void initMsgView(final int flag) {
-		// TODO Auto-generated method stub
+		// 头像审核flag：0：待审核  1：审核中 2：审核成功未读 3：审核成功已读  4:审核失败（第一次）未读 5：审核失败已读 6：审核失败 (未回滚)
 		MainActivity.rightRl.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -1249,7 +1262,7 @@ public class BiuFragment extends Fragment implements PushInterface{
 				case 2:
 				case 4:
 				case 6:
-					showShenHeDaiog(Integer.parseInt(headFlag));
+					showShenHeDaiog("msg",Integer.parseInt(headFlag));
 					break;
 				default:
 					((MainActivity)getActivity()).showRightMenu();

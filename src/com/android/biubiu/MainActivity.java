@@ -304,8 +304,8 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		// TODO Auto-generated method stub
 		locationClient = new AMapLocationClient(this.getApplicationContext());
 		locationOption = new AMapLocationClientOption();
-		// 设置定位模式为高精度模式
-		locationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+		//设置定位模式为    高精度模式Hight_Accuracy，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+		locationOption.setLocationMode(AMapLocationMode.Battery_Saving);
 		// 设置定位监听
 		locationClient.setLocationListener(this);
 		//设置定位参数相关

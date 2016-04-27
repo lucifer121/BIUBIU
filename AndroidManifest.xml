@@ -202,7 +202,8 @@
         <!-- 4.6版本新增的Activity声明，提升Push后台存活率 -->
         <activity
             android:name="com.baidu.android.pushservice.PushKeepAlive"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleInstance" />
 
         <!-- push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->

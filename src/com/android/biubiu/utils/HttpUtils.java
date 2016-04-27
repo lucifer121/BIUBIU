@@ -82,7 +82,7 @@ public class HttpUtils {
 	}
 	public static void commitIconState(final Context context) {
 		// TODO Auto-generated method stub
-		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_CHANNEL);
+		RequestParams params = new RequestParams(HttpContants.HTTP_ADDRESS+HttpContants.UPDATE_HEAD_STATE);
 		JSONObject requestObject = new JSONObject();
 		try {
 			requestObject.put("device_code",SharePreferanceUtils.getInstance().getDeviceId(context, SharePreferanceUtils.DEVICE_ID, ""));
@@ -115,7 +115,7 @@ public class HttpUtils {
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				LogUtil.d("mytest", "channel--"+result);
+				LogUtil.d("mytest", "headState--"+result);
 				JSONObject jsons;
 				try {
 					jsons = new JSONObject(result);
