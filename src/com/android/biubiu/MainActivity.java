@@ -432,6 +432,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		menu.setMode(SlidingMenu.LEFT_RIGHT);
 		// 设置触摸屏幕的模式
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		menu.setShadowDrawable(R.drawable.shadow);
 		menu.setShadowWidthRes(R.dimen.shadow_width);
 		//	menu.setShadowDrawable(R.drawable.shadow);
 		// 设置滑动菜单视图的宽度
@@ -440,7 +441,7 @@ public class MainActivity extends SlidingFragmentActivity implements AMapLocatio
 		// 设置渐入渐出效果的值
 		menu.setFadeDegree(0.35f);
 		// menu.setBehindScrollScale(1.0f);
-		menu.setSecondaryShadowDrawable(R.drawable.shadow);
+		menu.setSecondaryShadowDrawable(R.drawable.shadow_right);
 		//设置右边（二级）侧滑菜单
 		menu.setSecondaryMenu(R.layout.right_menu_frame);
 		Fragment rightMenuFragment = new MenuRightFragment();

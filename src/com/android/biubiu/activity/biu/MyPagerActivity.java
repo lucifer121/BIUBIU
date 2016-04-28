@@ -274,7 +274,7 @@ public class MyPagerActivity extends BaseActivity implements OnClickListener{
 		.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 		.setLoadingDrawableId(R.drawable.loadingbbbb)
 		.setFailureDrawableId(R.drawable.photo_fail)
-		.setIgnoreGif(true)
+		.setIgnoreGif(false)
 		.build();
 
 		photoPager.setOffscreenPageLimit(3);
